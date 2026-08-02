@@ -1,0 +1,230 @@
+/* ==========================================================
+   김가영 퍼스널 포트폴리오 — 전역 스타일
+   - 모든 색상/크기/여백은 변수로만 사용 (하드코딩 금지)
+   - 색상은 Figma(hero1 830:313 / hero2 830:315)에서 추출한 값
+   - clamp 최대값 = 1920px 디자인 기준 수치
+   ========================================================== */
+
+:root {
+  /* 색상 — Figma 추출값 */
+  --bg: #ffffff;
+  --ink: #000000;
+
+  /* 폰트 — Figma(hero2): 로고/크레딧 Plus Jakarta Sans, 내비 Prata(+Home만 Crimson Text) */
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-serif: "Prata", serif;
+  --font-serif-alt: "Crimson Text", serif;
+
+  /* 타입 스케일 (1920px 기준 Figma 수치 = clamp 최대값) */
+  --fs-logo: clamp(1.5rem, 2.08vw, 2.5rem);         /* DESIGNER 40px */
+  --fs-nav: clamp(0.75rem, 0.73vw, 0.875rem);       /* 내비 14px */
+  --fs-credit: clamp(0.9375rem, 1.35vw, 1.625rem);  /* 크레딧 26px */
+  --fs-small: clamp(0.6875rem, 0.73vw, 0.875rem);   /* SCROLL DOWN 14px */
+
+  /* 여백 스케일 */
+  --pad-x: clamp(1rem, 1.875vw, 2.25rem);           /* 좌우 여백 36px @1920 */
+  --pad-bottom: clamp(2rem, 4.2vw, 5rem);           /* 하단 여백 ~80px @1920 */
+
+  /* 레이아웃 */
+  --container-max: 120rem;              /* 1920px 상한 */
+  --mark-w: clamp(14rem, 33.2vw, 39.85rem);     /* gy 로고 가로: 637.5px @1920 */
+}
+
+/* ===== Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  overflow-x: hidden;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==========================================================
+   Hero (단일 페이지 인트로 — 시작: 중앙 점 / 종료: hero2 디자인)
+   모든 요소가 처음부터 DOM에 존재하고 opacity/transform만 변함
+   → 인트로 종료 시 레이아웃 밀림·깜빡임 없음
+   ========================================================== */
+.hero2 {
+  position: relative;
+  min-height: 100svh;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+/* 상단 바 */
+.hero2__top {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-inline: var(--pad-x);
+}
+
+/* DESIGNER — Figma: top 2px (사실상 상단 밀착), 자간 -2.8px(-0.07em) */
+.hero2__logo {
+  font-family: var(--font-sans);
+  font-size: var(--fs-logo);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 1.2;
+}
+
+/* 내비 — Figma: top 26px, 항목 간격 ~44px @1920 */
+.hero2__nav {
+  display: flex;
+  gap: clamp(1.25rem, 2.3vw, 2.75rem);
+  margin-top: clamp(0.75rem, 1.35vw, 1.625rem);
+  font-family: var(--font-serif);
+  font-size: var(--fs-nav);
+}
+
+/* Home만 Crimson Text (Figma 디자인 그대로) */
+.hero2__nav a:first-child {
+  font-family: var(--font-serif-alt);
+}
+
+/* 중앙 gy 로고 박스 — Figma 크롭값 재현 (구 <img>와 동일 지오메트리)
+   높이가 짧은 화면에서는 세로 기준으로도 축소 (비율 항상 유지) */
+.hero2__mark {
+  position: relative;
+  /* 세로가 짧으면 상하단 바 공간(16rem)을 뺀 높이에 맞춰 축소, 최소 9rem */
+  width: max(min(var(--mark-w), calc((100svh - 16rem) * 1.1169)), 9rem);
+  aspect-ratio: 637.512 / 570.784;
+  overflow: hidden;
+}
+
+.hero2__mark svg {
+  position: absolute;
+  width: 123.19%;
+  height: 137.59%;
+  left: -15.94%;
+  top: -17.81%;
+}
+
+/* 모핑 레이어: 검정 형태 + 배경색 구멍 */
+.mark__g,
+.mark__y,
+.mark__acc,
+.mark__final {
+  fill: var(--ink);
+}
+
+.mark__hole {
+  fill: var(--bg);
+}
+
+/* 입자 인터랙션 캔버스 — 활성화(is-live) 전에는 완전 비표시 */
+.mark__canvas {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+}
+
+/* 인터랙션 활성화 상태: SVG → 캔버스 표시 전환.
+   입자가 로고 박스 밖으로 흩어질 수 있게 크롭 해제
+   (캔버스에는 크롭이 이미 래스터로 구워져 있어 시각 결과 동일) */
+.hero2__mark.is-live {
+  overflow: visible;
+}
+
+.hero2__mark.is-live svg {
+  opacity: 0;
+}
+
+.hero2__mark.is-live .mark__canvas {
+  display: block;
+}
+
+/* 하단 바 */
+.hero2__bottom {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 var(--pad-x) var(--pad-bottom);
+}
+
+.hero2__credit {
+  font-family: var(--font-sans);
+  font-size: var(--fs-credit);
+  font-weight: 600;
+  line-height: 1.05;                    /* Figma: 26px 글자에 27.1px 행간 */
+  display: flex;
+  flex-direction: column;
+}
+
+.hero2__scroll {
+  font-family: var(--font-sans);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   반응형 — 768px 이하 (태블릿 세로·모바일)
+   ========================================================== */
+@media (max-width: 48rem) {
+  .hero2__top {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .hero2__nav {
+    margin-top: 0;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .hero2__mark {
+    width: min(70vw, 20rem);
+  }
+
+  .hero2__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
+
+/* ===== 모션 최소화 ===== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
