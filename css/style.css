@@ -65,95 +65,6 @@ a {
 }
 
 /* ==========================================================
-   VLOGO — 영상 로고 스크롤 전환 래퍼
-   - CSS sticky가 viewport 고정 담당 (ScrollTrigger는 pin:false)
-   - z1 히어로(흰 배경+UI) / z2 갤러리(로고 모양 마스크 = 영상 로고)
-   - 트랙 길이는 js/vlogo.js가 viewport 높이 기반으로 산정 (아래는 기본값)
-   ========================================================== */
-.hvt {
-  height: 200svh;
-}
-
-.hvt__sticky {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
-}
-
-.hvt__sticky > .hero2 {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-/* 갤러리 = 영상 로고 레이어: 로고 알파 마스크로 클리핑되어
-   "안에 영상이 비치는 로고"가 됨. 스크롤은 --logo-scale만 키움
-   (확정 초점 --focal 고정점 — 좌표는 js/vlogo.js가 실측 주입) */
-.hvt__sticky > .vgallery {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  --hole-x: 0px;
-  --hole-y: 0px;
-  --hole-w: 0px;
-  --hole-h: 0px;
-  --focal-x: 0px;
-  --focal-y: 0px;
-  --logo-scale: 1;
-  --vdim: 0.8;                     /* 은은함: 영상 위 검정 딤 (스크롤로 0까지 감소) */
-  -webkit-mask-image: url("../img/gy-logo.svg");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position:
-    calc(var(--focal-x) - (var(--focal-x) - var(--hole-x)) * var(--logo-scale))
-    calc(var(--focal-y) - (var(--focal-y) - var(--hole-y)) * var(--logo-scale));
-  -webkit-mask-size:
-    calc(var(--hole-w) * var(--logo-scale))
-    calc(var(--hole-h) * var(--logo-scale));
-  mask-image: url("../img/gy-logo.svg");
-  mask-repeat: no-repeat;
-  mask-position:
-    calc(var(--focal-x) - (var(--focal-x) - var(--hole-x)) * var(--logo-scale))
-    calc(var(--focal-y) - (var(--focal-y) - var(--hole-y)) * var(--logo-scale));
-  mask-size:
-    calc(var(--hole-w) * var(--logo-scale))
-    calc(var(--hole-h) * var(--logo-scale));
-}
-
-/* 은은한 딤 오버레이 (영상 위 검정막 — 로고의 "검정" 무게감 담당) */
-.hvt__sticky > .vgallery::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  background-color: var(--ink);
-  opacity: var(--vdim);
-  pointer-events: none;
-}
-
-/* 인트로 완성(is-vlogo) 전에는 영상 로고 숨김 → 완성 순간 검은 SVG와 크로스페이드
-   (마스크 scale 1 = 검은 로고와 같은 실루엣이라 이음새 없음) */
-.hvt__sticky > .vgallery {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
-}
-
-.is-vlogo .hvt__sticky > .vgallery {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.45s ease;
-}
-
-.hero2 svg.mark {
-  transition: opacity 0.45s ease;
-}
-
-.is-vlogo .hero2 svg.mark {
-  opacity: 0;
-}
-
-/* ==========================================================
    Hero (단일 페이지 인트로 — 시작: 중앙 점 / 종료: hero2 디자인)
    모든 요소가 처음부터 DOM에 존재하고 opacity/transform만 변함
    → 인트로 종료 시 레이아웃 밀림·깜빡임 없음
@@ -378,40 +289,6 @@ a {
    반응형 — 768px 이하 (태블릿 세로·모바일)
    ========================================================== */
 @media (max-width: 48rem) {
-  /* 영상 로고 전환 해제 — 기존 세로 문서 흐름 복원 (검은 로고 유지) */
-  .hvt {
-    height: auto;
-  }
-
-  .hvt__sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
-
-  .hvt__sticky > .hero2,
-  .hvt__sticky > .vgallery {
-    position: static;
-    inset: auto;
-    z-index: auto;
-    min-height: 100svh;
-  }
-
-  .hvt__sticky > .vgallery {
-    -webkit-mask-image: none;
-    mask-image: none;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .hvt__sticky > .vgallery::after {
-    display: none;
-  }
-
-  .is-vlogo .hero2 svg.mark {
-    opacity: 1;
-  }
-
   .hero2__top {
     flex-direction: column;
     gap: 0.75rem;
