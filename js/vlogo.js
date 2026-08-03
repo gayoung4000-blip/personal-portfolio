@@ -97,10 +97,16 @@
     return (farthest / Math.max(rPx, 1)) * 1.18;
   }
 
+  function getScrubDist() {
+    var dist = Math.round(Math.min(Math.max(window.innerHeight * 1.6, 900), 2200));
+    // 일광전구 영상 풀스크린 확대를 위한 추가 스크롤 길이 확보
+    return dist + Math.round(window.innerHeight * 1.5);
+  }
+
   // ----- 스크롤 트랙 길이 (viewport 높이 기반 — 짧은 화면에서 과도한 구간 방지) -----
   function setTrackHeight() {
-    var dist = Math.round(Math.min(Math.max(window.innerHeight * 1.6, 900), 2200));
-    hvt.style.height = "calc(100svh + " + dist + "px)";
+    // 100svh(초기) + getScrubDist()(GSAP 구간) + 100svh(About 섹션 오버레이 고정 구간)
+    hvt.style.height = "calc(200svh + " + getScrubDist() + "px)";
   }
 
   // ----- 데스크톱 전용 (모바일은 CSS에서 전환 구조 해제) -----
@@ -114,7 +120,7 @@
       scrollTrigger: {
         trigger: hvt,
         start: "top top",
-        end: "bottom bottom",
+        end: function() { return "+=" + getScrubDist(); }, // 트랙 끝이 아닌 정확히 이 거리까지만 애니메이션
         scrub: true,
         pin: false,                       // 고정은 CSS sticky — 이중 pin 금지
         invalidateOnRefresh: true,
@@ -141,6 +147,110 @@
       .to({}, { duration: 0.08 }, 0.7)
       // 검정이 다 찬 뒤에야 영상이 드러난다
       .to(gallery, { "--vdim": 0, duration: 0.22 }, 0.78);
+
+    var rightVideo = document.querySelector(".vgallery__item--right");
+    var stage = document.querySelector(".vgallery__stage");
+
+    // 우측 하단 영상이 확대될 때 다른 요소들보다 위에 오도록 설정
+    gsap.set(rightVideo, { zIndex: 10 });
+
+    // 갤러리 완전히 등장(1.0) 후 약간의 여백(1.1부터) 뒤 풀스크린 확대
+    tl.to(rightVideo, {
+      left: function() { return -stage.offsetLeft; },
+      top: function() { return -stage.offsetTop; },
+      width: function() { return window.innerWidth; },
+      height: function() { return window.innerHeight; },
+      duration: 0.6,
+      ease: "power2.inOut"
+    }, 1.1);
+
+    var aboutHeaderFixed = document.querySelector("#about-header-fixed");
+    // 영상이 거의 다 차가는 시점(1.4)부터 텍스트가 스르륵(Fade-in) 나타남
+    tl.to(aboutHeaderFixed, {
+      autoAlpha: 1,
+      duration: 0.6,
+      ease: "power2.out"
+    }, 1.4);
+
+    var globalHeader = document.querySelector("#global-header");
+    // 영상 텍스트와 거의 비슷한 타이밍에 상단 글로벌 메뉴바도 페이드인
+    tl.to(globalHeader, {
+      autoAlpha: 1,
+      duration: 0.4,
+      ease: "power2.out"
+    }, 1.5);
+
+    // 돔(Dome) 사각형 모핑 애니메이션
+    // .about 섹션이 뷰포트 하단에서 나타나기 시작할 때(start)부터 최상단에 닿을 때(end)까지 진행
+    var aboutDome = document.querySelector(".about__dome");
+    gsap.to(aboutDome, {
+      "--dome-progress": 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".about",
+        start: "top bottom",
+        end: "top top",
+        scrub: true
+      }
+    });
+
+    // =======================================================
+    // Journey 가로 스크롤 및 메뉴 전환 애니메이션
+    // =======================================================
+    var journeySection = document.querySelector("#journey");
+    var journeyTrack = document.querySelector("#journeyTrack");
+    var globalMenuBtn = document.querySelector("#globalMenuBtn");
+
+    if (journeySection && journeyTrack && globalMenuBtn) {
+      // 1. 가로 스크롤 트랙 이동 거리 계산
+      function getScrollAmount() {
+        var trackWidth = journeyTrack.scrollWidth;
+        var viewWidth = window.innerWidth;
+        // 트랙 전체 길이를 끝까지 스크롤하도록 설정 (Scene 1 -> Scene 2 파노라마)
+        return -(trackWidth - viewWidth);
+      }
+
+      // 가로 이동을 실행할 타임라인 생성
+      var tlJourney = gsap.timeline();
+      
+      // 트랙은 왼쪽으로 밀어냄
+      tlJourney.to(journeyTrack, {
+        x: getScrollAmount,
+        ease: "none"
+      }, 0);
+
+      // 2. 타이포그래피 모션: 스크롤 내릴 때 "I DESIGNED" 텍스트가 오른쪽으로 멀어지는 효과
+      tlJourney.to(".journey__huge-anim", {
+        x: "35vw", /* 오른쪽으로 이동하며 피그마 시안처럼 여백 생성 */
+        ease: "power1.out" /* 부드럽게 감속하는 이징 */
+      }, 0);
+
+
+      // 가로 스크롤 트리거 (화면 고정)
+      ScrollTrigger.create({
+        trigger: journeySection,
+        start: "top top",
+        end: () => "+=" + (journeyTrack.scrollWidth - window.innerWidth),
+        pin: true,
+        animation: tlJourney,
+        scrub: 1, // 스크롤 시 부드럽게(1초 지연) 따라오도록 설정
+        invalidateOnRefresh: true // 리사이즈 시 거리 재계산
+      });
+
+      // 2. 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 (Journey 진입 시)
+      ScrollTrigger.create({
+        trigger: journeySection,
+        start: "top top", // 섹션이 상단에 딱 닿는 순간
+        onEnter: function() {
+          gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out" });
+          gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out" });
+        },
+        onLeaveBack: function() { // 다시 위로 올라갈 때
+          gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out" });
+          gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out" });
+        }
+      });
+    }
 
     var resizePending = false;
     function onResize() {

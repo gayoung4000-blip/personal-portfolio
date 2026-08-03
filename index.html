@@ -22,6 +22,25 @@
 </head>
 <body>
 
+  <!-- 글로벌 헤더 (초기엔 숨겨져 있다가 영상 확대 시 GSAP으로 페이드인) -->
+  <header class="global-header" id="global-header">
+    <div class="global-header__inner">
+      <a href="#home" class="global-header__logo" aria-label="Home">
+        <img src="img/gy-logo.svg" alt="gy 로고">
+      </a>
+      <nav class="global-header__nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#process">Process</a>
+        <a href="#project">Project</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 글로벌 둥근 메뉴 버튼 (가로 스크롤 진입 시 나타남) -->
+  <button class="global-menu-btn" id="globalMenuBtn" aria-label="Menu">MENU</button>
+
   <main>
 
     <!-- ===== 영상 로고 전환 래퍼 (VLOGO) =====
@@ -110,10 +129,138 @@
       </div>
     </section>
 
+      <div class="about__header" id="about-header-fixed">
+        <h2 class="about__title">A PAINTER’S HAND,<br>A DESIGNER’S EYES.</h2>
+        <div class="about__badge">About me</div>
+      </div>
       </div><!-- /.hvt__sticky -->
     </div><!-- /.hvt -->
 
-    <!-- 다음 섹션은 Figma 프레임 확인 후 순서대로 추가 -->
+    <!-- About 섹션 -->
+    <section id="about" class="about">
+      <div class="about__dome">
+        <h3 class="about__subtitle">I am still Drawing</h3>
+        <figure class="about__photo">
+          <img src="img/about-photo.png" alt="김가영 UX/UI Designer" loading="lazy" />
+        </figure>
+        <div class="about__roles">
+          <span>UX</span><span class="about__roles-serif">/</span><span>UI DESIGNER</span><br>
+          <span>PORTFOLIO</span>
+        </div>
+        <p class="about__desc">
+          미술로 관찰하는 시선을, UX로 해결하는 방법을, AI로 실행하는 속도를 만들었습니다.<br>
+          <strong>still DRAWING</strong>, 여전히 그리는 디자이너입니다.
+        </p>
+        <a href="#process" class="about__scroll-btn">Keep scrolling</a>
+      </div>
+    </section>
+
+    <!-- ===== Journey (Timeline) 섹션 =====
+         피그마 디자인(869:70) 기반 가로 스크롤 레이아웃 -->
+    <section id="journey" class="journey">
+      <div class="journey__track" id="journeyTrack">
+        
+        <!-- ==============================================
+             SCENE 1: 베이지 인트로 영역 (100vw)
+             ============================================== -->
+        <div class="journey__scene journey__scene--1">
+          <div class="journey__inner">
+            <!-- 1. 좌측 상단 타이틀 블록 -->
+            <div class="journey__title-block">
+              <h2 class="journey__heading">
+                <span class="journey__my">MY</span>
+                <span class="journey__journey-text">JOURNEY</span>
+              </h2>
+              <p class="journey__sub-title">
+                STILL EXPLORING<br>
+                GROWING
+              </p>
+            </div>
+
+            <!-- 2. 우측 중앙 텍스트 -->
+            <div class="journey__timeline-text">
+              TIMELINE
+            </div>
+
+            <!-- 3. 좌측 하단 본문 블록 -->
+            <div class="journey__text-block">
+              <h3 class="journey__kor-title">꾸준함이 만든 지금</h3>
+              <p class="journey__kor-desc">
+                멈추지 않고 배우며 걸어온, 현재진행형 성장 이야기입니다.<br>
+                수많은 시도와 결심이 쌓여 만들어진 지금을 확인해 보세요.<br>
+                서두르지 않되 멈추지 않았고, 그 시간들이 지금의 저를 만들었습니다.
+              </p>
+            </div>
+
+            <!-- 4. 우측 하단 뒤집힌 텍스트 블록 -->
+            <div class="journey__inverted-block">
+              <span class="journey__inverted-my">My</span>
+              <span class="journey__inverted-journey">JOURNEY</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             SCENE 2: 화이트 갤러리 영역 (100vw 이상)
+             ============================================== -->
+        <div class="journey__scene journey__scene--2">
+          
+          <!-- 파스텔 텍스처 겹치는 이미지 -->
+          <div class="journey__pastels">
+            <div class="journey__pastels-bg"></div>
+            <img src="img/11.img.png" alt="Pastels" class="journey__img-content" loading="lazy">
+          </div>
+
+          <!-- Journey 라벨 -->
+          <p class="journey__label">Journey</p>
+
+          <!-- 우측 상단 거대한 타이포그래피 -->
+          <h2 class="journey__huge-text">
+            I LEARNED<br>
+            TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SEE<br>
+            BEFORE<br>
+            <span class="journey__huge-anim">I <span class="tracking-wide">DESIGNED</span></span>
+          </h2>
+
+          <!-- 우측 하단 설명 블록 -->
+          <div class="journey__desc">
+            <h3>LEARNING TO LOOK</h3>
+            <p>
+              서양화를 전공하며 4년을 캔버스 앞에서 보냈습니다. 대상을 오래 들여다보고,<br>
+              빛과 색의 미세한 차이를 읽어내고, 화면 위에 무엇을 놓을지 고민하는 시간의<br>
+              연속이었습니다. 무엇을 강조하고 무엇을 비워둘지는 언제나 대상을 얼마나 깊이<br>
+              들여다봤는가에서 출발했습니다. 그 시간은 그림을 그리는 기술이 아니라,<br>
+              세상을 바라보는 시선을 길러주었습니다. 지금 그 시선은 사용자를 이해하고 경험을 설계하는 일로 이어지고 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             BRIDGE IMAGE: Scene 1과 Scene 2를 자연스럽게 잇는 캔버스 이미지
+             ============================================== -->
+        <div class="journey__bridge-img">
+          <div class="journey__img-bg"></div>
+          <img src="img/10.img.png" alt="Painting Process" class="journey__img-content" loading="lazy">
+        </div>
+
+        <!-- ==============================================
+             SCENE 3: 엔딩 블랙 영역 (25vw)
+             ============================================== -->
+        <div class="journey__scene journey__scene--3">
+          <!-- 상단 책상 이미지 -->
+          <div class="journey__ending-img">
+            <img src="img/12.img.png" alt="Desk" loading="lazy">
+          </div>
+          
+          <!-- 하단 뒤집힌 텍스트 (화이트 컬러) -->
+          <div class="journey__inverted-block journey__inverted-block--ending">
+            <span class="journey__inverted-my">My</span>
+            <span class="journey__inverted-journey">JOURNEY</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
   </main>
 
