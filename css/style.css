@@ -65,6 +65,67 @@ a {
 }
 
 /* ==========================================================
+   HVT — Hero ↔ Video Gallery 전환 래퍼
+   - CSS sticky가 viewport 고정 담당 (6단계 ScrollTrigger는 pin:false)
+   - 트랙 길이(.hvt height)는 6단계에서 viewport 비율 기반으로 산정
+   - 층: z0 갤러리(뒤) / z1 히어로(흰 배경이 가림) / z2 마스크 로고(숨김)
+   ========================================================== */
+.hvt {
+  /* 4단계의 총 스크롤 길이(히어로 100svh + 갤러리 100svh)를 보존 —
+     스크롤바 존재가 유지되어 레이아웃이 4단계와 픽셀 단위로 동일.
+     실제 전환 트랙 길이는 6단계에서 viewport 비율 기반으로 산정 */
+  height: 200svh;
+}
+
+.hvt__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* 기존 섹션을 레이어로 승격 — 내부 flex/반응형 계산은 그대로 유지됨
+   (absolute + inset:0 + margin-inline:auto가 기존 max-width 중앙정렬을 보존) */
+.hvt__sticky > .hero2 {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hvt__sticky > .vgallery {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* 영상 마스크 로고 레이어 — DOM·좌표·마스크 규칙만 준비, 완전 숨김.
+   6단계에서 opacity/visibility와 --hole 확대만 제어하면 됨 */
+.hvt__masklogo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: var(--bg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* 구멍 좌표 — js/hvt-mask.js가 검은 로고 SVG 실측값을 주입 (두 로고 좌표계 공유) */
+  --hole-x: 0px;
+  --hole-y: 0px;
+  --hole-w: 0px;
+  --hole-h: 0px;
+  -webkit-mask-image: linear-gradient(#fff 0 0), url("../img/gy-logo.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0, var(--hole-x) var(--hole-y);
+  -webkit-mask-size: 100% 100%, var(--hole-w) var(--hole-h);
+  -webkit-mask-composite: xor;
+  mask-image: linear-gradient(#fff 0 0), url("../img/gy-logo.svg");
+  mask-repeat: no-repeat;
+  mask-position: 0 0, var(--hole-x) var(--hole-y);
+  mask-size: 100% 100%, var(--hole-w) var(--hole-h);
+  mask-composite: exclude;
+}
+
+/* ==========================================================
    Hero (단일 페이지 인트로 — 시작: 중앙 점 / 종료: hero2 디자인)
    모든 요소가 처음부터 DOM에 존재하고 opacity/transform만 변함
    → 인트로 종료 시 레이아웃 밀림·깜빡임 없음
@@ -309,6 +370,29 @@ a {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
+  }
+
+  /* 모바일: 전환 레이어 구조 해제 — 기존 세로 문서 흐름으로 복원 */
+  .hvt {
+    height: auto;
+  }
+
+  .hvt__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .hvt__sticky > .hero2,
+  .hvt__sticky > .vgallery {
+    position: static;
+    inset: auto;
+    z-index: auto;
+    min-height: 100svh;
+  }
+
+  .hvt__masklogo {
+    display: none;
   }
 
   /* 갤러리: 콜라주 → 세로 스택 (번호 순서대로) */
