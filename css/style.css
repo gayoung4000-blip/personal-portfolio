@@ -108,20 +108,33 @@ a {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  /* 구멍 좌표 — js/hvt-mask.js가 검은 로고 SVG 실측값을 주입 (두 로고 좌표계 공유) */
+  /* 구멍 좌표 — js/hvt-mask.js가 검은 로고 SVG 실측값을 주입 (두 로고 좌표계 공유)
+     확대는 --hole-scale 하나로 제어: 확정 초점(--focal-x/y, 마스크 로컬 좌표)을
+     고정점으로 구멍 박스가 커지도록 위치/크기를 calc로 유도 */
   --hole-x: 0px;
   --hole-y: 0px;
   --hole-w: 0px;
   --hole-h: 0px;
+  --focal-x: 0px;
+  --focal-y: 0px;
+  --hole-scale: 1;
   -webkit-mask-image: linear-gradient(#fff 0 0), url("../img/gy-logo.svg");
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: 0 0, var(--hole-x) var(--hole-y);
-  -webkit-mask-size: 100% 100%, var(--hole-w) var(--hole-h);
+  -webkit-mask-position: 0 0,
+    calc(var(--focal-x) - (var(--focal-x) - var(--hole-x)) * var(--hole-scale))
+    calc(var(--focal-y) - (var(--focal-y) - var(--hole-y)) * var(--hole-scale));
+  -webkit-mask-size: 100% 100%,
+    calc(var(--hole-w) * var(--hole-scale))
+    calc(var(--hole-h) * var(--hole-scale));
   -webkit-mask-composite: xor;
   mask-image: linear-gradient(#fff 0 0), url("../img/gy-logo.svg");
   mask-repeat: no-repeat;
-  mask-position: 0 0, var(--hole-x) var(--hole-y);
-  mask-size: 100% 100%, var(--hole-w) var(--hole-h);
+  mask-position: 0 0,
+    calc(var(--focal-x) - (var(--focal-x) - var(--hole-x)) * var(--hole-scale))
+    calc(var(--focal-y) - (var(--focal-y) - var(--hole-y)) * var(--hole-scale));
+  mask-size: 100% 100%,
+    calc(var(--hole-w) * var(--hole-scale))
+    calc(var(--hole-h) * var(--hole-scale));
   mask-composite: exclude;
 }
 

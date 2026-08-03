@@ -8,6 +8,10 @@
 (function () {
   "use strict";
 
+  // 공식 확대 초점 — LogoStage(.hero2__mark) 내부 정규화 좌표. source of truth.
+  // viewport 중앙·bbox 중앙·무게중심·Primary 실측값으로 대체 금지.
+  window.HVT_FOCAL = { x: 0.555, y: 0.515 };
+
   var sticky = document.querySelector(".hvt__sticky");
   var svg = document.querySelector(".hero2 svg.mark");
   var mark = document.querySelector(".hero2__mark");
@@ -21,6 +25,13 @@
     layer.style.setProperty("--hole-y", (s.top - base.top).toFixed(2) + "px");
     layer.style.setProperty("--hole-w", s.width.toFixed(2) + "px");
     layer.style.setProperty("--hole-h", s.height.toFixed(2) + "px");
+
+    // 확정 초점: LogoStage 정규화 → viewport → 마스크 로컬 좌표로 명시적 변환
+    var m = mark.getBoundingClientRect();
+    var focalViewportX = m.left + m.width * window.HVT_FOCAL.x;
+    var focalViewportY = m.top + m.height * window.HVT_FOCAL.y;
+    layer.style.setProperty("--focal-x", (focalViewportX - base.left).toFixed(2) + "px");
+    layer.style.setProperty("--focal-y", (focalViewportY - base.top).toFixed(2) + "px");
   }
 
   update();

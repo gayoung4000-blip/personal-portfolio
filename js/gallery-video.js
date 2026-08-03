@@ -16,6 +16,14 @@
   var touch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // 데스크톱(전환 구조 활성)에서는 갤러리가 Hero 뒤에 가려져 있어 IO만으로 부족 —
+  // 마스크 전환이 시작되어 실제로 보일 때(is-gallery-visible)만 재생 허용
+  var gated = window.matchMedia("(min-width: 769px)").matches;
+
+  function visibleAllowed() {
+    return !gated || document.documentElement.classList.contains("is-gallery-visible");
+  }
+
   function safePlay(v) {
     var p = v.play();
     if (p && typeof p.catch === "function") p.catch(function () {});
@@ -42,18 +50,33 @@
   var io = new IntersectionObserver(
     function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
+        e.target.__inView = e.isIntersecting;          // 최신 교차 상태 기억
+        if (e.isIntersecting && visibleAllowed()) {
           safePlay(e.target);
         } else {
-          e.target.pause();               // 화면에서 멀어지면 정지
+          e.target.pause();               // 가려짐/화면 밖 → 정지 (currentTime은 유지)
         }
       });
     },
     { rootMargin: "200px 0px" }           // 뷰포트 200px 전부터 미리 재생
   );
   targets.forEach(function (v) {
+    v.__inView = false;
     io.observe(v);
   });
+
+  // 전환(hvt-scroll)이 is-gallery-visible을 토글한 순간 재생 상태를 다시 판정
+  window.GalleryVideo = {
+    refresh: function () {
+      targets.forEach(function (v) {
+        if (v.__inView && visibleAllowed()) {
+          safePlay(v);
+        } else {
+          v.pause();
+        }
+      });
+    },
+  };
 
   window.addEventListener("pagehide", function () {
     io.disconnect();                      // 정리

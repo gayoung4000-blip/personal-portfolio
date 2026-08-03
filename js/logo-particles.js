@@ -13,6 +13,7 @@ window.LogoParticles = (function () {
 
   var mark, svgEl, canvas, ctx, ink = "#000000";
   var enabled = false, building = false;
+  var suspended = false;   // true면 새 포인터 힘 차단 (전환 구간용 — 복귀 스프링은 계속 작동)
   var particles = [], activeCount = 0;
   var baseCv = null;                    // 오프스크린 원본 래스터 (로고 박스 크기 × dpr)
   var dpr = 1, pad = 0, boxW = 0, boxH = 0, cvW = 0, cvH = 0;
@@ -286,7 +287,7 @@ window.LogoParticles = (function () {
 
   // ----- 이벤트: pointermove에서는 좌표·속도만 기록 -----
   function onMove(e) {
-    if (!enabled) return;
+    if (!enabled || suspended) return;
     var rect = canvas.getBoundingClientRect();    // 현재 컨테이너 기준 local 좌표
     var x = e.clientX - rect.left;
     var y = e.clientY - rect.top;
@@ -391,9 +392,29 @@ window.LogoParticles = (function () {
     enabled = false;
   }
 
+  // ----- 전환(HVT) 제어 메서드 — 기존 물리·렌더 로직 무수정 -----
+  // suspendAndSettle: 새 포인터 힘 적용 중단 + 흩어진 입자를 home으로 복귀.
+  //   렌더 루프는 입자가 전부 정착할 때까지 유지되고, 캔버스는 지우거나 숨기지 않음.
+  //   이벤트 리스너도 제거하지 않음 (resume 시 즉시 재작동).
+  //   enable() 전에 호출돼도 안전 (플래그만 세워 두면 이후 상호작용이 차단됨).
+  function suspendAndSettle() {
+    suspended = true;
+    ptr.inside = false;              // 이후 프레임부터 힘 적용 없음 → 스프링만 작동해 복원
+    ptr.vx = ptr.vy = 0;
+    if (enabled) wake();             // 흩어진 입자가 있으면 정착할 때까지 루프 유지
+  }
+
+  // resume: 힘 적용 재개. 호출 조건 판단(진행률 0 복귀·마스크 숨김 등)은 호출자(hvt-scroll) 몫.
+  //   enable()이 아직 안 됐으면 아무 것도 안 함 (인트로 완료 시 enable이 정상 경로로 처리).
+  function resume() {
+    suspended = false;
+  }
+
   return {
     enable: enable,
     destroy: destroy,
+    suspendAndSettle: suspendAndSettle,
+    resume: resume,
     // 테스트 훅 (rAF가 정지된 환경에서 검증용 — 프로덕션 동작에 영향 없음)
     _test: {
       step: function (dt) { stepSim(dt); render(); },
