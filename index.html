@@ -24,6 +24,14 @@
 
   <main>
 
+    <!-- ===== 영상 로고 전환 래퍼 (VLOGO) =====
+         .hvt         : 스크롤 트랙 / .hvt__sticky : viewport 고정(CSS sticky, ScrollTrigger는 pin:false)
+         층: z1 히어로(흰 배경+UI) / z2 갤러리(로고 모양으로 마스킹 = "영상이 비치는 로고")
+         인트로 완성 순간 is-vlogo 클래스 → 검은 SVG ↔ 영상 로고 크로스페이드(같은 실루엣).
+         스크롤하면 마스크(로고 모양)가 확정 초점(0.555, 0.515) 기준으로 확대 → 갤러리 전체 화면 -->
+    <div class="hvt">
+      <div class="hvt__sticky">
+
     <!-- ===== Hero (단일 페이지 인트로) =====
          Figma 830:313(hero1) = 인트로 시작 상태(중앙 점)
          Figma 830:315(hero2) = 인트로 종료 상태(최종 메인 화면)
@@ -102,16 +110,21 @@
       </div>
     </section>
 
+      </div><!-- /.hvt__sticky -->
+    </div><!-- /.hvt -->
+
     <!-- 다음 섹션은 Figma 프레임 확인 후 순서대로 추가 -->
 
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flubber@0.4.2/build/flubber.min.js"></script>
   <!-- 입자 인터랙션 보류 (2026-08-03): 영상 로고 방향으로 전환하며 비활성화.
        되살리려면 아래 주석 해제 (main.js의 onComplete 가드는 그대로 있음)
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js"></script>
+  <script src="js/vlogo.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
