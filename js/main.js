@@ -31,6 +31,7 @@
   function showFinal() {
     morphLayer.style.opacity = "0";
     finalPath.style.opacity = "1";
+    document.documentElement.classList.add("is-vlogo");
   }
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -69,9 +70,10 @@
   // 1.00 ~ 1.70 크레딧 + SCROLL DOWN 등장
   var tl = gsap.timeline({
     defaults: { ease: "power3.out" },
-    // 인트로 완전 종료 후에만 로고 입자 인터랙션 활성화
+    // 인트로 완전 종료: 검은 로고 → "영상이 은은하게 비치는 로고"로 크로스페이드.
+    // (입자 인터랙션은 보류 상태 — 되살리면 LogoParticles.enable() 가드 추가)
     onComplete: function () {
-      if (window.LogoParticles) window.LogoParticles.enable();
+      document.documentElement.classList.add("is-vlogo");
     },
   });
 
