@@ -24,13 +24,6 @@
 
   <main>
 
-    <!-- ===== Hero ↔ Video Gallery 전환 래퍼 (HVT) =====
-         .hvt          : 스크롤 트랙 (전환 길이는 6단계에서 산정 — 지금은 기본 높이)
-         .hvt__sticky  : viewport 고정 담당 (CSS sticky — 6단계 ScrollTrigger는 pin:false로 진행률만)
-         층 구조(z): 0 갤러리(뒤) / 1 히어로(앞, 흰 배경이 갤러리를 가림) / 2 영상 마스크 로고(숨김) -->
-    <div class="hvt">
-      <div class="hvt__sticky">
-
     <!-- ===== Hero (단일 페이지 인트로) =====
          Figma 830:313(hero1) = 인트로 시작 상태(중앙 점)
          Figma 830:315(hero2) = 인트로 종료 상태(최종 메인 화면)
@@ -109,25 +102,14 @@
       </div>
     </section>
 
-    <!-- 영상 마스크 로고 레이어 (VideoMaskLogoLayer)
-         6단계 전환에서 사용할 별도 레이어 — 지금은 DOM·좌표만 준비, 완전 숨김.
-         구멍 좌표(--hole-*)는 js/hvt-mask.js가 검은 로고 SVG 실측값으로 동기화 -->
-    <div class="hvt__masklogo" aria-hidden="true"></div>
-
-      </div><!-- /.hvt__sticky -->
-    </div><!-- /.hvt -->
-
     <!-- 다음 섹션은 Figma 프레임 확인 후 순서대로 추가 -->
 
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flubber@0.4.2/build/flubber.min.js"></script>
   <script src="js/logo-particles.js"></script>
-  <script src="js/hvt-mask.js"></script>
   <script src="js/gallery-video.js"></script>
-  <script src="js/hvt-scroll.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
