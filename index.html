@@ -66,6 +66,42 @@
       </div>
     </section>
 
+    <!-- ===== 3. Video Gallery (Figma 830:350 "hero5") =====
+         정적 최종 레이아웃. placeholder 이미지 사용 중 — 실제 영상(video 태그)으로 교체 예정.
+         스크롤 전환·로고 마스크 인터랙션은 다음 단계에서 추가.
+         DOM 순서 = 겹침 순서(아래→위): main → right → left → tall(최상위) -->
+    <section id="gallery" class="vgallery">
+      <div class="vgallery__stage">
+
+        <figure class="vgallery__item vgallery__item--main">
+          <!-- 재생 실패 시 poster가 그대로 보임. data-mobile-play: 터치 기기에서도 재생하는 핵심 영상 -->
+          <video autoplay muted loop playsinline preload="metadata"
+                 poster="img/gallery-01.png" data-mobile-play aria-label="작업 과정 영상">
+            <source src="videos/video-01.mp4" type="video/mp4" />
+          </video>
+          <div class="vgallery__fade" aria-hidden="true"></div>
+        </figure>
+
+        <figure class="vgallery__item vgallery__item--right">
+          <video autoplay muted loop playsinline preload="metadata"
+                 poster="img/gallery-04.png" aria-label="일광전구 발표 영상">
+            <source src="videos/video-04.mp4" type="video/mp4" />
+          </video>
+        </figure>
+
+        <figure class="vgallery__item vgallery__item--left">
+          <img src="img/gallery-03.png" alt="VIDEO 03 — 질감 영상 자리" loading="lazy" />
+          <figcaption class="vgallery__label">VIDEO 03</figcaption>
+        </figure>
+
+        <figure class="vgallery__item vgallery__item--tall">
+          <img src="img/gallery-02.png" alt="VIDEO 02 — 작업 과정 영상 자리" loading="lazy" />
+          <figcaption class="vgallery__label">VIDEO 02</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
     <!-- 다음 섹션은 Figma 프레임 확인 후 순서대로 추가 -->
 
   </main>
@@ -73,6 +109,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flubber@0.4.2/build/flubber.min.js"></script>
   <script src="js/logo-particles.js"></script>
+  <script src="js/gallery-video.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
