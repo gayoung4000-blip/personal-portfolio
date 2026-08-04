@@ -525,6 +525,131 @@
       }
     }
 
+    // WORK / PROJECTS: this cover is the entry point for the next horizontal story.
+    // The track currently contains its opening panel; future project panels can be
+    // appended without changing the header transition or scroll architecture.
+    var workSection = document.querySelector(".work-horizontal");
+    var workTrack = document.querySelector("#workTrack");
+    if (workSection && workTrack && globalHeader && globalMenuBtn) {
+      var getWorkScrollAmount = function () {
+        return Math.min(0, window.innerWidth - workTrack.scrollWidth);
+      };
+      var getWorkScrollDistance = function () {
+        return Math.max(0, workTrack.scrollWidth - window.innerWidth);
+      };
+
+      // Fade the full header out across the whole vertical entrance instead of
+      // switching it abruptly when the WORK cover reaches the top edge.
+      var workChromeTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: workSection,
+          start: "top bottom",
+          end: "top top",
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
+      });
+      workChromeTimeline
+        .fromTo(globalHeader, {
+          autoAlpha: 1,
+        }, {
+          autoAlpha: 0,
+          duration: 1,
+          ease: "none",
+          immediateRender: false,
+        }, 0);
+
+      // Reveal MENU only after the WORK cover has completely filled the viewport.
+      ScrollTrigger.create({
+        trigger: workSection,
+        start: "top top",
+        end: "bottom top",
+        onEnter: function () {
+          document.documentElement.classList.add("is-ivory-zone");
+          gsap.to(globalMenuBtn, {
+            autoAlpha: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        },
+        onEnterBack: function () {
+          document.documentElement.classList.add("is-ivory-zone");
+          gsap.to(globalMenuBtn, {
+            autoAlpha: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        },
+        onLeaveBack: function () {
+          document.documentElement.classList.remove("is-ivory-zone");
+          gsap.to(globalMenuBtn, {
+            autoAlpha: 0,
+            duration: 0.2,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        },
+      });
+
+      // Activate pinning automatically as soon as more project panels are added.
+      if (getWorkScrollDistance() > 1) {
+        var workHorizontalTween = gsap.to(workTrack, {
+          x: getWorkScrollAmount,
+          ease: "none",
+          scrollTrigger: {
+            trigger: workSection,
+            start: "top top",
+            end: function () { return "+=" + getWorkScrollDistance(); },
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        var workIlkw = document.querySelector(".work-projects__ilkw");
+        var workRailTitle = document.querySelector(".work-cover__rail-title");
+        if (workRailTitle) {
+          ScrollTrigger.create({
+            trigger: workRailTitle,
+            containerAnimation: workHorizontalTween,
+            start: "left 80%",
+            onEnter: function () {
+              gsap.to(workRailTitle, {
+                autoAlpha: 1,
+                duration: 0.35,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            },
+            onLeaveBack: function () {
+              gsap.to(workRailTitle, {
+                autoAlpha: 0,
+                duration: 0.2,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            },
+          });
+        }
+
+        if (workIlkw) {
+          ScrollTrigger.create({
+            trigger: workIlkw,
+            containerAnimation: workHorizontalTween,
+            start: "left 78%",
+            onEnter: function () {
+              document.documentElement.classList.add("is-work-dark");
+            },
+            onLeaveBack: function () {
+              document.documentElement.classList.remove("is-work-dark");
+            },
+          });
+        }
+      }
+    }
+
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 
