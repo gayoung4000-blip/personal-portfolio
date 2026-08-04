@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/style.css" />
@@ -335,6 +335,53 @@
       <!-- 화면 고정 My/JOURNEY (트랙과 함께 흐르지 않음 — journey4 진입 시 표시, vlogo.js) -->
       <span class="journey__scene3-my">My</span>
       <span class="journey__scene3-journey">JOURNEY</span>
+    </section>
+
+    <!-- Normal vertical flow resumes after the pinned horizontal Journey. -->
+    <section class="skills-intro" id="skills" aria-labelledby="skills-title">
+      <div class="skills-intro__inner">
+        <div class="skills-intro__watermark" aria-hidden="true">
+          <img src="img/skills-watermark.png" alt="">
+        </div>
+
+        <article class="skills-intro__card skills-intro__card--design" aria-label="Design skill">
+          <img class="skills-intro__card-visual" src="img/skill-card-design.png" alt="디자인 작업 공간">
+          <div class="skills-intro__card-info">
+            <h3>DESIGN</h3>
+            <p>Visual System<br>&amp; Interface</p>
+            <img class="skills-intro__card-arrow" src="img/skill-card-arrow.svg" alt="" aria-hidden="true">
+          </div>
+        </article>
+
+        <article class="skills-intro__card skills-intro__card--frontend" aria-label="Frontend skill">
+          <img class="skills-intro__card-visual" src="img/skill-card-frontend.png" alt="프론트엔드 개발 작업 화면">
+          <div class="skills-intro__card-info">
+            <h3>FRONTEND</h3>
+            <p>Interactive Web<br>&amp; Development</p>
+            <img class="skills-intro__card-arrow" src="img/skill-card-frontend-arrow.svg" alt="" aria-hidden="true">
+          </div>
+        </article>
+
+        <article class="skills-intro__card skills-intro__card--ux" aria-label="UX skill">
+          <img class="skills-intro__card-visual" src="img/skill-card-ux.png" alt="UX 설계 작업 공간">
+          <div class="skills-intro__card-info">
+            <h3>UX</h3>
+            <p>User-centered<br>Structure</p>
+            <img class="skills-intro__card-arrow" src="img/skill-card-ux-arrow.svg" alt="" aria-hidden="true">
+          </div>
+        </article>
+
+        <div class="skills-intro__content">
+          <h2 class="skills-intro__title" id="skills-title">
+            <span>WHAT I CAN DO</span>
+            <span>MY <strong>SKILL</strong> PALETTE</span>
+          </h2>
+          <p class="skills-intro__description">
+            미술에서 온 감각을 UX의 언어로 바꿔가며,<br>
+            능숙한 AI 활용으로 리서치부터 배포까지 완성합니다.
+          </p>
+        </div>
+      </div>
     </section>
 
   </main>

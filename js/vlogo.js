@@ -276,6 +276,14 @@
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
         },
+        onLeave: function() {
+          gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, ease: "power2.out", overwrite: "auto" });
+          gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
+        },
+        onEnterBack: function() {
+          gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
+          gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
+        },
         onLeaveBack: function() { // 다시 위로 올라갈 때
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
@@ -441,6 +449,72 @@
 
     // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.
     // 강제 리사이즈 이벤트를 제거하고, ScrollTrigger가 스스로 재계산하기 직전(refreshInit)에만 트랙 길이를 업데이트하도록 수정하여 성능을 최적화합니다.
+    // Skills: keep the vertical scene in place while the dome card rises
+    // from below the viewport to its Figma resting position.
+    var skillsIntro = document.querySelector(".skills-intro");
+    var skillsInner = document.querySelector(".skills-intro__inner");
+    var skillsDesignCard = document.querySelector(".skills-intro__card--design");
+    var skillsFrontendCard = document.querySelector(".skills-intro__card--frontend");
+    var skillsUxCard = document.querySelector(".skills-intro__card--ux");
+    if (skillsIntro && skillsInner && skillsDesignCard && skillsFrontendCard && skillsUxCard) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard], { y: 0 });
+      } else {
+        var cardEntryY = function (card) {
+          return window.innerHeight - card.offsetTop + 24;
+        };
+        var skillsTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: skillsIntro,
+            start: "top top",
+            end: function () {
+              return "+=" + window.innerHeight * 2.4;
+            },
+            pin: skillsInner,
+            pinSpacing: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        skillsTimeline
+          .fromTo(skillsDesignCard, {
+            y: function () {
+              return cardEntryY(skillsDesignCard);
+            },
+          }, {
+            y: 0,
+            duration: 1,
+            ease: "none",
+          })
+          .fromTo(skillsFrontendCard, {
+            y: function () {
+              return cardEntryY(skillsFrontendCard);
+            },
+          }, {
+            y: 0,
+            duration: 1,
+            ease: "none",
+          })
+          .to(skillsDesignCard, {
+            y: function () {
+              return -skillsInner.offsetHeight * 0.3195;
+            },
+            duration: 1,
+            ease: "none",
+          }, "<")
+          .fromTo(skillsUxCard, {
+            y: function () {
+              return cardEntryY(skillsUxCard);
+            },
+          }, {
+            y: 0,
+            duration: 1,
+            ease: "none",
+          });
+      }
+    }
+
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 

@@ -1461,3 +1461,207 @@ a {
     font-size: 4.845vh;
   }
 }
+
+/* ==========================================================
+   Skills intro — vertical flow after the pinned Journey
+   Figma 880:657 (1920 × 1014)
+   ========================================================== */
+.skills-intro {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  padding-top: 0;
+  overflow: clip;
+  background: #ece9e0;
+  color: #382816;
+}
+
+.skills-intro__inner {
+  position: relative;
+  width: min(100%, 1920px);
+  height: 100svh;
+  min-height: 100svh;
+  margin: 0 auto;
+  padding-top: 95px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+}
+
+.skills-intro__content {
+  position: relative;
+  z-index: 4;
+  width: min(90vw, 1149px);
+  text-align: center;
+  transform: translateY(-7vh);
+}
+
+.skills-intro__title {
+  margin: 0;
+  color: #382816;
+  font-family: var(--font-serif);
+  font-size: clamp(3.25rem, 4.6875vw, 5.625rem);
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: clamp(-3.6px, -0.1875vw, -2px);
+}
+
+.skills-intro__title > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.skills-intro__title strong {
+  color: #b69f64;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
+.skills-intro__description {
+  margin: clamp(2rem, 2.14vw, 2.5625rem) auto 0;
+  color: #b69f64;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1rem, 1.302vw, 1.5625rem);
+  font-weight: 400;
+  line-height: 1.16;
+}
+
+.skills-intro__watermark {
+  position: absolute;
+  left: 16.72%;
+  top: 16.67%;
+  width: min(20.28%, 389.4px);
+  aspect-ratio: 389.4 / 337.54;
+  overflow: hidden;
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+.skills-intro__watermark img {
+  position: absolute;
+  left: -15.12%;
+  top: -19.79%;
+  width: 122.57%;
+  height: 141.41%;
+  max-width: none;
+  object-fit: fill;
+}
+
+.skills-intro__card {
+  position: absolute;
+  z-index: 3;
+  width: clamp(170px, 13.857vw, 266.057px);
+  margin: 0;
+  container-type: inline-size;
+  will-change: transform;
+}
+
+.skills-intro__card--design {
+  left: 59.27%;
+  top: 19.03%;
+}
+
+.skills-intro__card--frontend {
+  left: 18.33%;
+  top: 26.53%;
+}
+
+.skills-intro__card--ux {
+  left: 71.09%;
+  top: 79.19%;
+}
+
+.skills-intro__card-visual {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.skills-intro__card-info {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 266.057 / 116.124;
+  margin-top: -0.25%;
+  overflow: hidden;
+  border-radius: 0 0 7.35px 7.35px;
+  background: #252424;
+  color: #ffffff;
+  text-align: center;
+}
+
+.skills-intro__card-info h3 {
+  margin: 4.97cqw 0 0;
+  color: #b69f64;
+  font-family: var(--font-serif);
+  font-size: 7.46cqw;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.skills-intro__card--frontend .skills-intro__card-info h3 {
+  margin-top: 5.3cqw;
+  font-size: 6.39cqw;
+}
+
+.skills-intro__card--ux .skills-intro__card-info h3 {
+  margin-top: 4.97cqw;
+  font-size: 12.78cqw;
+}
+
+.skills-intro__card-info p {
+  margin: 3.3cqw 0 0;
+  font-family: "Inter", sans-serif;
+  font-size: 3.87cqw;
+  font-weight: 400;
+  line-height: 1.293;
+}
+
+.skills-intro__card--frontend .skills-intro__card-info p {
+  font-size: 3.76cqw;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.skills-intro__card--ux .skills-intro__card-info p {
+  margin-top: 3.1cqw;
+  font-size: 5.26cqw;
+  line-height: 1.293;
+}
+
+.skills-intro__card-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 11.75%;
+  width: 9.94%;
+  height: auto;
+  transform: translateX(-50%) rotate(180deg) scaleY(-1);
+}
+
+@media (max-width: 900px) {
+  .skills-intro__content {
+    width: min(92vw, 720px);
+  }
+
+  .skills-intro__title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+  }
+
+  .skills-intro__description {
+    font-size: clamp(0.9rem, 2.2vw, 1.125rem);
+  }
+
+  .skills-intro__watermark {
+    left: 8%;
+    width: 30%;
+  }
+}
+
+@media (max-width: 620px) {
+  .skills-intro__title > span {
+    white-space: normal;
+  }
+
+  .skills-intro__description br {
+    display: none;
+  }
+}
