@@ -129,9 +129,11 @@
   }
 
   // ----- 데스크톱 전용 (모바일은 CSS에서 전환 구조 해제) -----
-  var mm = gsap.matchMedia();
+  // [최적화] 개발자 도구 오픈 등으로 가로 폭이 좁아질 때 데스크톱 애니메이션이 
+  // 통째로 파괴되는 현상(matchMedia Revert)을 막기 위해 초기 로드 시점 폭으로 고정합니다.
+  var isDesktop = window.innerWidth >= 769;
 
-  mm.add("(min-width: 769px)", function () {
+  if (isDesktop) {
     setTrackHeight();
 
     var tl = gsap.timeline({
@@ -275,21 +277,11 @@
     // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.
     // 강제 리사이즈 이벤트를 제거하고, ScrollTrigger가 스스로 재계산하기 직전(refreshInit)에만 트랙 길이를 업데이트하도록 수정하여 성능을 최적화합니다.
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
-
-    return function () {                  // 모바일 전환 시 cleanup
-      ScrollTrigger.removeEventListener("refreshInit", setTrackHeight);
-      tl.scrollTrigger && tl.scrollTrigger.kill();
-      tl.kill();
-      hvt.style.height = "";
-      gsap.set(gallery, { "--logo-scale": 1, "--vdim": 0.8 });
-      gsap.set([".hero2__top", ".hero2__bottom"], { clearProps: "opacity,visibility" });
-    };
-  });
+  }
 
   window.addEventListener("pagehide", function () {
     if (ro) ro.disconnect();
     window.removeEventListener("resize", syncCoords);
-    mm.revert();
   });
 
   // 검증용 훅
