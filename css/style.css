@@ -43,7 +43,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth 금지 — ScrollTrigger의 refresh(측정 중 스크롤 조작)와
+     충돌해 pin/트리거 좌표가 오염됨 (GSAP 공식 권고). 부드러운 앵커 이동이
+     필요해지면 CSS 대신 GSAP ScrollToPlugin으로 구현할 것 */
+  scroll-behavior: auto;
 }
 
 body {
