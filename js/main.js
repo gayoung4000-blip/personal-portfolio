@@ -40,6 +40,13 @@
     return;
   }
 
+  // 리사이즈 자동 복구(vlogo.js)로 재진입한 경우: 인트로를 건너뛰고 최종 상태로 시작
+  // (스크롤 중간 지점으로 복귀하므로 점 morph를 다시 재생하면 어색함)
+  if (document.documentElement.classList.contains("is-vlogo")) {
+    showFinal();
+    return;
+  }
+
   var navItems = gsap.utils.toArray(".hero2__nav a");
 
   // 초기 상태: UI 숨김 (스크립트가 body 끝에서 첫 페인트 전에 실행되므로 깜빡임 없음)
