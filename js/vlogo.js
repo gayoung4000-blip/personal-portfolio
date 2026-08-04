@@ -260,7 +260,7 @@
 
 
 
-      // 가로 스크롤 트리거 (화면 고정)
+      // 가로 스크롤 트리거 및 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 병합
       ScrollTrigger.create({
         trigger: journeySection,
         start: "top top",
@@ -268,20 +268,14 @@
         pin: true,
         animation: tlJourney,
         scrub: 1, // 스크롤 시 부드럽게(1초 지연) 따라오도록 설정
-        invalidateOnRefresh: true // 리사이즈 시 거리 재계산
-      });
-
-      // 2. 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 (Journey 진입 시)
-      ScrollTrigger.create({
-        trigger: journeySection,
-        start: "top top", // 섹션이 상단에 딱 닿는 순간
+        invalidateOnRefresh: true, // 리사이즈 시 거리 재계산
         onEnter: function() {
-          gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out" });
-          gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out" });
+          gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
+          gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
         },
         onLeaveBack: function() { // 다시 위로 올라갈 때
-          gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out" });
-          gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out" });
+          gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
+          gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         }
       });
     }

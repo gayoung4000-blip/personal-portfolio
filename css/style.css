@@ -175,8 +175,7 @@ a {
   visibility: hidden;
   /* 돔 색상과 겹칠 때 분리감을 주기 위한 트렌디한 소프트 그림자 */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), 0 2px 10px rgba(0, 0, 0, 0.02);
-  /* GSAP에서 autoAlpha로 조절하므로 transition은 불필요할 수 있으나 보험용 */
-  transition: opacity 0.3s ease;
+  /* GSAP에서 autoAlpha로 조절하므로 transition은 삭제하여 충돌 방지 */
 }
 
 .global-header__inner {
