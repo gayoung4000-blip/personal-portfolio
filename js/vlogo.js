@@ -30,14 +30,18 @@
     var currentHeight = window.innerHeight;
     if (Math.abs(currentWidth - lastWinWidth) > 50 ||
         Math.abs(currentHeight - lastWinHeight) > 50) {
+      console.log("[vlogo] 큰 리사이즈 감지 (" + lastWinWidth + "x" + lastWinHeight +
+        " → " + currentWidth + "x" + currentHeight + ") — 0.3초 후 자동 복구");
       lastWinWidth = currentWidth;
       lastWinHeight = currentHeight;
       clearTimeout(window.vlogoResizeTimer);
       window.vlogoResizeTimer = setTimeout(function() {
         var doc = document.documentElement;
         var maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+        var ratio = (window.scrollY || 0) / maxScroll;
+        console.log("[vlogo] 자동 복구 새로고침 실행 — 위치 비율 " + ratio.toFixed(3) + " 저장");
         try {
-          sessionStorage.setItem("vlogoRestore", String((window.scrollY || 0) / maxScroll));
+          sessionStorage.setItem("vlogoRestore", String(ratio));
         } catch (e) {}
         location.reload();
       }, 300);
@@ -324,6 +328,8 @@
         setTimeout(function () {
           restoreScroll();
           if ("scrollRestoration" in history) history.scrollRestoration = "auto";
+          console.log("[vlogo] 자동 복구 완료 — 비율 " + parseFloat(restoreRatio).toFixed(3) +
+            " 지점(" + Math.round(window.scrollY) + "px)으로 복귀");
         }, 100);
       });
     }
