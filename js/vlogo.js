@@ -564,8 +564,15 @@
         trigger: workSection,
         start: "top top",
         end: "bottom top",
+        onUpdate: function (self) {
+          if (!self.isActive) return;
+          document.documentElement.classList.add("is-ivory-zone");
+          gsap.set(globalHeader, { autoAlpha: 0 });
+          gsap.set(globalMenuBtn, { autoAlpha: 1 });
+        },
         onEnter: function () {
           document.documentElement.classList.add("is-ivory-zone");
+          gsap.set(globalHeader, { autoAlpha: 0 });
           gsap.to(globalMenuBtn, {
             autoAlpha: 1,
             duration: 0.3,
@@ -575,6 +582,7 @@
         },
         onEnterBack: function () {
           document.documentElement.classList.add("is-ivory-zone");
+          gsap.set(globalHeader, { autoAlpha: 0 });
           gsap.to(globalMenuBtn, {
             autoAlpha: 1,
             duration: 0.3,
@@ -584,6 +592,12 @@
         },
         onLeaveBack: function () {
           document.documentElement.classList.remove("is-ivory-zone");
+          gsap.to(globalHeader, {
+            autoAlpha: 1,
+            duration: 0.2,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
           gsap.to(globalMenuBtn, {
             autoAlpha: 0,
             duration: 0.2,
@@ -605,10 +619,32 @@
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
+            onUpdate: function () {
+              document.documentElement.classList.add("is-ivory-zone");
+              gsap.set(globalHeader, { autoAlpha: 0 });
+              gsap.set(globalMenuBtn, { autoAlpha: 1 });
+            },
           },
         });
 
-        var workIlkw = document.querySelector(".work-projects__ilkw");
+        var syncWorkChrome = function () {
+          var pinTrigger = workHorizontalTween.scrollTrigger;
+          if (!pinTrigger) return;
+          var inWorkRange = window.scrollY >= pinTrigger.start &&
+            window.scrollY <= pinTrigger.end + 1;
+          if (!inWorkRange) return;
+          document.documentElement.classList.add("is-ivory-zone");
+          gsap.set(globalHeader, { autoAlpha: 0 });
+          gsap.set(globalMenuBtn, { autoAlpha: 1 });
+        };
+
+        ScrollTrigger.addEventListener("refresh", syncWorkChrome);
+        requestAnimationFrame(syncWorkChrome);
+
+        var workIlkw = document.querySelector(".work2__ilkw");
+        var workJaran = document.querySelector(".work2__jaran");
+        var workWrun = document.querySelector(".work2__wrun");
+        var caseStudies = document.querySelector(".case-studies");
         var workRailTitle = document.querySelector(".work-cover__rail-title");
         if (workRailTitle) {
           ScrollTrigger.create({
@@ -635,6 +671,41 @@
         }
 
         if (workIlkw) {
+          var workIlkwDetails = workIlkw.querySelectorAll(
+            ".work2__ilkw-year, .work2__ilkw-type, .work2__ilkw-footer h3, .work2__ilkw-links"
+          );
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: workIlkw,
+              containerAnimation: workHorizontalTween,
+              start: "left 100%",
+              end: "left 23.6%",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          })
+            .fromTo(
+              workIlkw,
+              { gridTemplateRows: "83.962264% 16.037736%" },
+              {
+                gridTemplateRows: "65.188679% 34.811321%",
+                duration: 1,
+                ease: "none",
+              },
+              0
+            )
+            .to(
+              workIlkwDetails,
+              {
+                autoAlpha: 1,
+                duration: 0.35,
+                stagger: 0.04,
+                ease: "none",
+              },
+              0.45
+            );
+
           ScrollTrigger.create({
             trigger: workIlkw,
             containerAnimation: workHorizontalTween,
@@ -646,7 +717,270 @@
               document.documentElement.classList.remove("is-work-dark");
             },
           });
+
         }
+
+        if (workJaran) {
+          var workJaranDetails = workJaran.querySelectorAll(
+            ".work2__jaran-year, .work2__jaran-type, .work2__jaran-footer h3, .work2__jaran-links"
+          );
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: workJaran,
+              containerAnimation: workHorizontalTween,
+              start: "left 100%",
+              end: "left 4.3%",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          })
+            .fromTo(
+              workJaran,
+              { gridTemplateRows: "83.962264% 16.037736%" },
+              {
+                gridTemplateRows: "65.188679% 34.811321%",
+                duration: 1,
+                ease: "none",
+              },
+              0
+            )
+            .to(
+              workJaranDetails,
+              {
+                autoAlpha: 1,
+                duration: 0.35,
+                stagger: 0.04,
+                ease: "none",
+              },
+              0.45
+            );
+        }
+
+        if (workWrun) {
+          var workWrunDetails = workWrun.querySelectorAll(
+            ".work2__wrun-year, .work2__wrun-type, .work2__wrun-footer h3, .work2__wrun-links"
+          );
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: workWrun,
+              containerAnimation: workHorizontalTween,
+              start: "left 100%",
+              end: "left 9.2%",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          })
+            .fromTo(
+              workWrun,
+              { gridTemplateRows: "83.962264% 16.037736%" },
+              {
+                gridTemplateRows: "65.188679% 34.811321%",
+                duration: 1,
+                ease: "none",
+              },
+              0
+            )
+            .to(
+              workWrunDetails,
+              {
+                autoAlpha: 1,
+                duration: 0.35,
+                stagger: 0.04,
+                ease: "none",
+              },
+              0.45
+            );
+        }
+
+        if (caseStudies) {
+          var caseStudyIndex = caseStudies.querySelector(".case-studies__index");
+          var caseStudyItems = caseStudies.querySelectorAll(".case-studies__item");
+          var caseStudyCopy = caseStudies.querySelectorAll(
+            ".case-studies__eyebrow, .case-studies__title, .case-studies__description, .case-studies__signature"
+          );
+
+          ScrollTrigger.create({
+            trigger: caseStudies,
+            containerAnimation: workHorizontalTween,
+            start: "left 96%",
+            onEnter: function () {
+              document.documentElement.classList.remove("is-work-dark");
+            },
+            onLeaveBack: function () {
+              document.documentElement.classList.add("is-work-dark");
+            },
+          });
+
+          var caseStudiesTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: caseStudies,
+              containerAnimation: workHorizontalTween,
+              start: "left 100%",
+              end: "left 0%",
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          if (caseStudyIndex) {
+            caseStudiesTimeline.fromTo(
+              caseStudyIndex,
+              {
+                autoAlpha: 0,
+              },
+              {
+                autoAlpha: 1,
+                duration: 0.28,
+                ease: "none",
+              },
+              0.6
+            );
+          }
+
+          caseStudiesTimeline
+            .fromTo(
+              caseStudyItems,
+              {
+                yPercent: function (index) {
+                  return 28 + index * 10;
+                },
+              },
+              {
+                yPercent: 0,
+                duration: 0.34,
+                stagger: 0.035,
+                ease: "power1.out",
+              },
+              0.58
+            )
+            .fromTo(
+              caseStudyCopy,
+              {
+                y: "3.5vh",
+                autoAlpha: 0,
+              },
+              {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.32,
+                stagger: 0.035,
+                ease: "power1.out",
+              },
+              0.62
+            );
+        }
+      }
+    }
+
+    var cloneCodingSection = document.querySelector(".clone-coding");
+    if (cloneCodingSection && globalHeader && globalMenuBtn) {
+      var cloneCodingContent = cloneCodingSection.querySelector(".clone-coding__content");
+      var cloneCodingWatermark = cloneCodingSection.querySelector(".clone-coding__watermark");
+      var cloneCodingCard = cloneCodingSection.querySelector(".clone-coding__project-card");
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: cloneCodingSection,
+          start: "top bottom",
+          end: "top top",
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          onEnter: function () {
+            document.documentElement.classList.remove("is-work-dark");
+            document.documentElement.classList.remove("is-ivory-zone");
+          },
+          onEnterBack: function () {
+            document.documentElement.classList.remove("is-work-dark");
+            document.documentElement.classList.remove("is-ivory-zone");
+          },
+          onLeaveBack: function () {
+            document.documentElement.classList.add("is-ivory-zone");
+            gsap.set(globalHeader, { autoAlpha: 0 });
+            gsap.set(globalMenuBtn, { autoAlpha: 1 });
+          },
+        },
+      })
+        .fromTo(globalMenuBtn, {
+          autoAlpha: 1,
+        }, {
+          autoAlpha: 0,
+          duration: 0.55,
+          ease: "none",
+          immediateRender: false,
+        }, 0)
+        .fromTo(globalHeader, {
+          autoAlpha: 0,
+        }, {
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "none",
+          immediateRender: false,
+        }, 0.45);
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: cloneCodingSection,
+          start: "top 82%",
+          end: "top 28%",
+          scrub: 0.7,
+          invalidateOnRefresh: true,
+        },
+      })
+        .fromTo(cloneCodingWatermark, {
+          y: "4vh",
+          autoAlpha: 0,
+        }, {
+          y: 0,
+          autoAlpha: 0.13,
+          duration: 0.65,
+          ease: "none",
+          immediateRender: false,
+        }, 0)
+        .fromTo(cloneCodingContent, {
+          y: "5vh",
+          autoAlpha: 0,
+        }, {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.7,
+          ease: "none",
+          immediateRender: false,
+        }, 0.18);
+
+      if (cloneCodingCard) {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: cloneCodingSection,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.85,
+            invalidateOnRefresh: true,
+          },
+        })
+          .to(cloneCodingWatermark, {
+            y: "-52vh",
+            autoAlpha: 0,
+            duration: 0.55,
+            ease: "none",
+          }, 0)
+          .to(cloneCodingContent, {
+            y: "-58vh",
+            autoAlpha: 0,
+            duration: 0.58,
+            ease: "none",
+          }, 0)
+          .fromTo(cloneCodingCard, {
+            y: function () {
+              return window.innerHeight - cloneCodingCard.offsetTop + 40;
+            },
+          }, {
+            y: 0,
+            duration: 0.78,
+            ease: "power1.out",
+            immediateRender: false,
+          }, 0.08);
       }
     }
 
