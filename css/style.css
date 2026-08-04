@@ -913,27 +913,33 @@ a {
    BRIDGE IMAGE: 씬1과 씬2를 연결하는 메인 캔버스 이미지
    ========================================================== */
 .journey__bridge-img {
-  position: absolute; 
-  top: 0; 
-  left: 0; /* Scene 2의 왼쪽 벽에 밀착 */
-  width: 58.38vw; /* 피그마 1121px / 1920px 비율 */
+  position: absolute;
+  top: 0;
+  /* 프레임 왼쪽을 8vw 연장해 TIMELINE 텍스트와의 간격 축소.
+     사진(1586×992, 비율 1.599)이 확대되지 않는 한계(159.8vh)를 min()으로 상한,
+     초광폭에서 기존보다 좁아지지 않게 max()로 하한 — 어떤 화면에서도 확대 0% 보장 */
+  --bridge-w: max(58.38vw, min(calc(58.38vw + 8vw), 159.8vh));
+  left: calc(58.38vw - var(--bridge-w)); /* 연장된 만큼 왼쪽으로 (기본 -8vw) */
+  width: var(--bridge-w);                /* 기본 66.38vw (피그마 1121px + 연장분) */
   height: 100vh; /* 위아래 꽉 차게 */
   overflow: hidden;
   z-index: 10; /* 파스텔 이미지(z-index: 20) 아래로 가도록 설정 */
 }
 
 .journey__bridge-img .journey__img-bg {
-  display: none; 
+  display: none;
 }
 
 .journey__bridge-img .journey__img-content {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
-  object-fit: cover; 
-  object-position: center; 
+  object-fit: cover;
+  /* right 고정: 프레임이 왼쪽으로 넓어져도 기존에 보이던 영역은 그대로,
+     확대 없이 사진의 숨은 왼쪽 부분만 추가로 드러난다 */
+  object-position: right center;
 }
 
 /* ==========================================================
