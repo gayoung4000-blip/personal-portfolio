@@ -341,6 +341,41 @@
             document.documentElement.classList.remove("is-ivory-zone");
           },
         });
+
+        // 6. 이미지 스왑 2탄 (Figma journey6): 아이보리 밴드가 화면 중앙을 향해 갈 때
+        //    꽃다발 → 칠판 낙서, 폴라로이드 → 교실 단체사진으로 동시 크로스페이드
+        var swap2 = gsap.utils.toArray(".journey__swap2");
+        if (swap2.length) {
+          ScrollTrigger.create({
+            trigger: scene5,
+            containerAnimation: tlJourney,
+            start: "left 65%",
+            onEnter: function () {
+              gsap.to(swap2, { autoAlpha: 1, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
+            },
+            onLeaveBack: function () {
+              gsap.to(swap2, { autoAlpha: 0, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
+            },
+          });
+        }
+      }
+
+      // 7. 검은 구역(FORWARD/DIRECTION) 진입: 색 반전 해제 + My/JOURNEY 퇴장
+      var scene6 = document.querySelector(".journey__scene--6");
+      if (scene6) {
+        ScrollTrigger.create({
+          trigger: scene6,
+          containerAnimation: tlJourney,
+          start: "left 70%",   // 검은 구역이 화면에 본격 진입할 때
+          onEnter: function () {
+            document.documentElement.classList.remove("is-ivory-zone");
+            gsap.to(fixedMy, { autoAlpha: 0, duration: 0.5, ease: "power2.out", overwrite: "auto" });
+          },
+          onLeaveBack: function () {
+            document.documentElement.classList.add("is-ivory-zone");
+            gsap.to(fixedMy, { autoAlpha: 1, duration: 0.5, ease: "power2.out", overwrite: "auto" });
+          },
+        });
       }
     }
 

@@ -1146,6 +1146,56 @@ a {
   position: relative;
 }
 
+/* ==========================================================
+   SCENE 6: FORWARD / DIRECTION 검은 구역 (Figma journey6, 1920×1032 기준)
+   ========================================================== */
+.journey__scene--6 {
+  width: 65vw; /* 대형 타이포(7.9vw+56.9vw)가 꼭 맞는 폭 — 다음 프레임에서 확장 예정 */
+  background-color: #0c0c0c;
+  position: relative;
+  color: #ffffff;
+}
+
+.journey__fwd-num {
+  position: absolute;
+  left: 6.77vw; /* (1437 - 1307) / 1920 */
+  font-family: var(--font-serif);
+  font-size: clamp(0.7rem, 0.78vw, 0.9375rem); /* 15px */
+}
+
+.journey__fwd-num--1 { top: 5.43vh; }  /* 56 / 1032 */
+.journey__fwd-num--3 { top: 79.55vh; } /* 821 / 1032 */
+
+.journey__fwd-title {
+  position: absolute;
+  font-size: clamp(5rem, 9.11vw, 10.94rem); /* 175px @ 1920 */
+  font-weight: 400;
+  line-height: 0.66; /* 115.2 / 175 */
+  white-space: nowrap;
+}
+
+.journey__fwd-title--top {
+  left: 7.86vw; /* (1458 - 1307) / 1920 */
+  top: 6vh; /* 62 / 1032 */
+  font-family: var(--font-serif); /* Juana → 세리프 */
+}
+
+.journey__fwd-title--bottom {
+  left: 8.54vw; /* (1471 - 1307) / 1920 */
+  top: 80.81vh; /* 834 / 1032 */
+  font-family: var(--font-sans);
+}
+
+.journey__fwd-desc {
+  position: absolute;
+  left: 9.38vw; /* (1487 - 1307) / 1920 */
+  top: 45.16vh; /* 466 / 1032 */
+  width: 18.33vw; /* 352 / 1920 */
+  font-family: var(--font-sans);
+  font-size: clamp(0.8rem, 0.89vw, 1.0625rem); /* 17px */
+  line-height: 1.47; /* 25 / 17 */
+}
+
 /* 아이보리 구간 진입 시 화면 고정 요소 색 반전 (vlogo.js가 is-ivory-zone 토글) */
 .journey__scene3-my,
 .journey__scene3-journey,
