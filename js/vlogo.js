@@ -278,6 +278,25 @@
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         }
       });
+
+      // 3. journey4 이미지 전환: 책상 이미지가 화면에 절반쯤 들어온 순간
+      //    책상 → 유치원 단체사진, 우측 스케치북 → 유치원 아이들 사진으로 동시 크로스페이드.
+      //    (containerAnimation: 가로로 움직이는 트랙 내부 요소의 위치를 기준으로 발동,
+      //     역스크롤 시 원래 이미지로 자연 복귀)
+      var swapImgs = gsap.utils.toArray(".journey__swap");
+      if (swapImgs.length) {
+        ScrollTrigger.create({
+          trigger: ".journey__ending-img",
+          containerAnimation: tlJourney,
+          start: "center right",   // 이미지 중심이 뷰포트 오른쪽 경계 도달 = 노출 50%
+          onEnter: function () {
+            gsap.to(swapImgs, { autoAlpha: 1, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
+          },
+          onLeaveBack: function () {
+            gsap.to(swapImgs, { autoAlpha: 0, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
+          },
+        });
+      }
     }
 
     // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.

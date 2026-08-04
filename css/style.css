@@ -985,6 +985,14 @@ a {
   object-fit: cover;
 }
 
+/* journey4 전환용 교체 이미지 — 원본 이미지 위에 겹쳐두고 opacity 0으로 대기.
+   책상 이미지가 화면에 절반쯤 들어오면 JS(vlogo.js)가 크로스페이드로 표시 */
+.journey__swap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
 /* 엔딩 텍스트 (화이트) */
 .journey__scene3-my {
   position: absolute;
