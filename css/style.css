@@ -965,11 +965,12 @@ a {
 
 .journey__ending-sketch {
   position: absolute;
-  top: 40.71vh; /* 419 / 1029 */
-  left: 57.24vw; /* 1099 / 1920 */
+  bottom: 0;
+  right: 11.51vw; /* (1920 - 1099 - 600) / 1920 */
   width: 31.25vw; /* 600 / 1920 */
-  height: 59.28vh; /* 610 / 1029 */
+  height: 31.77vw; /* 610 / 1920 */
   overflow: hidden;
+  z-index: 10;
 }
 
 .journey__ending-sketch img {
@@ -981,18 +982,21 @@ a {
 /* 엔딩 텍스트 (화이트) */
 .journey__scene3-my {
   position: absolute;
-  top: 81.73vh; /* 841 / 1029 */
-  left: 94.16vw; /* 1808 / 1920 */
+  bottom: 9.79vw; /* (1029 - 841) / 1920 */
+  right: 1.77vw; /* (1920 - 1808 - 78) / 1920 */
   color: #ffffff;
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 2.6vw, 50px);
   line-height: 1;
+  z-index: 20;
 }
 
 .journey__scene3-journey {
   position: absolute;
-  top: 88.83vh; /* 914 / 1029 */
-  left: 79vw; /* 1517 / 1920 */
+  bottom: 5.98vw; /* (1029 - 914) / 1920 */
+  right: 1.61vw; /* (1920 - 1517 - 372) / 1920 */
+  width: 19.37vw; /* 372 / 1920 */
+  text-align: center;
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: clamp(1.5rem, 2.6vw, 50px);
@@ -1000,6 +1004,7 @@ a {
   line-height: 1;
   transform: rotate(180deg);
   transform-origin: center;
+  z-index: 20;
 }
 
 /* 글로벌 둥근 메뉴 버튼 */
