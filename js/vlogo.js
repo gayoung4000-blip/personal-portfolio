@@ -53,6 +53,9 @@
   var mark = document.querySelector(".hero2__mark");
   var svgEl = document.querySelector(".hero2 svg.mark");
   var finalPath = document.querySelector(".mark__final");
+  var journeyPointerScene = null;
+  var journeyPointerMove = null;
+  var journeyPointerLeave = null;
   if (!hvt || !sticky || !gallery || !mark || !svgEl || !finalPath) return;
 
   // ----- 좌표 동기화: 마스크(영상 로고)를 검은 로고 SVG 실측 rect에 정확히 맞춤 -----
@@ -369,13 +372,70 @@
           start: "left 70%",   // 검은 구역이 화면에 본격 진입할 때
           onEnter: function () {
             document.documentElement.classList.remove("is-ivory-zone");
-            gsap.to(fixedMy, { autoAlpha: 0, duration: 0.5, ease: "power2.out", overwrite: "auto" });
           },
           onLeaveBack: function () {
             document.documentElement.classList.add("is-ivory-zone");
-            gsap.to(fixedMy, { autoAlpha: 1, duration: 0.5, ease: "power2.out", overwrite: "auto" });
           },
         });
+
+        // Figma final scene: the mountain photo follows the pointer immediately.
+        // Transform-only animation keeps the horizontal ScrollTrigger layout untouched.
+        var focusPhoto = scene6.querySelector(".journey__focus-photo");
+        var focusCanvas = scene6.querySelector(".journey__fwd-canvas");
+        var hallasanImage = scene6.querySelector(".journey__focus-img--hallasan");
+        var gwanakImage = scene6.querySelector(".journey__focus-img--gwanak");
+        var hallasanCopy = scene6.querySelector(".journey__fwd-copy--hallasan");
+        var gwanakCopy = scene6.querySelector(".journey__fwd-copy--gwanak");
+        var isGwanakState = false;
+        var canFollowPointer =
+          window.matchMedia("(pointer: fine)").matches &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function setJourneyMountainState(showGwanak) {
+          if (showGwanak === isGwanakState) return;
+          isGwanakState = showGwanak;
+
+          hallasanImage.classList.toggle("is-active", !showGwanak);
+          hallasanCopy.classList.toggle("is-active", !showGwanak);
+          gwanakImage.classList.toggle("is-active", showGwanak);
+          gwanakCopy.classList.toggle("is-active", showGwanak);
+        }
+
+        if (
+          focusPhoto &&
+          focusCanvas &&
+          hallasanImage &&
+          gwanakImage &&
+          hallasanCopy &&
+          gwanakCopy &&
+          canFollowPointer
+        ) {
+          var setPhotoX = gsap.quickSetter(focusPhoto, "x", "px");
+          var setPhotoY = gsap.quickSetter(focusPhoto, "y", "px");
+
+          journeyPointerScene = scene6;
+          journeyPointerMove = function (event) {
+            var canvasBounds = focusCanvas.getBoundingClientRect();
+            var imageBottomBoundary =
+              canvasBounds.top + canvasBounds.height * (486 / 1032);
+            var photoBaseCenterX =
+              canvasBounds.left + canvasBounds.width * (0.62396 + 0.18854 / 2);
+            var photoBaseCenterY =
+              canvasBounds.top + canvasBounds.height * (0.12306 + 0.34787 / 2);
+
+            setJourneyMountainState(event.clientY > imageBottomBoundary);
+            setPhotoX(event.clientX - photoBaseCenterX);
+            setPhotoY(event.clientY - photoBaseCenterY);
+          };
+          journeyPointerLeave = function () {
+            setJourneyMountainState(false);
+            setPhotoX(0);
+            setPhotoY(0);
+          };
+
+          scene6.addEventListener("pointermove", journeyPointerMove, { passive: true });
+          scene6.addEventListener("pointerleave", journeyPointerLeave);
+        }
       }
     }
 
@@ -387,6 +447,12 @@
   window.addEventListener("pagehide", function () {
     if (ro) ro.disconnect();
     window.removeEventListener("resize", syncCoords);
+    if (journeyPointerScene && journeyPointerMove) {
+      journeyPointerScene.removeEventListener("pointermove", journeyPointerMove);
+    }
+    if (journeyPointerScene && journeyPointerLeave) {
+      journeyPointerScene.removeEventListener("pointerleave", journeyPointerLeave);
+    }
   });
 
   // 검증용 훅

@@ -1286,3 +1286,178 @@ a {
   }
 }
 
+/* Figma process frame 869:239 — final horizontal Journey scene */
+.journey__scene--6 {
+  width: 100vw;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.journey__fwd-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(100vw, 186.0465vh);
+  height: min(100vh, 53.75vw);
+  transform: translate(-50%, -50%);
+  container-type: size;
+}
+
+.journey__scene--6 .journey__fwd-num {
+  font-size: 0.78125cqw;
+  line-height: 1;
+  z-index: 4;
+}
+
+.journey__scene--6 .journey__fwd-num--1 {
+  left: 3.4375cqw;
+  top: 5.426cqh;
+}
+
+.journey__scene--6 .journey__fwd-num--2 {
+  left: 26.354cqw;
+  top: 43.12cqh;
+}
+
+.journey__scene--6 .journey__fwd-num--3 {
+  left: 7.031cqw;
+  top: 79.55cqh;
+}
+
+.journey__scene--6 .journey__fwd-title {
+  margin: 0;
+  font-size: 9.09cqw;
+  line-height: 0.95;
+  z-index: 3;
+}
+
+.journey__scene--6 .journey__fwd-title--top {
+  left: 4.531cqw;
+  top: 3.585cqh;
+}
+
+.journey__fwd-title--focus {
+  left: 26.354cqw;
+  top: 43.605cqh;
+  font-family: var(--font-serif);
+}
+
+.journey__scene--6 .journey__fwd-title--bottom {
+  left: 8.802cqw;
+  top: 80.91cqh;
+}
+
+.journey__scene--6 .journey__fwd-desc {
+  left: 3.4375cqw;
+  top: 46.22cqh;
+  width: 18.385cqw;
+  margin: 0;
+  font-size: 0.677cqw;
+  font-weight: 400;
+  line-height: 1.77;
+  word-break: keep-all;
+  z-index: 4;
+}
+
+.journey__focus-photo {
+  position: absolute;
+  left: 62.396cqw;
+  top: 12.306cqh;
+  width: 18.854cqw;
+  height: 34.787cqh;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.journey__focus-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.journey__fwd-copy {
+  display: none;
+  margin: 0;
+}
+
+.journey__fwd-copy.is-active {
+  display: block;
+}
+
+.journey__fwd-copy--gwanak {
+  width: 17.24cqw;
+}
+
+.journey__focus-photo .journey__focus-img {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+}
+
+.journey__focus-photo .journey__focus-img.is-active {
+  display: block;
+}
+
+.journey__focus-photo .journey__focus-img--hallasan {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.journey__focus-photo .journey__focus-img--gwanak {
+  left: -69.52%;
+  top: -35.56%;
+  width: 218.06%;
+  height: 212.51%;
+  max-width: none;
+  object-fit: fill;
+}
+
+/* The overlay follows the same 1920:1032 safe canvas on every desktop ratio. */
+@media (max-aspect-ratio: 80/43) {
+  .global-menu-btn {
+    top: calc((100vh - 53.75vw) / 2 + 2.708vw);
+    right: 1.406vw;
+    width: 3.996vw;
+    height: 2.166vw;
+    font-size: 0.781vw;
+  }
+
+  .journey__scene3-my {
+    right: 1.875vw;
+    bottom: calc((100vh - 53.75vw) / 2 + 6.354vw);
+    font-size: 2.604vw;
+  }
+
+  .journey__scene3-journey {
+    right: 1.719vw;
+    bottom: calc((100vh - 53.75vw) / 2 + 1.979vw);
+    width: 19.375vw;
+    font-size: 2.604vw;
+  }
+}
+
+@media (min-aspect-ratio: 80/43) {
+  .global-menu-btn {
+    top: 5.039vh;
+    right: calc((100vw - 186.0465vh) / 2 + 2.616vh);
+    width: 7.434vh;
+    height: 4.031vh;
+    font-size: 1.453vh;
+  }
+
+  .journey__scene3-my {
+    right: calc((100vw - 186.0465vh) / 2 + 3.488vh);
+    bottom: 11.822vh;
+    font-size: 4.845vh;
+  }
+
+  .journey__scene3-journey {
+    right: calc((100vw - 186.0465vh) / 2 + 3.198vh);
+    bottom: 3.682vh;
+    width: 36.047vh;
+    font-size: 4.845vh;
+  }
+}
