@@ -456,62 +456,72 @@
     var skillsDesignCard = document.querySelector(".skills-intro__card--design");
     var skillsFrontendCard = document.querySelector(".skills-intro__card--frontend");
     var skillsUxCard = document.querySelector(".skills-intro__card--ux");
-    if (skillsIntro && skillsInner && skillsDesignCard && skillsFrontendCard && skillsUxCard) {
+    var skillsAiCard = document.querySelector(".skills-intro__card--ai");
+    if (skillsIntro && skillsInner && skillsDesignCard && skillsFrontendCard && skillsUxCard && skillsAiCard) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard], { y: 0 });
+        gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard, skillsAiCard], { y: 0 });
       } else {
         var cardEntryY = function (card) {
           return window.innerHeight - card.offsetTop + 24;
+        };
+        var cardExitY = function (card) {
+          return -(card.offsetTop + card.offsetHeight + 24);
+        };
+        var cardTravelDuration = function (distance) {
+          return Math.abs(distance) / window.innerHeight;
+        };
+        var skillsCards = [
+          skillsDesignCard,
+          skillsFrontendCard,
+          skillsUxCard,
+          skillsAiCard,
+        ];
+        // Figma 885:722 / 885:803의 동시 노출 위치를 시간축으로 환산한 값.
+        // 모든 카드는 같은 픽셀 속도로 움직이고 시작 시점만 겹친다.
+        var skillsCardStartUnits = [0, 0.395, 0.921, 1.399];
+        var skillsTextHoldUnits = 0.75;
+        var cardFullTravelDuration = function (card) {
+          return cardTravelDuration(cardEntryY(card) - cardExitY(card));
+        };
+        var skillsScrollDistance = function () {
+          var lastCardIndex = skillsCards.length - 1;
+          var lastCardEnd =
+            skillsCardStartUnits[lastCardIndex] +
+            cardFullTravelDuration(skillsCards[lastCardIndex]);
+
+          return "+=" + window.innerHeight * (lastCardEnd + skillsTextHoldUnits);
         };
         var skillsTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: skillsIntro,
             start: "top top",
-            end: function () {
-              return "+=" + window.innerHeight * 2.4;
-            },
+            end: skillsScrollDistance,
             pin: skillsInner,
             pinSpacing: true,
-            scrub: 1,
+            scrub: 1.65,
             invalidateOnRefresh: true,
           },
         });
 
-        skillsTimeline
-          .fromTo(skillsDesignCard, {
+        skillsCards.forEach(function (card, index) {
+          skillsTimeline.fromTo(card, {
             y: function () {
-              return cardEntryY(skillsDesignCard);
+              return cardEntryY(card);
             },
           }, {
-            y: 0,
-            duration: 1,
-            ease: "none",
-          })
-          .fromTo(skillsFrontendCard, {
             y: function () {
-              return cardEntryY(skillsFrontendCard);
+              return cardExitY(card);
             },
-          }, {
-            y: 0,
-            duration: 1,
-            ease: "none",
-          })
-          .to(skillsDesignCard, {
-            y: function () {
-              return -skillsInner.offsetHeight * 0.3195;
+            duration: function () {
+              return cardFullTravelDuration(card);
             },
-            duration: 1,
             ease: "none",
-          }, "<")
-          .fromTo(skillsUxCard, {
-            y: function () {
-              return cardEntryY(skillsUxCard);
-            },
-          }, {
-            y: 0,
-            duration: 1,
-            ease: "none",
-          });
+          }, skillsCardStartUnits[index]);
+        });
+
+        skillsTimeline.to({}, {
+          duration: skillsTextHoldUnits,
+        });
       }
     }
 
