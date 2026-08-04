@@ -504,6 +504,13 @@
         });
 
         skillsCards.forEach(function (card, index) {
+          var cardStartUnit = skillsCardStartUnits[index];
+          var cardDurationUnit = cardFullTravelDuration(card);
+          var cardExpandStart = cardStartUnit + cardDurationUnit * 0.18;
+          var cardExpandDuration = Math.min(0.38, cardDurationUnit * 0.27);
+          var cardFace = card.querySelector(".skills-intro__card-face");
+          var cardDetail = card.querySelector(".skills-intro__card-detail");
+
           skillsTimeline.fromTo(card, {
             y: function () {
               return cardEntryY(card);
@@ -516,7 +523,31 @@
               return cardFullTravelDuration(card);
             },
             ease: "none",
-          }, skillsCardStartUnits[index]);
+          }, cardStartUnit);
+
+          skillsTimeline.set(card, {
+            zIndex: 5 + index,
+          }, cardExpandStart);
+
+          if (cardFace && cardDetail) {
+            skillsTimeline
+              .fromTo(cardFace, {
+                autoAlpha: 1,
+              }, {
+                autoAlpha: 0,
+                duration: cardExpandDuration,
+                ease: "power1.out",
+              }, cardExpandStart)
+              .fromTo(cardDetail, {
+                autoAlpha: 0,
+                scale: 0.92,
+              }, {
+                autoAlpha: 1,
+                scale: 1,
+                duration: cardExpandDuration,
+                ease: "power1.out",
+              }, cardExpandStart);
+          }
         });
 
         skillsTimeline.to({}, {
