@@ -325,6 +325,23 @@
           animation: tlInsight,
         });
       }
+
+      // 5. 아이보리 구간 진입: 화면 고정 요소(My/JOURNEY·MENU) 색 반전
+      //    (Figma 880-383 — 오른쪽에서 아이보리 밴드가 들어오는 시점에 검정으로)
+      var scene5 = document.querySelector(".journey__scene--5");
+      if (scene5) {
+        ScrollTrigger.create({
+          trigger: scene5,
+          containerAnimation: tlJourney,
+          start: "left 85%",   // 아이보리 밴드가 화면 오른쪽에 걸치기 시작할 때
+          onEnter: function () {
+            document.documentElement.classList.add("is-ivory-zone");
+          },
+          onLeaveBack: function () {
+            document.documentElement.classList.remove("is-ivory-zone");
+          },
+        });
+      }
     }
 
     // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.

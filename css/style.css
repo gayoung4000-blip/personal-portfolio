@@ -1033,7 +1033,7 @@ a {
    SCENE 4: HUMAN INSIGHT + EDUCATOR 디바이더 (Figma journey4~5, 1920×1032 기준)
    ========================================================== */
 .journey__scene--4 {
-  width: 96.9vw; /* 텍스트 구간(63.3) + 아이보리 밴드(14.8) + 꽃다발(18.8) */
+  width: 132.1vw; /* 텍스트 구간(63.3) + 아이보리 밴드(14.8) + 꽃다발 전체(54) */
   background-color: #0c0c0c; /* Scene 3와 동일 톤으로 이어짐 */
   position: relative;
 }
@@ -1103,12 +1103,13 @@ a {
   line-height: 1;
 }
 
-/* 꽃다발 사진 세로 밴드 */
+/* 꽃다발 사진 — Figma 880-383에서 확인된 전체 크기(1037×1032).
+   이전 프레임(869-190)에서는 화면 오른쪽에 앞 361px만 걸쳐 보이던 것 */
 .journey__bouquet {
   position: absolute;
   left: 78.09vw; /* (1559 - 60) / 1920 */
   top: 0;
-  width: 18.8vw; /* 361 / 1920 */
+  width: 54vw; /* 1037 / 1920 */
   height: 100%;
   overflow: hidden;
 }
@@ -1117,6 +1118,49 @@ a {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* 폴라로이드식 오버레이 사진 (도마 위 꽃다발+케이크 디테일) — 큰 사진 위에 겹침 */
+.journey__polaroid {
+  position: absolute;
+  left: 101.56vw; /* Figma 880-383 x982 + 프레임 원점 보정 968 = 1950 / 1920 */
+  top: 19.38vh; /* 200 / 1032 */
+  width: 39.01vw; /* 749 / 1920 */
+  height: 61.24vh; /* 632 / 1032 */
+  overflow: hidden;
+  z-index: 5;
+}
+
+.journey__polaroid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================
+   SCENE 5: 아이보리 구간 시작 (Figma 880-383 우측 밴드 — 다음 챕터로 이어짐)
+   ========================================================== */
+.journey__scene--5 {
+  width: 18.7vw; /* 359 / 1920 */
+  background-color: var(--ivory);
+  position: relative;
+}
+
+/* 아이보리 구간 진입 시 화면 고정 요소 색 반전 (vlogo.js가 is-ivory-zone 토글) */
+.journey__scene3-my,
+.journey__scene3-journey,
+.global-menu-btn {
+  transition: color 0.4s ease, background-color 0.4s ease;
+}
+
+.is-ivory-zone .journey__scene3-my,
+.is-ivory-zone .journey__scene3-journey {
+  color: var(--ink);
+}
+
+.is-ivory-zone .global-menu-btn {
+  background-color: var(--ink);
+  color: var(--bg);
 }
 
 /* 글로벌 둥근 메뉴 버튼 */
