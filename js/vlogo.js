@@ -213,7 +213,7 @@
       // 가로 이동을 실행할 타임라인 생성
       var tlJourney = gsap.timeline();
       
-      // 트랙은 왼쪽으로 밀어냄
+      // 트랙은 왼쪽 밀어냄
       tlJourney.to(journeyTrack, {
         x: getScrollAmount,
         ease: "none"
@@ -224,6 +224,7 @@
         x: "35vw", /* 오른쪽으로 이동하며 피그마 시안처럼 여백 생성 */
         ease: "power1.out" /* 부드럽게 감속하는 이징 */
       }, 0);
+
 
 
       // 가로 스크롤 트리거 (화면 고정)
