@@ -18,10 +18,11 @@
     autoRefreshEvents: "visibilitychange,DOMContentLoaded,load" 
   });
 
-  // 브라우저 크기가 실제로 크게(50px 이상) 변했을 때만 안전하게 수동 새로고침을 진행합니다.
-  // ※ 가로 폭만 감지하면 개발자 도구(하단 도킹)처럼 "세로 높이만" 바뀌는 경우
-  //   refresh가 영영 안 일어나 스크롤·pin 계산이 낡은 값으로 남고 화면이 깨진 채
-  //   복구되지 않음 → 세로 변화도 함께 감지 (디바운스 300ms 렉 방지 설계는 유지)
+  // ===== 큰 리사이즈(개발자 도구 개폐 포함) 자동 복구 =====
+  // pin(저니 가로 스크롤)·sticky·이벤트 토글이 얽힌 상태는 부분 재계산(refresh)만으로
+  // 완전 복구되지 않아 화면이 깨진 채 남는다. "새로고침하면 정상"이라는 확실한 복구
+  // 경로를 자동화한다: 크기가 50px 이상 변한 뒤 멈추면 → 현재 위치를 비율로 저장 →
+  // 자동 새로고침 → 같은 지점으로 복귀(인트로는 스킵). 디바운스 300ms로 렉 방지.
   var lastWinWidth = window.innerWidth;
   var lastWinHeight = window.innerHeight;
   window.addEventListener("resize", function() {
@@ -33,10 +34,29 @@
       lastWinHeight = currentHeight;
       clearTimeout(window.vlogoResizeTimer);
       window.vlogoResizeTimer = setTimeout(function() {
-        ScrollTrigger.refresh();
-      }, 300); // 0.3초 딜레이 후 단 한 번만 안전하게 재계산
+        var doc = document.documentElement;
+        var maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+        try {
+          sessionStorage.setItem("vlogoRestore", String((window.scrollY || 0) / maxScroll));
+        } catch (e) {}
+        location.reload();
+      }, 300);
     }
   });
+
+  // 자동 복구로 재진입했는지 확인 (아래 초기화가 끝난 뒤 위치 복원에 사용)
+  var restoreRatio = null;
+  try {
+    restoreRatio = sessionStorage.getItem("vlogoRestore");
+    if (restoreRatio !== null) {
+      sessionStorage.removeItem("vlogoRestore");
+      // 브라우저의 자체 스크롤 복원(예전 절대값)이 우리 비율 복원을 덮지 않도록 차단
+      // (일반 F5 새로고침은 플래그가 없으므로 브라우저 기본 복원이 그대로 유지됨)
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      // main.js가 인트로를 건너뛰고 최종 로고 상태로 시작하도록 미리 표시
+      document.documentElement.classList.add("is-vlogo");
+    }
+  } catch (e) {}
 
   // 공식 확대 초점 — LogoStage(.hero2__mark) 정규화 좌표 (확정값, 변경 금지)
   var FOCAL = { x: 0.555, y: 0.515 };
@@ -284,6 +304,29 @@
     // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.
     // 강제 리사이즈 이벤트를 제거하고, ScrollTrigger가 스스로 재계산하기 직전(refreshInit)에만 트랙 길이를 업데이트하도록 수정하여 성능을 최적화합니다.
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
+
+    // ----- 자동 복구 재진입: 저장해둔 비율 지점으로 복귀 -----
+    if (restoreRatio !== null) {
+      var restoreScroll = function () {
+        var doc = document.documentElement;
+        var target = parseFloat(restoreRatio) * Math.max(1, doc.scrollHeight - window.innerHeight);
+        var prevBehavior = doc.style.scrollBehavior;
+        doc.style.scrollBehavior = "auto";        // smooth 스크롤 없이 한 번에 이동
+        window.scrollTo(0, Math.round(target));
+        doc.style.scrollBehavior = prevBehavior;
+        ScrollTrigger.refresh();                   // 복귀 위치 기준으로 전체 상태 정렬
+      };
+      restoreScroll();
+      // 브라우저의 비동기 스크롤 복원은 load 전후에 적용되므로,
+      // load 뒤 한 번 더 쐐기를 박고 그 다음에야 scrollRestoration을 원복한다
+      // (즉시 auto로 되돌리면 브라우저가 예전 절대값으로 덮어써 복원이 무효화됨)
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          restoreScroll();
+          if ("scrollRestoration" in history) history.scrollRestoration = "auto";
+        }, 100);
+      });
+    }
   }
 
   window.addEventListener("pagehide", function () {
