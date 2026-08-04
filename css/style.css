@@ -935,19 +935,24 @@ a {
 }
 
 /* ==========================================================
-   SCENE 3: 엔딩 블랙 영역 (25vw)
+   SCENE 3: 엔딩 블랙 영역 (100vw 확장)
    ========================================================== */
 .journey__scene--3 {
-  width: clamp(20rem, 24.84vw, 29.8rem); /* 477px @ 1920 */
-  background-color: #0c0c0c;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0c0c0c; /* 피그마 지정 배경색에 가깝게 유지 */
   position: relative;
+  overflow: hidden;
 }
 
 .journey__ending-img {
-  width: 100%;
-  height: 80.8vh; /* 857 / 1060 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55.78vw; /* 1071 / 1920 */
+  height: 83.28vh; /* 857 / 1029 */
   overflow: hidden;
-  background-color: #591111; /* 피그마 지정 배경색 */
+  background-color: #0c0c0c;
 }
 
 .journey__ending-img img {
@@ -956,19 +961,43 @@ a {
   object-fit: cover;
 }
 
-/* 엔딩 뒤집힌 텍스트 (화이트) */
-.journey__inverted-block--ending {
-  left: 15%; /* 72px / 477px */
+.journey__ending-sketch {
+  position: absolute;
+  top: 40.71vh; /* 419 / 1029 */
+  left: 57.24vw; /* 1099 / 1920 */
+  width: 31.25vw; /* 600 / 1920 */
+  height: 59.28vh; /* 610 / 1029 */
+  overflow: hidden;
 }
 
-.journey__inverted-block--ending .journey__inverted-my {
+.journey__ending-sketch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 엔딩 텍스트 (화이트) */
+.journey__scene3-my {
+  position: absolute;
+  top: 81.73vh; /* 841 / 1029 */
+  left: 94.16vw; /* 1808 / 1920 */
   color: #ffffff;
   font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.6vw, 50px);
+  line-height: 1;
 }
 
-.journey__inverted-block--ending .journey__inverted-journey {
+.journey__scene3-journey {
+  position: absolute;
+  top: 88.83vh; /* 914 / 1029 */
+  left: 79vw; /* 1517 / 1920 */
   color: #ffffff;
   font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 2.6vw, 50px);
+  font-weight: 500;
+  line-height: 1;
+  transform: rotate(180deg);
+  transform-origin: center;
 }
 
 /* 글로벌 둥근 메뉴 버튼 */

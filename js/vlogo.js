@@ -18,18 +18,27 @@
     autoRefreshEvents: "visibilitychange,DOMContentLoaded,load" 
   });
 
-  // 브라우저 가로 너비(Width)가 실제로 크게(50px 이상) 변했을 때만 안전하게 수동 새로고침을 진행합니다.
-  var lastWinWidth = window.innerWidth;
-  window.addEventListener("resize", function() {
-    var currentWidth = window.innerWidth;
-    if (Math.abs(currentWidth - lastWinWidth) > 50) {
-      lastWinWidth = currentWidth;
-      clearTimeout(window.vlogoResizeTimer);
-      window.vlogoResizeTimer = setTimeout(function() {
-        ScrollTrigger.refresh();
-      }, 300); // 0.3초 딜레이 후 단 한 번만 안전하게 재계산
-    }
+  // 가로·세로 어느 쪽이든 뷰포트가 변하면, 변화가 멈춘 뒤 단 한 번만 재계산한다.
+  // 세로 변화를 무시하면 개발자 도구를 화면 아래쪽에 붙였을 때 재계산이 아예 돌지 않아
+  // 스크롤 애니메이션이 옛 높이 기준으로 계속 돌고 레이아웃이 어긋난다.
+  var lastWinW = window.innerWidth, lastWinH = window.innerHeight;
+  var refreshTimer = null;
+  window.addEventListener("resize", function () {
+    if (Math.abs(window.innerWidth - lastWinW) < 2 &&
+        Math.abs(window.innerHeight - lastWinH) < 2) return;
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(function () {
+      lastWinW = window.innerWidth;
+      lastWinH = window.innerHeight;
+      ScrollTrigger.refresh();
+    }, 250); // 리사이즈가 멎은 뒤 한 번만 — 드래그 중에는 돌지 않는다
   });
+
+  // ?lite — 레이아웃 점검 모드 (주소 끝에 ?lite 를 붙이면 켜진다)
+  // 히어로 마스크 확대는 스크롤 프레임마다 마스크를 다시 래스터화해서, 개발자 도구를
+  // 켠 채로는 특히 무겁다. 여러 폭을 오가며 레이아웃만 확인할 때는 이 전환이 필요 없으므로
+  // 끝난 상태로 고정해 버린다. 주소에 붙일 때만 켜지므로 실제 방문자에게는 영향이 없다.
+  var LITE = /[?&]lite(=|&|$)/.test(location.search);
 
   // 공식 확대 초점 — LogoStage(.hero2__mark) 정규화 좌표 (확정값, 변경 금지)
   var FOCAL = { x: 0.555, y: 0.515 };
@@ -44,27 +53,61 @@
   if (!hvt || !sticky || !gallery || !mark || !svgEl || !finalPath) return;
 
   // ----- 좌표 동기화: 마스크(영상 로고)를 검은 로고 SVG 실측 rect에 정확히 맞춤 -----
+  // 이 함수는 크기를 재고 CSS 변수를 쓴다. 그 쓰기가 다시 ResizeObserver를 깨우기 때문에
+  // 제동장치가 없으면 "재고 → 쓰고 → 또 재고"가 끝없이 돈다.
+  // ① 값이 직전과 같으면 쓰지 않아 되먹임 고리를 끊고
+  // ② queueSync로 프레임당 1회로 합친다.
+  var lastSig = "";
   function syncCoords() {
     var base = sticky.getBoundingClientRect();
     var s = svgEl.getBoundingClientRect();
-    gallery.style.setProperty("--hole-x", (s.left - base.left).toFixed(2) + "px");
-    gallery.style.setProperty("--hole-y", (s.top - base.top).toFixed(2) + "px");
-    gallery.style.setProperty("--hole-w", s.width.toFixed(2) + "px");
-    gallery.style.setProperty("--hole-h", s.height.toFixed(2) + "px");
     var m = mark.getBoundingClientRect();
-    var focalViewportX = m.left + m.width * FOCAL.x;
-    var focalViewportY = m.top + m.height * FOCAL.y;
-    gallery.style.setProperty("--focal-x", (focalViewportX - base.left).toFixed(2) + "px");
-    gallery.style.setProperty("--focal-y", (focalViewportY - base.top).toFixed(2) + "px");
+    var holeX = (s.left - base.left).toFixed(2);
+    var holeY = (s.top - base.top).toFixed(2);
+    var holeW = s.width.toFixed(2);
+    var holeH = s.height.toFixed(2);
+    var focalX = (m.left + m.width * FOCAL.x - base.left).toFixed(2);
+    var focalY = (m.top + m.height * FOCAL.y - base.top).toFixed(2);
+
+    var sig = holeX + "|" + holeY + "|" + holeW + "|" + holeH + "|" + focalX + "|" + focalY;
+    if (sig === lastSig) return;                    // 변화 없음 — 되먹임 차단
+    lastSig = sig;
+
+    gallery.style.setProperty("--hole-x", holeX + "px");
+    gallery.style.setProperty("--hole-y", holeY + "px");
+    gallery.style.setProperty("--hole-w", holeW + "px");
+    gallery.style.setProperty("--hole-h", holeH + "px");
+    gallery.style.setProperty("--focal-x", focalX + "px");
+    gallery.style.setProperty("--focal-y", focalY + "px");
   }
+
+  var syncQueued = false;
+  function queueSync() {
+    if (syncQueued) return;
+    syncQueued = true;
+    requestAnimationFrame(function () {
+      syncQueued = false;
+      syncCoords();
+    });
+  }
+
   syncCoords();
-  window.addEventListener("resize", syncCoords);
+  window.addEventListener("resize", queueSync);
   var ro;
   if (window.ResizeObserver) {
-    ro = new ResizeObserver(syncCoords);
+    ro = new ResizeObserver(queueSync);
     ro.observe(mark);
     ro.observe(sticky);
   }
+
+  // 로고와 스테이지 크기는 화면 "높이"에도 묶여 있다(style.css의 100svh 기반 width).
+  // 그래서 개발자 도구를 열어 높이가 줄면 마스크 구멍 좌표가 전부 달라지는데,
+  // 확대 배율은 옛 좌표 기준으로 남아 마스크가 엉뚱한 자리를 판다 = 화면 깨짐.
+  // ScrollTrigger가 재계산을 마친 직후 좌표를 강제로 다시 맞춰 둘을 일치시킨다.
+  ScrollTrigger.addEventListener("refresh", function () {
+    lastSig = "";        // 캐시를 비워 값이 같아 보여도 반드시 다시 쓰게 한다
+    syncCoords();
+  });
 
   // ----- 초점 주변 잉크 반경 실측 (viewBox 단위, 로고 고유값) -----
   function measureInkRadiusVb() {
@@ -129,11 +172,16 @@
   }
 
   // ----- 데스크톱 전용 (모바일은 CSS에서 전환 구조 해제) -----
-  // [최적화] 개발자 도구 오픈 등으로 가로 폭이 좁아질 때 데스크톱 애니메이션이 
-  // 통째로 파괴되는 현상(matchMedia Revert)을 막기 위해 초기 로드 시점 폭으로 고정합니다.
-  var isDesktop = window.innerWidth >= 769;
+  // CSS의 max-width: 48rem(768px)과 같은 경계를 쓴다. 두 기준이 어긋나면
+  // "CSS는 데스크톱인데 JS는 모바일"인 상태가 되어 레이아웃이 통째로 깨진다.
+  //
+  // 이 판정을 로드 시점 값으로 고정하면 안 된다. 개발자 도구를 붙인 채 새로고침했을 때
+  // 좁은 폭으로 굳어져, 도구를 닫아도 데스크톱 애니메이션이 영영 되살아나지 않는다.
+  // gsap.matchMedia는 경계를 넘나들 때만 반응하고(리사이즈마다 도는 게 아니다),
+  // 되돌아올 때 자기가 만든 애니메이션·ScrollTrigger를 알아서 복원한다.
+  var mm = gsap.matchMedia();
 
-  if (isDesktop) {
+  mm.add("(min-width: 769px)", function () {
     setTrackHeight();
 
     var tl = gsap.timeline({
@@ -274,14 +322,29 @@
       });
     }
 
-    // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.
-    // 강제 리사이즈 이벤트를 제거하고, ScrollTrigger가 스스로 재계산하기 직전(refreshInit)에만 트랙 길이를 업데이트하도록 수정하여 성능을 최적화합니다.
-    ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
-  }
+    if (LITE) {
+      // 히어로 전환을 끝난 상태로 고정하고, 그만큼 잡아둔 스크롤 구간도 없앤다.
+      // About 이후 섹션들은 그대로라 폭별 레이아웃 점검에는 지장이 없다.
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
+      tl.progress(1);
+      hvt.style.height = "100svh";
+    } else {
+      // 트랙 길이는 ScrollTrigger가 재계산에 들어가기 직전에만 갱신한다.
+      ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
+    }
+
+    // 모바일 폭으로 내려갈 때 정리 — GSAP가 자기 애니메이션은 알아서 되돌리지만,
+    // 아래 두 가지는 GSAP가 만든 게 아니라서 직접 치워야 한다.
+    return function () {
+      ScrollTrigger.removeEventListener("refreshInit", setTrackHeight);
+      hvt.style.height = "";                 // CSS의 height:auto가 다시 살아나도록
+    };
+  });
 
   window.addEventListener("pagehide", function () {
     if (ro) ro.disconnect();
-    window.removeEventListener("resize", syncCoords);
+    clearTimeout(refreshTimer);
+    window.removeEventListener("resize", queueSync);
   });
 
   // 검증용 훅

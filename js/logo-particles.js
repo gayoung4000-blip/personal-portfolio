@@ -18,7 +18,8 @@ window.LogoParticles = (function () {
   var dpr = 1, pad = 0, boxW = 0, boxH = 0, cvW = 0, cvH = 0;
   var R = 70, coreR = 26, pSize = 1, eraseSize = 3.5, step = 3, sizeF = 1;
   var vMax = 8, maxD = 56;              // 입자 최대 속도·최대 분산 거리 (로고 크기 비례)
-  var raf = null, lastT = 0, ro = null, resizePending = false;
+  var raf = null, lastT = 0, ro = null;
+  var resizeTimer = null, lastBoxW = 0, lastBoxH = 0;
 
   // 포인터 상태 — pointermove에서는 좌표/속도만 기록 (계산은 루프에서)
   // sx/sy = 보간된 좌표 (실제 힘 계산에 사용, 거친 움직임 완화)
@@ -323,14 +324,20 @@ window.LogoParticles = (function () {
     }
   }
 
-  // ----- 리사이즈: 전체 재구축 (rAF debounce) -----
+  // ----- 리사이즈: 전체 재구축 (리사이즈가 멎은 뒤 한 번만) -----
+  // 재구축은 로고 래스터화 + 입자 수천 개 재생성이라 비싸다. rAF 단위로 돌리면
+  // 창 드래그·개발자 도구 여닫기처럼 매 프레임 크기가 바뀌는 동안 프레임마다 전체를
+  // 다시 만들어 화면이 멎는다. 변화가 끝난 뒤 한 번만, 그것도 실제 크기가 달라졌을 때만 돈다.
   function onResize() {
-    if (!enabled || resizePending) return;
-    resizePending = true;
-    requestAnimationFrame(function () {
-      resizePending = false;
+    if (!enabled) return;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      var rect = mark.getBoundingClientRect();
+      if (Math.abs(rect.width - lastBoxW) < 1 && Math.abs(rect.height - lastBoxH) < 1) return;
+      lastBoxW = rect.width;
+      lastBoxH = rect.height;
       rebuild();
-    });
+    }, 200);
   }
 
   function rebuild() {
@@ -380,6 +387,7 @@ window.LogoParticles = (function () {
   function destroy() {                            // 정리 (리스너/옵저버/rAF 해제)
     if (raf !== null) cancelAnimationFrame(raf);
     raf = null;
+    clearTimeout(resizeTimer);
     window.removeEventListener("pointermove", onMove);
     window.removeEventListener("blur", onLeave);
     document.documentElement.removeEventListener("pointerleave", onLeave);
