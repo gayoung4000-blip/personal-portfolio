@@ -18,12 +18,19 @@
     autoRefreshEvents: "visibilitychange,DOMContentLoaded,load" 
   });
 
-  // 브라우저 가로 너비(Width)가 실제로 크게(50px 이상) 변했을 때만 안전하게 수동 새로고침을 진행합니다.
+  // 브라우저 크기가 실제로 크게(50px 이상) 변했을 때만 안전하게 수동 새로고침을 진행합니다.
+  // ※ 가로 폭만 감지하면 개발자 도구(하단 도킹)처럼 "세로 높이만" 바뀌는 경우
+  //   refresh가 영영 안 일어나 스크롤·pin 계산이 낡은 값으로 남고 화면이 깨진 채
+  //   복구되지 않음 → 세로 변화도 함께 감지 (디바운스 300ms 렉 방지 설계는 유지)
   var lastWinWidth = window.innerWidth;
+  var lastWinHeight = window.innerHeight;
   window.addEventListener("resize", function() {
     var currentWidth = window.innerWidth;
-    if (Math.abs(currentWidth - lastWinWidth) > 50) {
+    var currentHeight = window.innerHeight;
+    if (Math.abs(currentWidth - lastWinWidth) > 50 ||
+        Math.abs(currentHeight - lastWinHeight) > 50) {
       lastWinWidth = currentWidth;
+      lastWinHeight = currentHeight;
       clearTimeout(window.vlogoResizeTimer);
       window.vlogoResizeTimer = setTimeout(function() {
         ScrollTrigger.refresh();
