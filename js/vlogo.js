@@ -12,6 +12,25 @@
   if (!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
+  // [최적화] 개발자 도구 오픈 등 단순 높이 변화 시 발생하는 무한 재계산 렉/디자인 깨짐 방지
+  // 기본 'resize' 이벤트를 제거하여 GSAP가 화면 변화에 예민하게 반응하지 않도록 차단합니다.
+  ScrollTrigger.config({
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load" 
+  });
+
+  // 브라우저 가로 너비(Width)가 실제로 크게(50px 이상) 변했을 때만 안전하게 수동 새로고침을 진행합니다.
+  var lastWinWidth = window.innerWidth;
+  window.addEventListener("resize", function() {
+    var currentWidth = window.innerWidth;
+    if (Math.abs(currentWidth - lastWinWidth) > 50) {
+      lastWinWidth = currentWidth;
+      clearTimeout(window.vlogoResizeTimer);
+      window.vlogoResizeTimer = setTimeout(function() {
+        ScrollTrigger.refresh();
+      }, 300); // 0.3초 딜레이 후 단 한 번만 안전하게 재계산
+    }
+  });
+
   // 공식 확대 초점 — LogoStage(.hero2__mark) 정규화 좌표 (확정값, 변경 금지)
   var FOCAL = { x: 0.555, y: 0.515 };
   var CROP = { x: 0.1594, y: 0.1781, w: 1.2319, h: 1.3759 }; // 마크 박스 ↔ viewBox 매핑
