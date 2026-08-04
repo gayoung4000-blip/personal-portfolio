@@ -253,20 +253,12 @@
       });
     }
 
-    var resizePending = false;
-    function onResize() {
-      if (resizePending) return;
-      resizePending = true;
-      requestAnimationFrame(function () {
-        resizePending = false;
-        setTrackHeight();
-        ScrollTrigger.refresh();          // coverScale 함수형 값 재계산 (invalidateOnRefresh)
-      });
-    }
-    window.addEventListener("resize", onResize);
+    // GSAP ScrollTrigger는 브라우저 리사이즈 시 자체적으로 디바운스(Debounce) 처리를 하여 렉 없이 안전하게 refresh를 호출합니다.
+    // 강제 리사이즈 이벤트를 제거하고, ScrollTrigger가 스스로 재계산하기 직전(refreshInit)에만 트랙 길이를 업데이트하도록 수정하여 성능을 최적화합니다.
+    ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
 
     return function () {                  // 모바일 전환 시 cleanup
-      window.removeEventListener("resize", onResize);
+      ScrollTrigger.removeEventListener("refreshInit", setTrackHeight);
       tl.scrollTrigger && tl.scrollTrigger.kill();
       tl.kill();
       hvt.style.height = "";
