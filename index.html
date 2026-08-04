@@ -261,12 +261,36 @@
             <img class="journey__swap" src="img/journey4-kids-play.png" alt="유치원 아이들" loading="lazy">
           </div>
           
-          <!-- 우측 끝: 텍스트 (화이트 컬러) -->
-          <span class="journey__scene3-my">My</span>
-          <span class="journey__scene3-journey">JOURNEY</span>
+        </div>
+
+        <!-- ==============================================
+             SCENE 4: HUMAN INSIGHT 텍스트 → EDUCATOR 디바이더 (Figma journey4~5)
+             단락은 가로 스크롤 진행에 따라 회색→흰색으로 하이라이트됨 (vlogo.js)
+             ============================================== -->
+        <div class="journey__scene journey__scene--4">
+          <div class="journey__insight">
+            <h3 class="journey__insight-title">HUMAN INSIGHT</h3>
+            <p class="journey__insight-text" id="insightText">I started with painting. For 4 years, in front of a canvas, I learned what to highlight and what to leave out. Meeting around 100 children a year, I learned that heart comes before skill. AI gave me that speed. Now I design by looking at the user's heart first.</p>
+          </div>
+
+          <!-- EDUCATOR 아이보리 세로 디바이더 (별 장식 + 세로 타이포) -->
+          <div class="journey__educator">
+            <img class="journey__educator-star" src="img/journey5-star-top.svg" alt="" aria-hidden="true">
+            <span class="journey__educator-text">EDUCATOR</span>
+            <img class="journey__educator-star" src="img/journey5-star-bottom.svg" alt="" aria-hidden="true">
+          </div>
+
+          <!-- 꽃다발 사진 세로 밴드 -->
+          <div class="journey__bouquet">
+            <img src="img/journey5-bouquet.png" alt="꽃다발" loading="lazy">
+          </div>
         </div>
 
       </div>
+
+      <!-- 화면 고정 My/JOURNEY (트랙과 함께 흐르지 않음 — journey4 진입 시 표시, vlogo.js) -->
+      <span class="journey__scene3-my">My</span>
+      <span class="journey__scene3-journey">JOURNEY</span>
     </section>
 
   </main>

@@ -1021,6 +1021,104 @@ a {
   z-index: 20;
 }
 
+/* 고정 My/JOURNEY: 트랙 밖(핀 섹션 직속)이라 화면에 고정.
+   journey4 진입(이미지 전환)과 같은 순간에 vlogo.js가 표시 */
+.journey__scene3-my,
+.journey__scene3-journey {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ==========================================================
+   SCENE 4: HUMAN INSIGHT + EDUCATOR 디바이더 (Figma journey4~5, 1920×1032 기준)
+   ========================================================== */
+.journey__scene--4 {
+  width: 96.9vw; /* 텍스트 구간(63.3) + 아이보리 밴드(14.8) + 꽃다발(18.8) */
+  background-color: #0c0c0c; /* Scene 3와 동일 톤으로 이어짐 */
+  position: relative;
+}
+
+.journey__insight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 63.65vw; /* Figma 단락 폭 1222 / 1920 */
+  height: 100%;
+}
+
+.journey__insight-title {
+  position: absolute;
+  left: 0;
+  top: 18.4vh; /* 190 / 1032 */
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(2rem, 3.65vw, 4.375rem); /* 70px @ 1920 */
+  line-height: 1.17;
+  color: rgba(169, 169, 169, 0.45); /* 미읽음 상태 — 스크롤로 흰색 하이라이트 */
+  white-space: nowrap;
+}
+
+.journey__insight-text {
+  position: absolute;
+  left: 0;
+  top: 31.1vh; /* 321 / 1032 */
+  width: 63.65vw;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.97vw, 3.5625rem); /* 57px @ 1920 */
+  line-height: 1.3; /* 74 / 57 */
+  color: rgba(169, 169, 169, 0.45);
+}
+
+/* 단어 단위 하이라이트 대상 (vlogo.js가 span 래핑) */
+.journey__insight-text .jw {
+  color: rgba(169, 169, 169, 0.45);
+}
+
+/* EDUCATOR 아이보리 세로 디바이더 */
+.journey__educator {
+  position: absolute;
+  left: 63.3vw; /* (1275 - 60) / 1920 */
+  top: 0;
+  width: 14.79vw; /* 284 / 1920 */
+  height: 100%;
+  background-color: var(--ivory);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3.9vh 0; /* 별 장식 상하 여백 (40 / 1032) */
+}
+
+.journey__educator-star {
+  width: 7.59vw; /* 145.7 / 1920 */
+  height: auto;
+}
+
+.journey__educator-text {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 6.62vw, 7.94rem); /* 127px @ 1920 */
+  color: var(--ink);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg); /* 아래→위로 읽히는 세로 타이포 (Figma -90°) */
+  line-height: 1;
+}
+
+/* 꽃다발 사진 세로 밴드 */
+.journey__bouquet {
+  position: absolute;
+  left: 78.09vw; /* (1559 - 60) / 1920 */
+  top: 0;
+  width: 18.8vw; /* 361 / 1920 */
+  height: 100%;
+  overflow: hidden;
+}
+
+.journey__bouquet img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* 글로벌 둥근 메뉴 버튼 */
 .global-menu-btn {
   position: fixed;

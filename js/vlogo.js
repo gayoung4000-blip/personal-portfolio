@@ -284,17 +284,45 @@
       //    (containerAnimation: 가로로 움직이는 트랙 내부 요소의 위치를 기준으로 발동,
       //     역스크롤 시 원래 이미지로 자연 복귀)
       var swapImgs = gsap.utils.toArray(".journey__swap");
+      // 고정 My/JOURNEY — 트랙 밖(핀 섹션 직속)이라 화면 고정. journey4 진입과 함께 표시
+      var fixedMy = gsap.utils.toArray([".journey__scene3-my", ".journey__scene3-journey"]);
       if (swapImgs.length) {
         ScrollTrigger.create({
           trigger: ".journey__ending-img",
           containerAnimation: tlJourney,
           start: "center right",   // 이미지 중심이 뷰포트 오른쪽 경계 도달 = 노출 50%
           onEnter: function () {
-            gsap.to(swapImgs, { autoAlpha: 1, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
+            gsap.to(swapImgs.concat(fixedMy), { autoAlpha: 1, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
           },
           onLeaveBack: function () {
-            gsap.to(swapImgs, { autoAlpha: 0, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
+            gsap.to(swapImgs.concat(fixedMy), { autoAlpha: 0, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
           },
+        });
+      }
+
+      // 4. HUMAN INSIGHT 하이라이트: 단락이 가로로 흘러들어오는 동안
+      //    읽기 진행 방향대로 단어가 회색 → 흰색으로 밝아짐 (스크럽 = 역스크롤 시 되감김)
+      var insightText = document.querySelector(".journey__insight-text");
+      var insightTitle = document.querySelector(".journey__insight-title");
+      if (insightText && insightTitle) {
+        // 단어 단위 span 래핑 (하이라이트 stagger 대상)
+        insightText.innerHTML = insightText.textContent.trim().split(/\s+/).map(function (w) {
+          return '<span class="jw">' + w + "</span>";
+        }).join(" ");
+        var insightWords = insightText.querySelectorAll(".jw");
+
+        var tlInsight = gsap.timeline();
+        tlInsight
+          .to(insightTitle, { color: "#ffffff", duration: 0.6, ease: "none" }, 0)
+          .to(insightWords, { color: "#ffffff", duration: 0.35, stagger: 0.045, ease: "none" }, 0.15);
+
+        ScrollTrigger.create({
+          trigger: insightText,
+          containerAnimation: tlJourney,
+          start: "left 85%",   // 단락이 오른쪽에서 들어오기 시작할 때
+          end: "left 3%",      // 단락이 최종 위치(Figma x60 ≈ 3.1vw)에 도달할 때
+          scrub: true,
+          animation: tlInsight,
         });
       }
     }
