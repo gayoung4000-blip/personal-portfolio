@@ -168,7 +168,7 @@ a {
   top: 0;
   left: 0;
   width: 100%;
-  height: 95px; /* 기존 105px에서 10px 축소 */
+  height: 66px;
   background-color: var(--ivory);
   z-index: 999;
   opacity: 0;
@@ -181,7 +181,7 @@ a {
 .global-header__inner {
   max-width: var(--container-max); /* 기존 레이아웃과 너비 맞춤 */
   margin: 0 auto;
-  height: 100%;
+  height: 66px;
   padding: 0 clamp(2rem, 4vw, 4rem);
   display: flex;
   align-items: center;
@@ -193,24 +193,24 @@ a {
 }
 
 .global-header__logo img {
-  height: 70px;
+  height: 48px;
   width: auto;
   display: block;
 }
 
 .global-header__nav {
   display: flex;
-  gap: clamp(1rem, 2.5vw, 3.5rem);
+  gap: clamp(1rem, 2.25vw, 3rem);
 }
 
 .global-header__nav a {
   font-family: var(--font-serif); /* Juana 폰트 사용 */
-  font-size: 19px;
+  font-size: clamp(1.25rem, 1.1vw, 1.3125rem);
   color: var(--ink); /* 블랙 */
   text-decoration: none;
   letter-spacing: 0.76px;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 1.1;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -562,6 +562,35 @@ a {
   pointer-events: none; /* 클릭 방해 금지 */
 }
 
+/* Full-screen bridge between the presentation video and the About dome. */
+.hero-to-about-gold {
+  position: absolute;
+  inset: 0;
+  z-index: 19;
+  overflow: hidden;
+  background: transparent;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hero-to-about-gold__stripes {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-to-about-gold__stripe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--stripe-left);
+  width: var(--stripe-width);
+  min-width: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform, opacity;
+}
+
 .about__title {
   width: min(76vw, 1260px);
   margin: 0;
@@ -601,8 +630,8 @@ a {
   
   /* 스크롤에 따른 사각형 모핑을 위한 CSS 변수 (0: 둥금 -> 1: 평평) */
   --dome-progress: 0;
-  --dome-x: calc(50% * (1 - var(--dome-progress)));
-  --dome-y: calc(min(50vw, 60rem) * (1 - var(--dome-progress)));
+  --dome-x: calc(50% * (1 - var(--dome-progress)) + 30px * var(--dome-progress));
+  --dome-y: calc(min(50vw, 60rem) * (1 - var(--dome-progress)) + 30px * var(--dome-progress));
   
   /* --dome-progress에 따라 둥근 모서리가 점점 0(직각)으로 변함 */
   border-radius: var(--dome-x) var(--dome-x) 0 0 / var(--dome-y) var(--dome-y) 0 0;
@@ -1254,6 +1283,10 @@ a {
 
 /* 모바일 반응형 조정 */
 @media (max-width: 48rem) {
+  .hero-to-about-gold {
+    display: none;
+  }
+
   #about-header-fixed {
     padding: 0 1.5rem 4.5rem;
   }
@@ -1503,7 +1536,7 @@ a {
   height: 100svh;
   min-height: 100svh;
   margin: 0 auto;
-  padding-top: 95px;
+  padding-top: 66px;
   box-sizing: border-box;
   display: grid;
   place-items: center;
@@ -3419,7 +3452,7 @@ a {
   height: 100svh;
   min-height: 100svh;
   margin: 0 auto;
-  padding-top: 95px;
+  padding-top: 66px;
   box-sizing: border-box;
 }
 

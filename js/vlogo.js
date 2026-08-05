@@ -219,16 +219,68 @@
     // 돔(Dome) 사각형 모핑 애니메이션
     // .about 섹션이 뷰포트 하단에서 나타나기 시작할 때(start)부터 최상단에 닿을 때(end)까지 진행
     var aboutDome = document.querySelector(".about__dome");
-    gsap.to(aboutDome, {
-      "--dome-progress": 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".about",
-        start: "top bottom",
-        end: "top top",
-        scrub: true
+    var goldBridge = document.querySelector(".hero-to-about-gold");
+
+    if (aboutDome && goldBridge) {
+      var stripeHost = goldBridge.querySelector(".hero-to-about-gold__stripes");
+      var stripeCount = 56;
+      var stripeWidth = 100 / stripeCount;
+
+      if (stripeHost && !stripeHost.children.length) {
+        Array.from({ length: stripeCount }).forEach(function(_, index) {
+          var stripe = document.createElement("span");
+          stripe.className = "hero-to-about-gold__stripe";
+          stripe.style.setProperty("--stripe-left", (index * stripeWidth) + "%");
+          stripe.style.setProperty("--stripe-width", (stripeWidth + 0.04) + "%");
+          stripeHost.appendChild(stripe);
+        });
       }
-    });
+
+      var goldStripes = goldBridge.querySelectorAll(".hero-to-about-gold__stripe");
+      var aboutTransition = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: ".about",
+          start: "top bottom",
+          end: "top top",
+          scrub: 0.8,
+          invalidateOnRefresh: true
+        }
+      });
+
+      aboutTransition
+        .fromTo(goldBridge, {
+          autoAlpha: 0
+        }, {
+          autoAlpha: 1,
+          duration: 0.05
+        }, 0)
+        .fromTo(goldStripes, {
+          scaleX: 0,
+          autoAlpha: 0
+        }, {
+          scaleX: 1,
+          autoAlpha: 1,
+          duration: 0.32,
+          stagger: 0.011,
+          ease: "power2.out"
+        }, 0)
+        .to(aboutHeaderFixed, {
+          yPercent: -100,
+          duration: 0.62,
+          ease: "none"
+        }, 0.18)
+        .fromTo(aboutDome, {
+          yPercent: 8,
+          "--dome-progress": 0
+        }, {
+          yPercent: 0,
+          "--dome-progress": 1,
+          duration: 0.72,
+          ease: "power2.out"
+        }, 0.35);
+
+    }
 
     // =======================================================
     // Journey 가로 스크롤 및 메뉴 전환 애니메이션
