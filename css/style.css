@@ -2108,7 +2108,7 @@ a {
   width: min(100% - 3rem, 1216px);
   min-height: max(100svh, 84rem);
   margin-inline: auto;
-  padding: clamp(7.5rem, 10.3vw, 12.375rem) 0 clamp(5rem, 7vw, 8rem);
+  padding: clamp(7.5rem, 10.3vw, 12.375rem) 0 clamp(3.75rem, calc(7vw - 20px), 6.75rem);
 }
 
 .work-page__heading {
@@ -2297,7 +2297,7 @@ a {
 @media (max-width: 760px) {
   .work-page__inner {
     width: min(100% - 2rem, 42rem);
-    padding: 7rem 0 4.5rem;
+    padding: 7rem 0 3.25rem;
   }
 
   .work-page__heading,
