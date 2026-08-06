@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260806-work-static" />
+  <link rel="stylesheet" href="css/style.css?v=20260806-pumto-hover" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -501,8 +501,37 @@
 
         <div class="work-page__showcase">
           <article class="work-page__project">
-            <figure class="work-page__visual">
+            <figure class="work-page__visual" tabindex="0" aria-describedby="pumto-project-detail">
               <img src="img/work-pumto-figma.png" alt="PUMTO 프로젝트 모바일 화면">
+              <figcaption class="work-page__overlay" id="pumto-project-detail">
+                <div class="work-page__overlay-content">
+                  <h4>DURATION</h4>
+                  <p class="work-page__duration">2026.02 - 2026.03</p>
+
+                  <h4>PROJECT ROLE</h4>
+                  <p class="work-page__role">
+                    “학부모의 막막한 검색이라는 문제를 발견하고, 기획부터 개발·배포까지 혼자 완주했습니다”
+                  </p>
+
+                  <div class="work-page__description">
+                    <p>
+                      아이의 창의 활동을 찾는 학부모들이 흩어진 정보 속에서 겪는 검색의 피로에 주목했습니다.<br>
+                      리서치와 사용자 조사로 문제를 정의하고, ‘검색을 하나의 여정으로 정리한다’는 방향을 도출해<br>
+                      IA와 디자인 시스템 기반의 UI로 설계했습니다.
+                    </p>
+                    <p>
+                      여기서 멈추지 않고 AI 협업 개발로 실제 앱을 구현·배포하며,<br>
+                      <strong>아이디어에서 결과물까지 전 사이클을 혼자 완주</strong>했습니다.
+                    </p>
+                  </div>
+
+                  <p class="work-page__contribution">
+                    <b>기획</b> <span>100%</span>
+                    <b>디자인</b> <span>100%</span>
+                    <b>개발</b> <span>100%</span>
+                  </p>
+                </div>
+              </figcaption>
             </figure>
             <footer class="work-page__summary">
               <div class="work-page__copy">
@@ -541,7 +570,7 @@
        되살리려면 아래 주석 해제 (main.js의 onComplete 가드는 그대로 있음)
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js"></script>
-  <script src="js/vlogo.js?v=20260806-work-static"></script>
+  <script src="js/vlogo.js?v=20260806-pumto-hover"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
