@@ -2168,7 +2168,7 @@ a {
 .work-page__project--ilkw,
 .work-page__project--wrun,
 .work-page__project--jaran {
-  margin-top: clamp(7rem, 10.5vw, 12.5rem);
+  margin-top: clamp(7.35rem, 11vw, 13.1rem);
 }
 
 .work-page__visual {
@@ -2567,7 +2567,7 @@ a {
   .work-page__project--ilkw,
   .work-page__project--wrun,
   .work-page__project--jaran {
-    margin-top: clamp(5rem, 18vw, 8rem);
+    margin-top: clamp(5.25rem, 19vw, 8.4rem);
   }
 }
 
