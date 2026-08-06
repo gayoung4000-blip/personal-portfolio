@@ -897,6 +897,9 @@ a {
 
 .journey__huge-anim {
   display: inline-block;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
   /* GSAP으로 오른쪽으로 밀어내는 애니메이션을 적용할 래퍼 */
 }
 

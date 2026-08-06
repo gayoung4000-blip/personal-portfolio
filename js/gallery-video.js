@@ -91,45 +91,4 @@
     document.addEventListener("DOMContentLoaded", ensurePastelsSwap, { once: true });
   }
 
-  function installDesignedBoundary() {
-    if (!window.gsap || !window.ScrollTrigger) {
-      window.setTimeout(installDesignedBoundary, 120);
-      return;
-    }
-
-    var anim = document.querySelector(".journey__huge-anim");
-    var image = document.querySelector(".journey__ending-img");
-    var journey = document.querySelector("#journey");
-    if (!anim || !image || !journey) return;
-
-    function clampDesigned() {
-      var textRect = anim.getBoundingClientRect();
-      var imageRect = image.getBoundingClientRect();
-      var gap = Math.min(Math.max(window.innerWidth * 0.006, 4), 12);
-      var overflow = textRect.right - (imageRect.left - gap);
-
-      if (overflow > 0) {
-        var currentX = Number(gsap.getProperty(anim, "x")) || 0;
-        gsap.set(anim, { x: currentX - overflow, overwrite: "auto" });
-      }
-    }
-
-    ScrollTrigger.create({
-      trigger: journey,
-      start: "top top",
-      end: "bottom top",
-      onUpdate: function () {
-        requestAnimationFrame(clampDesigned);
-      },
-      onEnter: clampDesigned,
-      onEnterBack: clampDesigned,
-      onRefresh: clampDesigned
-    });
-
-    window.addEventListener("scroll", function () {
-      requestAnimationFrame(clampDesigned);
-    }, { passive: true });
-  }
-
-  window.setTimeout(installDesignedBoundary, 0);
 })();

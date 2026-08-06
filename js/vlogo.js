@@ -473,11 +473,29 @@
         ease: "none"
       }, 0.12);
 
-      // 2. 타이포그래피 모션: 스크롤 내릴 때 "I DESIGNED" 텍스트가 오른쪽으로 멀어지는 효과
-      tlJourney.to(".journey__huge-anim", {
-        x: "35vw", /* 오른쪽으로 이동하며 피그마 시안처럼 여백 생성 */
-        ease: "power1.out" /* 부드럽게 감속하는 이징 */
-      }, 0);
+      // I DESIGNED has one transform owner. Its exact stop is calculated from
+      // the following image edge so it remains stable at every viewport size.
+      var designedText = document.querySelector(".journey__huge-anim");
+      var designedStopImage = document.querySelector(".journey__ending-img");
+      function getDesignedStopX() {
+        if (!designedText || !designedStopImage) return 0;
+
+        var currentX = Number(gsap.getProperty(designedText, "x")) || 0;
+        var textRect = designedText.getBoundingClientRect();
+        var imageRect = designedStopImage.getBoundingClientRect();
+        var gap = Math.min(Math.max(window.innerWidth * 0.006, 6), 12);
+        var textBaseRight = textRect.right - currentX;
+
+        return Math.max(0, imageRect.left - gap - textBaseRight);
+      }
+
+      if (designedText && designedStopImage) {
+        tlJourney.to(designedText, {
+          x: getDesignedStopX,
+          duration: 0.68,
+          ease: "none"
+        }, 0.04);
+      }
 
 
 
