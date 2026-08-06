@@ -1158,7 +1158,6 @@ a {
   flex: 1 1 auto;
   min-height: 0;
   overflow: hidden;
-  margin: 2.4vh 0;
 }
 
 .journey__educator-track {
@@ -1172,9 +1171,13 @@ a {
 
 .journey__educator-loop-group {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  gap: clamp(1.5rem, 3.5vh, 2.75rem);
   width: 100%;
-  min-height: 68vh;
+  min-height: 100vh;
+  padding: 3.9vh 0;
   flex: 0 0 auto;
 }
 
