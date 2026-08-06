@@ -2250,7 +2250,7 @@ a {
 .work-page__overlay h4 {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.875rem, 3.76cqw, 1.75rem);
+  font-size: clamp(0.625rem, calc(3.76cqw - 4px), 1.5rem);
   font-weight: 600;
   line-height: 0.95;
 }
@@ -2259,14 +2259,14 @@ a {
   margin: 0.35em 0 1.4em;
   color: #ededed;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.7rem, 2.42cqw, 1.125rem);
+  font-size: clamp(0.5rem, calc(2.42cqw - 4px), 0.875rem);
   line-height: 1.1;
 }
 
 .work-page__role {
   margin: 0.36em 0 0;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.68rem, 2.42cqw, 1.125rem);
+  font-size: clamp(0.5rem, calc(2.42cqw - 4px), 0.875rem);
   font-weight: 600;
   line-height: 1.38;
 }
@@ -2275,7 +2275,7 @@ a {
   margin-top: 1.1em;
   color: #e2e2e2;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.66rem, 2.42cqw, 1.125rem);
+  font-size: clamp(0.5rem, calc(2.42cqw - 4px), 0.875rem);
   line-height: 1.38;
   letter-spacing: -0.05em;
 }
@@ -2292,7 +2292,7 @@ a {
 .work-page__responsibilities {
   margin: 1.2em 0 0;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.62rem, 2.02cqw, 0.94rem);
+  font-size: clamp(0.5rem, calc(2.02cqw - 4px), 0.69rem);
   line-height: 1.35;
   letter-spacing: -0.04em;
 }
@@ -2343,7 +2343,7 @@ a {
 
 .work-page__contribution b {
   margin-left: 0.35em;
-  font-size: clamp(0.85rem, 3.76cqw, 1.75rem);
+  font-size: clamp(0.625rem, calc(3.76cqw - 4px), 1.5rem);
   font-weight: 600;
 }
 
@@ -2353,7 +2353,7 @@ a {
 
 .work-page__contribution span {
   color: #ededed;
-  font-size: clamp(0.72rem, 2.69cqw, 1.25rem);
+  font-size: clamp(0.5rem, calc(2.69cqw - 4px), 1rem);
 }
 
 .work-page__summary {
