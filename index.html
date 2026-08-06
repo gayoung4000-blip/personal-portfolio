@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260805-dome-radius-30" />
+  <link rel="stylesheet" href="css/style.css?v=20260806-work-static" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -63,7 +63,7 @@
           <a href="#about">About</a>
           <a href="#process">Process</a>
           <a href="#project">Project</a>
-          <a href="#contact">Contact</a>
+            <a href="#contact">Contact</a>
         </nav>
       </div>
 
@@ -159,6 +159,8 @@
 
     <!-- ===== Journey (Timeline) 섹션 =====
          피그마 디자인(869:70) 기반 가로 스크롤 레이아웃 -->
+    <div class="journey-lead" aria-hidden="true"></div>
+
     <section id="journey" class="journey">
       <div class="journey__track" id="journeyTrack">
         
@@ -482,250 +484,51 @@
       </div>
     </section>
 
-    <!-- WORK / PROJECTS — vertical flow transitions into the next horizontal story. -->
-    <section class="work-horizontal" id="project" aria-labelledby="work-cover-title">
-      <div class="work-horizontal__track" id="workTrack">
-        <article class="work-cover work-horizontal__panel">
-          <div class="work-cover__ivory" aria-hidden="true"></div>
-          <div class="work-cover__white" aria-hidden="true"></div>
-
-          <h2 class="work-cover__title" id="work-cover-title">
-            <span><em>MY</em> <strong>WORK,</strong></span>
-            <span>FROM SEEING</span>
-            <span>TO SOLVING</span>
-          </h2>
-
-          <h3 class="work-cover__projects">PROJECTS</h3>
-
-          <div class="work-cover__intro">
-            <h3>관찰이 만든 경험</h3>
-            <p>
-              그리는 일은 계속되고 있습니다. 개인·팀 프로젝트와 AI 실험까지,<br>
-              사용자를 읽고 배포로 완성한 작업들을 모았습니다.
-            </p>
-          </div>
-
-          <h3 class="work-cover__rail-title">Projects</h3>
-        </article>
-
-        <article class="work2" aria-label="Projects">
-          <aside class="work2__rail" aria-hidden="true">
-            <span class="work2__rail-title">Projects</span>
-          </aside>
-
-          <section class="work2__pumto" aria-label="PUMTO project">
-            <div class="work2__pumto-visual" tabindex="0" aria-label="PUMTO 프로젝트 상세 보기">
-              <img src="img/work-pumto.png" alt="PUMTO 육아 플랫폼 프로젝트 화면">
-              <div class="work2__hover-detail" aria-hidden="true">
-                <div class="work2__hover-copy">
-                  <h4>DURATION</h4>
-                  <p class="work2__duration">2026.02 - 2026.03</p>
-
-                  <h4>PROJECT ROLE</h4>
-                  <p class="work2__role">“학부모의 막막한 검색이라는 문제를 발견하고, 기획부터 개발·배포까지 혼자 완주했습니다”</p>
-
-                  <p>
-                    아이의 창의 활동을 찾는 학부모들이 흩어진 정보 속에서 겪는 검색의 피로에 주목했습니다.<br>
-                    리서치와 사용자 조사로 문제를 정의하고, ‘검색을 하나의 여정으로 정리한다’는 방향을 도출해<br>
-                    IA와 디자인 시스템 기반의 UI로 설계했습니다.
-                  </p>
-
-                  <p>
-                    여기서 멈추지 않고 AI 협업 개발로 실제 앱을 구현·배포하며,<br>
-                    <strong>아이디어에서 결과물까지 전 사이클을 혼자 완주</strong>했습니다.
-                  </p>
-
-                  <p class="work2__contribution">
-                    <b>기획</b><span>100%</span>
-                    <b>디자인</b><span>100%</span>
-                    <b>개발</b><span>100%</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="work2__pumto-meta">
-              <span class="work2__year">2026</span>
-              <span class="work2__type">개인 프로젝트</span>
-              <h3>PUMTO</h3>
-              <span class="work2__number">01</span>
-              <div class="work2__links">
-                <button type="button">앱 바로가기</button>
-                <button type="button">기획서 바로가기</button>
-              </div>
-            </div>
-          </section>
-
-          <section class="work2__ilkw" aria-label="ILKW project">
-            <div class="work2__ilkw-visual" tabindex="0" aria-label="ILKW 프로젝트 상세 보기">
-              <img src="img/900.img.png" alt="ILKW 브랜드 경험 프로젝트">
-              <div class="work2__ilkw-hover" aria-hidden="true">
-                <div class="work2__ilkw-hover-copy">
-                  <h4>DURATION</h4>
-                  <p class="work2__ilkw-duration">2026.06 - 2026.07</p>
-
-                  <h4>PROJECT ROLE</h4>
-                  <p class="work2__ilkw-role">“제가 제안한 방향이 팀의 최종안이 되었고, 그 이야기를 처음부터 끝까지 책임지고 전달했습니다”</p>
-
-                  <p>
-                    일광전구의 브랜드 가치가 사용자의 구매 여정 속에서 자연스럽게 전달되도록 공식 사이트를 재설계한 팀 프로젝트입니다.
-                    <strong>아이디어</strong> 발산 단계에서 제안한 컨셉이 <strong>팀의 최종안으로 선정</strong>되었고,
-                    이를 기획서로 구체화하는 과정을 주도하며 프로젝트의 방향을 설계했습니다.
-                  </p>
-
-                  <p>
-                    이미지·콘텐츠 제작과 관리를 담당해 사이트의 비주얼 톤을 일관되게 유지했고, 최종 발표의 대본 작성과
-                    <strong>대표 발표</strong>까지 맡아 팀의 결과물을 완성된 이야기로 전달했습니다.
-                    <strong>와이어프레임, 인터랙션 구현, 코드 수정 등 제작 전 과정에도 참여하며 팀의 완성도를 함께 끌어올렸습니다.</strong>
-                  </p>
-
-                  <p class="work2__ilkw-tasks">
-                    <b>맡은 일:</b> 최종안 선정 / 기획서 작성 주도 / 이미지·콘텐츠 제작 및 관리 / 대본 작성·대표 발표 /
-                    디자인·퍼블리싱 전 과정 참여 / 장표 디자인
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="work2__ilkw-footer">
-              <span class="work2__ilkw-year">2026</span>
-              <span class="work2__ilkw-type">팀 프로젝트</span>
-              <h3>ILKW</h3>
-              <span class="work2__ilkw-number">02</span>
-              <div class="work2__ilkw-links">
-                <button type="button">앱 바로가기</button>
-                <button type="button">기획서 바로가기</button>
-              </div>
-            </div>
-          </section>
-
-          <section class="work2__jaran" aria-label="JARAN project">
-            <div class="work2__jaran-visual" aria-hidden="true"></div>
-            <div class="work2__jaran-footer">
-              <span class="work2__jaran-year">2026</span>
-              <span class="work2__jaran-type">개인 프로젝트</span>
-              <h3>JARAN</h3>
-              <span class="work2__jaran-number">03</span>
-              <div class="work2__jaran-links">
-                <button type="button">앱 바로가기</button>
-              </div>
-            </div>
-          </section>
-
-          <section class="work2__wrun" aria-label="W:RUN project">
-            <div class="work2__wrun-visual" tabindex="0" aria-label="W:RUN 프로젝트 상세 보기">
-              <img src="img/wrun.img.png" alt="W:RUN 러닝 커뮤니티 프로젝트">
-              <div class="work2__wrun-hover" aria-hidden="true">
-                <div class="work2__wrun-hover-copy">
-                  <h4>DURATION</h4>
-                  <p class="work2__wrun-duration">2026.07.06 - 2026.07.23</p>
-
-                  <h4>PROJECT ROLE</h4>
-                  <p class="work2__wrun-role">“실제 러너의 눈으로 사용자의 흐름을 설계하고, 그 흐름을 디자인과 코드로 직접 구현했습니다”</p>
-
-                  <p>
-                    러닝 팬덤 앱 W:RUN은 팀원의 제안에서 출발한 아이디어를 제가 기획 뼈대로 발전시키며 최종 주제로 확정된 프로젝트입니다.
-                    실제 러닝을 해온 경험을 바탕으로 초보 러너의 복장·코스 고민부터 챌린지 참여까지,
-                    <strong>사용자가 앱 안에서 겪을 흐름을 구체적인 시나리오로 제안</strong>하며 기획의 밀도를 높였습니다.
-                  </p>
-
-                  <p>
-                    코스 추천, 온보딩과 AI 챗봇 ‘러니’의 화면 설계와 디자인을 맡았고, 구현 단계에서는 팀원들이 작성한 코드를 함께 검토하고
-                    다듬으며 완성도를 높였습니다. 팀원들과 서로의 작업에 의견을 주고받으며 다듬는 과정에서,
-                    좋은 결과물은 <strong>소통의 밀도</strong>에서 나온다는 것을 배웠습니다.
-                  </p>
-
-                  <p class="work2__wrun-tasks">
-                    <b>맡은 일:</b> 기획 뼈대 작성·최종 주제 확정 견인 / 러너 경험 기반 사용자 흐름·시나리오 제안 /
-                    코스 추천·AI 챗봇 디자인 및 코딩 / 온보딩 설계·콘텐츠 이미지 제작 / 발표 구성 및 대본 작성
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="work2__wrun-footer">
-              <span class="work2__wrun-year">2026</span>
-              <span class="work2__wrun-type">팀 프로젝트</span>
-              <h3>W:RUN</h3>
-              <span class="work2__wrun-number">04</span>
-              <div class="work2__wrun-links">
-                <button type="button">앱 바로가기</button>
-                <button type="button">기획서 바로가기</button>
-              </div>
-            </div>
-          </section>
-
-        </article>
-
-        <article class="case-studies work-horizontal__panel" aria-labelledby="case-studies-title">
-          <div class="case-studies__index">
-            <ol class="case-studies__list">
-              <li class="case-studies__item case-studies__item--pumto">
-                <span>PUMTO</span>
-              </li>
-              <li class="case-studies__item case-studies__item--ilkw">
-                <span>ILKW</span>
-              </li>
-              <li class="case-studies__item case-studies__item--jaran">
-                <span>JARAN</span>
-              </li>
-              <li class="case-studies__item case-studies__item--wrun">
-                <span>W:RUN</span>
-              </li>
-            </ol>
-
-            <div class="case-studies__index-footer">
-              <p>CASE STUDIES</p>
-              <span aria-hidden="true">↗</span>
-            </div>
-          </div>
-
-          <div class="case-studies__content">
-            <p class="case-studies__eyebrow">CASE STUDIES</p>
-
-            <h2 class="case-studies__title" id="case-studies-title">
-              <span>NOT JUST</span>
-              <span>WHAT <b>I MADE,</b></span>
-              <span><b>BUT WHY I</b></span>
-              <span><b>MADE IT</b></span>
+    <section class="work-page" id="project" aria-labelledby="work-page-title">
+      <div class="work-page__inner">
+        <header class="work-page__heading">
+          <div>
+            <h2 class="work-page__title" id="work-page-title">
+              <span>WORK</span> FROM INSIGHT<br>
+              TO SOLUTION
             </h2>
-
-            <p class="case-studies__description">
-              완성된 결과만이 아니라, 문제를 발견하고 해결책을 만들어간 과정을 담았습니다.
-              각 프로젝트에 담긴 선택과 그 이유를 소개합니다. 사용자를 이해하기 위해 무엇을
-              관찰하고 질문했는지, 복잡한 문제를 어떤 흐름과 화면으로 풀어냈는지 보여드립니다.
-              기획에서 디자인, 구현과 배포까지 이어진 과정 속에서 프로젝트마다 쌓아온 저만의
-              기준과 작업 방식을 확인할 수 있습니다.
+            <p class="work-page__intro">
+              사용자의 행동과 맥락을 관찰하고, 그 안에서 발견한 문제를 더 나은 경험과 해결책으로 설계했습니다.
             </p>
-
-            <div class="case-studies__signature" aria-hidden="true">
-              <span>My</span>
-              <strong>WORK</strong>
-            </div>
           </div>
-        </article>
+          <p class="work-page__label">PROJECTS</p>
+        </header>
 
-        <p class="work-horizontal__bridge-copy">
-          아이디어에서 배포까지,<br>
-          직접 완성한 프로젝트들입니다.<br>
-          리서치로 문제를 정의하고, 디자인으로 답을 만들고,<br>
-          코드와 AI로 실제 동작하는 결과물까지 마무리했습니다.
-        </p>
-      </div>
-    </section>
+        <div class="work-page__showcase">
+          <article class="work-page__project">
+            <figure class="work-page__visual">
+              <img src="img/work-pumto-figma.png" alt="PUMTO 프로젝트 모바일 화면">
+            </figure>
+            <footer class="work-page__summary">
+              <div class="work-page__copy">
+                <h3>DISCOVER. CREATE. GROW.</h3>
+                <p>
+                  아이에게 맞는 미술 경험을 발견하고, 창작의 순간과 성장 과정을 꾸준히 기록할 수 있도록<br>
+                  부모와 아이의 미술 여정을 설계했습니다.
+                </p>
+              </div>
+              <div class="work-page__actions">
+                <button type="button" class="work-page__button work-page__button--dark">앱 바로가기</button>
+                <button type="button" class="work-page__button work-page__button--light">기획서 바로가기</button>
+              </div>
+            </footer>
+          </article>
 
-    <section class="clone-coding" id="clone-coding" aria-labelledby="clone-coding-title">
-      <div class="clone-coding__inner">
-        <div class="clone-coding__watermark" aria-hidden="true">
-          <img src="img/skills-watermark.png" alt="">
+          <aside class="work-page__index" aria-label="프로젝트 목록">
+            <p class="work-page__category"><span aria-hidden="true"></span>PERSONAL PROJECT</p>
+            <ol>
+              <li class="is-active">PUMTO</li>
+              <li>ILKW</li>
+              <li>JARAN</li>
+              <li>W:RUN</li>
+            </ol>
+          </aside>
         </div>
-
-        <div class="clone-coding__content">
-          <h2 class="clone-coding__title" id="clone-coding-title">CLONE CODING</h2>
-          <p class="clone-coding__description">
-            보이는 디자인 너머의 구조를 이해하기 위한 기록입니다.
-          </p>
-        </div>
-
-        <div class="clone-coding__project-card" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -738,7 +541,7 @@
        되살리려면 아래 주석 해제 (main.js의 onComplete 가드는 그대로 있음)
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js"></script>
-  <script src="js/vlogo.js?v=20260805-title-scrolls-up"></script>
+  <script src="js/vlogo.js?v=20260806-work-static"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
