@@ -1148,15 +1148,61 @@ a {
 .journey__educator-star {
   width: 7.59vw; /* 145.7 / 1920 */
   height: auto;
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+}
+
+.journey__educator-loop {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  margin: 2.4vh 0;
+}
+
+.journey__educator-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  animation: educatorVerticalLoop 10s linear infinite;
+  will-change: transform;
+}
+
+.journey__educator-loop-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 68vh;
+  flex: 0 0 auto;
 }
 
 .journey__educator-text {
+  display: block;
   font-family: var(--font-serif);
   font-size: clamp(4rem, 6.62vw, 7.94rem); /* 127px @ 1920 */
   color: var(--ink);
   writing-mode: vertical-rl;
   transform: rotate(180deg); /* 아래→위로 읽히는 세로 타이포 (Figma -90°) */
   line-height: 1;
+  white-space: nowrap;
+  letter-spacing: -0.025em;
+}
+
+@keyframes educatorVerticalLoop {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey__educator-track {
+    animation-play-state: paused;
+  }
 }
 
 /* 꽃다발 사진 — Figma 880-383에서 확인된 전체 크기(1037×1032).
