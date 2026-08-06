@@ -795,6 +795,81 @@
       }
     }
 
+    // SKILLS → WORK: the black work chapter rises like a rounded curtain.
+    var workPage = document.querySelector(".work-page");
+    var workHeading = document.querySelector(".work-page__heading");
+    var workTitle = document.querySelector(".work-page__title");
+    var workIntro = document.querySelector(".work-page__intro");
+    var workLabel = document.querySelector(".work-page__label");
+    var reduceWorkMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (workPage && !reduceWorkMotion) {
+      gsap.fromTo(workPage, {
+        y: function () {
+          return window.innerWidth <= 760 ? 48 : 96;
+        },
+        borderTopLeftRadius: function () {
+          return window.innerWidth <= 760 ? 32 : 48;
+        },
+        borderTopRightRadius: function () {
+          return window.innerWidth <= 760 ? 32 : 48;
+        },
+      }, {
+        y: 0,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: workPage,
+          start: "top bottom",
+          end: "top top",
+          scrub: 1.25,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      if (workHeading && workTitle && workIntro && workLabel) {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: workPage,
+            start: "top 72%",
+            end: "top 24%",
+            scrub: 1.15,
+            invalidateOnRefresh: true,
+          },
+        })
+          .fromTo(workTitle, {
+            autoAlpha: 0,
+            y: 58,
+            clipPath: "inset(100% 0 0 0)",
+          }, {
+            autoAlpha: 1,
+            y: 0,
+            clipPath: "inset(0% 0 0 0)",
+            duration: 0.58,
+            ease: "power2.out",
+          }, 0.12)
+          .fromTo(workIntro, {
+            autoAlpha: 0,
+            y: 24,
+          }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.34,
+            ease: "power2.out",
+          }, 0.42)
+          .fromTo(workLabel, {
+            autoAlpha: 0,
+            y: 36,
+          }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.42,
+            ease: "power2.out",
+          }, 0.48);
+      }
+    }
+
     // WORK: the project cards scroll vertically while the right-side index stays sticky.
     var workProjectCards = gsap.utils.toArray("[data-work-project]");
     var workIndexItems = gsap.utils.toArray("[data-work-index]");
