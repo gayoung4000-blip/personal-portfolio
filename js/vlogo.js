@@ -795,9 +795,8 @@
       }
     }
 
-    // SKILLS → WORK: a broad, shallow sheet covers the skills chapter.
+    // SKILLS → WORK: the black work chapter rises like a rounded curtain.
     var workPage = document.querySelector(".work-page");
-    var workSheetEdge = document.querySelector(".work-page__sheet-edge");
     var workHeading = document.querySelector(".work-page__heading");
     var workTitle = document.querySelector(".work-page__title");
     var workIntro = document.querySelector(".work-page__intro");
@@ -805,81 +804,69 @@
     var reduceWorkMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (workPage && !reduceWorkMotion) {
-      var workCoverTimeline = gsap.timeline({
+      gsap.fromTo(workPage, {
+        y: function () {
+          return window.innerWidth <= 760 ? 48 : 96;
+        },
+        borderTopLeftRadius: function () {
+          return window.innerWidth <= 760 ? 32 : 48;
+        },
+        borderTopRightRadius: function () {
+          return window.innerWidth <= 760 ? 32 : 48;
+        },
+      }, {
+        y: 0,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        ease: "none",
         scrollTrigger: {
           trigger: workPage,
-          start: "top 94%",
-          end: "top 8%",
-          scrub: 1.45,
+          start: "top bottom",
+          end: "top top",
+          scrub: 1.25,
           invalidateOnRefresh: true,
         },
       });
-
-      workCoverTimeline.fromTo(workPage, {
-        y: function () {
-          return window.innerWidth <= 760 ? 56 : 112;
-        },
-        scaleX: 0.994,
-      }, {
-        y: 0,
-        scaleX: 1,
-        duration: 1,
-        ease: "none",
-      }, 0);
-
-      if (workSheetEdge) {
-        workCoverTimeline.fromTo(workSheetEdge, {
-          y: function () {
-            return window.innerWidth <= 760 ? 9 : 18;
-          },
-          scaleX: 1.025,
-          scaleY: 1.14,
-        }, {
-          y: 0,
-          scaleX: 1,
-          scaleY: 1,
-          duration: 0.9,
-          ease: "power1.out",
-        }, 0);
-      }
 
       if (workHeading && workTitle && workIntro && workLabel) {
         gsap.timeline({
           scrollTrigger: {
             trigger: workPage,
-            start: "top 58%",
-            end: "top 18%",
-            scrub: 1.25,
+            start: "top 72%",
+            end: "top 24%",
+            scrub: 1.15,
             invalidateOnRefresh: true,
           },
         })
           .fromTo(workTitle, {
             autoAlpha: 0,
-            y: 34,
+            y: 58,
+            clipPath: "inset(100% 0 0 0)",
           }, {
             autoAlpha: 1,
             y: 0,
-            duration: 0.62,
+            clipPath: "inset(0% 0 0 0)",
+            duration: 0.58,
             ease: "power2.out",
-          }, 0.18)
+          }, 0.12)
           .fromTo(workIntro, {
             autoAlpha: 0,
-            y: 16,
+            y: 24,
           }, {
             autoAlpha: 1,
             y: 0,
-            duration: 0.38,
+            duration: 0.34,
             ease: "power2.out",
-          }, 0.5)
+          }, 0.42)
           .fromTo(workLabel, {
             autoAlpha: 0,
-            y: 18,
+            y: 36,
           }, {
             autoAlpha: 1,
             y: 0,
-            duration: 0.38,
+            duration: 0.42,
             ease: "power2.out",
-          }, 0.54);
+          }, 0.48);
       }
     }
 

@@ -2103,32 +2103,31 @@ a {
 .work-page {
   position: relative;
   z-index: 12;
-  overflow: visible;
+  overflow: clip;
+  border-radius: 48px 48px 0 0;
   background: #000;
   color: #fff;
-  box-shadow: 0 -22px 64px rgba(0, 0, 0, 0.22);
-  will-change: transform;
+  box-shadow: 0 -28px 70px rgba(0, 0, 0, 0.3);
+  will-change: transform, border-radius;
 }
 
-.work-page__sheet-edge {
+.work-page::before {
+  content: "";
   position: absolute;
-  top: -34px;
-  left: -4vw;
-  z-index: 0;
-  width: 108vw;
-  height: 68px;
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  background: radial-gradient(
-    ellipse at 50% 112%,
-    #101010 0%,
-    #050505 48%,
-    #000 76%
+  top: 0;
+  left: 48px;
+  right: 48px;
+  z-index: 2;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(182, 159, 100, 0),
+    rgba(182, 159, 100, 0.92) 18%,
+    rgba(255, 233, 179, 0.95) 50%,
+    rgba(182, 159, 100, 0.92) 82%,
+    rgba(182, 159, 100, 0)
   );
-  box-shadow:
-    0 -18px 48px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.055);
-  transform-origin: 50% 100%;
-  will-change: transform;
   pointer-events: none;
 }
 
@@ -2502,11 +2501,14 @@ a {
 }
 
 @media (max-width: 760px) {
-  .work-page__sheet-edge {
-    top: -21px;
-    left: -6vw;
-    width: 112vw;
-    height: 42px;
+  .work-page {
+    border-radius: 32px 32px 0 0;
+  }
+
+  .work-page::before {
+    left: 24px;
+    right: 24px;
+    height: 2px;
   }
 
   .work-page__inner {
@@ -2623,11 +2625,12 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .work-page {
+    border-radius: 0;
     box-shadow: none;
     will-change: auto;
   }
 
-  .work-page__sheet-edge {
+  .work-page::before {
     display: none;
   }
 }
