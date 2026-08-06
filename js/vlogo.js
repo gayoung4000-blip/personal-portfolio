@@ -445,6 +445,14 @@
       }
 
       // 가로 이동을 실행할 타임라인 생성
+      function getJourneyMoveDistance() {
+        return Math.max(1, journeyTrack.scrollWidth - window.innerWidth);
+      }
+
+      function getJourneyHoldDistance() {
+        return Math.min(1400, Math.max(760, window.innerHeight * 1.15));
+      }
+
       var tlJourney = gsap.timeline();
       var journeyBridge = journeySection.querySelector(".journey__bridge-img");
 
@@ -474,10 +482,16 @@
 
 
       // 가로 스크롤 트리거 및 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 병합
+      // Hold the completed mountain scene long enough for its image and copy
+      // to be understood without changing the preceding horizontal pace.
+      tlJourney.to({}, {
+        duration: getJourneyHoldDistance() / getJourneyMoveDistance()
+      });
+
       ScrollTrigger.create({
         trigger: journeySection,
         start: "top top",
-        end: () => "+=" + (journeyTrack.scrollWidth - window.innerWidth),
+        end: () => "+=" + (getJourneyMoveDistance() + getJourneyHoldDistance()),
         pin: true,
         animation: tlJourney,
         scrub: 1, // 스크롤 시 부드럽게(1초 지연) 따라오도록 설정
