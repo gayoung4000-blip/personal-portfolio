@@ -201,6 +201,7 @@ a {
 .global-header__nav {
   display: flex;
   gap: clamp(1rem, 2.25vw, 3rem);
+  margin-right: 50px;
 }
 
 .global-header__nav a {
