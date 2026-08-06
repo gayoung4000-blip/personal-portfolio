@@ -483,7 +483,7 @@
         var currentX = Number(gsap.getProperty(designedText, "x")) || 0;
         var textRect = designedText.getBoundingClientRect();
         var imageRect = designedStopImage.getBoundingClientRect();
-        var gap = Math.min(Math.max(window.innerWidth * 0.006, 6), 12);
+        var gap = Math.min(Math.max(window.innerWidth * 0.002, 2), 3);
         var textBaseRight = textRect.right - currentX;
 
         return Math.max(0, imageRect.left - gap - textBaseRight);
@@ -492,7 +492,7 @@
       if (designedText && designedStopImage) {
         tlJourney.to(designedText, {
           x: getDesignedStopX,
-          duration: 0.68,
+          duration: 0.58,
           ease: "none"
         }, 0.04);
       }
