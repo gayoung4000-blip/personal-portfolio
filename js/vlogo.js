@@ -511,7 +511,7 @@
           }
         },
         onLeave: function() {
-          gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, ease: "power2.out", overwrite: "auto" });
+          gsap.to(globalHeader, { autoAlpha: 0, y: -10, duration: 0.24, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         },
         onEnterBack: function() {
@@ -710,6 +710,34 @@
     var skillsFrontendCard = document.querySelector(".skills-intro__card--frontend");
     var skillsUxCard = document.querySelector(".skills-intro__card--ux");
     var skillsAiCard = document.querySelector(".skills-intro__card--ai");
+
+    // Reveal the fixed header only after the Skills chapter nearly fills the
+    // viewport, rather than immediately when the horizontal Journey unpins.
+    if (skillsIntro && globalHeader) {
+      ScrollTrigger.create({
+        trigger: skillsIntro,
+        start: "top 18%",
+        onEnter: function () {
+          gsap.to(globalHeader, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.48,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        },
+        onLeaveBack: function () {
+          gsap.to(globalHeader, {
+            autoAlpha: 0,
+            y: -10,
+            duration: 0.28,
+            ease: "power2.in",
+            overwrite: "auto",
+          });
+        },
+      });
+    }
+
     if (skillsIntro && skillsInner && skillsDesignCard && skillsFrontendCard && skillsUxCard && skillsAiCard) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard, skillsAiCard], { y: 0 });
