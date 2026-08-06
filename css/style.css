@@ -189,11 +189,11 @@ a {
 }
 
 .global-header__logo {
-  margin-left: 20px; /* 로고 우측으로 20px 이동 */
+  margin-left: 50px;
 }
 
 .global-header__logo img {
-  height: 48px;
+  height: 52px;
   width: auto;
   display: block;
 }
