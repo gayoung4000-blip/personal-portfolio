@@ -2166,7 +2166,8 @@ a {
 }
 
 .work-page__project--ilkw,
-.work-page__project--wrun {
+.work-page__project--wrun,
+.work-page__project--jaran {
   margin-top: clamp(7rem, 10.5vw, 12.5rem);
 }
 
@@ -2205,6 +2206,10 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.work-page__visual--jaran {
+  background: #fff;
 }
 
 .work-page__overlay {
@@ -2560,7 +2565,8 @@ a {
   }
 
   .work-page__project--ilkw,
-  .work-page__project--wrun {
+  .work-page__project--wrun,
+  .work-page__project--jaran {
     margin-top: clamp(5rem, 18vw, 8rem);
   }
 }
