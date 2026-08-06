@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260806-pumto-hover" />
+  <link rel="stylesheet" href="css/style.css?v=20260806-work-ilkw" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -500,7 +500,8 @@
         </header>
 
         <div class="work-page__showcase">
-          <article class="work-page__project">
+          <div class="work-page__stream">
+          <article class="work-page__project" data-work-project="pumto" data-project-type="PERSONAL PROJECT">
             <figure class="work-page__visual" tabindex="0" aria-describedby="pumto-project-detail">
               <img src="img/work-pumto-figma.png" alt="PUMTO 프로젝트 모바일 화면">
               <figcaption class="work-page__overlay" id="pumto-project-detail">
@@ -548,13 +549,36 @@
             </footer>
           </article>
 
+          <article class="work-page__project work-page__project--ilkw" id="work-ilkw" data-work-project="ilkw" data-project-type="TEAM PROJECT">
+            <figure class="work-page__visual work-page__visual--ilkw">
+              <img src="img/work-ilkw-figma.png" alt="ILKW 일광전구 프로젝트 화면">
+            </figure>
+            <footer class="work-page__summary">
+              <div class="work-page__copy">
+                <h3>A STORY BUILT IN LIGHT</h3>
+                <p>
+                  오랜 시간 이어온 일광전구의 헤리티지를 현대적인 이미지와 스크롤 흐름으로 연결해<br>
+                  브랜드의 새로운 이야기를 전달했습니다.
+                </p>
+              </div>
+              <div class="work-page__actions">
+                <button type="button" class="work-page__button work-page__button--dark">앱 바로가기</button>
+                <button type="button" class="work-page__button work-page__button--light">기획서 바로가기</button>
+              </div>
+            </footer>
+          </article>
+          </div>
+
           <aside class="work-page__index" aria-label="프로젝트 목록">
-            <p class="work-page__category"><span aria-hidden="true"></span>PERSONAL PROJECT</p>
+            <p class="work-page__category">
+              <span class="work-page__category-dot" aria-hidden="true"></span>
+              <span class="work-page__category-label">PERSONAL PROJECT</span>
+            </p>
             <ol>
-              <li class="is-active">PUMTO</li>
-              <li>ILKW</li>
-              <li>JARAN</li>
-              <li>W:RUN</li>
+              <li class="is-active" data-work-index="pumto">PUMTO</li>
+              <li data-work-index="ilkw">ILKW</li>
+              <li data-work-index="jaran">JARAN</li>
+              <li data-work-index="wrun">W:RUN</li>
             </ol>
           </aside>
         </div>
@@ -570,7 +594,7 @@
        되살리려면 아래 주석 해제 (main.js의 onComplete 가드는 그대로 있음)
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js"></script>
-  <script src="js/vlogo.js?v=20260806-pumto-hover"></script>
+  <script src="js/vlogo.js?v=20260806-work-ilkw"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

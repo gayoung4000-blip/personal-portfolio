@@ -795,6 +795,41 @@
       }
     }
 
+    // WORK: the project cards scroll vertically while the right-side index stays sticky.
+    var workProjectCards = gsap.utils.toArray("[data-work-project]");
+    var workIndexItems = gsap.utils.toArray("[data-work-index]");
+    var workCategoryLabel = document.querySelector(".work-page__category-label");
+
+    var activateWorkProject = function (card) {
+      var projectName = card.getAttribute("data-work-project");
+      var projectType = card.getAttribute("data-project-type") || "";
+
+      workIndexItems.forEach(function (item) {
+        item.classList.toggle(
+          "is-active",
+          item.getAttribute("data-work-index") === projectName
+        );
+      });
+
+      if (workCategoryLabel) {
+        workCategoryLabel.textContent = projectType;
+      }
+    };
+
+    workProjectCards.forEach(function (card) {
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 42%",
+        end: "bottom 42%",
+        onEnter: function () {
+          activateWorkProject(card);
+        },
+        onEnterBack: function () {
+          activateWorkProject(card);
+        },
+      });
+    });
+
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 
