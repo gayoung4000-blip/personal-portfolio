@@ -2284,6 +2284,32 @@ a {
   font-weight: 500;
 }
 
+.work-page__responsibilities {
+  margin: 1.2em 0 0;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.62rem, 2.02cqw, 0.94rem);
+  line-height: 1.35;
+  letter-spacing: -0.04em;
+}
+
+.work-page__responsibilities b {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.work-page__overlay--ilkw {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.work-page__overlay--ilkw .work-page__overlay-content {
+  width: 80.5%;
+  margin-top: 11.3%;
+}
+
+.work-page__overlay--ilkw .work-page__role {
+  white-space: nowrap;
+}
+
 .work-page__contribution {
   display: flex;
   align-items: baseline;
@@ -2465,6 +2491,20 @@ a {
   }
 
   .work-page__copy p br {
+    display: none;
+  }
+
+  .work-page__overlay--ilkw .work-page__overlay-content {
+    width: 86%;
+    margin-top: 9%;
+  }
+
+  .work-page__overlay--ilkw .work-page__role {
+    white-space: normal;
+  }
+
+  .work-page__overlay--ilkw .work-page__description br,
+  .work-page__overlay--ilkw .work-page__responsibilities br {
     display: none;
   }
 
