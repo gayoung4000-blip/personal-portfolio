@@ -482,9 +482,9 @@
         tlJourney.to(journeyPastelsSwap, {
           clipPath: "inset(0 0% 0 0)",
           xPercent: 0,
-          duration: 0.26,
+          duration: 0.1,
           ease: "power1.inOut"
-        }, 0.48);
+        }, 0.24);
       }
 
       // I DESIGNED has one transform owner. Its exact stop is calculated from
