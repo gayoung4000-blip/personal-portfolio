@@ -2290,17 +2290,45 @@ a {
   display: grid;
   width: min(72vw, 53.7rem);
   margin: 0;
-  color: rgba(224, 224, 224, 0.38);
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 3.55vw, 4.35rem);
   font-weight: 400;
-  line-height: 1.08;
   letter-spacing: -0.035em;
   pointer-events: none;
 }
 
-.work-page__ilkw-contribution-title span {
+.work-page__ilkw-contribution-line {
+  --reveal: 0%;
   display: block;
+  color: transparent;
+  line-height: clamp(3rem, 3.91vw, 4.6875rem);
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    #fff var(--reveal),
+    #494949 var(--reveal),
+    #494949 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  white-space: nowrap;
+}
+
+.work-page__ilkw-contribution-line:nth-child(1) {
+  font-size: clamp(2.4rem, 3.54vw, 4.25rem);
+}
+
+.work-page__ilkw-contribution-line:nth-child(2) {
+  font-size: clamp(2.45rem, 3.65vw, 4.375rem);
+}
+
+.work-page__ilkw-contribution-line:nth-child(3),
+.work-page__ilkw-contribution-line:nth-child(4),
+.work-page__ilkw-contribution-line:nth-child(6) {
+  font-size: clamp(2.3rem, 3.39vw, 4.0625rem);
+}
+
+.work-page__ilkw-contribution-line:nth-child(5) {
+  font-size: clamp(2.15rem, 3.08vw, 3.6875rem);
 }
 
 .work-page__summary--ilkw-contribution {
@@ -2771,9 +2799,13 @@ a {
     top: 1.5rem;
     left: 1.25rem;
     width: calc(100% - 2.5rem);
-    color: rgba(255, 255, 255, 0.58);
-    font-size: clamp(2rem, 10vw, 3.25rem);
-    line-height: 1.03;
+  }
+
+  .work-page__ilkw-contribution-line,
+  .work-page__ilkw-contribution-line:nth-child(n) {
+    font-size: clamp(1.85rem, 9vw, 3rem);
+    line-height: 1.05;
+    white-space: normal;
   }
 
   .work-page__summary--ilkw-contribution {
@@ -2866,6 +2898,12 @@ a {
   .work-page__project--wrun,
   .work-page__project--jaran {
     margin-top: clamp(5.25rem, 19vw, 8.4rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-page__ilkw-contribution-line {
+    --reveal: 100%;
   }
 }
 

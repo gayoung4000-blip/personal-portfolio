@@ -914,6 +914,31 @@
       });
     }
 
+    var ilkwContributionLines = gsap.utils.toArray(".work-page__ilkw-contribution-line");
+    var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (ilkwContributionLines.length) {
+      if (prefersReducedMotion) {
+        gsap.set(ilkwContributionLines, { "--reveal": "100%" });
+      } else {
+        gsap.set(ilkwContributionLines, { "--reveal": "0%" });
+
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: ".work-page__project--ilkw-contribution",
+            start: "top 68%",
+            end: "bottom 34%",
+            scrub: 0.65,
+          },
+        }).to(ilkwContributionLines, {
+          "--reveal": "100%",
+          duration: 1,
+          ease: "none",
+          stagger: 0.2,
+        });
+      }
+    }
+
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 
