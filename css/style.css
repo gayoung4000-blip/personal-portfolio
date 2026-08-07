@@ -2292,6 +2292,11 @@ a {
   object-position: top center;
 }
 
+.work-page__wrun-story-card:nth-child(2) img {
+  object-fit: contain;
+  background: #222;
+}
+
 .work-page__wrun-story-shade {
   position: absolute;
   inset: 0;

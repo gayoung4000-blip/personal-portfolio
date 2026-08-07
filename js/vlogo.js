@@ -988,6 +988,8 @@
       };
 
       gsap.set(wrunStoryTrack, { y: 0 });
+      gsap.set(wrunStoryCards, { zIndex: 1 });
+      gsap.set(wrunStoryCards[0], { zIndex: 2 });
       gsap.set(wrunStoryShades, { opacity: 0.7 });
       gsap.set(wrunStoryShades[0], { opacity: 0 });
       gsap.set(wrunStoryStatements, { opacity: 0, y: 12 });
@@ -1019,6 +1021,10 @@
           onUpdate: function (self) {
             if (self.isActive) {
               activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
+
+              var activeCardIndex = self.progress < 0.18 ? 0 : self.progress < 0.62 ? 1 : 2;
+              gsap.set(wrunStoryCards, { zIndex: 1 });
+              gsap.set(wrunStoryCards[activeCardIndex], { zIndex: 2 });
             }
           },
         },
