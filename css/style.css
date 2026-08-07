@@ -2243,6 +2243,75 @@ a {
   padding: clamp(5.25rem, 13vh, 8.5rem) 0 clamp(4rem, 10vh, 6.25rem);
 }
 
+.work-page__project--ilkw-contribution {
+  position: relative;
+  min-height: 100svh;
+  margin-top: clamp(7.35rem, 11vw, 13.1rem);
+  padding: clamp(5rem, 10vh, 7rem) 0 clamp(4rem, 9vh, 6rem);
+}
+
+.work-page__ilkw-contribution-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 745 / 527;
+  overflow: visible;
+  border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
+  isolation: isolate;
+}
+
+.work-page__ilkw-contribution-video,
+.work-page__ilkw-contribution-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.work-page__ilkw-contribution-video {
+  z-index: 0;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  background: #050505;
+}
+
+.work-page__ilkw-contribution-shade {
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 58%, rgba(0, 0, 0, 0.08) 100%);
+  pointer-events: none;
+}
+
+.work-page__ilkw-contribution-title {
+  position: absolute;
+  top: clamp(-6.5rem, -7vw, -3.5rem);
+  left: calc(1.93vw - max(1.5rem, (100vw - 1216px) / 2));
+  z-index: 2;
+  display: grid;
+  width: min(72vw, 53.7rem);
+  margin: 0;
+  color: rgba(224, 224, 224, 0.38);
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 3.55vw, 4.35rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  pointer-events: none;
+}
+
+.work-page__ilkw-contribution-title span {
+  display: block;
+}
+
+.work-page__summary--ilkw-contribution {
+  margin-top: clamp(3rem, 5.5vh, 4rem);
+}
+
+.work-page__summary--ilkw-contribution .work-page__copy h3 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
 .work-page__pumto-detail-stage {
   position: relative;
   display: grid;
@@ -2686,6 +2755,29 @@ a {
   .work-page__project--pumto-detail {
     min-height: 0;
     padding: 2rem 0 1rem;
+  }
+
+  .work-page__project--ilkw-contribution {
+    min-height: 0;
+    padding: 3.5rem 0 1rem;
+  }
+
+  .work-page__ilkw-contribution-stage {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .work-page__ilkw-contribution-title {
+    top: 1.5rem;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
+    color: rgba(255, 255, 255, 0.58);
+    font-size: clamp(2rem, 10vw, 3.25rem);
+    line-height: 1.03;
+  }
+
+  .work-page__summary--ilkw-contribution {
+    margin-top: 2rem;
   }
 
   .work-page__pumto-detail-stage {

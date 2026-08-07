@@ -890,6 +890,30 @@
       });
     });
 
+    var ilkwContributionVideo = document.querySelector(".work-page__ilkw-contribution-video");
+    if (ilkwContributionVideo) {
+      var playIlkwContributionVideo = function () {
+        var playPromise = ilkwContributionVideo.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(function () {});
+        }
+      };
+
+      ScrollTrigger.create({
+        trigger: ilkwContributionVideo,
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: playIlkwContributionVideo,
+        onEnterBack: playIlkwContributionVideo,
+        onLeave: function () {
+          ilkwContributionVideo.pause();
+        },
+        onLeaveBack: function () {
+          ilkwContributionVideo.pause();
+        },
+      });
+    }
+
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 
