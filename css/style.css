@@ -2298,20 +2298,16 @@ a {
 }
 
 .work-page__ilkw-contribution-line {
-  --reveal: 0%;
   display: block;
-  color: transparent;
+  color: #494949;
   line-height: clamp(3rem, 3.91vw, 4.6875rem);
-  background: linear-gradient(
-    90deg,
-    #fff 0%,
-    #fff var(--reveal),
-    #494949 var(--reveal),
-    #494949 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
   white-space: nowrap;
+}
+
+.work-page__ilkw-contribution-char {
+  display: inline-block;
+  color: #494949;
+  will-change: color;
 }
 
 .work-page__ilkw-contribution-line:nth-child(1) {
@@ -2944,7 +2940,11 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .work-page__ilkw-contribution-line {
-    --reveal: 100%;
+    color: #cfcfcf;
+  }
+
+  .work-page__ilkw-contribution-char {
+    color: #cfcfcf;
   }
 }
 
