@@ -2259,7 +2259,7 @@ a {
 
 .work-page__wrun-story-track {
   --wrun-card-height: min(49.84svh, 30rem);
-  --wrun-card-step: min(38.42svh, 23.125rem);
+  --wrun-card-step: calc(var(--wrun-card-height) + clamp(0.75rem, 2svh, 1.25rem));
   position: absolute;
   inset: 0;
   will-change: transform;
