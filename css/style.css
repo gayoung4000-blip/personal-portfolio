@@ -2245,17 +2245,25 @@ a {
 
 .work-page__project--ilkw-contribution {
   position: relative;
-  min-height: 100svh;
   margin-top: clamp(7.35rem, 11vw, 13.1rem);
-  padding: clamp(5rem, 10vh, 7rem) 0 clamp(4rem, 9vh, 6rem);
+  padding: 0;
+}
+
+.work-page__ilkw-contribution-scene {
+  --scene-gutter: max(1.5rem, (100vw - 1216px) / 2);
+  position: relative;
+  width: 100%;
+  height: min(50.16vw, 60.1875rem);
 }
 
 .work-page__ilkw-contribution-stage {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  top: min(10.31vw, 12.375rem);
+  left: calc(18.39vw - var(--scene-gutter));
+  width: min(38.8vw, 46.5625rem);
   aspect-ratio: 745 / 527;
-  overflow: visible;
-  border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
+  overflow: hidden;
+  border-radius: min(1.04vw, 1.25rem);
   isolation: isolate;
 }
 
@@ -2284,11 +2292,11 @@ a {
 
 .work-page__ilkw-contribution-title {
   position: absolute;
-  top: clamp(-6.5rem, -7vw, -3.5rem);
-  left: calc(1.93vw - max(1.5rem, (100vw - 1216px) / 2));
+  top: min(1.72vw, 2.0625rem);
+  left: calc(1.93vw - var(--scene-gutter));
   z-index: 2;
   display: grid;
-  width: min(72vw, 53.7rem);
+  width: min(44.74vw, 53.6875rem);
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 400;
@@ -2332,12 +2340,26 @@ a {
 }
 
 .work-page__summary--ilkw-contribution {
-  margin-top: clamp(3rem, 5.5vh, 4rem);
+  position: absolute;
+  top: min(40.52vw, 48.625rem);
+  left: calc(18.39vw - var(--scene-gutter));
+  width: min(38.8vw, 46.5625rem);
+  margin: 0;
 }
 
 .work-page__summary--ilkw-contribution .work-page__copy h3 {
   font-family: "Inter", sans-serif;
   font-weight: 500;
+}
+
+.work-page__summary--ilkw-contribution .work-page__actions {
+  gap: min(0.625vw, 0.75rem);
+}
+
+.work-page__summary--ilkw-contribution .work-page__button {
+  width: min(5.625vw, 6.75rem);
+  height: min(1.875vw, 2.25rem);
+  font-size: min(0.625vw, 0.75rem);
 }
 
 .work-page__pumto-detail-stage {
@@ -2780,6 +2802,10 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .work-page__ilkw-contribution-scene {
+    --scene-gutter: max(2rem, (100vw - 960px) / 2);
+  }
+
   .work-page__project--pumto-detail {
     min-height: 0;
     padding: 2rem 0 1rem;
@@ -2790,7 +2816,15 @@ a {
     padding: 3.5rem 0 1rem;
   }
 
+  .work-page__ilkw-contribution-scene {
+    height: auto;
+  }
+
   .work-page__ilkw-contribution-stage {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
   }
@@ -2809,7 +2843,21 @@ a {
   }
 
   .work-page__summary--ilkw-contribution {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
     margin-top: 2rem;
+  }
+
+  .work-page__summary--ilkw-contribution .work-page__actions {
+    gap: 0.7rem;
+  }
+
+  .work-page__summary--ilkw-contribution .work-page__button {
+    width: 6.75rem;
+    height: 2.25rem;
+    font-size: 0.75rem;
   }
 
   .work-page__pumto-detail-stage {
