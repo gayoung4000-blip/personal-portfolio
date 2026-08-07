@@ -905,12 +905,6 @@
         end: "bottom top",
         onEnter: playIlkwContributionVideo,
         onEnterBack: playIlkwContributionVideo,
-        onLeave: function () {
-          ilkwContributionVideo.pause();
-        },
-        onLeaveBack: function () {
-          ilkwContributionVideo.pause();
-        },
       });
     }
 

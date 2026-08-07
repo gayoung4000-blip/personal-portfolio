@@ -2351,6 +2351,22 @@ a {
   font-size: min(0.625vw, 0.75rem);
 }
 
+@media (min-width: 761px) and (max-height: 700px) {
+  .work-page__ilkw-contribution-scene {
+    height: calc(100svh - 66px);
+  }
+
+  .work-page__ilkw-contribution-stage {
+    top: clamp(5rem, 16vh, 7rem);
+    width: min(38.8vw, calc((100svh - 66px) * 0.74));
+  }
+
+  .work-page__summary--ilkw-contribution {
+    top: auto;
+    bottom: clamp(0.75rem, 2.5vh, 1.25rem);
+  }
+}
+
 .work-page__pumto-detail-stage {
   position: relative;
   display: grid;
