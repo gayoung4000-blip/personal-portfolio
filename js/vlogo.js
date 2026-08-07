@@ -478,11 +478,11 @@
       // scrubbed timeline, reversing the scroll restores the first artwork.
       var journeyPastelsSwap = journeySection.querySelector(".journey__pastels-swap");
       if (journeyPastelsSwap) {
-        gsap.set(journeyPastelsSwap, { xPercent: 8 });
+        gsap.set(journeyPastelsSwap, { yPercent: 8 });
         tlJourney.to(journeyPastelsSwap, {
-          clipPath: "inset(0 0% 0 0)",
-          xPercent: 0,
-          duration: 0.1,
+          clipPath: "inset(0% 0 0 0)",
+          yPercent: 0,
+          duration: 0.055,
           ease: "power1.inOut"
         }, 0.24);
       }

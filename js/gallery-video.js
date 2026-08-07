@@ -69,7 +69,7 @@
   style.textContent = [
     ".journey__huge-text .tracking-wide{letter-spacing:-1px!important}",
     ".journey__pastels{position:relative}",
-    ".journey__pastels-swap{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:cover;object-position:center;opacity:1;clip-path:inset(0 100% 0 0);z-index:2!important;will-change:clip-path,transform}"
+    ".journey__pastels-swap{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:cover;object-position:center;opacity:1;clip-path:inset(100% 0 0 0);z-index:2!important;will-change:clip-path,transform}"
   ].join("");
   document.head.appendChild(style);
 
