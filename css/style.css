@@ -3162,3 +3162,139 @@ a {
     text-align: left;
   }
 }
+
+/* ==========================================================
+   CLONE CODING
+   Figma 962:1448
+   ========================================================== */
+.clone-coding {
+  position: relative;
+  z-index: 2;
+  background: #ece9e0;
+  color: #000;
+}
+
+.clone-coding__scene {
+  position: relative;
+  width: 100%;
+  height: calc(100svh - 66px);
+  min-height: 40rem;
+  overflow: hidden;
+  background: #ece9e0;
+}
+
+.clone-coding__intro {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 3rem, 1216px);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.clone-coding__mark {
+  position: absolute;
+  top: clamp(2rem, 3.33vw, 4rem);
+  left: 0;
+  width: clamp(13rem, 20.3vw, 24.5rem);
+  aspect-ratio: 1;
+  object-fit: cover;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.clone-coding__title {
+  position: absolute;
+  top: clamp(2rem, 3.33vw, 4rem);
+  left: 50%;
+  width: max-content;
+  margin: 0;
+  transform: translateX(-50%);
+  font-family: var(--font-serif);
+  font-size: clamp(4.2rem, 6.77vw, 8.125rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.09em;
+  white-space: nowrap;
+}
+
+.clone-coding__description {
+  position: absolute;
+  top: clamp(8.5rem, 13.18vw, 15.8125rem);
+  right: 0;
+  width: min(25.94vw, 31.125rem);
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.9rem, 1.25vw, 1.5rem);
+  line-height: 1.45;
+  letter-spacing: -0.05em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.clone-coding__viewport {
+  position: absolute;
+  z-index: 1;
+  top: clamp(16rem, 25.73vw, 30.875rem);
+  left: 0;
+  width: 100%;
+  height: min(54.9svh, 33.0625rem);
+  overflow: hidden;
+}
+
+.clone-coding__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  gap: clamp(1.25rem, 1.72vw, 2.0625rem);
+  width: max-content;
+  will-change: transform;
+}
+
+.clone-coding__card {
+  width: min(57.3vw, 68.75rem);
+  height: min(54.9svh, 33.0625rem);
+  flex: 0 0 auto;
+  border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
+  background: #1a1a1a;
+}
+
+@media (max-width: 760px) {
+  .clone-coding__scene {
+    min-height: 38rem;
+  }
+
+  .clone-coding__intro {
+    width: min(100% - 2rem, 42rem);
+  }
+
+  .clone-coding__mark {
+    top: 2.2rem;
+    left: -1rem;
+    width: 11rem;
+  }
+
+  .clone-coding__title {
+    top: 3.25rem;
+    font-size: clamp(2.75rem, 13.5vw, 4.5rem);
+  }
+
+  .clone-coding__description {
+    top: 11.5rem;
+    right: 0;
+    width: min(80%, 24rem);
+    font-size: 0.86rem;
+    white-space: normal;
+  }
+
+  .clone-coding__viewport {
+    top: 16rem;
+    height: min(48svh, 27rem);
+  }
+
+  .clone-coding__card {
+    width: min(82vw, 34rem);
+    height: min(48svh, 27rem);
+  }
+}

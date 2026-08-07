@@ -1066,6 +1066,107 @@
       wrunStoryTimeline.to({}, { duration: 0.38 });
     }
 
+    var cloneCodingScene = document.querySelector(".clone-coding__scene");
+    var cloneCodingViewport = document.querySelector(".clone-coding__viewport");
+    var cloneCodingTrack = document.querySelector(".clone-coding__track");
+    var cloneCodingCards = gsap.utils.toArray(".clone-coding__card");
+    var cloneCodingIntro = document.querySelector(".clone-coding__intro");
+
+    if (
+      cloneCodingScene &&
+      cloneCodingViewport &&
+      cloneCodingTrack &&
+      cloneCodingCards.length === 3
+    ) {
+      var getCloneCodingHeaderOffset = function () {
+        var globalHeader = document.querySelector(".global-header");
+        return globalHeader ? Math.ceil(globalHeader.getBoundingClientRect().height) : 0;
+      };
+
+      var getCloneCodingCardX = function (cardIndex) {
+        var card = cloneCodingCards[cardIndex];
+        return (
+          cloneCodingViewport.clientWidth / 2 -
+          (card.offsetLeft + card.offsetWidth / 2)
+        );
+      };
+
+      gsap.set(cloneCodingTrack, {
+        x: function () {
+          return getCloneCodingCardX(1);
+        },
+      });
+
+      if (!prefersReducedMotion) {
+        var showCloneCodingHeader = function () {
+          if (globalHeader) {
+            gsap.to(globalHeader, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.35,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+          }
+
+          if (globalMenuBtn) {
+            gsap.to(globalMenuBtn, {
+              autoAlpha: 0,
+              duration: 0.25,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+          }
+        };
+
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: ".clone-coding",
+            start: function () {
+              return "top " + getCloneCodingHeaderOffset() + "px";
+            },
+            end: function () {
+              return "+=" + Math.max(window.innerHeight * 1.8, 1200);
+            },
+            pin: cloneCodingScene,
+            pinSpacing: true,
+            scrub: 0.6,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onEnter: showCloneCodingHeader,
+            onEnterBack: showCloneCodingHeader,
+            onUpdate: function (self) {
+              if (self.isActive && globalHeader && gsap.getProperty(globalHeader, "opacity") < 1) {
+                showCloneCodingHeader();
+              }
+            },
+          },
+        })
+          .to({}, { duration: 0.2 })
+          .to(
+            cloneCodingTrack,
+            {
+              x: function () {
+                return getCloneCodingCardX(2);
+              },
+              duration: 1,
+              ease: "power1.inOut",
+            }
+          )
+          .to(
+            cloneCodingIntro,
+            {
+              y: -60,
+              opacity: 0.45,
+              duration: 0.5,
+              ease: "power1.out",
+            },
+            0.7
+          )
+          .to({}, { duration: 0.25 });
+      }
+    }
+
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 
