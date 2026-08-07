@@ -2539,6 +2539,10 @@ a {
   font-family: "Inter", sans-serif;
 }
 
+.work-page__project--ilkw .work-page__copy h3 {
+  font-family: "Inter", sans-serif;
+}
+
 .work-page__copy p {
   margin: clamp(0.55rem, 0.7vw, 0.8rem) 0 0;
   font-family: "Inter", sans-serif;
