@@ -887,6 +887,11 @@
         onEnterBack: function () {
           activateWorkProject(card);
         },
+        onUpdate: function (self) {
+          if (self.isActive) {
+            activateWorkProject(card);
+          }
+        },
       });
     });
 
@@ -958,6 +963,107 @@
           stagger: 0.08,
         });
       }
+    }
+
+    var wrunStoryScene = document.querySelector(".work-page__wrun-story-scene");
+    var wrunStoryTrack = document.querySelector(".work-page__wrun-story-track");
+    var wrunStoryCards = gsap.utils.toArray(".work-page__wrun-story-card");
+    var wrunStoryShades = gsap.utils.toArray(".work-page__wrun-story-shade");
+    var wrunStoryStatements = gsap.utils.toArray(".work-page__wrun-story-statement");
+
+    if (
+      wrunStoryScene &&
+      wrunStoryTrack &&
+      wrunStoryCards.length === 3 &&
+      wrunStoryStatements.length === 3 &&
+      !prefersReducedMotion
+    ) {
+      var getWrunStoryHeaderOffset = function () {
+        var globalHeader = document.querySelector(".global-header");
+        return globalHeader ? Math.ceil(globalHeader.getBoundingClientRect().height) : 0;
+      };
+
+      var getWrunStoryStep = function () {
+        return wrunStoryCards[1].offsetTop - wrunStoryCards[0].offsetTop;
+      };
+
+      gsap.set(wrunStoryTrack, { y: 0 });
+      gsap.set(wrunStoryShades, { opacity: 0.7 });
+      gsap.set(wrunStoryShades[0], { opacity: 0 });
+      gsap.set(wrunStoryStatements, { opacity: 0, y: 12 });
+      gsap.set(wrunStoryStatements[0], { opacity: 1, y: 0 });
+
+      var wrunStoryTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".work-page__project--wrun-story",
+          start: function () {
+            return "top " + getWrunStoryHeaderOffset() + "px";
+          },
+          end: function () {
+            return "+=" + Math.max(window.innerHeight * 2.7, 1700);
+          },
+          pin: wrunStoryScene,
+          pinSpacing: true,
+          scrub: 0.55,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onEnter: function () {
+            activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
+          },
+          onEnterBack: function () {
+            activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
+          },
+          onLeave: function () {
+            activateWorkProject(document.querySelector(".work-page__project--jaran"));
+          },
+          onUpdate: function (self) {
+            if (self.isActive) {
+              activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
+            }
+          },
+        },
+      });
+
+      [1, 2].forEach(function (stateIndex) {
+        var transitionLabel = "wrun-state-" + stateIndex;
+
+        wrunStoryTimeline
+          .to({}, { duration: 0.28 })
+          .addLabel(transitionLabel)
+          .to(
+            wrunStoryTrack,
+            {
+              y: function () {
+                return -getWrunStoryStep() * stateIndex;
+              },
+              duration: 0.9,
+              ease: "power1.inOut",
+            },
+            transitionLabel
+          )
+          .to(
+            wrunStoryShades[stateIndex - 1],
+            { opacity: 0.7, duration: 0.55, ease: "none" },
+            transitionLabel
+          )
+          .to(
+            wrunStoryShades[stateIndex],
+            { opacity: 0, duration: 0.55, ease: "none" },
+            transitionLabel
+          )
+          .to(
+            wrunStoryStatements[stateIndex - 1],
+            { opacity: 0, y: -12, duration: 0.3, ease: "power1.out" },
+            transitionLabel
+          )
+          .to(
+            wrunStoryStatements[stateIndex],
+            { opacity: 1, y: 0, duration: 0.35, ease: "power1.out" },
+            transitionLabel + "+=0.28"
+          );
+      });
+
+      wrunStoryTimeline.to({}, { duration: 0.38 });
     }
 
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
