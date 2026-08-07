@@ -2236,6 +2236,89 @@ a {
   margin-top: clamp(7.35rem, 11vw, 13.1rem);
 }
 
+.work-page__project--pumto-detail {
+  position: relative;
+  min-height: 100svh;
+  margin-top: clamp(7.35rem, 11vw, 13.1rem);
+  padding: clamp(5.25rem, 13vh, 8.5rem) 0 clamp(4rem, 10vh, 6.25rem);
+}
+
+.work-page__pumto-detail-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 337fr) minmax(8.5rem, 172fr);
+  align-items: center;
+  gap: clamp(3rem, 6.65vw, 8rem);
+  min-height: clamp(26rem, 52vh, 34rem);
+  padding: 0 clamp(1rem, 5.1vw, 6.125rem) 0 clamp(0.5rem, 0.55vw, 0.625rem);
+  overflow: visible;
+}
+
+.work-page__pumto-detail-mark {
+  position: absolute;
+  top: clamp(-10rem, -15vh, -5rem);
+  left: clamp(-8.25rem, -6.9vw, -4rem);
+  z-index: 0;
+  width: clamp(15rem, 20.3vw, 24.35rem);
+  height: auto;
+  filter: invert(1);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+
+.work-page__pumto-steps,
+.work-page__pumto-phone {
+  position: relative;
+  z-index: 1;
+}
+
+.work-page__pumto-steps {
+  display: grid;
+  gap: clamp(2.5rem, 7.8vh, 4.5rem);
+}
+
+.work-page__pumto-step h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 2.6vw, 3.125rem);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.work-page__pumto-step p {
+  margin: clamp(0.65rem, 1.15vw, 1.4rem) 0 0;
+  color: #dadada;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.7rem, 0.78vw, 0.9375rem);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.work-page__pumto-phone {
+  width: 100%;
+  max-width: 10.75rem;
+  margin: 0;
+  justify-self: center;
+}
+
+.work-page__pumto-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.work-page__summary--pumto-detail {
+  margin-top: clamp(2.75rem, 7vh, 4.75rem);
+  padding-left: clamp(0.5rem, 0.8vw, 0.9375rem);
+}
+
+.work-page__summary--pumto-detail .work-page__copy h3 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+}
+
 .work-page__visual {
   position: relative;
   container-type: inline-size;
@@ -2593,6 +2676,41 @@ a {
 
   .work-page__summary {
     grid-template-columns: 1fr;
+  }
+
+  .work-page__project--pumto-detail {
+    min-height: 0;
+    padding: 2rem 0 1rem;
+  }
+
+  .work-page__pumto-detail-stage {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    min-height: 0;
+    padding: 3rem 0 0;
+  }
+
+  .work-page__pumto-detail-mark {
+    top: -1rem;
+    left: -2.5rem;
+    width: min(72vw, 19rem);
+  }
+
+  .work-page__pumto-steps {
+    gap: 2.75rem;
+  }
+
+  .work-page__pumto-step p {
+    white-space: normal;
+  }
+
+  .work-page__pumto-phone {
+    width: clamp(8.75rem, 38vw, 11rem);
+  }
+
+  .work-page__summary--pumto-detail {
+    margin-top: 3.5rem;
+    padding-left: 0;
   }
 
   .work-page__copy p br {
