@@ -583,17 +583,27 @@
       // 고정 My/JOURNEY — 트랙 밖(핀 섹션 직속)이라 화면 고정. journey4 진입과 함께 표시
       var fixedMy = gsap.utils.toArray([".journey__scene3-my", ".journey__scene3-journey"]);
       if (swapImgs.length) {
-        gsap.set(swapImgs, {
-          autoAlpha: 0,
-          scale: 1.025,
-          transformOrigin: "center center"
+        var journey4LargeSwap = document.querySelector(".journey__ending-img .journey__swap");
+        var journey4SmallSwap = document.querySelector(".journey__ending-sketch .journey__swap");
+
+        gsap.set(journey4LargeSwap, {
+          autoAlpha: 1,
+          clipPath: "inset(0 100% 0 0)"
+        });
+        gsap.set(journey4SmallSwap, {
+          autoAlpha: 1,
+          clipPath: "inset(0 0 0 100%)"
         });
 
         var tlJourney4Swap = gsap.timeline();
         tlJourney4Swap
-          .to(swapImgs, {
-            autoAlpha: 1,
-            scale: 1,
+          .to(journey4LargeSwap, {
+            clipPath: "inset(0 0% 0 0)",
+            duration: 1,
+            ease: "none"
+          }, 0)
+          .to(journey4SmallSwap, {
+            clipPath: "inset(0 0 0 0%)",
             duration: 1,
             ease: "none"
           }, 0)
@@ -606,8 +616,8 @@
         ScrollTrigger.create({
           trigger: ".journey__ending-img",
           containerAnimation: tlJourney,
-          start: "left 60%",
-          end: "left 15%",
+          start: "left 10%",
+          end: "left -30%",
           scrub: 0.65,
           animation: tlJourney4Swap,
         });
