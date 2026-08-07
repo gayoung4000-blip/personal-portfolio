@@ -473,6 +473,20 @@
         ease: "none"
       }, 0.12);
 
+      // journey2: the second artwork is revealed inside the same frame while
+      // the horizontal journey keeps moving. Because this lives on the main
+      // scrubbed timeline, reversing the scroll restores the first artwork.
+      var journeyPastelsSwap = journeySection.querySelector(".journey__pastels-swap");
+      if (journeyPastelsSwap) {
+        gsap.set(journeyPastelsSwap, { xPercent: 8 });
+        tlJourney.to(journeyPastelsSwap, {
+          clipPath: "inset(0 0% 0 0)",
+          xPercent: 0,
+          duration: 0.26,
+          ease: "power1.inOut"
+        }, 0.48);
+      }
+
       // I DESIGNED has one transform owner. Its exact stop is calculated from
       // the following image edge so it remains stable at every viewport size.
       var designedText = document.querySelector(".journey__huge-anim");
