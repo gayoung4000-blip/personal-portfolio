@@ -506,7 +506,7 @@
       if (designedText && designedStopImage) {
         tlJourney.to(designedText, {
           x: getDesignedStopX,
-          duration: 0.58,
+          duration: 0.48,
           ease: "none"
         }, 0.04);
       }
