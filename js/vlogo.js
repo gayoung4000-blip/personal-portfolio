@@ -937,10 +937,17 @@
       } else {
         gsap.set(ilkwContributionChars, { color: "#494949" });
 
+        var getIlkwContributionHeaderOffset = function () {
+          var globalHeader = document.querySelector(".global-header");
+          return globalHeader ? Math.ceil(globalHeader.getBoundingClientRect().height) : 0;
+        };
+
         gsap.timeline({
           scrollTrigger: {
             trigger: ".work-page__project--ilkw-contribution",
-            start: "top top",
+            start: function () {
+              return "top " + getIlkwContributionHeaderOffset() + "px";
+            },
             end: function () {
               return "+=" + Math.max(window.innerHeight * 2.8, ilkwContributionChars.length * 18);
             },
