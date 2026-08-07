@@ -2330,7 +2330,7 @@ a {
 
 .work-page__summary--ilkw-contribution {
   position: absolute;
-  top: min(40.52vw, 48.625rem);
+  top: calc(min(40.52vw, 48.625rem) - 50px);
   left: calc(18.39vw - var(--scene-gutter));
   width: min(38.8vw, 46.5625rem);
   margin: 0;
@@ -2363,7 +2363,7 @@ a {
 
   .work-page__summary--ilkw-contribution {
     top: auto;
-    bottom: clamp(0.75rem, 2.5vh, 1.25rem);
+    bottom: calc(clamp(0.75rem, 2.5vh, 1.25rem) + 50px);
   }
 }
 
