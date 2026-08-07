@@ -669,16 +669,38 @@
         //    꽃다발 → 칠판 낙서, 폴라로이드 → 교실 단체사진으로 동시 크로스페이드
         var swap2 = gsap.utils.toArray(".journey__swap2");
         if (swap2.length) {
+          var journey5LargeSwap = document.querySelector(".journey__bouquet .journey__swap2");
+          var journey5SmallSwap = document.querySelector(".journey__polaroid .journey__swap2");
+
+          gsap.set(journey5LargeSwap, {
+            autoAlpha: 1,
+            clipPath: "inset(0 100% 0 0)"
+          });
+          gsap.set(journey5SmallSwap, {
+            autoAlpha: 1,
+            clipPath: "inset(0 0 0 100%)"
+          });
+
+          var tlJourney5Swap = gsap.timeline();
+          tlJourney5Swap
+            .to(journey5LargeSwap, {
+              clipPath: "inset(0 0% 0 0)",
+              duration: 1,
+              ease: "none"
+            }, 0)
+            .to(journey5SmallSwap, {
+              clipPath: "inset(0 0 0 0%)",
+              duration: 1,
+              ease: "none"
+            }, 0);
+
           ScrollTrigger.create({
-            trigger: scene5,
+            trigger: ".journey__bouquet",
             containerAnimation: tlJourney,
-            start: "left 65%",
-            onEnter: function () {
-              gsap.to(swap2, { autoAlpha: 1, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
-            },
-            onLeaveBack: function () {
-              gsap.to(swap2, { autoAlpha: 0, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
-            },
+            start: "left 38%",
+            end: "left 21%",
+            scrub: 0.65,
+            animation: tlJourney5Swap,
           });
         }
       }
