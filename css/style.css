@@ -2266,6 +2266,12 @@ a {
   object-position: center;
 }
 
+.work-page__project[data-work-project="pumto"] .work-page__overlay {
+  inset: -2px;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.84);
+}
+
 .work-page__visual--ilkw img {
   top: -0.06%;
   left: -33.77%;
