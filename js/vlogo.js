@@ -579,20 +579,37 @@
       //    책상 → 유치원 단체사진, 우측 스케치북 → 유치원 아이들 사진으로 동시 크로스페이드.
       //    (containerAnimation: 가로로 움직이는 트랙 내부 요소의 위치를 기준으로 발동,
       //     역스크롤 시 원래 이미지로 자연 복귀)
-      var swapImgs = gsap.utils.toArray(".journey__swap");
+      var swapImgs = gsap.utils.toArray(".journey__scene--3 .journey__swap");
       // 고정 My/JOURNEY — 트랙 밖(핀 섹션 직속)이라 화면 고정. journey4 진입과 함께 표시
       var fixedMy = gsap.utils.toArray([".journey__scene3-my", ".journey__scene3-journey"]);
       if (swapImgs.length) {
+        gsap.set(swapImgs, {
+          autoAlpha: 0,
+          scale: 1.025,
+          transformOrigin: "center center"
+        });
+
+        var tlJourney4Swap = gsap.timeline();
+        tlJourney4Swap
+          .to(swapImgs, {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 1,
+            ease: "none"
+          }, 0)
+          .to(fixedMy, {
+            autoAlpha: 1,
+            duration: 0.65,
+            ease: "none"
+          }, 0.18);
+
         ScrollTrigger.create({
           trigger: ".journey__ending-img",
           containerAnimation: tlJourney,
-          start: "center right",   // 이미지 중심이 뷰포트 오른쪽 경계 도달 = 노출 50%
-          onEnter: function () {
-            gsap.to(swapImgs.concat(fixedMy), { autoAlpha: 1, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
-          },
-          onLeaveBack: function () {
-            gsap.to(swapImgs.concat(fixedMy), { autoAlpha: 0, duration: 0.7, ease: "power2.inOut", overwrite: "auto" });
-          },
+          start: "left 60%",
+          end: "left 15%",
+          scrub: 0.65,
+          animation: tlJourney4Swap,
         });
       }
 
