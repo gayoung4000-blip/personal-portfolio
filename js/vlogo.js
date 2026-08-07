@@ -697,9 +697,9 @@
           ScrollTrigger.create({
             trigger: ".journey__bouquet",
             containerAnimation: tlJourney,
-            start: "left 38%",
-            end: "left 21%",
-            scrub: 0.65,
+            start: "left 45%",
+            end: "left 28%",
+            scrub: 0.25,
             animation: tlJourney5Swap,
           });
         }
