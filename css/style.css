@@ -1386,6 +1386,7 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 3.9vh 0; /* 별 장식 상하 여백 (40 / 1032) */
+  overflow: hidden;
 }
 
 .journey__educator-star {
@@ -1401,6 +1402,7 @@ a {
   flex: 1 1 auto;
   min-height: 0;
   overflow: hidden;
+  transform: translateY(clamp(24px, 3.2vh, 34px));
 }
 
 .journey__educator-track {
