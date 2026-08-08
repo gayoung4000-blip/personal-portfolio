@@ -555,13 +555,25 @@
 
       var tlJourney = gsap.timeline();
       var journeyBridge = journeySection.querySelector(".journey__bridge-img");
+      var journeyTimelineText = journeySection.querySelector(".journey__timeline-text");
 
       if (journeyBridge) {
         gsap.set(journeyBridge, {
-          clipPath: "inset(0 100% 0 0)",
-          scale: 1.015,
+          clipPath: "inset(0 0% 0 0)",
+          scale: 1,
           transformOrigin: "left center"
         });
+      }
+
+      if (journeyTimelineText) {
+        gsap.set(journeyTimelineText, {
+          x: function() { return window.innerWidth * 0.18; }
+        });
+        tlJourney.to(journeyTimelineText, {
+          x: 0,
+          duration: 0.12,
+          ease: "power2.inOut"
+        }, 0);
       }
 
       tlJourney.to({}, { duration: 0.12 });
@@ -572,6 +584,16 @@
         duration: 0.88,
         ease: "none"
       }, 0.12);
+
+      if (journeyTimelineText) {
+        tlJourney.to(journeyTimelineText, {
+          x: function() { return window.innerWidth; },
+          duration: function() {
+            return Math.min(0.24, 0.88 * window.innerWidth / getJourneyMoveDistance());
+          },
+          ease: "none"
+        }, 0.12);
+      }
 
       // journey2: the second artwork is revealed inside the same frame while
       // the horizontal journey keeps moving. Because this lives on the main
@@ -631,16 +653,6 @@
         onEnter: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
-          if (journeyBridge) {
-            gsap.to(journeyBridge, {
-              clipPath: "inset(0 0% 0 0)",
-              scale: 1,
-              duration: 0.8,
-              delay: 0.08,
-              ease: "power2.inOut",
-              overwrite: "auto"
-            });
-          }
         },
         onLeave: function() {
           gsap.to(globalHeader, { autoAlpha: 0, y: -10, duration: 0.24, ease: "power2.out", overwrite: "auto" });
@@ -649,29 +661,11 @@
         onEnterBack: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
-          if (journeyBridge) {
-            gsap.to(journeyBridge, {
-              clipPath: "inset(0 0% 0 0)",
-              scale: 1,
-              duration: 0.35,
-              ease: "power2.out",
-              overwrite: "auto"
-            });
-          }
         },
         onLeaveBack: function() { // 다시 위로 올라갈 때
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
-          if (journeyBridge) {
-            gsap.to(journeyBridge, {
-              clipPath: "inset(0 100% 0 0)",
-              scale: 1.015,
-              duration: 0.35,
-              ease: "power2.in",
-              overwrite: "auto"
-            });
-          }
         }
       });
 
