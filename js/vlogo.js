@@ -81,6 +81,79 @@
     ro.observe(sticky);
   }
 
+  var particleCanvas = sticky.querySelector(".vlogo-particles");
+  var reduceParticleMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (particleCanvas && window.innerWidth >= 769 && !reduceParticleMotion) {
+    var particleContext = particleCanvas.getContext("2d");
+    var logoHitContext = document.createElement("canvas").getContext("2d");
+    var logoHitPath = new Path2D(finalPath.getAttribute("d"));
+    var logoParticles = [];
+    var particleFrame = 0;
+    var particleRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+
+    function resizeParticleCanvas() {
+      var bounds = sticky.getBoundingClientRect();
+      particleCanvas.width = Math.max(1, Math.round(bounds.width * particleRatio));
+      particleCanvas.height = Math.max(1, Math.round(bounds.height * particleRatio));
+      particleContext.setTransform(particleRatio, 0, 0, particleRatio, 0, 0);
+    }
+
+    function renderLogoParticles() {
+      var bounds = sticky.getBoundingClientRect();
+      particleContext.clearRect(0, 0, bounds.width, bounds.height);
+      logoParticles = logoParticles.filter(function(particle) {
+        particle.life -= 1;
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= 0.96;
+        particle.vy *= 0.96;
+        if (particle.life <= 0) return false;
+        var alpha = Math.min(1, particle.life / particle.maxLife) * particle.opacity;
+        particleContext.fillStyle = particle.light
+          ? "rgba(255,255,255," + alpha + ")"
+          : "rgba(34,34,34," + (alpha * 0.72) + ")";
+        particleContext.fillRect(particle.x, particle.y, particle.size, particle.size);
+        return true;
+      });
+      if (logoParticles.length) particleFrame = requestAnimationFrame(renderLogoParticles);
+      else particleFrame = 0;
+    }
+
+    function spawnLogoParticles(event) {
+      var scale = parseFloat(getComputedStyle(gallery).getPropertyValue("--logo-scale")) || 1;
+      if (scale > 1.28) return;
+      var svgBounds = svgEl.getBoundingClientRect();
+      var logoX = (event.clientX - svgBounds.left) * (1254 / svgBounds.width);
+      var logoY = (event.clientY - svgBounds.top) * (1254 / svgBounds.height);
+      if (!logoHitContext.isPointInPath(logoHitPath, logoX, logoY, "evenodd")) return;
+      var stickyBounds = sticky.getBoundingClientRect();
+      var originX = event.clientX - stickyBounds.left;
+      var originY = event.clientY - stickyBounds.top;
+      for (var index = 0; index < 12; index += 1) {
+        var angle = Math.random() * Math.PI * 2;
+        var radius = 8 + Math.random() * 42;
+        var life = 18 + Math.random() * 24;
+        logoParticles.push({
+          x: originX + Math.cos(angle) * radius,
+          y: originY + Math.sin(angle) * radius,
+          vx: Math.cos(angle) * (0.15 + Math.random() * 0.7),
+          vy: Math.sin(angle) * (0.15 + Math.random() * 0.7),
+          size: 0.6 + Math.random() * 1.7,
+          life: life,
+          maxLife: life,
+          opacity: 0.35 + Math.random() * 0.55,
+          light: Math.random() > 0.24
+        });
+      }
+      if (!particleFrame) particleFrame = requestAnimationFrame(renderLogoParticles);
+    }
+
+    resizeParticleCanvas();
+    window.addEventListener("resize", resizeParticleCanvas);
+    sticky.addEventListener("pointermove", spawnLogoParticles, { passive: true });
+  }
+
   // ----- 초점 주변 잉크 반경 실측 (viewBox 단위, 로고 고유값) -----
   function measureInkRadiusVb() {
     var S = 502;
