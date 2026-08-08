@@ -243,10 +243,12 @@
           trigger: ".about",
           start: "top bottom",
           end: "top top",
-          scrub: 0.8,
+          scrub: true,
           invalidateOnRefresh: true
         }
       });
+
+      gsap.set(aboutHeaderFixed, { yPercent: 0 });
 
       aboutTransition
         .fromTo(goldBridge, {
@@ -265,11 +267,13 @@
           stagger: 0.011,
           ease: "power2.out"
         }, 0)
-        .to(aboutHeaderFixed, {
+        .fromTo(aboutHeaderFixed, {
+          yPercent: 0
+        }, {
           yPercent: -100,
-          duration: 0.62,
+          duration: 0.82,
           ease: "none"
-        }, 0.18)
+        }, 0.08)
         .set(aboutDome, {
           yPercent: 14,
           "--dome-progress": 0

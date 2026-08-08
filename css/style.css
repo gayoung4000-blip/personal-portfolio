@@ -561,6 +561,8 @@ a {
   opacity: 0;
   visibility: hidden;
   pointer-events: none; /* 클릭 방해 금지 */
+  color: #ffffff;
+  will-change: transform;
 }
 
 /* Full-screen bridge between the presentation video and the About dome. */
@@ -603,6 +605,7 @@ a {
   text-align: left;
   text-wrap: balance;
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
+  color: #ffffff;
 }
 
 .about__badge {
@@ -619,6 +622,8 @@ a {
   background: rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  color: #ffffff;
+  border-color: #ffffff;
 }
 
 /* 돔(아치) 배경 컨테이너 */
