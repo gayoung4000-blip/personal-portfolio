@@ -556,6 +556,83 @@
         document.fonts.ready.then(alignJourneyTypeAxis);
       }
       ScrollTrigger.addEventListener("refreshInit", alignJourneyTypeAxis);
+
+      var journeyRevealElements = gsap.utils.toArray([
+        ".journey__my", ".journey__journey-text", ".journey__sub-title",
+        ".journey__timeline-text", ".journey__kor-title", ".journey__kor-desc",
+        ".journey__inverted-my", ".journey__inverted-journey"
+      ]);
+
+      function splitJourneyRevealText(element) {
+        if (!element || element.dataset.journeyRevealSplit === "true") {
+          return element ? element.querySelectorAll(".journey__reveal-char") : [];
+        }
+
+        var readableText = element.textContent.replace(/\s+/g, " ").trim();
+        var walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+        var textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        textNodes.forEach(function(textNode) {
+          var normalized = textNode.nodeValue.replace(/\s+/g, " ").trim();
+          if (!normalized) return;
+
+          var fragment = document.createDocumentFragment();
+          Array.from(normalized).forEach(function(character) {
+            var span = document.createElement("span");
+            span.className = "journey__reveal-char";
+            span.setAttribute("aria-hidden", "true");
+            span.textContent = character === " " ? "\u00a0" : character;
+            fragment.appendChild(span);
+          });
+          textNode.replaceWith(fragment);
+        });
+
+        element.dataset.journeyRevealSplit = "true";
+        element.setAttribute("aria-label", readableText);
+        return element.querySelectorAll(".journey__reveal-char");
+      }
+
+      var journeyRevealGroups = journeyRevealElements.map(splitJourneyRevealText);
+      var journeyRevealCharacters = journeyRevealGroups.reduce(function(all, group) {
+        return all.concat(Array.from(group));
+      }, []);
+      var reduceJourneyMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function resetJourneyTextReveal() {
+        if (reduceJourneyMotion) {
+          gsap.set(journeyRevealCharacters, { clearProps: "all" });
+          return;
+        }
+        gsap.killTweensOf(journeyRevealCharacters);
+        gsap.set(journeyRevealCharacters, { autoAlpha: 0, x: -16, filter: "blur(3px)" });
+      }
+
+      function playJourneyTextReveal() {
+        if (reduceJourneyMotion) return;
+        var revealTimeline = gsap.timeline();
+        journeyRevealGroups.forEach(function(group, index) {
+          if (!group.length) return;
+          revealTimeline.to(group, {
+            autoAlpha: 1,
+            x: 0,
+            filter: "blur(0px)",
+            duration: 0.42,
+            stagger: index >= 4 ? 0.006 : 0.018,
+            ease: "power2.out",
+            overwrite: true
+          }, index === 0 ? 0 : "-=0.24");
+        });
+      }
+
+      resetJourneyTextReveal();
+      ScrollTrigger.create({
+        trigger: journeySection,
+        start: "top 82%",
+        onEnter: playJourneyTextReveal,
+        onEnterBack: playJourneyTextReveal,
+        onLeaveBack: resetJourneyTextReveal
+      });
       // 1. 가로 스크롤 트랙 이동 거리 계산
       function getScrollAmount() {
         var trackWidth = journeyTrack.scrollWidth;

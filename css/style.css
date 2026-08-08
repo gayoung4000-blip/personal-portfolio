@@ -1022,6 +1022,12 @@ a {
   margin-top: clamp(0.5rem, 1vh, 2rem);
 }
 
+.journey__reveal-char {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform, opacity, filter;
+}
+
 /* Short laptop screens: keep every intro label inside the first viewport. */
 @media (min-width: 48.0625rem) and (max-height: 50rem) {
   .journey__title-block {
