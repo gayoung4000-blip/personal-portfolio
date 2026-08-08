@@ -588,21 +588,51 @@
       tlJourney.to({}, { duration: 0.12 });
       
       // 트랙은 왼쪽 밀어냄
+      function getJourneyIntroApproachDistance() {
+        if (!journeyInvertedBlock || !journeyIntroInner) {
+          return window.innerWidth * 0.22;
+        }
+
+        var innerLeft = journeyIntroInner.offsetLeft;
+        var blockRight = innerLeft + journeyInvertedBlock.offsetLeft +
+          journeyInvertedBlock.offsetWidth + (Number(gsap.getProperty(journeyInvertedBlock, "x")) || 0);
+
+        return Math.min(
+          window.innerWidth * 0.46,
+          Math.max(window.innerWidth * 0.12, window.innerWidth - blockRight)
+        );
+      }
+
+      function getJourneyIntroApproachDuration() {
+        return Math.min(
+          0.16,
+          Math.max(0.045, 0.88 * getJourneyIntroApproachDistance() / getJourneyMoveDistance())
+        );
+      }
+
+      // First, bring the image to the My / JOURNEY axis while the copy stays fixed.
       tlJourney.to(journeyTrack, {
-        x: getScrollAmount,
-        duration: 0.88,
+        x: function() { return -getJourneyIntroApproachDistance(); },
+        duration: getJourneyIntroApproachDuration,
         ease: "none"
       }, 0.12);
 
-      // Counter the track movement so the full intro copy remains fixed while
-      // the connected image strip keeps travelling left underneath it.
       if (journeyIntroInner) {
         tlJourney.to(journeyIntroInner, {
-          x: getJourneyMoveDistance,
-          duration: 0.88,
+          x: getJourneyIntroApproachDistance,
+          duration: getJourneyIntroApproachDuration,
           ease: "none"
         }, 0.12);
       }
+
+      tlJourney.to({}, { duration: 0.07 });
+
+      // Then release the copy so it exits left with the image and reveals scene 2.
+      tlJourney.to(journeyTrack, {
+        x: getScrollAmount,
+        duration: function() { return 0.88 - getJourneyIntroApproachDuration(); },
+        ease: "none"
+      });
 
       // journey2: the second artwork is revealed inside the same frame while
       // the horizontal journey keeps moving. Because this lives on the main
