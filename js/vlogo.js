@@ -536,6 +536,26 @@
     var globalMenuBtn = document.querySelector("#globalMenuBtn");
 
     if (journeySection && journeyTrack && globalMenuBtn) {
+      var journeyTimelineText = journeySection.querySelector(".journey__timeline-text");
+      var journeyInvertedBlock = journeySection.querySelector(".journey__inverted-block");
+
+      function alignJourneyTypeAxis() {
+        if (!journeyTimelineText || !journeyInvertedBlock) return;
+        if (window.innerWidth <= 768) {
+          gsap.set(journeyInvertedBlock, { x: 0 });
+          return;
+        }
+
+        var timelineRight = journeyTimelineText.offsetLeft + journeyTimelineText.offsetWidth;
+        var invertedRight = journeyInvertedBlock.offsetLeft + journeyInvertedBlock.offsetWidth;
+        gsap.set(journeyInvertedBlock, { x: timelineRight - invertedRight });
+      }
+
+      alignJourneyTypeAxis();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(alignJourneyTypeAxis);
+      }
+      ScrollTrigger.addEventListener("refreshInit", alignJourneyTypeAxis);
       // 1. 가로 스크롤 트랙 이동 거리 계산
       function getScrollAmount() {
         var trackWidth = journeyTrack.scrollWidth;

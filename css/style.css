@@ -993,6 +993,7 @@ a {
   left: clamp(35rem, 59.27vw, 71.125rem); /* 1138px @ 1920 (이미지에 덮이지 않도록 피그마 시안 위치로 이동) */
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   width: clamp(15rem, 19.37vw, 23.25rem);
 }
 
@@ -1000,8 +1001,9 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 2.6vw, 3.125rem);
   line-height: 1;
+  width: 100%;
   text-align: right;
-  margin-right: 5%;
+  margin-right: 0;
 }
 
 .journey__inverted-journey {
@@ -1011,6 +1013,7 @@ a {
   line-height: 1.1;
   transform: rotate(180deg);
   display: inline-block;
+  width: 100%;
   text-align: left;
   margin-top: clamp(0.5rem, 1vh, 2rem);
 }
