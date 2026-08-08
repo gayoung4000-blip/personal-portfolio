@@ -30,7 +30,7 @@
 
   /* 레이아웃 */
   --container-max: 120rem;              /* 1920px 상한 */
-  --mark-w: clamp(14rem, 33.2vw, 39.85rem);     /* gy 로고 가로: 637.5px @1920 */
+  --mark-w: clamp(16.1rem, 38.18vw, 45.8275rem); /* 중앙 영상 로고: 기존 대비 15% 확대 */
 }
 
 /* ===== Reset ===== */
@@ -309,7 +309,7 @@ a {
 .hero2__mark {
   position: relative;
   /* 세로가 짧으면 상하단 바 공간(16rem)을 뺀 높이에 맞춰 축소, 최소 9rem */
-  width: max(min(var(--mark-w), calc((100svh - 16rem) * 1.1169)), 9rem);
+  width: max(min(var(--mark-w), calc((100svh - 16rem) * 1.284435)), 10.35rem);
   aspect-ratio: 637.512 / 570.784;
   overflow: hidden;
 }
@@ -526,7 +526,7 @@ a {
   }
 
   .hero2__mark {
-    width: min(70vw, 20rem);
+    width: min(80.5vw, 23rem);
   }
 
   .hero2__bottom {
