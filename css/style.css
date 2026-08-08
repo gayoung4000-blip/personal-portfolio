@@ -1123,7 +1123,12 @@ a {
 .journey__label {
   position: absolute;
   top: 46.9%; /* 498 / 1060 */
-  left: clamp(45rem, 68vw, 81.6rem); /* 1306px @ 1920 */
+  /* Follow the responsive artwork edge and preserve a visible text gap. */
+  left: calc(
+    clamp(15rem, 23.6vw, 28.3rem) +
+    clamp(27rem, 46vw, 55.2rem) +
+    clamp(1.25rem, 2vw, 2.5rem)
+  );
   font-family: var(--font-serif);
   font-size: clamp(1rem, 1.14vw, 1.375rem); /* 22px @ 1920 */
   color: var(--charcoal);
