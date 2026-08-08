@@ -1293,6 +1293,7 @@ a {
 }
 
 .journey__scene3-journey {
+  --journey-axis-shift: 0px;
   position: absolute;
   bottom: 5.98vw; /* (1029 - 914) / 1920 */
   right: 1.61vw; /* (1920 - 1517 - 372) / 1920 */
@@ -1304,6 +1305,7 @@ a {
   font-weight: 500;
   line-height: 1;
   transform: rotate(180deg);
+  translate: var(--journey-axis-shift) 0;
   transform-origin: center;
   z-index: 20;
 }
@@ -1403,6 +1405,10 @@ a {
   min-height: 0;
   overflow: hidden;
   transform: translateY(clamp(24px, 3.2vh, 34px));
+}
+
+.journey__axis-letter {
+  display: inline-block;
 }
 
 .journey__educator-track {

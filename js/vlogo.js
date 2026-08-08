@@ -568,6 +568,9 @@
 
       var journeyTimelineText = journeySection.querySelector(".journey__timeline-text");
       var journeyInvertedBlock = journeySection.querySelector(".journey__inverted-block");
+      var fixedMyAxisLetter = journeySection.querySelector(".journey__axis-letter--my");
+      var fixedJourneyAxisLetter = journeySection.querySelector(".journey__axis-letter--journey");
+      var fixedJourneyLabel = journeySection.querySelector(".journey__scene3-journey");
 
       function alignJourneyTypeAxis() {
         if (!journeyTimelineText || !journeyInvertedBlock) return;
@@ -581,11 +584,29 @@
         gsap.set(journeyInvertedBlock, { x: timelineRight - invertedRight });
       }
 
+      function alignFixedJourneyYAxis() {
+        if (!fixedMyAxisLetter || !fixedJourneyAxisLetter || !fixedJourneyLabel) return;
+        fixedJourneyLabel.style.setProperty("--journey-axis-shift", "0px");
+        var myAxisRect = fixedMyAxisLetter.getBoundingClientRect();
+        var journeyAxisRect = fixedJourneyAxisLetter.getBoundingClientRect();
+        var myAxisCenter = myAxisRect.left + myAxisRect.width / 2;
+        var journeyAxisCenter = journeyAxisRect.left + journeyAxisRect.width / 2;
+        fixedJourneyLabel.style.setProperty(
+          "--journey-axis-shift",
+          (myAxisCenter - journeyAxisCenter).toFixed(2) + "px"
+        );
+      }
+
       alignJourneyTypeAxis();
+      alignFixedJourneyYAxis();
       if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(alignJourneyTypeAxis);
+        document.fonts.ready.then(function () {
+          alignJourneyTypeAxis();
+          alignFixedJourneyYAxis();
+        });
       }
       ScrollTrigger.addEventListener("refreshInit", alignJourneyTypeAxis);
+      ScrollTrigger.addEventListener("refreshInit", alignFixedJourneyYAxis);
 
       var journeyRevealElements = gsap.utils.toArray([
         ".journey__my", ".journey__journey-text", ".journey__sub-title",
