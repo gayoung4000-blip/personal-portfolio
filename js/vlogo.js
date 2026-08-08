@@ -722,12 +722,6 @@
       var journeyPastelsSwap = journeySection.querySelector(".journey__pastels-swap");
       if (journeyPastelsSwap) {
         gsap.set(journeyPastelsSwap, { yPercent: 8 });
-        tlJourney.to(journeyPastelsSwap, {
-          clipPath: "inset(0% 0 0 0)",
-          yPercent: 0,
-          duration: 0.055,
-          ease: "power1.inOut"
-        }, 0.24);
       }
 
       // I DESIGNED has one transform owner. Its exact stop is calculated from
@@ -771,6 +765,25 @@
         animation: tlJourney,
         scrub: 1, // 스크롤 시 부드럽게(1초 지연) 따라오도록 설정
         invalidateOnRefresh: true, // 리사이즈 시 거리 재계산
+        onUpdate: function() {
+          // Tie the swap to the frame's real viewport position rather than a
+          // fixed global timeline point. The first image remains visible until
+          // the frame reaches the middle on both laptop and desktop screens.
+          if (journeyPastelsSwap) {
+            var pastelsRect = journeyPastelsSwap.parentElement.getBoundingClientRect();
+            var revealTravel = Math.max(72, window.innerWidth * 0.08);
+            var revealStart = window.innerWidth * 0.55;
+            var revealProgress = gsap.utils.clamp(
+              0,
+              1,
+              (revealStart - pastelsRect.left) / revealTravel
+            );
+            gsap.set(journeyPastelsSwap, {
+              clipPath: "inset(" + ((1 - revealProgress) * 100) + "% 0 0 0)",
+              yPercent: 8 * (1 - revealProgress)
+            });
+          }
+        },
         onEnter: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });

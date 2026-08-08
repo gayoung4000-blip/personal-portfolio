@@ -1159,7 +1159,7 @@ a {
   top: 50%; /* 상단에서 50% 지점 */
   transform: translateY(-50%); /* 자신의 높이의 절반만큼 위로 끌어올려 완벽한 세로 중앙 정렬 달성 */
   left: clamp(15rem, 23.6vw, 28.3rem); /* 454px @ 1920 */
-  width: clamp(25rem, 42.76vw, 51.3rem); /* 821px @ 1920 */
+  width: clamp(27rem, 46vw, 55.2rem); /* wider, responsive artwork frame */
   /* height 속성 삭제: 이미지 원본 비율에 따라 컨테이너 높이가 자동으로 결정됨 */
   overflow: hidden;
   z-index: 20; /* 메인 캔버스(bridge) 이미지 위에 겹치도록 */
@@ -1178,6 +1178,12 @@ a {
   width: 100%;
   height: auto; /* 이미지 원본의 세로 비율을 그대로 유지 */
   z-index: 1;
+}
+
+.journey__pastels .journey__img-content {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 /* ==========================================================
