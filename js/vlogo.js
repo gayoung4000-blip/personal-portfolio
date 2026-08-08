@@ -765,25 +765,6 @@
         animation: tlJourney,
         scrub: 1, // 스크롤 시 부드럽게(1초 지연) 따라오도록 설정
         invalidateOnRefresh: true, // 리사이즈 시 거리 재계산
-        onUpdate: function() {
-          // Tie the swap to the frame's real viewport position rather than a
-          // fixed global timeline point. The first image remains visible until
-          // the frame reaches the middle on both laptop and desktop screens.
-          if (journeyPastelsSwap) {
-            var pastelsRect = journeyPastelsSwap.parentElement.getBoundingClientRect();
-            var revealTravel = Math.max(72, window.innerWidth * 0.08);
-            var revealStart = window.innerWidth * 0.55;
-            var revealProgress = gsap.utils.clamp(
-              0,
-              1,
-              (revealStart - pastelsRect.left) / revealTravel
-            );
-            gsap.set(journeyPastelsSwap, {
-              clipPath: "inset(" + ((1 - revealProgress) * 100) + "% 0 0 0)",
-              yPercent: 8 * (1 - revealProgress)
-            });
-          }
-        },
         onEnter: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
@@ -807,6 +788,25 @@
       //    책상 → 유치원 단체사진, 우측 스케치북 → 유치원 아이들 사진으로 동시 크로스페이드.
       //    (containerAnimation: 가로로 움직이는 트랙 내부 요소의 위치를 기준으로 발동,
       //     역스크롤 시 원래 이미지로 자연 복귀)
+      // Use the horizontal container timeline as the sole animation driver.
+      // The wide center-based range keeps the first artwork visible, then
+      // reveals the second smoothly without layout reads on every frame.
+      if (journeyPastelsSwap) {
+        gsap.to(journeyPastelsSwap, {
+          clipPath: "inset(0% 0 0 0)",
+          yPercent: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: journeyPastelsSwap.parentElement,
+            containerAnimation: tlJourney,
+            start: "center 55%",
+            end: "center 20%",
+            scrub: 1,
+            invalidateOnRefresh: true
+          }
+        });
+      }
+
       var swapImgs = gsap.utils.toArray(".journey__scene--3 .journey__swap");
       // 고정 My/JOURNEY — 트랙 밖(핀 섹션 직속)이라 화면 고정. journey4 진입과 함께 표시
       var fixedMy = gsap.utils.toArray([".journey__scene3-my", ".journey__scene3-journey"]);
