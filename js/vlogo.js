@@ -270,15 +270,20 @@
           duration: 0.62,
           ease: "none"
         }, 0.18)
-        .fromTo(aboutDome, {
-          yPercent: 8,
+        .set(aboutDome, {
+          yPercent: 14,
           "--dome-progress": 0
-        }, {
+        }, 0)
+        .to(aboutDome, {
           yPercent: 0,
-          "--dome-progress": 1,
           duration: 0.72,
           ease: "power2.out"
-        }, 0.35);
+        }, 0.35)
+        .to(aboutDome, {
+          "--dome-progress": 1,
+          duration: 0.38,
+          ease: "power2.inOut"
+        }, 0.68);
 
       var aboutSubtitle = aboutDome.querySelector(".about__subtitle");
 
