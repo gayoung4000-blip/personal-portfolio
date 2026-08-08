@@ -195,7 +195,11 @@ a {
 }
 
 .global-header__logo {
-  margin-left: clamp(140px, 20vw, 384px);
+  position: absolute;
+  top: 50%;
+  left: clamp(32px, 6vw, 154px);
+  margin-left: 0;
+  transform: translateY(-50%);
 }
 
 .global-header__logo img {
@@ -215,6 +219,7 @@ a {
 .global-header__nav {
   display: flex;
   gap: clamp(1rem, 2.25vw, 3rem);
+  margin-left: auto;
   margin-right: 120px;
 }
 
