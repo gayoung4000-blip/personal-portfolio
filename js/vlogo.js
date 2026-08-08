@@ -176,7 +176,7 @@
     // 딤을 먼저 잠가 확대 구간 내내 "덩어리진 검정"으로 보이게 한다
     tl.to(gallery, { "--vdim": 0.3, duration: 0.6, ease: "power1.out" }, 0.1)
       .to(gallery, {
-        filter: "blur(0px) saturate(1) contrast(1) brightness(1)",
+        filter: "blur(0px) saturate(1) contrast(1) brightness(1) drop-shadow(0 0 0 rgba(42,42,42,0))",
         "--collage-veil": 0,
         duration: 0.6,
         ease: "power1.out"
