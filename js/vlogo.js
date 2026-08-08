@@ -252,7 +252,7 @@
 
       ScrollTrigger.create({
         trigger: ".about",
-        start: "top top",
+        start: "top bottom",
         onEnter: function() {
           globalHeader.classList.remove("global-header--over-hero");
         },
