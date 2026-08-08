@@ -875,7 +875,7 @@ a {
    ========================================================== */
 .journey-lead {
   width: 100%;
-  height: clamp(7.125rem, calc(30svh - 30px), 18.125rem);
+  height: clamp(4rem, calc(30svh - 80px), 15rem);
   background: var(--ivory);
 }
 
@@ -1572,7 +1572,7 @@ a {
 /* 모바일 반응형 조정 */
 @media (max-width: 48rem) {
   .journey-lead {
-    height: max(5rem, calc(15svh - 30px));
+    height: max(3.125rem, calc(15svh - 80px));
   }
 
   .hero-to-about-gold {
