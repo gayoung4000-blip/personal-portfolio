@@ -250,6 +250,17 @@
         }
       });
 
+      ScrollTrigger.create({
+        trigger: ".about",
+        start: "top top",
+        onEnter: function() {
+          globalHeader.classList.remove("global-header--over-hero");
+        },
+        onLeaveBack: function() {
+          globalHeader.classList.add("global-header--over-hero");
+        }
+      });
+
       gsap.set(aboutHeaderFixed, { yPercent: 0 });
 
       aboutTransition

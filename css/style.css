@@ -175,7 +175,13 @@ a {
   visibility: hidden;
   /* 돔 색상과 겹칠 때 분리감을 주기 위한 트렌디한 소프트 그림자 */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: background-color 0.38s ease, box-shadow 0.38s ease;
   /* GSAP에서 autoAlpha로 조절하므로 transition은 삭제하여 충돌 방지 */
+}
+
+.global-header.global-header--over-hero {
+  background-color: rgba(250, 247, 239, 0);
+  box-shadow: none;
 }
 
 .global-header__inner {
@@ -198,6 +204,14 @@ a {
   display: block;
 }
 
+.global-header--over-hero .global-header__logo img {
+  filter: brightness(0) invert(1) drop-shadow(0 1px 5px rgba(24, 18, 7, 0.18));
+}
+
+.global-header__logo img {
+  transition: filter 0.38s ease;
+}
+
 .global-header__nav {
   display: flex;
   gap: clamp(1rem, 2.25vw, 3rem);
@@ -213,6 +227,20 @@ a {
   font-weight: 400;
   line-height: 1.1;
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.global-header--over-hero .global-header__nav a {
+  color: #fff;
+  background-image: linear-gradient(180deg, #ffffff 12%, #f7f2e8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 5px rgba(24, 18, 7, 0.16);
+}
+
+.global-header__nav a {
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.38s ease,
+    text-shadow 0.38s ease;
 }
 
 .global-header__nav a:hover {
