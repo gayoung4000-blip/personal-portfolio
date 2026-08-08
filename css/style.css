@@ -365,12 +365,13 @@ a {
   justify-content: space-between;
   gap: 1rem;
   padding: 0 var(--pad-x) var(--pad-bottom);
+  transform: translateY(15px);
 }
 
 .hero2__credit {
   font-family: var(--font-sans);
   font-size: var(--fs-credit);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.05;                    /* Figma: 26px 글자에 27.1px 행간 */
   display: flex;
   flex-direction: column;
