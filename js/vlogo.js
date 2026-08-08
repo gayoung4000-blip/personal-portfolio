@@ -346,23 +346,32 @@
       var aboutSubtitle = aboutDome.querySelector(".about__subtitle");
 
       if (aboutSubtitle) {
-        gsap.set(aboutSubtitle, {
-          clipPath: "inset(0 100% 0 0)",
-          filter: "blur(5px)"
-        });
+        function resetAboutSubtitle() {
+          gsap.set(aboutSubtitle, {
+            clipPath: "inset(0 100% 0 0)",
+            filter: "blur(5px)"
+          });
+        }
+
+        function revealAboutSubtitle() {
+          gsap.to(aboutSubtitle, {
+            clipPath: "inset(0 0% 0 0)",
+            filter: "blur(0px)",
+            duration: 0.9,
+            ease: "power2.out",
+            overwrite: true
+          });
+        }
+
+        resetAboutSubtitle();
 
         ScrollTrigger.create({
           trigger: ".about",
           start: "top 72%",
-          once: true,
-          onEnter: function() {
-            gsap.to(aboutSubtitle, {
-              clipPath: "inset(0 0% 0 0)",
-              filter: "blur(0px)",
-              duration: 0.9,
-              ease: "power2.out"
-            });
-          }
+          onEnter: revealAboutSubtitle,
+          onEnterBack: revealAboutSubtitle,
+          onLeave: resetAboutSubtitle,
+          onLeaveBack: resetAboutSubtitle
         });
       }
 
@@ -370,32 +379,42 @@
       var aboutPhotoImage = aboutPhoto && aboutPhoto.querySelector("img");
 
       if (aboutPhoto && aboutPhotoImage) {
-        gsap.set(aboutPhoto, {
-          clipPath: "inset(0 100% 100% 0)"
-        });
-        gsap.set(aboutPhotoImage, {
-          filter: "blur(4px)",
-          scale: 1.035,
-          transformOrigin: "0% 0%"
-        });
+        function resetAboutPhoto() {
+          gsap.set(aboutPhoto, {
+            clipPath: "inset(0 100% 100% 0)"
+          });
+          gsap.set(aboutPhotoImage, {
+            filter: "blur(4px)",
+            scale: 1.035,
+            transformOrigin: "0% 0%"
+          });
+        }
+
+        function revealAboutPhoto() {
+          gsap.to(aboutPhoto, {
+            clipPath: "inset(0 0% 0% 0)",
+            duration: 1.15,
+            ease: "power2.inOut",
+            overwrite: true
+          });
+          gsap.to(aboutPhotoImage, {
+            filter: "blur(0px)",
+            scale: 1,
+            duration: 1.15,
+            ease: "power2.inOut",
+            overwrite: true
+          });
+        }
+
+        resetAboutPhoto();
 
         ScrollTrigger.create({
           trigger: ".about",
           start: "top 60%",
-          once: true,
-          onEnter: function() {
-            gsap.to(aboutPhoto, {
-              clipPath: "inset(0 0% 0% 0)",
-              duration: 1.15,
-              ease: "power2.inOut"
-            });
-            gsap.to(aboutPhotoImage, {
-              filter: "blur(0px)",
-              scale: 1,
-              duration: 1.15,
-              ease: "power2.inOut"
-            });
-          }
+          onEnter: revealAboutPhoto,
+          onEnterBack: revealAboutPhoto,
+          onLeave: resetAboutPhoto,
+          onLeaveBack: resetAboutPhoto
         });
       }
 
@@ -434,30 +453,39 @@
         return element.querySelectorAll(".about__char");
       }
 
-      function createOneWayCharacterReveal(element, startPosition, staggerAmount) {
+      function createCharacterReveal(element, startPosition, staggerAmount) {
         var characters = splitAboutText(element);
         if (!characters.length) return;
 
-        gsap.set(characters, {
-          autoAlpha: 0,
-          yPercent: 55,
-          filter: "blur(4px)"
-        });
+        function resetCharacters() {
+          gsap.set(characters, {
+            autoAlpha: 0,
+            yPercent: 55,
+            filter: "blur(4px)"
+          });
+        }
+
+        function revealCharacters() {
+          gsap.to(characters, {
+            autoAlpha: 1,
+            yPercent: 0,
+            filter: "blur(0px)",
+            duration: 0.5,
+            stagger: staggerAmount,
+            ease: "power2.out",
+            overwrite: true
+          });
+        }
+
+        resetCharacters();
 
         ScrollTrigger.create({
           trigger: element,
           start: startPosition,
-          once: true,
-          onEnter: function() {
-            gsap.to(characters, {
-              autoAlpha: 1,
-              yPercent: 0,
-              filter: "blur(0px)",
-              duration: 0.5,
-              stagger: staggerAmount,
-              ease: "power2.out"
-            });
-          }
+          onEnter: revealCharacters,
+          onEnterBack: revealCharacters,
+          onLeave: resetCharacters,
+          onLeaveBack: resetCharacters
         });
       }
 
@@ -465,27 +493,36 @@
       var aboutDesc = aboutDome.querySelector(".about__desc");
       var aboutScrollBtn = aboutDome.querySelector(".about__scroll-btn");
 
-      createOneWayCharacterReveal(aboutRoles, "top 82%", 0.025);
-      createOneWayCharacterReveal(aboutDesc, "top 84%", 0.012);
+      createCharacterReveal(aboutRoles, "top 82%", 0.025);
+      createCharacterReveal(aboutDesc, "top 84%", 0.012);
 
       if (aboutScrollBtn) {
-        gsap.set(aboutScrollBtn, {
-          clipPath: "inset(0 100% 0 0)",
-          filter: "blur(3px)"
-        });
+        function resetAboutButton() {
+          gsap.set(aboutScrollBtn, {
+            clipPath: "inset(0 100% 0 0)",
+            filter: "blur(3px)"
+          });
+        }
+
+        function revealAboutButton() {
+          gsap.to(aboutScrollBtn, {
+            clipPath: "inset(0 0% 0 0)",
+            filter: "blur(0px)",
+            duration: 0.75,
+            ease: "power2.out",
+            overwrite: true
+          });
+        }
+
+        resetAboutButton();
 
         ScrollTrigger.create({
           trigger: aboutScrollBtn,
           start: "top 88%",
-          once: true,
-          onEnter: function() {
-            gsap.to(aboutScrollBtn, {
-              clipPath: "inset(0 0% 0 0)",
-              filter: "blur(0px)",
-              duration: 0.75,
-              ease: "power2.out"
-            });
-          }
+          onEnter: revealAboutButton,
+          onEnterBack: revealAboutButton,
+          onLeave: resetAboutButton,
+          onLeaveBack: resetAboutButton
         });
       }
 
