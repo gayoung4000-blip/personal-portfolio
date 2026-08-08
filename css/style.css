@@ -563,6 +563,21 @@ a {
   pointer-events: none; /* 클릭 방해 금지 */
   color: #ffffff;
   will-change: transform;
+  isolation: isolate;
+}
+
+#about-header-fixed::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 72% 58% at 14% 92%,
+    rgba(0, 0, 0, 0.46) 0%,
+    rgba(0, 0, 0, 0.25) 42%,
+    rgba(0, 0, 0, 0) 76%
+  );
+  pointer-events: none;
 }
 
 /* Full-screen bridge between the presentation video and the About dome. */
@@ -595,6 +610,8 @@ a {
 }
 
 .about__title {
+  position: relative;
+  z-index: 1;
   width: min(76vw, 1260px);
   margin: 0;
   font-family: var(--font-serif); /* Juana 대안으로 Prata 사용 */
@@ -604,11 +621,15 @@ a {
   letter-spacing: 0.025em;
   text-align: left;
   text-wrap: balance;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.42),
+    0 8px 26px rgba(0, 0, 0, 0.34);
   color: #ffffff;
 }
 
 .about__badge {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -619,9 +640,9 @@ a {
   font-size: clamp(1rem, 1.14vw, 1.375rem); /* 22px @ 1920 */
   letter-spacing: 0.04em;
   margin-top: clamp(1.25rem, 1.8vw, 2.15rem);
-  background: rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: #ffffff;
   border-color: #ffffff;
 }
