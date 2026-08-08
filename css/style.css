@@ -656,6 +656,8 @@ a {
   max-width: none;
   background-color: var(--ivory);
   color: var(--charcoal);
+  overflow: hidden;
+  isolation: isolate;
   
   /* 스크롤에 따른 사각형 모핑을 위한 CSS 변수 (0: 둥금 -> 1: 평평) */
   --dome-shape-progress: 0;
@@ -682,6 +684,27 @@ a {
   align-items: center;
   text-align: center;
   z-index: 5;
+}
+
+.about__dome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../img/about-art-tools-bg.webp");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.12;
+  filter: saturate(0.62) contrast(0.82) brightness(1.12);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 68%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.78) 68%, transparent 100%);
+  pointer-events: none;
+}
+
+.about__dome > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* 돔 내부 텍스트 및 이미지 */
