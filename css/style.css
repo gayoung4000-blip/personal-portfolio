@@ -926,7 +926,7 @@ a {
 }
 
 .journey__heading {
-  font-size: clamp(3rem, 4.68vw, 5.625rem); /* 90px @ 1920 */
+  font-size: clamp(3rem, min(4.68vw, 9.2svh), 5.625rem); /* width + height responsive */
   line-height: 0.94;
   font-weight: 400;
   white-space: nowrap;
@@ -944,7 +944,7 @@ a {
 
 .journey__sub-title {
   font-family: var(--font-serif);
-  font-size: clamp(3rem, 4.68vw, 5.625rem);
+  font-size: clamp(3rem, min(4.68vw, 9.2svh), 5.625rem);
   line-height: 0.97;
   font-style: normal;
   margin-top: 0;
@@ -956,7 +956,7 @@ a {
   top: 41.4%; /* 439 / 1060 */
   left: clamp(30rem, 57.29vw, 68.75rem); /* 1100px @ 1920 */
   font-family: var(--font-serif);
-  font-size: clamp(3rem, 4.68vw, 5.625rem);
+  font-size: clamp(3rem, min(4.68vw, 9.2svh), 5.625rem);
   line-height: 0.94;
   font-style: normal;
 }
@@ -999,7 +999,7 @@ a {
 
 .journey__inverted-my {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 2.6vw, 3.125rem);
+  font-size: clamp(2rem, min(2.6vw, 6.5svh), 3.125rem);
   line-height: 1;
   width: 100%;
   text-align: right;
@@ -1008,7 +1008,7 @@ a {
 
 .journey__inverted-journey {
   font-family: var(--font-sans);
-  font-size: clamp(2rem, 2.6vw, 3.125rem);
+  font-size: clamp(2rem, min(2.6vw, 6.5svh), 3.125rem);
   font-weight: 500;
   line-height: 1.1;
   transform: rotate(180deg);
@@ -1016,6 +1016,63 @@ a {
   width: 100%;
   text-align: left;
   margin-top: clamp(0.5rem, 1vh, 2rem);
+}
+
+/* Short laptop screens: keep every intro label inside the first viewport. */
+@media (min-width: 48.0625rem) and (max-height: 50rem) {
+  .journey__title-block {
+    top: 12svh;
+  }
+
+  .journey__timeline-text {
+    top: 38svh;
+  }
+
+  .journey__text-block {
+    top: auto;
+    bottom: max(6svh, 2.75rem);
+  }
+
+  .journey__inverted-block {
+    bottom: max(5svh, 2rem);
+  }
+
+  .journey__kor-title {
+    margin-bottom: clamp(0.35rem, 1svh, 0.75rem);
+  }
+
+  .journey__kor-desc {
+    line-height: 1.48;
+  }
+}
+
+@media (min-width: 48.0625rem) and (max-height: 41rem) {
+  .journey__title-block {
+    top: 8svh;
+  }
+
+  .journey__heading,
+  .journey__sub-title,
+  .journey__timeline-text {
+    font-size: clamp(2.35rem, min(4.2vw, 8svh), 4.25rem);
+  }
+
+  .journey__timeline-text {
+    top: 34svh;
+  }
+
+  .journey__text-block {
+    bottom: max(4svh, 1.5rem);
+  }
+
+  .journey__kor-desc {
+    font-size: clamp(0.72rem, 0.68vw, 0.84rem);
+    line-height: 1.42;
+  }
+
+  .journey__inverted-block {
+    bottom: max(3svh, 1rem);
+  }
 }
 
 /* ==========================================================
