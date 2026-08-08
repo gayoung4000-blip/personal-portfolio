@@ -209,12 +209,26 @@
     }, 1.4);
 
     var globalHeader = document.querySelector("#global-header");
-    // 영상 텍스트와 거의 비슷한 타이밍에 상단 글로벌 메뉴바도 페이드인
-    tl.to(globalHeader, {
-      autoAlpha: 1,
-      duration: 0.4,
-      ease: "power2.out"
-    }, 1.5);
+    // 밝은 인트로에서는 검정, 로고가 확대되어 어두운 장면이 열리면 흰색으로 전환
+    gsap.set(globalHeader, { autoAlpha: 1 });
+
+    ScrollTrigger.create({
+      trigger: hvt,
+      start: "top top-=60",
+      end: function() { return "+=" + Math.max(getScrubDist() - 60, 1); },
+      onEnter: function() {
+        globalHeader.classList.add("global-header--over-hero");
+      },
+      onLeave: function() {
+        globalHeader.classList.remove("global-header--over-hero");
+      },
+      onEnterBack: function() {
+        globalHeader.classList.add("global-header--over-hero");
+      },
+      onLeaveBack: function() {
+        globalHeader.classList.remove("global-header--over-hero");
+      }
+    });
 
     // 돔(Dome) 사각형 모핑 애니메이션
     // .about 섹션이 뷰포트 하단에서 나타나기 시작할 때(start)부터 최상단에 닿을 때(end)까지 진행
