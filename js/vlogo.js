@@ -871,7 +871,7 @@
           trigger: insightText,
           containerAnimation: tlJourney,
           start: "left 85%",   // 단락이 오른쪽에서 들어오기 시작할 때
-          end: "left 3%",      // 단락이 최종 위치(Figma x60 ≈ 3.1vw)에 도달할 때
+          end: "left 18%",     // 조금 더 이른 지점에서 흰색 하이라이트 완성
           scrub: true,
           animation: tlInsight,
         });
