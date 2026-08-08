@@ -1430,6 +1430,8 @@ a {
 
 .journey__educator-text {
   display: block;
+  position: relative;
+  left: 2.5px;
   font-family: var(--font-serif);
   font-size: clamp(4rem, 6.62vw, 7.94rem); /* 127px @ 1920 */
   color: var(--ink);
