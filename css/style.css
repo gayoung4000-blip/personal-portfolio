@@ -862,6 +862,7 @@ a {
   border-bottom: 1px solid var(--charcoal);
   transition: opacity 0.2s;
   will-change: clip-path, filter;
+  transform: translateY(-25px);
 }
 
 .about__scroll-btn:hover {
