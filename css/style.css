@@ -365,7 +365,7 @@ a {
   justify-content: space-between;
   gap: 1rem;
   padding: 0 var(--pad-x) var(--pad-bottom);
-  transform: translateY(15px);
+  transform: translateY(35px);
 }
 
 .hero2__credit {
