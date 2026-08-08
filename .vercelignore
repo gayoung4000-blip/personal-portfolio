@@ -1,0 +1,2 @@
+# Keep private academic documents out of public deployments.
+img/*.pdf
