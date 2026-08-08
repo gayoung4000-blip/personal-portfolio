@@ -468,10 +468,20 @@
       
       // 트랙은 왼쪽 밀어냄
       tlJourney.to(journeyTrack, {
-        x: getScrollAmount,
-        duration: 0.88,
+        x: function () { return getScrollAmount() * 0.765; },
+        duration: 0.67,
         ease: "none"
       }, 0.12);
+
+      // Journey5 viewing hold: keep both image frames on screen while their
+      // scroll-linked reveals complete, then resume the horizontal movement.
+      tlJourney.to({}, { duration: 0.14 }, 0.79);
+
+      tlJourney.to(journeyTrack, {
+        x: getScrollAmount,
+        duration: 0.21,
+        ease: "none"
+      }, 0.93);
 
       // journey2: the second artwork is revealed inside the same frame while
       // the horizontal journey keeps moving. Because this lives on the main
