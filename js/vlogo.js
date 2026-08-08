@@ -799,9 +799,9 @@
           scrollTrigger: {
             trigger: journeyPastelsSwap.parentElement,
             containerAnimation: tlJourney,
-            start: "right 42%",
-            end: "right 10%",
-            scrub: 1,
+            start: "right 22%",
+            end: "right 6%",
+            scrub: 0.65,
             invalidateOnRefresh: true
           }
         });
