@@ -176,7 +176,7 @@
     // 딤을 먼저 잠가 확대 구간 내내 "덩어리진 검정"으로 보이게 한다
     tl.to(gallery, { "--vdim": 0.3, duration: 0.6, ease: "power1.out" }, 0.1)
       // 흰 배경 위 UI는 검정이 덮기 전에 비운다
-      .to([".hero2__top", ".hero2__bottom"], { autoAlpha: 0, duration: 0.15 }, 0.1)
+      .to(".hero2__bottom", { autoAlpha: 0, duration: 0.15 }, 0.1)
       // 확대 — power1.in: 초반엔 로고로 읽히다가 후반에 검정이 몰아친다
       .to(gallery, { "--logo-scale": coverScale, duration: 0.6, ease: "power1.in" }, 0.1)
       // 완전 검정 정지 구간 — 전환의 쉼표

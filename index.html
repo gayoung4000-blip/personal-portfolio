@@ -56,17 +56,6 @@
          Figma 830:315(hero2) = 인트로 종료 상태(최종 메인 화면)
          두 상태는 같은 DOM 안에서 GSAP 타임라인으로 연결됨 (js/main.js) -->
     <section id="home" class="hero2">
-      <div class="hero2__top">
-        <p class="hero2__logo">DESIGNER</p>
-        <nav class="hero2__nav" aria-label="주요 메뉴">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#process">Process</a>
-          <a href="#project">Project</a>
-            <a href="#contact">Contact</a>
-        </nav>
-      </div>
-
       <!-- 인라인 SVG: 시작 상태(작은 점)가 마크업에 박혀 있어 JS 로드 전에도 즉시 보임.
            .mark__morph  = 모핑용 레이어 (점 → g/구멍/y/악센트)
            .mark__final  = 원본 로고 path (모핑 종료 시 크로스페이드되어 최종 상태 보장) -->
@@ -835,7 +824,7 @@
        되살리려면 아래 주석 해제 (main.js의 onComplete 가드는 그대로 있음)
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js?v=20260807-journey2-image-swap-up"></script>
-  <script src="js/vlogo.js?v=20260808-intro-header-tone"></script>
+  <script src="js/vlogo.js?v=20260808-remove-legacy-nav"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
