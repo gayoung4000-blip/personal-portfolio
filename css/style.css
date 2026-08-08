@@ -916,6 +916,9 @@ a {
   height: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
+  z-index: 30;
+  pointer-events: none;
+  will-change: transform;
 }
 
 /* 1. 좌측 상단 타이틀 블록 */

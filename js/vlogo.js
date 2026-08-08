@@ -575,6 +575,7 @@
 
       var tlJourney = gsap.timeline();
       var journeyBridge = journeySection.querySelector(".journey__bridge-img");
+      var journeyIntroInner = journeySection.querySelector(".journey__scene--1 .journey__inner");
 
       if (journeyBridge) {
         gsap.set(journeyBridge, {
@@ -592,6 +593,16 @@
         duration: 0.88,
         ease: "none"
       }, 0.12);
+
+      // Counter the track movement so the full intro copy remains fixed while
+      // the connected image strip keeps travelling left underneath it.
+      if (journeyIntroInner) {
+        tlJourney.to(journeyIntroInner, {
+          x: getJourneyMoveDistance,
+          duration: 0.88,
+          ease: "none"
+        }, 0.12);
+      }
 
       // journey2: the second artwork is revealed inside the same frame while
       // the horizontal journey keeps moving. Because this lives on the main
