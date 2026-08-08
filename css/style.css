@@ -658,9 +658,18 @@ a {
   color: var(--charcoal);
   
   /* 스크롤에 따른 사각형 모핑을 위한 CSS 변수 (0: 둥금 -> 1: 평평) */
+  --dome-shape-progress: 0;
   --dome-progress: 0;
-  --dome-x: calc(28% * (1 - var(--dome-progress)) + 30px * var(--dome-progress));
-  --dome-y: calc(min(23vw, 28rem) * (1 - var(--dome-progress)) + 30px * var(--dome-progress));
+  --dome-x: calc(
+    50% * (1 - var(--dome-shape-progress)) +
+    28% * var(--dome-shape-progress) * (1 - var(--dome-progress)) +
+    30px * var(--dome-progress)
+  );
+  --dome-y: calc(
+    min(50vw, 60rem) * (1 - var(--dome-shape-progress)) +
+    min(23vw, 28rem) * var(--dome-shape-progress) * (1 - var(--dome-progress)) +
+    30px * var(--dome-progress)
+  );
   
   /* --dome-progress에 따라 둥근 모서리가 점점 0(직각)으로 변함 */
   border-radius: var(--dome-x) var(--dome-x) 0 0 / var(--dome-y) var(--dome-y) 0 0;

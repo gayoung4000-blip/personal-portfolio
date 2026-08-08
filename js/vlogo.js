@@ -293,6 +293,7 @@
         }, 0.08)
         .set(aboutDome, {
           yPercent: 14,
+          "--dome-shape-progress": 0,
           "--dome-progress": 0
         }, 0)
         .to(aboutDome, {
@@ -301,10 +302,15 @@
           ease: "power2.out"
         }, 0.35)
         .to(aboutDome, {
-          "--dome-progress": 1,
-          duration: 0.38,
+          "--dome-shape-progress": 1,
+          duration: 0.34,
           ease: "power2.inOut"
-        }, 0.68);
+        }, 0.35)
+        .to(aboutDome, {
+          "--dome-progress": 1,
+          duration: 0.35,
+          ease: "power2.inOut"
+        }, 0.7);
 
       var aboutSubtitle = aboutDome.querySelector(".about__subtitle");
 
