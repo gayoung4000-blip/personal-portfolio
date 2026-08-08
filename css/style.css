@@ -770,16 +770,28 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 1.97vw, 2.375rem); /* 38px @ 1920 */
   font-weight: 400;
-  margin-bottom: clamp(2rem, 5vw, 6rem);
+  margin-bottom: 0;
   will-change: clip-path, filter;
 }
 
+/* Keep the portrait and primary role title as one viewport-focused composition. */
+.about__focus {
+  width: min(100%, 80rem);
+  min-height: 100svh;
+  box-sizing: border-box;
+  padding: clamp(2rem, 5svh, 4.5rem) var(--pad-x) clamp(3rem, 7svh, 6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .about__photo {
-  width: clamp(16rem, 20.26vw, 24.3125rem); /* 389px @ 1920 */
+  width: clamp(17rem, min(24vw, 42svh), 26rem);
   aspect-ratio: 389 / 509;
   border-radius: 1000px 1000px 0 0; /* 수직 아치 이미지 */
   overflow: hidden;
-  margin: 0 auto clamp(2rem, 5vw, 6rem);
+  margin: 0 auto clamp(2rem, 4.5svh, 3.5rem);
   background-color: transparent !important;
   will-change: clip-path;
   background-color: #d1cdc5; /* 임시 배경색 */
@@ -798,7 +810,7 @@ a {
   font-size: clamp(2.5rem, 3.64vw, 4.375rem); /* 70px @ 1920 */
   line-height: 1.1;
   font-weight: 400;
-  margin-bottom: clamp(1rem, 2vw, 2rem);
+  margin-bottom: 0;
 }
 
 .about__roles-serif {
@@ -819,6 +831,17 @@ a {
   max-width: clamp(20rem, 42.8vw, 51.375rem); /* 822px @ 1920 */
   margin: 0 auto clamp(3rem, 5vw, 6rem);
   padding: 0 var(--pad-x);
+}
+
+.about__details {
+  width: 100%;
+  min-height: 48svh;
+  box-sizing: border-box;
+  padding: clamp(5rem, 11svh, 9rem) var(--pad-x) clamp(2rem, 5svh, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .about__desc strong {
@@ -1511,6 +1534,21 @@ a {
     /* 모바일에서는 둥글기를 살짝 완만하게 조정 */
     width: 112vw;
     padding-top: 5rem;
+  }
+
+  .about__focus {
+    min-height: 94svh;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .about__photo {
+    width: min(78vw, 18.5rem);
+    margin-bottom: clamp(1.75rem, 5svh, 2.75rem);
+  }
+
+  .about__details {
+    min-height: 55svh;
+    padding: 5rem 1.25rem 2.5rem;
   }
   
   .about__roles {
