@@ -840,6 +840,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform: translateY(-30px);
 }
 
 .about__desc strong {
@@ -852,14 +853,13 @@ a {
   justify-content: center;
   border: 1.3px solid var(--charcoal);
   border-radius: 30px;
-  padding: 0.5rem 1.5rem;
+  padding: calc(0.5rem + 4px) 1.5rem calc(0.2rem + 4px);
   font-family: var(--font-serif);
   font-size: clamp(0.75rem, 0.73vw, 0.875rem); /* 14px @ 1920 */
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--charcoal);
   border-bottom: 1px solid var(--charcoal);
-  padding-bottom: 0.2rem;
   transition: opacity 0.2s;
   will-change: clip-path, filter;
 }
