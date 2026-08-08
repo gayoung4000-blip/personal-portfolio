@@ -599,7 +599,7 @@
 
         return Math.min(
           window.innerWidth * 0.46,
-          Math.max(window.innerWidth * 0.12, window.innerWidth - blockRight - 2)
+          Math.max(window.innerWidth * 0.12, window.innerWidth - blockRight - 4)
         );
       }
 
