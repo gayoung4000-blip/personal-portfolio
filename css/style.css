@@ -946,7 +946,7 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(3rem, 4.68vw, 5.625rem);
   line-height: 0.97;
-  font-style: italic;
+  font-style: normal;
   margin-top: 0;
 }
 
@@ -958,7 +958,7 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(3rem, 4.68vw, 5.625rem);
   line-height: 0.94;
-  font-style: italic;
+  font-style: normal;
 }
 
 /* 3. 좌측 하단 본문 블록 */
