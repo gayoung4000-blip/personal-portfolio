@@ -534,8 +534,38 @@
     var journeySection = document.querySelector("#journey");
     var journeyTrack = document.querySelector("#journeyTrack");
     var globalMenuBtn = document.querySelector("#globalMenuBtn");
+    var journeyMenuPanel = document.querySelector("#journeyMenuPanel");
 
     if (journeySection && journeyTrack && globalMenuBtn) {
+      function setJourneyMenuOpen(shouldOpen) {
+        document.body.classList.toggle("is-journey-menu-open", shouldOpen);
+        globalMenuBtn.setAttribute("aria-expanded", String(shouldOpen));
+        globalMenuBtn.setAttribute("aria-label", shouldOpen ? "Close navigation" : "Open navigation");
+        globalMenuBtn.textContent = shouldOpen ? "CLOSE" : "MENU";
+        if (journeyMenuPanel) {
+          journeyMenuPanel.setAttribute("aria-hidden", String(!shouldOpen));
+        }
+      }
+
+      globalMenuBtn.addEventListener("click", function () {
+        setJourneyMenuOpen(globalMenuBtn.getAttribute("aria-expanded") !== "true");
+      });
+
+      if (journeyMenuPanel) {
+        journeyMenuPanel.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            setJourneyMenuOpen(false);
+          });
+        });
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && globalMenuBtn.getAttribute("aria-expanded") === "true") {
+          setJourneyMenuOpen(false);
+          globalMenuBtn.focus();
+        }
+      });
+
       var journeyTimelineText = journeySection.querySelector(".journey__timeline-text");
       var journeyInvertedBlock = journeySection.querySelector(".journey__inverted-block");
 
@@ -770,6 +800,7 @@
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
         },
         onLeave: function() {
+          setJourneyMenuOpen(false);
           gsap.to(globalHeader, { autoAlpha: 0, y: -10, duration: 0.24, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         },
@@ -778,6 +809,7 @@
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
         },
         onLeaveBack: function() { // 다시 위로 올라갈 때
+          setJourneyMenuOpen(false);
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });

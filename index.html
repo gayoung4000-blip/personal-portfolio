@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260808-journey-number-align-1" />
+  <link rel="stylesheet" href="css/style.css?v=20260808-journey-menu-1" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -39,7 +39,16 @@
   </header>
 
   <!-- 글로벌 둥근 메뉴 버튼 (가로 스크롤 진입 시 나타남) -->
-  <button class="global-menu-btn" id="globalMenuBtn" aria-label="Menu">MENU</button>
+  <button class="global-menu-btn" id="globalMenuBtn" aria-label="Open navigation" aria-controls="journeyMenuPanel" aria-expanded="false">MENU</button>
+  <div class="journey-menu-panel" id="journeyMenuPanel" aria-hidden="true">
+    <nav class="journey-menu-panel__nav" aria-label="Journey navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#process">Process</a>
+      <a href="#project">Project</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 
   <main>
 
@@ -828,7 +837,7 @@
        되살리려면 아래 주석 해제 (main.js의 onComplete 가드는 그대로 있음)
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js?v=20260807-journey2-image-swap-up"></script>
-  <script src="js/vlogo.js?v=20260808-insight-faster-fill"></script>
+  <script src="js/vlogo.js?v=20260808-journey-menu-1"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
