@@ -835,13 +835,11 @@ a {
 
 .about__details {
   width: 100%;
-  min-height: 48svh;
   box-sizing: border-box;
-  padding: clamp(5rem, 11svh, 9rem) var(--pad-x) clamp(2rem, 5svh, 4rem);
+  padding: 0 var(--pad-x);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
 }
 
 .about__desc strong {
@@ -1547,8 +1545,7 @@ a {
   }
 
   .about__details {
-    min-height: 55svh;
-    padding: 5rem 1.25rem 2.5rem;
+    padding: 0 1.25rem;
   }
   
   .about__roles {
