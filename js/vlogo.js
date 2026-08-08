@@ -844,8 +844,8 @@
         ScrollTrigger.create({
           trigger: ".journey__ending-img",
           containerAnimation: tlJourney,
-          start: "left 12%",
-          end: "left -5%",
+          start: "left -8%",
+          end: "left -25%",
           scrub: 0.65,
           animation: tlJourney4Swap,
         });
