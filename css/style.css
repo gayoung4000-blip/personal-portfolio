@@ -840,7 +840,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateY(-30px);
+  transform: translateY(-60px);
 }
 
 .about__desc strong {
