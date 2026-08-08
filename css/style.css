@@ -168,8 +168,8 @@ a {
   top: 0;
   left: 0;
   width: 100%;
-  height: 66px;
-  background-color: var(--ivory);
+  height: 76px;
+  background-color: #fff;
   z-index: 999;
   opacity: 0;
   visibility: hidden;
@@ -187,7 +187,7 @@ a {
 .global-header__inner {
   max-width: var(--container-max); /* 기존 레이아웃과 너비 맞춤 */
   margin: 0 auto;
-  height: 66px;
+  height: 76px;
   padding: 0 clamp(2rem, 4vw, 4rem);
   display: flex;
   align-items: center;
@@ -195,11 +195,11 @@ a {
 }
 
 .global-header__logo {
-  margin-left: 280px;
+  margin-left: clamp(140px, 20vw, 384px);
 }
 
 .global-header__logo img {
-  height: 52px;
+  height: 57.2px;
   width: auto;
   display: block;
 }
