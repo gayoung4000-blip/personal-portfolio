@@ -549,6 +549,7 @@ a {
 
 /* 헤더: A PAINTER'S HAND... (페이드인 모션 위해 절대위치 배치) */
 #about-header-fixed {
+  --copy-contrast: 1;
   position: absolute;
   inset: 0;
   display: flex;
@@ -578,6 +579,7 @@ a {
     rgba(0, 0, 0, 0) 76%
   );
   pointer-events: none;
+  opacity: var(--copy-contrast);
 }
 
 /* Full-screen bridge between the presentation video and the About dome. */

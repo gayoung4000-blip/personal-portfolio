@@ -237,6 +237,8 @@
       }
 
       var goldStripes = goldBridge.querySelectorAll(".hero-to-about-gold__stripe");
+      var aboutTitleContrast = aboutHeaderFixed.querySelector(".about__title");
+      var aboutBadgeContrast = aboutHeaderFixed.querySelector(".about__badge");
       var aboutTransition = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
@@ -256,6 +258,21 @@
         }, {
           autoAlpha: 1,
           duration: 0.05
+        }, 0)
+        .to(aboutHeaderFixed, {
+          "--copy-contrast": 0,
+          duration: 0.06,
+          ease: "power1.out"
+        }, 0)
+        .to(aboutTitleContrast, {
+          textShadow: "0 2px 4px rgba(0,0,0,0), 0 8px 26px rgba(0,0,0,0)",
+          duration: 0.06,
+          ease: "power1.out"
+        }, 0)
+        .to(aboutBadgeContrast, {
+          backgroundColor: "rgba(0,0,0,0.08)",
+          duration: 0.06,
+          ease: "power1.out"
         }, 0)
         .fromTo(goldStripes, {
           scaleX: 0,
