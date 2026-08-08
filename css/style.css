@@ -1424,12 +1424,12 @@ a {
   min-height: 100vh;
   padding: 3.9vh 0;
   flex: 0 0 auto;
+  position: relative;
+  left: 3px;
 }
 
 .journey__educator-text {
   display: block;
-  position: relative;
-  left: 2.5px;
   font-family: var(--font-serif);
   font-size: clamp(4rem, 6.62vw, 7.94rem); /* 127px @ 1920 */
   color: var(--ink);
