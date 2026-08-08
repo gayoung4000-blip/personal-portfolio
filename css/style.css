@@ -1139,7 +1139,8 @@ a {
   position: absolute;
   top: 76.6%; /* 813 / 1060 */
   left: clamp(50rem, 76.77vw, 92.1rem); /* 1474px @ 1920 */
-  max-width: clamp(20rem, 21.9vw, 26.3rem); /* 421px @ 1920 */
+  width: clamp(30rem, 38vw, 46rem);
+  max-width: none;
 }
 
 .journey__desc h3 {
@@ -1148,6 +1149,7 @@ a {
   font-size: clamp(0.9rem, 0.98vw, 1.18rem); /* 19px @ 1920 */
   color: #2c2c2c;
   margin-bottom: clamp(1rem, 2vw, 2.5rem);
+  white-space: nowrap;
 }
 
 .journey__desc p {
@@ -1156,6 +1158,7 @@ a {
   color: #202020;
   line-height: 1.53; /* 20 / 13 */
   letter-spacing: 0;
+  word-break: keep-all;
 }
 
 /* 파스텔 겹치는 이미지 */
