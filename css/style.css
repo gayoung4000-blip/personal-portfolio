@@ -966,7 +966,8 @@ a {
   position: absolute;
   top: 60.2%; /* 639 / 1060 */
   left: clamp(2rem, 18.33vw, 22rem);
-  max-width: clamp(20rem, 22.91vw, 27.5rem);
+  width: clamp(28rem, 34vw, 40rem);
+  max-width: calc(100vw - clamp(4rem, 24vw, 29rem));
 }
 
 .journey__kor-title {
@@ -1031,6 +1032,7 @@ a {
   .journey__text-block {
     top: auto;
     bottom: max(6svh, 2.75rem);
+    width: clamp(27rem, 36vw, 36rem);
   }
 
   .journey__inverted-block {
@@ -1063,6 +1065,7 @@ a {
 
   .journey__text-block {
     bottom: max(4svh, 1.5rem);
+    width: clamp(26rem, 38vw, 34rem);
   }
 
   .journey__kor-desc {
@@ -1628,6 +1631,11 @@ a {
     position: static;
     left: auto;
     top: auto;
+  }
+
+  .journey__text-block {
+    width: 100%;
+    max-width: none;
   }
 
   .journey__inverted-block {
