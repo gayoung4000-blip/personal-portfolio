@@ -677,7 +677,7 @@
         var bridgeStart = bridgeScene
           ? bridgeScene.offsetLeft + journeyBridge.offsetLeft
           : window.innerWidth;
-        var imageTextGap = 4;
+        var imageTextGap = 10;
 
         return Math.min(
           window.innerWidth * 0.46,
