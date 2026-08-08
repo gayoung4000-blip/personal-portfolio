@@ -673,10 +673,15 @@
         var innerLeft = journeyIntroInner.offsetLeft;
         var blockRight = innerLeft + journeyInvertedBlock.offsetLeft +
           journeyInvertedBlock.offsetWidth + (Number(gsap.getProperty(journeyInvertedBlock, "x")) || 0);
+        var bridgeScene = journeyBridge && journeyBridge.closest(".journey__scene--2");
+        var bridgeStart = bridgeScene
+          ? bridgeScene.offsetLeft + journeyBridge.offsetLeft
+          : window.innerWidth;
+        var imageTextGap = 4;
 
         return Math.min(
           window.innerWidth * 0.46,
-          Math.max(window.innerWidth * 0.12, window.innerWidth - blockRight - 4)
+          Math.max(window.innerWidth * 0.12, bridgeStart - blockRight - imageTextGap)
         );
       }
 
