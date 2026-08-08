@@ -578,8 +578,8 @@
 
       if (journeyBridge) {
         gsap.set(journeyBridge, {
-          clipPath: "inset(0 100% 0 0)",
-          scale: 1.015,
+          clipPath: "inset(0 0% 0 0)",
+          scale: 1,
           transformOrigin: "left center"
         });
       }
@@ -651,16 +651,6 @@
         onEnter: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
-          if (journeyBridge) {
-            gsap.to(journeyBridge, {
-              clipPath: "inset(0 0% 0 0)",
-              scale: 1,
-              duration: 0.8,
-              delay: 0.08,
-              ease: "power2.inOut",
-              overwrite: "auto"
-            });
-          }
         },
         onLeave: function() {
           gsap.to(globalHeader, { autoAlpha: 0, y: -10, duration: 0.24, ease: "power2.out", overwrite: "auto" });
@@ -669,29 +659,11 @@
         onEnterBack: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
-          if (journeyBridge) {
-            gsap.to(journeyBridge, {
-              clipPath: "inset(0 0% 0 0)",
-              scale: 1,
-              duration: 0.35,
-              ease: "power2.out",
-              overwrite: "auto"
-            });
-          }
         },
         onLeaveBack: function() { // 다시 위로 올라갈 때
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
-          if (journeyBridge) {
-            gsap.to(journeyBridge, {
-              clipPath: "inset(0 100% 0 0)",
-              scale: 1.015,
-              duration: 0.35,
-              ease: "power2.in",
-              overwrite: "auto"
-            });
-          }
         }
       });
 
