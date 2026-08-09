@@ -837,7 +837,8 @@ a {
   font-size: clamp(1rem, 1.19vw, 1.4375rem); /* 23px @ 1920 */
   line-height: 1.35;
   letter-spacing: -0.03em;
-  max-width: clamp(20rem, 42.8vw, 51.375rem); /* 822px @ 1920 */
+  width: min(70vw, 70rem);
+  max-width: calc(100% - 2rem);
   margin: 0 auto clamp(3rem, 5vw, 6rem);
   padding: 0 var(--pad-x);
 }
