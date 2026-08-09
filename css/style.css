@@ -1409,10 +1409,11 @@ a {
 .journey__insight-text {
   position: absolute;
   left: 0;
-  top: 31.1vh; /* 321 / 1032 */
-  width: 61vw;
+  top: auto;
+  bottom: 18vh;
+  width: 61.5vw;
   font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 2.05vw, 2.5rem);
+  font-size: clamp(1.6rem, min(2.4vw, 5.6vh), 3rem);
   line-height: 1.35;
   color: rgba(169, 169, 169, 0.45);
 }
