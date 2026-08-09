@@ -2469,9 +2469,10 @@ a {
   margin: clamp(2rem, 2.14vw, 2.5625rem) auto 0;
   color: #b69f64;
   font-family: "Inter", sans-serif;
-  font-size: clamp(1rem, 1.302vw, 1.5625rem);
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.16;
+  white-space: nowrap;
 }
 
 .skills-intro__watermark {
@@ -2914,7 +2915,7 @@ a {
   }
 
   .skills-intro__description {
-    font-size: clamp(0.9rem, 2.2vw, 1.125rem);
+    font-size: 16px;
   }
 
   .skills-intro__watermark {
@@ -2928,8 +2929,8 @@ a {
     white-space: normal;
   }
 
-  .skills-intro__description br {
-    display: none;
+  .skills-intro__description {
+    white-space: normal;
   }
 }
 
@@ -3010,7 +3011,7 @@ a {
 .work-page__intro {
   margin-top: clamp(0.85rem, 1.15vw, 1.4rem);
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.72rem, 0.63vw, 0.82rem);
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.55;
   letter-spacing: -0.02em;
@@ -3152,7 +3153,7 @@ a {
   opacity: 0;
   color: #fff;
   font-family: "Inter", sans-serif;
-  font-size: clamp(1rem, 1.5625vw, 1.875rem);
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.06em;
@@ -3166,7 +3167,7 @@ a {
 
 .work-page__wrun-story-statement strong {
   color: #d6ff1e;
-  font-size: 0.84em;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -3357,11 +3358,11 @@ a {
 .work-page__pumto-detail-stage {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 337fr) minmax(8.5rem, 172fr);
+  grid-template-columns: minmax(20rem, 1fr) minmax(14rem, 18rem);
   align-items: center;
-  gap: clamp(3rem, 6.65vw, 8rem);
+  gap: clamp(1.5rem, 2.5vw, 3rem);
   min-height: clamp(26rem, 52vh, 34rem);
-  padding: 0 clamp(1rem, 5.1vw, 6.125rem) 0 clamp(0.5rem, 0.55vw, 0.625rem);
+  padding: 0 clamp(0.5rem, 1vw, 1rem) 0 clamp(0.5rem, 0.55vw, 0.625rem);
   overflow: visible;
 }
 
@@ -3401,7 +3402,7 @@ a {
   margin: clamp(0.65rem, 1.15vw, 1.4rem) 0 0;
   color: #dadada;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.7rem, 0.78vw, 0.9375rem);
+  font-size: 16px;
   line-height: 1.45;
   letter-spacing: -0.02em;
   white-space: nowrap;
@@ -3409,7 +3410,7 @@ a {
 
 .work-page__pumto-phone {
   width: 100%;
-  max-width: 10.75rem;
+  max-width: 18rem;
   margin: 0;
   justify-self: center;
 }
@@ -3418,6 +3419,20 @@ a {
   display: block;
   width: 100%;
   height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .work-page__pumto-detail-stage {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    min-height: 0;
+    padding: 3rem 0 0;
+  }
+
+  .work-page__pumto-phone {
+    width: min(72vw, 18rem);
+  }
 }
 
 .work-page__summary--pumto-detail {
@@ -3660,8 +3675,10 @@ a {
 
 .work-page__copy p {
   margin: clamp(0.55rem, 0.7vw, 0.8rem) 0 0;
+  width: min(680px, calc(100vw - 4rem));
+  max-width: none;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.62rem, 0.58vw, 0.7rem);
+  font-size: 16px;
   line-height: 1.45;
   letter-spacing: -0.03em;
 }
@@ -3888,6 +3905,11 @@ a {
 
   .work-page__copy p br {
     display: none;
+  }
+
+  .work-page__copy p {
+    width: 100%;
+    max-width: 100%;
   }
 
   .work-page__overlay--ilkw .work-page__overlay-content {
