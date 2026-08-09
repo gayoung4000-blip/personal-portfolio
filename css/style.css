@@ -1369,7 +1369,7 @@ a {
    SCENE 4: HUMAN INSIGHT + EDUCATOR 디바이더 (Figma journey4~5, 1920×1032 기준)
    ========================================================== */
 .journey__scene--4 {
-  width: 132.1vw; /* 텍스트 구간(63.3) + 아이보리 밴드(14.8) + 꽃다발 전체(54) */
+  width: 168.8vw;
   background-color: #0c0c0c; /* Scene 3와 동일 톤으로 이어짐 */
   position: relative;
 }
@@ -1390,17 +1390,17 @@ a {
   position: absolute;
   left: 0;
   top: 0;
-  width: 63.65vw; /* Figma 단락 폭 1222 / 1920 */
+  width: 100vw;
   height: 100%;
 }
 
 .journey__insight-title {
   position: absolute;
-  left: 0;
-  top: 18.4vh; /* 190 / 1032 */
+  left: 4.2vw;
+  top: 19.6vh;
   font-family: var(--font-sans);
   font-weight: 500;
-  font-size: clamp(2rem, 3.65vw, 4.375rem); /* 70px @ 1920 */
+  font-size: clamp(2.5rem, min(5vw, 7.2vh), 5.5rem);
   line-height: 1.17;
   color: rgba(169, 169, 169, 0.45); /* 미읽음 상태 — 스크롤로 흰색 하이라이트 */
   white-space: nowrap;
@@ -1408,13 +1408,13 @@ a {
 
 .journey__insight-text {
   position: absolute;
-  left: 0;
-  top: auto;
-  bottom: 18vh;
-  width: 61.5vw;
+  left: 4.2vw;
+  top: 32.5vh;
+  bottom: auto;
+  width: 91.5vw;
   font-family: var(--font-serif);
-  font-size: clamp(1.6rem, min(2.4vw, 5.6vh), 3rem);
-  line-height: 1.35;
+  font-size: clamp(2rem, min(4.5vw, 5.6vh), 4.5rem);
+  line-height: 1.28;
   color: rgba(169, 169, 169, 0.45);
 }
 
@@ -1430,7 +1430,7 @@ a {
 /* EDUCATOR 아이보리 세로 디바이더 */
 .journey__educator {
   position: absolute;
-  left: 63.3vw; /* (1275 - 60) / 1920 */
+  left: 100vw;
   top: 0;
   width: 14.79vw; /* 284 / 1920 */
   height: 100%;
@@ -1519,7 +1519,7 @@ a {
    이전 프레임(869-190)에서는 화면 오른쪽에 앞 361px만 걸쳐 보이던 것 */
 .journey__bouquet {
   position: absolute;
-  left: 78.09vw; /* (1559 - 60) / 1920 */
+  left: 114.79vw;
   top: 0;
   width: 54vw; /* 1037 / 1920 */
   height: 100%;
@@ -1535,7 +1535,7 @@ a {
 /* 폴라로이드식 오버레이 사진 (도마 위 꽃다발+케이크 디테일) — 큰 사진 위에 겹침 */
 .journey__polaroid {
   position: absolute;
-  left: 101.56vw; /* Figma 880-383 x982 + 프레임 원점 보정 968 = 1950 / 1920 */
+  left: 138.26vw;
   top: 19.38vh; /* 200 / 1032 */
   width: 39.01vw; /* 749 / 1920 */
   height: 61.24vh; /* 632 / 1032 */
