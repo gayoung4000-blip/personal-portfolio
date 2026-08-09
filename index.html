@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@400;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Instrument+Sans:wght@400;600&family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;600;700&family=Playfair+Display:ital@1&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260809-clone-focus-dim-1" />
+  <link rel="stylesheet" href="css/style.css?v=20260809-teamwork-gallery-1" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -885,6 +885,47 @@
       </div>
     </section>
 
+    <section class="teamwork" id="teamwork" aria-labelledby="teamwork-title">
+      <div class="teamwork__heading">
+        <h2 id="teamwork-title"><span>TEAMWORK</span> <em>iN</em> <span>MOTION</span></h2>
+        <p>아이디어를 나누고 끊임없이 조율하며 하나의 방향을 향해 프로젝트를 발전시켰습니다.</p>
+      </div>
+
+      <div class="teamwork__gallery">
+        <div class="teamwork__track" id="teamworkTrack">
+          <figure class="teamwork__card teamwork__card--high">
+            <img src="img/teamwork-01.png" alt="팀원들이 발표 자료를 함께 검토하는 모습">
+          </figure>
+          <figure class="teamwork__card teamwork__card--low">
+            <img src="img/teamwork-02.png" alt="팀원들이 모니터 앞에서 디자인을 조율하는 모습">
+          </figure>
+          <figure class="teamwork__card teamwork__card--high">
+            <img src="img/teamwork-03.png" alt="프로젝트 팀원들의 단체 사진">
+          </figure>
+          <figure class="teamwork__card teamwork__card--low">
+            <img src="img/teamwork-04.png" alt="팀원들이 테이블에서 작업하는 모습">
+          </figure>
+          <figure class="teamwork__card teamwork__card--feature">
+            <img src="img/teamwork-ilkw-kanu.png" alt="일광전구와 카누 협업 프로젝트 이미지">
+            <figcaption>
+              <strong>ILKW <span>×</span> KANU</strong>
+              <p>커피 한 잔의 여유와 함께하는 빛.<br>일상의 여유를 더욱 따뜻하게 만들었습니다.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="teamwork__actions">
+        <button class="teamwork__video" type="button">발표 영상 보러가기</button>
+        <div class="teamwork__nav" aria-label="협업 사진 이동">
+          <img class="teamwork__nav-base" src="img/teamwork-arrow-prev.svg" alt="" aria-hidden="true">
+          <img class="teamwork__nav-circle" src="img/teamwork-arrow-next.svg" alt="" aria-hidden="true">
+          <button class="teamwork__prev" type="button" aria-label="이전 협업 사진"></button>
+          <button class="teamwork__next" type="button" aria-label="다음 협업 사진"></button>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
@@ -897,5 +938,6 @@
   <script src="js/vlogo.js?v=20260809-clone-four-cards-1"></script>
   <script src="js/main.js?v=20260809-chatbot-tab-1"></script>
   <script src="js/chatbot.js?v=20260809-chatbot-panel-2"></script>
+  <script src="js/teamwork-gallery.js?v=20260809-teamwork-gallery-2"></script>
 </body>
 </html>
