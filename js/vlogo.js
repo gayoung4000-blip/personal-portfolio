@@ -794,16 +794,6 @@
         return Math.max(0, imageRect.left - gap - textBaseRight);
       }
 
-      if (designedText && designedStopImage) {
-        tlJourney.to(designedText, {
-          x: getDesignedStopX,
-          duration: 0.3,
-          ease: "none"
-        }, 0.52);
-      }
-
-
-
       // 가로 스크롤 트리거 및 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 병합
       // Hold the completed mountain scene long enough for its image and copy
       // to be understood without changing the preceding horizontal pace.
@@ -839,6 +829,24 @@
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         }
       });
+
+      // Move I DESIGNED only while its parent headline is actually visible.
+      // Using the stationary headline as the trigger avoids feedback from the
+      // animated word itself and keeps the timing responsive at every width.
+      if (designedText && designedStopImage) {
+        gsap.to(designedText, {
+          x: function() { return getDesignedStopX(); },
+          ease: "none",
+          scrollTrigger: {
+            trigger: designedText.parentElement,
+            containerAnimation: tlJourney,
+            start: "left 78%",
+            end: "left 45%",
+            scrub: 0.65,
+            invalidateOnRefresh: true
+          }
+        });
+      }
 
       // 3. journey4 이미지 전환: 책상 이미지가 화면에 절반쯤 들어온 순간
       //    책상 → 유치원 단체사진, 우측 스케치북 → 유치원 아이들 사진으로 동시 크로스페이드.
