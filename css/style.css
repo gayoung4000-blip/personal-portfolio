@@ -1146,9 +1146,9 @@ a {
   top: 46.9%; /* 498 / 1060 */
   /* Follow the responsive artwork edge and preserve a visible text gap. */
   left: calc(
-    clamp(15rem, 23.6vw, 28.3rem) +
-    clamp(24rem, 40.5vw, 48.5rem) +
-    clamp(2.5rem, 4vw, 5rem)
+    clamp(17rem, 30vw, 36rem) +
+    clamp(26rem, 43.5vw, 52.5rem) -
+    clamp(2.5rem, 2.4vw, 3rem)
   );
   font-family: var(--font-serif);
   font-size: clamp(1rem, 1.14vw, 1.375rem); /* 22px @ 1920 */
@@ -1189,8 +1189,9 @@ a {
   position: absolute;
   top: 50%; /* 상단에서 50% 지점 */
   transform: translateY(-50%); /* 자신의 높이의 절반만큼 위로 끌어올려 완벽한 세로 중앙 정렬 달성 */
-  left: clamp(15rem, 23.6vw, 28.3rem); /* 454px @ 1920 */
-  width: clamp(24rem, 40.5vw, 48.5rem);
+  left: clamp(17rem, 30vw, 36rem);
+  width: clamp(26rem, 43.5vw, 52.5rem);
+  aspect-ratio: 1.4 / 1;
   /* height 속성 삭제: 이미지 원본 비율에 따라 컨테이너 높이가 자동으로 결정됨 */
   overflow: hidden;
   z-index: 20; /* 메인 캔버스(bridge) 이미지 위에 겹치도록 */
@@ -1218,6 +1219,7 @@ a {
 
 .journey__pastels .journey__img-content {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }
