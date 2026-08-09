@@ -1113,7 +1113,7 @@ a {
    ========================================================== */
 .journey__scene--2 {
   /* 이미지 뒤에 실제 여백을 확보해 다음 장면이 텍스트를 덮지 않게 한다. */
-  width: max(170vw, 112rem);
+  width: 135vw;
   background-color: #ffffff;
   --journey-art-left: clamp(17rem, 30vw, 36rem);
   --journey-art-width: clamp(26rem, 43.5vw, 52.5rem);
@@ -1129,7 +1129,8 @@ a {
 .journey__huge-text {
   position: absolute;
   top: 20.9%; /* 222 / 1060 */
-  left: var(--journey-copy-left);
+  /* Keep the headline just to the right of the small Journey label. */
+  left: calc(var(--journey-copy-left) + clamp(2.25rem, 3vw, 3.5rem));
   font-family: var(--font-serif);
   font-size: clamp(4rem, 6.08vw, 7.3rem); /* 116.9px @ 1920 */
   line-height: 1.06; /* 125 / 116.9 */
