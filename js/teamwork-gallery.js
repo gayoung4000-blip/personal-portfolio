@@ -1,45 +1,45 @@
 (function () {
   "use strict";
 
-  var gallery = document.querySelector(".teamwork__gallery");
   var track = document.getElementById("teamworkTrack");
   var prev = document.querySelector(".teamwork__prev");
   var next = document.querySelector(".teamwork__next");
-  if (!gallery || !track || !prev || !next) return;
+  if (!track || !prev || !next) return;
 
   var cards = Array.prototype.slice.call(track.querySelectorAll(".teamwork__card"));
-  var positions = [0];
-  var index = 0;
+  var images = cards.map(function (card) {
+    var image = card.querySelector("img");
+    return { src: image.getAttribute("src"), alt: image.getAttribute("alt") };
+  });
+  var offset = 0;
+  var changing = false;
 
-  function measure() {
-    var maxOffset = Math.max(0, track.scrollWidth - gallery.clientWidth);
-    var firstCardOffset = cards.length ? cards[0].offsetLeft : 0;
-    positions = cards.map(function (card) {
-      return Math.min(card.offsetLeft - firstCardOffset, maxOffset);
-    }).filter(function (value, position, list) {
-      return position === 0 || Math.abs(value - list[position - 1]) > 4;
-    });
-    if (positions[positions.length - 1] !== maxOffset) positions.push(maxOffset);
-    index = Math.min(index, positions.length - 1);
-    render(false);
-  }
+  function rotate(direction) {
+    if (changing || !images.length) return;
+    changing = true;
+    offset = (offset + direction + images.length) % images.length;
+    cards.forEach(function (card) { card.classList.add("is-changing"); });
 
-  function render(animate) {
-    track.style.transitionDuration = animate ? "720ms" : "0ms";
-    track.style.transform = "translate3d(" + -positions[index] + "px, 0, 0)";
-    prev.disabled = index === 0;
-    next.disabled = index === positions.length - 1;
+    window.setTimeout(function () {
+      cards.forEach(function (card, cardIndex) {
+        var image = card.querySelector("img");
+        var content = images[(cardIndex + offset) % images.length];
+        image.src = content.src;
+        image.alt = content.alt;
+      });
+
+      window.requestAnimationFrame(function () {
+        cards.forEach(function (card) { card.classList.remove("is-changing"); });
+        window.setTimeout(function () { changing = false; }, 360);
+      });
+    }, 220);
   }
 
   prev.addEventListener("click", function () {
-    if (index > 0) { index -= 1; render(true); }
+    rotate(-1);
   });
 
   next.addEventListener("click", function () {
-    if (index < positions.length - 1) { index += 1; render(true); }
+    rotate(1);
   });
-
-  window.addEventListener("resize", measure, { passive: true });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-  measure();
 })();

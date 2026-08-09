@@ -4157,8 +4157,6 @@ a {
   padding-left: var(--teamwork-inline);
   padding-right: var(--teamwork-inline);
   transform: translate3d(0, 0, 0);
-  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
 }
 
 .teamwork__card {
@@ -4175,38 +4173,14 @@ a {
   aspect-ratio: 1 / 0.984;
   border-radius: 1.25rem;
   object-fit: cover;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 220ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.teamwork__card--feature {
-  width: clamp(18rem, 19.74vw, 23.6875rem);
-  margin-top: clamp(4.5rem, 7.8vw, 9.375rem);
-}
-
-.teamwork__card--feature > img { aspect-ratio: 590 / 375; }
-
-.teamwork__card figcaption {
-  margin-top: 1.25rem;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-.teamwork__card figcaption strong {
-  font-size: clamp(1.05rem, 1.25vw, 1.5rem);
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.teamwork__card figcaption strong span {
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-}
-
-.teamwork__card figcaption p {
-  margin: 0.5rem 0 0;
-  color: #555;
-  font-size: clamp(0.9rem, 1.094vw, 1.3125rem);
-  font-weight: 300;
-  line-height: 1.4;
-  letter-spacing: -0.04em;
+.teamwork__card.is-changing > img {
+  opacity: 0;
+  transform: scale(0.985);
 }
 
 .teamwork__actions {
@@ -4259,8 +4233,6 @@ a {
 
 .teamwork__prev { left: 0; }
 .teamwork__next { right: 0; }
-.teamwork__prev:disabled,
-.teamwork__next:disabled { cursor: default; opacity: 0.35; }
 
 @media (max-width: 48rem) {
   .teamwork {
@@ -4280,6 +4252,5 @@ a {
   .teamwork__gallery { height: 25rem; margin-top: 2rem; }
   .teamwork__card { width: min(74vw, 20rem); }
   .teamwork__card--low { margin-top: 3rem; }
-  .teamwork__card--feature { width: min(72vw, 19rem); margin-top: 4rem; }
   .teamwork__actions { width: calc(100% - 2rem); }
 }
