@@ -1701,12 +1701,12 @@ a {
 
 .chatbot-tab__mark {
   position: relative;
-  align-self: flex-start;
+  align-self: center;
   width: 62.5%;
   aspect-ratio: 40 / 34;
   overflow: hidden;
   flex: 0 0 auto;
-  transform: translate3d(0.25rem, 0.3125rem, 0);
+  transform: translateY(0.9375rem);
 }
 
 .chatbot-tab__mark img {
