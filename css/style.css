@@ -4435,16 +4435,16 @@ a {
 
 .site-footer__title {
   position: absolute;
-  top: clamp(0.75rem, 2.8svh, 2.25rem);
+  top: clamp(1.75rem, 3.5svh, 3rem);
   left: 50%;
   width: max-content;
   margin: 0;
   transform: translateX(-50%);
   color: #fefdfb;
   font-family: var(--font-serif);
-  font-size: clamp(13rem, 19.06vw, 22.875rem);
+  font-size: clamp(13rem, min(19.06vw, 35svh), 22.875rem);
   font-weight: 400;
-  line-height: 0.78;
+  line-height: 0.9;
   letter-spacing: -0.045em;
   white-space: nowrap;
 }
@@ -4549,8 +4549,8 @@ a {
 
 @media (max-height: 47rem) and (min-width: 56.01rem) {
   .site-footer__title {
-    top: 0.75rem;
-    font-size: clamp(11rem, 18vw, 16rem);
+    top: 1.5rem;
+    font-size: clamp(10.5rem, min(18vw, 34svh), 15.5rem);
   }
 
   .site-footer__body {
