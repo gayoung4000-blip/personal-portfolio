@@ -794,6 +794,17 @@
         return Math.max(0, imageRect.left - gap - textBaseRight);
       }
 
+      function getDesignedEndPosition() {
+        if (!designedText || !designedStopImage) return "left 36%";
+
+        var headlineRect = designedText.parentElement.getBoundingClientRect();
+        var imageRect = designedStopImage.getBoundingClientRect();
+        var elementGap = imageRect.left - headlineRect.left;
+        var endViewportPercent = 96 - (elementGap / window.innerWidth * 100);
+
+        return "left " + Math.min(60, Math.max(18, endViewportPercent)) + "%";
+      }
+
       // 가로 스크롤 트리거 및 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 병합
       // Hold the completed mountain scene long enough for its image and copy
       // to be understood without changing the preceding horizontal pace.
@@ -848,10 +859,9 @@
 
         ScrollTrigger.create({
           trigger: designedText.parentElement,
-          endTrigger: designedStopImage,
           containerAnimation: tlJourney,
           start: "left 96%",
-          end: "left 96%",
+          end: getDesignedEndPosition,
           scrub: 0.65,
           animation: tlDesignedMove,
           invalidateOnRefresh: true,
