@@ -1113,7 +1113,6 @@ a {
    ========================================================== */
 .journey__scene--2 {
   /* 이미지 뒤에 실제 여백을 확보해 다음 장면이 텍스트를 덮지 않게 한다. */
-  width: 135vw;
   background-color: #ffffff;
   --journey-art-left: clamp(17rem, 30vw, 36rem);
   --journey-art-width: clamp(26rem, 43.5vw, 52.5rem);
@@ -1123,6 +1122,14 @@ a {
     var(--journey-art-width) +
     var(--journey-copy-gap)
   );
+  --journey-headline-left: calc(
+    var(--journey-copy-left) + clamp(2.25rem, 3vw, 3.5rem)
+  );
+  --journey-desc-width: clamp(44rem, 48vw, 52rem);
+  width: max(
+    135vw,
+    calc(var(--journey-headline-left) + var(--journey-desc-width) + 4rem)
+  );
 }
 
 /* 거대한 타이포그래피 (I LEARNED TO SEE...) */
@@ -1130,7 +1137,7 @@ a {
   position: absolute;
   top: 20.9%; /* 222 / 1060 */
   /* Keep the headline just to the right of the small Journey label. */
-  left: calc(var(--journey-copy-left) + clamp(2.25rem, 3vw, 3.5rem));
+  left: var(--journey-headline-left);
   font-family: var(--font-serif);
   font-size: clamp(4rem, 6.08vw, 7.3rem); /* 116.9px @ 1920 */
   line-height: 1.06; /* 125 / 116.9 */
@@ -1167,8 +1174,8 @@ a {
 .journey__desc {
   position: absolute;
   top: 76.6%; /* 813 / 1060 */
-  left: var(--journey-copy-left);
-  width: clamp(30rem, 38vw, 46rem);
+  left: var(--journey-headline-left);
+  width: var(--journey-desc-width);
   max-width: none;
   z-index: 30;
 }
@@ -1178,19 +1185,18 @@ a {
   font-weight: 700;
   font-size: clamp(0.9rem, 0.98vw, 1.18rem); /* 19px @ 1920 */
   color: #2c2c2c;
-  margin-bottom: clamp(1rem, 2vw, 2.5rem);
+  margin-bottom: 16px;
   white-space: nowrap;
-  position: relative;
-  top: 10px;
 }
 
 .journey__desc p {
   font-family: var(--font-sans);
   font-size: clamp(0.7rem, 0.67vw, 0.81rem); /* 13px @ 1920 */
   color: #202020;
-  line-height: 1.53; /* 20 / 13 */
-  letter-spacing: 0;
+  line-height: 18px;
+  letter-spacing: -0.01em;
   word-break: keep-all;
+  white-space: nowrap;
 }
 
 /* 파스텔 겹치는 이미지 */
