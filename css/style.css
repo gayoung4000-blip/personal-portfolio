@@ -3930,8 +3930,8 @@ a {
 .clone-coding__scene {
   position: relative;
   width: 100%;
-  height: calc(100svh - 66px);
-  min-height: 40rem;
+  height: calc(100svh - var(--clone-header-offset, 66px));
+  min-height: 0;
   overflow: hidden;
   background: #ece9e0;
 }
@@ -3946,7 +3946,7 @@ a {
 
 .clone-coding__mark {
   position: absolute;
-  top: clamp(2rem, 3.33vw, 4rem);
+  top: clamp(1.25rem, 4.5svh, 4rem);
   left: 0;
   width: clamp(13rem, 20.3vw, 24.5rem);
   aspect-ratio: 1;
@@ -3958,7 +3958,7 @@ a {
 
 .clone-coding__title {
   position: absolute;
-  top: clamp(2rem, 3.33vw, 4rem);
+  top: clamp(1.25rem, 4.5svh, 4rem);
   left: 50%;
   width: max-content;
   margin: 0;
@@ -3973,7 +3973,7 @@ a {
 
 .clone-coding__description {
   position: absolute;
-  top: clamp(8.5rem, 13.18vw, 15.8125rem);
+  top: clamp(8rem, 27svh, 15.8125rem);
   right: 0;
   width: min(25.94vw, 31.125rem);
   margin: 0;
@@ -3988,11 +3988,12 @@ a {
 .clone-coding__viewport {
   position: absolute;
   z-index: 1;
-  top: clamp(16rem, 25.73vw, 30.875rem);
+  inset: 0;
   left: 0;
   width: 100%;
-  height: min(54.9svh, 33.0625rem);
+  height: 100%;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .clone-coding__track {
@@ -4006,8 +4007,9 @@ a {
 }
 
 .clone-coding__card {
-  width: min(57.3vw, 68.75rem);
-  height: min(54.9svh, 33.0625rem);
+  width: min(72vw, 68.75rem);
+  aspect-ratio: 1100 / 529;
+  height: auto;
   flex: 0 0 auto;
   border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
   background: #1a1a1a;
@@ -4015,7 +4017,7 @@ a {
 
 @media (max-width: 760px) {
   .clone-coding__scene {
-    min-height: 38rem;
+    height: calc(100svh - var(--clone-header-offset, 66px));
   }
 
   .clone-coding__intro {
@@ -4034,7 +4036,7 @@ a {
   }
 
   .clone-coding__description {
-    top: 11.5rem;
+    top: clamp(9.25rem, 28svh, 11.5rem);
     right: 0;
     width: min(80%, 24rem);
     font-size: 0.86rem;
@@ -4042,12 +4044,33 @@ a {
   }
 
   .clone-coding__viewport {
-    top: 16rem;
-    height: min(48svh, 27rem);
+    inset: 0;
+    height: 100%;
   }
 
   .clone-coding__card {
-    width: min(82vw, 34rem);
-    height: min(48svh, 27rem);
+    width: min(86vw, 34rem);
+    height: auto;
+  }
+}
+
+@media (min-width: 48.0625rem) and (max-height: 43rem) {
+  .clone-coding__title {
+    top: 1rem;
+    font-size: clamp(3.75rem, 6.2vw, 6.5rem);
+  }
+
+  .clone-coding__mark {
+    top: 0.75rem;
+    width: clamp(11rem, 18vw, 17rem);
+  }
+
+  .clone-coding__description {
+    top: clamp(6.75rem, 23svh, 9rem);
+    font-size: clamp(0.78rem, 1.05vw, 1rem);
+  }
+
+  .clone-coding__card {
+    width: min(62vw, 56rem);
   }
 }

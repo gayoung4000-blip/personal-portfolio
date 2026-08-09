@@ -1427,6 +1427,26 @@
         return globalHeader ? Math.ceil(globalHeader.getBoundingClientRect().height) : 0;
       };
 
+      var syncCloneCodingHeaderOffset = function () {
+        cloneCodingScene.style.setProperty(
+          "--clone-header-offset",
+          getCloneCodingHeaderOffset() + "px"
+        );
+      };
+
+      var getCloneCodingPeekY = function () {
+        var peek = Math.max(42, Math.min(78, cloneCodingScene.clientHeight * 0.105));
+        return cloneCodingScene.clientHeight - peek;
+      };
+
+      var getCloneCodingFullY = function () {
+        var tallestCard = cloneCodingCards[1];
+        return Math.max(
+          18,
+          Math.round((cloneCodingScene.clientHeight - tallestCard.offsetHeight) / 2)
+        );
+      };
+
       var getCloneCodingCardX = function (cardIndex) {
         var card = cloneCodingCards[cardIndex];
         return (
@@ -1435,9 +1455,14 @@
         );
       };
 
+      syncCloneCodingHeaderOffset();
+
       gsap.set(cloneCodingTrack, {
         x: function () {
           return getCloneCodingCardX(1);
+        },
+        y: function () {
+          return getCloneCodingPeekY();
         },
       });
 
@@ -1470,13 +1495,14 @@
               return "top " + getCloneCodingHeaderOffset() + "px";
             },
             end: function () {
-              return "+=" + Math.max(window.innerHeight * 1.8, 1200);
+              return "+=" + Math.max(window.innerHeight * 2.65, 1550);
             },
             pin: cloneCodingScene,
             pinSpacing: true,
             scrub: 0.6,
             anticipatePin: 1,
             invalidateOnRefresh: true,
+            onRefreshInit: syncCloneCodingHeaderOffset,
             onEnter: showCloneCodingHeader,
             onEnterBack: showCloneCodingHeader,
             onUpdate: function (self) {
@@ -1486,7 +1512,18 @@
             },
           },
         })
-          .to({}, { duration: 0.2 })
+          .to({}, { duration: 0.12 })
+          .to(
+            cloneCodingTrack,
+            {
+              y: function () {
+                return getCloneCodingFullY();
+              },
+              duration: 0.82,
+              ease: "power2.inOut",
+            }
+          )
+          .to({}, { duration: 0.18 })
           .to(
             cloneCodingTrack,
             {
@@ -1505,7 +1542,7 @@
               duration: 0.5,
               ease: "power1.out",
             },
-            0.7
+            0.28
           )
           .to({}, { duration: 0.25 });
       }
