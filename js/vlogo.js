@@ -794,15 +794,23 @@
         return Math.max(0, imageRect.left - gap - textBaseRight);
       }
 
-      function getDesignedEndPosition() {
-        if (!designedText || !designedStopImage) return "left 36%";
+      var journeyDescription = journeySection.querySelector(".journey__desc");
 
-        var headlineRect = designedText.parentElement.getBoundingClientRect();
+      function updateDesignedMotion() {
+        if (!designedText || !designedStopImage || !journeyDescription) return;
+
+        var descriptionRect = journeyDescription.getBoundingClientRect();
         var imageRect = designedStopImage.getBoundingClientRect();
-        var elementGap = imageRect.left - headlineRect.left;
-        var endViewportPercent = 96 - (elementGap / window.innerWidth * 100);
+        var visibleLine = window.innerWidth * 0.98;
+        var travelWindow = Math.max(1, imageRect.left - descriptionRect.left);
+        var visibleProgress = Math.min(
+          1,
+          Math.max(0, (visibleLine - descriptionRect.left) / travelWindow)
+        );
 
-        return "left " + Math.min(60, Math.max(18, endViewportPercent)) + "%";
+        gsap.set(designedText, {
+          x: getDesignedStopX() * visibleProgress
+        });
       }
 
       // 가로 스크롤 트리거 및 상단 메뉴바 ↔ 둥근 메뉴 버튼(MENU) 전환 병합
@@ -841,34 +849,12 @@
         }
       });
 
-      // Keep I DESIGNED on the common left axis as the headline enters.
-      // It begins moving only after that initial aligned state is visible,
-      // then reaches the following image exactly as the image enters.
-      if (designedText && designedStopImage) {
-        var tlDesignedMove = gsap.timeline();
-        tlDesignedMove
-          .to({}, { duration: 0.18 })
-          .fromTo(designedText, {
-            x: 0
-          }, {
-            x: function() { return getDesignedStopX(); },
-            duration: 0.82,
-            ease: "none",
-            immediateRender: false
-          });
-
-        ScrollTrigger.create({
-          trigger: designedText.parentElement,
-          containerAnimation: tlJourney,
-          start: "left 96%",
-          end: getDesignedEndPosition,
-          scrub: 0.65,
-          animation: tlDesignedMove,
-          invalidateOnRefresh: true,
-          onLeaveBack: function() {
-            gsap.set(designedText, { x: 0 });
-          }
-        });
+      // Drive the word from the real on-screen positions instead of a second
+      // estimated ScrollTrigger. It stays at x:0 until the description enters
+      // the viewport, then reaches the image as that image enters.
+      if (designedText && designedStopImage && journeyDescription) {
+        tlJourney.eventCallback("onUpdate", updateDesignedMotion);
+        updateDesignedMotion();
       }
 
       // 3. journey4 이미지 전환: 책상 이미지가 화면에 절반쯤 들어온 순간
