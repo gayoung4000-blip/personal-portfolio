@@ -17,22 +17,39 @@
   function rotate(direction) {
     if (changing || !images.length) return;
     changing = true;
-    offset = (offset + direction + images.length) % images.length;
-    cards.forEach(function (card) { card.classList.add("is-changing"); });
+    var nextOffset = (offset + direction + images.length) % images.length;
+    var directionName = direction > 0 ? "next" : "prev";
+
+    cards.forEach(function (card, cardIndex) {
+      var current = card.querySelector("img");
+      var content = images[(cardIndex + nextOffset) % images.length];
+      var incoming = document.createElement("img");
+      current.classList.add("teamwork__image--current");
+      incoming.src = content.src;
+      incoming.alt = content.alt;
+      incoming.className = "teamwork__image--incoming-" + directionName;
+      card.appendChild(incoming);
+    });
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        cards.forEach(function (card) {
+          card.classList.add("is-sliding-" + directionName);
+        });
+      });
+    });
 
     window.setTimeout(function () {
-      cards.forEach(function (card, cardIndex) {
-        var image = card.querySelector("img");
-        var content = images[(cardIndex + offset) % images.length];
-        image.src = content.src;
-        image.alt = content.alt;
+      cards.forEach(function (card) {
+        var current = card.querySelector(".teamwork__image--current");
+        var incoming = card.querySelector(".teamwork__image--incoming-" + directionName);
+        if (current) current.remove();
+        if (incoming) incoming.className = "";
+        card.classList.remove("is-sliding-next", "is-sliding-prev");
       });
-
-      window.requestAnimationFrame(function () {
-        cards.forEach(function (card) { card.classList.remove("is-changing"); });
-        window.setTimeout(function () { changing = false; }, 360);
-      });
-    }, 220);
+      offset = nextOffset;
+      changing = false;
+    }, 650);
   }
 
   prev.addEventListener("click", function () {

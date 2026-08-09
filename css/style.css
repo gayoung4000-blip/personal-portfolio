@@ -4144,7 +4144,7 @@ a {
 
 .teamwork__gallery {
   width: 100%;
-  height: clamp(28rem, 47svh, 34rem);
+  height: clamp(29rem, 52svh, 37rem);
   margin-top: clamp(2.25rem, 5svh, 4.75rem);
   overflow: hidden;
 }
@@ -4160,27 +4160,50 @@ a {
 }
 
 .teamwork__card {
+  position: relative;
   width: clamp(19rem, 22.65vw, 27.1875rem);
+  aspect-ratio: 1 / 0.984;
   margin: 0;
   flex: 0 0 auto;
+  border-radius: 1.25rem;
+  overflow: hidden;
 }
 
 .teamwork__card--low { margin-top: clamp(3.5rem, 6.15vw, 7.375rem); }
 
 .teamwork__card > img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 0.984;
-  border-radius: 1.25rem;
+  height: 100%;
+  border-radius: inherit;
   object-fit: cover;
   opacity: 1;
-  transform: scale(1);
-  transition: opacity 220ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
-.teamwork__card.is-changing > img {
-  opacity: 0;
-  transform: scale(0.985);
+.teamwork__card > img.teamwork__image--incoming-next {
+  transform: translate3d(100%, 0, 0);
+}
+
+.teamwork__card > img.teamwork__image--incoming-prev {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.teamwork__card.is-sliding-next > img.teamwork__image--current {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.teamwork__card.is-sliding-prev > img.teamwork__image--current {
+  transform: translate3d(100%, 0, 0);
+}
+
+.teamwork__card.is-sliding-next > img.teamwork__image--incoming-next,
+.teamwork__card.is-sliding-prev > img.teamwork__image--incoming-prev {
+  transform: translate3d(0, 0, 0);
 }
 
 .teamwork__actions {
@@ -4249,8 +4272,12 @@ a {
   }
 
   .teamwork__heading p { font-size: 0.82rem; }
-  .teamwork__gallery { height: 25rem; margin-top: 2rem; }
+  .teamwork__gallery { height: 27rem; margin-top: 2rem; }
   .teamwork__card { width: min(74vw, 20rem); }
   .teamwork__card--low { margin-top: 3rem; }
   .teamwork__actions { width: calc(100% - 2rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .teamwork__card > img { transition-duration: 1ms; }
 }
