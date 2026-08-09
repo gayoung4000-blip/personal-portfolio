@@ -3977,14 +3977,23 @@ a {
   position: absolute;
   top: clamp(8rem, 27svh, 15.8125rem);
   right: 0;
-  width: min(25.94vw, 31.125rem);
+  width: min(49.5vw, 59.4375rem);
   margin: 0;
   font-family: "Inter", sans-serif;
   font-size: clamp(0.9rem, 1.25vw, 1.5rem);
   line-height: 1.45;
   letter-spacing: -0.05em;
   text-align: right;
-  white-space: nowrap;
+  white-space: normal;
+}
+
+.clone-coding__description span {
+  display: block;
+}
+
+.clone-coding__description strong {
+  color: #b69f64;
+  font-weight: 700;
 }
 
 .clone-coding__viewport {
