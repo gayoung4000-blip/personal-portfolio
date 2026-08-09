@@ -788,7 +788,7 @@
         var currentX = Number(gsap.getProperty(designedText, "x")) || 0;
         var textRect = designedText.getBoundingClientRect();
         var imageRect = designedStopImage.getBoundingClientRect();
-        var gap = Math.min(Math.max(window.innerWidth * 0.002, 2), 3);
+        var gap = 5;
         var textBaseRight = textRect.right - currentX;
 
         return Math.max(0, imageRect.left - gap - textBaseRight);
@@ -801,7 +801,7 @@
 
         var descriptionRect = journeyDescription.getBoundingClientRect();
         var imageRect = designedStopImage.getBoundingClientRect();
-        var visibleLine = window.innerWidth * 0.98;
+        var visibleLine = window.innerWidth * 0.92;
         var travelWindow = Math.max(1, imageRect.left - descriptionRect.left);
         var visibleProgress = Math.min(
           1,
