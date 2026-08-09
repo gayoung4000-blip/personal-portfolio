@@ -1306,7 +1306,7 @@ a {
 .journey__ending-sketch {
   position: absolute;
   bottom: 0;
-  right: 11.51vw; /* (1920 - 1099 - 600) / 1920 */
+  right: 1vw;
   width: 31.25vw; /* 600 / 1920 */
   height: 31.77vw; /* 610 / 1920 */
   overflow: hidden;
@@ -1369,7 +1369,7 @@ a {
    SCENE 4: HUMAN INSIGHT + EDUCATOR 디바이더 (Figma journey4~5, 1920×1032 기준)
    ========================================================== */
 .journey__scene--4 {
-  width: 144.4vw;
+  width: 139.4vw;
   background-color: #0c0c0c; /* Scene 3와 동일 톤으로 이어짐 */
   position: relative;
 }
@@ -1430,7 +1430,7 @@ a {
 /* EDUCATOR 아이보리 세로 디바이더 */
 .journey__educator {
   position: absolute;
-  left: 75.6vw;
+  left: 70.6vw;
   top: 0;
   width: 14.79vw; /* 284 / 1920 */
   height: 100%;
@@ -1519,7 +1519,7 @@ a {
    이전 프레임(869-190)에서는 화면 오른쪽에 앞 361px만 걸쳐 보이던 것 */
 .journey__bouquet {
   position: absolute;
-  left: 90.39vw;
+  left: 85.39vw;
   top: 0;
   width: 54vw; /* 1037 / 1920 */
   height: 100%;
@@ -1535,7 +1535,7 @@ a {
 /* 폴라로이드식 오버레이 사진 (도마 위 꽃다발+케이크 디테일) — 큰 사진 위에 겹침 */
 .journey__polaroid {
   position: absolute;
-  left: 113.86vw;
+  left: 108.86vw;
   top: 19.38vh; /* 200 / 1032 */
   width: 39.01vw; /* 749 / 1920 */
   height: 61.24vh; /* 632 / 1032 */
