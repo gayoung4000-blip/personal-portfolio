@@ -1447,8 +1447,9 @@
       };
 
       var getCloneCodingStartY = function () {
-        var descriptionBottom =
-          cloneCodingDescription.offsetTop + cloneCodingDescription.offsetHeight;
+        var sceneRect = cloneCodingScene.getBoundingClientRect();
+        var descriptionRect = cloneCodingDescription.getBoundingClientRect();
+        var descriptionBottom = descriptionRect.bottom - sceneRect.top;
         var remainingSpace = Math.max(0, cloneCodingScene.clientHeight - descriptionBottom);
         var responsiveGap = remainingSpace * 0.3;
         var fullY = getCloneCodingFullY();
@@ -1512,7 +1513,7 @@
               return "top " + getCloneCodingHeaderOffset() + "px";
             },
             end: function () {
-              return "+=" + Math.max(window.innerHeight * 6.2, 3400);
+              return "+=" + Math.max(window.innerHeight * 4.6, 2600);
             },
             pin: cloneCodingScene,
             pinSpacing: true,
@@ -1593,41 +1594,7 @@
             },
             0.22
           )
-          .to({}, { duration: 0.28 })
-          .to(
-            cloneCodingTrack,
-            {
-              x: function () {
-                return getCloneCodingCardX(0);
-              },
-              y: function () {
-                return getCloneCodingStartY();
-              },
-              duration: 1.08,
-              ease: "power2.inOut",
-            }
-          )
-          .to(
-            cloneCodingDim,
-            {
-              opacity: 0,
-              duration: 0.72,
-              ease: "power1.inOut",
-            },
-            "<+=0.08"
-          )
-          .to(
-            cloneCodingIntro,
-            {
-              y: 0,
-              opacity: 1,
-              filter: "blur(0px)",
-              duration: 0.78,
-              ease: "power1.out",
-            },
-            "<"
-          )
-          .to({}, { duration: 0.52 });
+          .to({}, { duration: 0.42 });
       }
     }
 
