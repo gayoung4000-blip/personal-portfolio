@@ -929,10 +929,29 @@
       var insightText = document.querySelector(".journey__insight-text");
       var insightTitle = document.querySelector(".journey__insight-title");
       if (insightText && insightTitle) {
-        // 단어 단위 span 래핑 (하이라이트 stagger 대상)
-        insightText.innerHTML = insightText.textContent.trim().split(/\s+/).map(function (w) {
-          return '<span class="jw">' + w + "</span>";
-        }).join(" ");
+        // Preserve the authored line breaks while wrapping words for the
+        // scroll-driven highlight animation.
+        var insightWalker = document.createTreeWalker(insightText, NodeFilter.SHOW_TEXT);
+        var insightTextNodes = [];
+        while (insightWalker.nextNode()) insightTextNodes.push(insightWalker.currentNode);
+
+        insightTextNodes.forEach(function(textNode) {
+          var words = textNode.nodeValue.trim().split(/\s+/).filter(Boolean);
+          if (!words.length) {
+            textNode.remove();
+            return;
+          }
+
+          var fragment = document.createDocumentFragment();
+          words.forEach(function(word, index) {
+            if (index) fragment.appendChild(document.createTextNode(" "));
+            var span = document.createElement("span");
+            span.className = "jw";
+            span.textContent = word;
+            fragment.appendChild(span);
+          });
+          textNode.replaceWith(fragment);
+        });
         var insightWords = insightText.querySelectorAll(".jw");
 
         var tlInsight = gsap.timeline();
