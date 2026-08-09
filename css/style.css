@@ -1112,20 +1112,30 @@ a {
    SCENE 2: 화이트 갤러리 영역 (거대 텍스트 및 파스텔 이미지)
    ========================================================== */
 .journey__scene--2 {
-  width: 150vw; /* 텍스트가 끝나는 2580px(약 134vw)를 덮고 남을 넓이 */
+  /* 이미지 뒤에 실제 여백을 확보해 다음 장면이 텍스트를 덮지 않게 한다. */
+  width: max(170vw, 112rem);
   background-color: #ffffff;
+  --journey-art-left: clamp(17rem, 30vw, 36rem);
+  --journey-art-width: clamp(26rem, 43.5vw, 52.5rem);
+  --journey-copy-gap: clamp(3rem, 4vw, 5rem);
+  --journey-copy-left: calc(
+    var(--journey-art-left) +
+    var(--journey-art-width) +
+    var(--journey-copy-gap)
+  );
 }
 
 /* 거대한 타이포그래피 (I LEARNED TO SEE...) */
 .journey__huge-text {
   position: absolute;
   top: 20.9%; /* 222 / 1060 */
-  left: clamp(50rem, 77.44vw, 92.9rem); /* 1487px @ 1920 -> 1487/1920 = 77.44vw */
+  left: var(--journey-copy-left);
   font-family: var(--font-serif);
   font-size: clamp(4rem, 6.08vw, 7.3rem); /* 116.9px @ 1920 */
   line-height: 1.06; /* 125 / 116.9 */
   color: var(--charcoal);
   white-space: nowrap;
+  z-index: 30;
 }
 
 .journey__huge-anim {
@@ -1145,23 +1155,21 @@ a {
   position: absolute;
   top: 46.9%; /* 498 / 1060 */
   /* Follow the responsive artwork edge and preserve a visible text gap. */
-  left: calc(
-    clamp(17rem, 30vw, 36rem) +
-    clamp(26rem, 43.5vw, 52.5rem) -
-    clamp(2.5rem, 2.4vw, 3rem)
-  );
+  left: calc(var(--journey-copy-left) - clamp(2.5rem, 2.4vw, 3rem));
   font-family: var(--font-serif);
   font-size: clamp(1rem, 1.14vw, 1.375rem); /* 22px @ 1920 */
   color: var(--charcoal);
+  z-index: 31;
 }
 
 /* 설명 텍스트 블록 (LEARNING TO LOOK) */
 .journey__desc {
   position: absolute;
   top: 76.6%; /* 813 / 1060 */
-  left: clamp(50rem, 76.77vw, 92.1rem); /* 1474px @ 1920 */
+  left: var(--journey-copy-left);
   width: clamp(30rem, 38vw, 46rem);
   max-width: none;
+  z-index: 30;
 }
 
 .journey__desc h3 {
@@ -1189,8 +1197,8 @@ a {
   position: absolute;
   top: 50%; /* 상단에서 50% 지점 */
   transform: translateY(-50%); /* 자신의 높이의 절반만큼 위로 끌어올려 완벽한 세로 중앙 정렬 달성 */
-  left: clamp(17rem, 30vw, 36rem);
-  width: clamp(26rem, 43.5vw, 52.5rem);
+  left: var(--journey-art-left);
+  width: var(--journey-art-width);
   aspect-ratio: 1.4 / 1;
   /* height 속성 삭제: 이미지 원본 비율에 따라 컨테이너 높이가 자동으로 결정됨 */
   overflow: hidden;
