@@ -6,50 +6,51 @@
   var next = document.querySelector(".teamwork__next");
   if (!track || !prev || !next) return;
 
-  var cards = Array.prototype.slice.call(track.querySelectorAll(".teamwork__card"));
-  var images = cards.map(function (card) {
-    var image = card.querySelector("img");
-    return { src: image.getAttribute("src"), alt: image.getAttribute("alt") };
-  });
-  var offset = 0;
+  var originalCards = Array.prototype.slice.call(track.querySelectorAll(".teamwork__card"));
+  var cardCount = originalCards.length;
+  var currentIndex = cardCount;
   var changing = false;
 
+  function makeClone(card) {
+    var clone = card.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    clone.classList.add("teamwork__card--clone");
+    return clone;
+  }
+
+  var before = document.createDocumentFragment();
+  var after = document.createDocumentFragment();
+  originalCards.forEach(function (card) { before.appendChild(makeClone(card)); });
+  originalCards.forEach(function (card) { after.appendChild(makeClone(card)); });
+  track.insertBefore(before, track.firstChild);
+  track.appendChild(after);
+
+  function allCards() {
+    return Array.prototype.slice.call(track.querySelectorAll(".teamwork__card"));
+  }
+
+  function positionFor(index) {
+    var cards = allCards();
+    return -(cards[index].offsetLeft - cards[0].offsetLeft);
+  }
+
+  function render(animate) {
+    track.style.transitionDuration = animate ? "680ms" : "0ms";
+    track.style.transform = "translate3d(" + positionFor(currentIndex) + "px, 0, 0)";
+  }
+
   function rotate(direction) {
-    if (changing || !images.length) return;
+    if (changing || !cardCount) return;
     changing = true;
-    var nextOffset = (offset + direction + images.length) % images.length;
-    var directionName = direction > 0 ? "next" : "prev";
-
-    cards.forEach(function (card, cardIndex) {
-      var current = card.querySelector("img");
-      var content = images[(cardIndex + nextOffset) % images.length];
-      var incoming = document.createElement("img");
-      current.classList.add("teamwork__image--current");
-      incoming.src = content.src;
-      incoming.alt = content.alt;
-      incoming.className = "teamwork__image--incoming-" + directionName;
-      card.appendChild(incoming);
-    });
-
-    window.requestAnimationFrame(function () {
-      window.requestAnimationFrame(function () {
-        cards.forEach(function (card) {
-          card.classList.add("is-sliding-" + directionName);
-        });
-      });
-    });
+    currentIndex += direction;
+    render(true);
 
     window.setTimeout(function () {
-      cards.forEach(function (card) {
-        var current = card.querySelector(".teamwork__image--current");
-        var incoming = card.querySelector(".teamwork__image--incoming-" + directionName);
-        if (current) current.remove();
-        if (incoming) incoming.className = "";
-        card.classList.remove("is-sliding-next", "is-sliding-prev");
-      });
-      offset = nextOffset;
+      if (currentIndex >= cardCount * 2) currentIndex = cardCount;
+      if (currentIndex < cardCount) currentIndex = cardCount * 2 - 1;
+      render(false);
       changing = false;
-    }, 650);
+    }, 720);
   }
 
   prev.addEventListener("click", function () {
@@ -59,4 +60,8 @@
   next.addEventListener("click", function () {
     rotate(1);
   });
+
+  window.addEventListener("resize", function () { render(false); }, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { render(false); });
+  render(false);
 })();

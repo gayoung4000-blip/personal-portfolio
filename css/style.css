@@ -4157,6 +4157,8 @@ a {
   padding-left: var(--teamwork-inline);
   padding-right: var(--teamwork-inline);
   transform: translate3d(0, 0, 0);
+  transition: transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 .teamwork__card {
@@ -4181,29 +4183,7 @@ a {
   object-fit: cover;
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.teamwork__card > img.teamwork__image--incoming-next {
-  transform: translate3d(100%, 0, 0);
-}
-
-.teamwork__card > img.teamwork__image--incoming-prev {
-  transform: translate3d(-100%, 0, 0);
-}
-
-.teamwork__card.is-sliding-next > img.teamwork__image--current {
-  transform: translate3d(-100%, 0, 0);
-}
-
-.teamwork__card.is-sliding-prev > img.teamwork__image--current {
-  transform: translate3d(100%, 0, 0);
-}
-
-.teamwork__card.is-sliding-next > img.teamwork__image--incoming-next,
-.teamwork__card.is-sliding-prev > img.teamwork__image--incoming-prev {
-  transform: translate3d(0, 0, 0);
+  transition: none;
 }
 
 .teamwork__actions {
@@ -4279,5 +4259,5 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .teamwork__card > img { transition-duration: 1ms; }
+  .teamwork__track { transition-duration: 1ms; }
 }
