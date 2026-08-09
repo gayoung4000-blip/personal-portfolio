@@ -1139,8 +1139,10 @@ a {
   /* Keep the headline just to the right of the small Journey label. */
   left: var(--journey-headline-left);
   font-family: var(--font-serif);
+  font-weight: 300;
   font-size: clamp(4rem, 6.08vw, 7.3rem); /* 116.9px @ 1920 */
   line-height: 1.06; /* 125 / 116.9 */
+  letter-spacing: -3px;
   color: var(--charcoal);
   white-space: nowrap;
   z-index: 30;
@@ -1155,7 +1157,7 @@ a {
 }
 
 .journey__huge-text .tracking-wide {
-  letter-spacing: clamp(0.3rem, 0.6vw, 0.73rem); /* 11.69px @ 1920 */
+  letter-spacing: calc(clamp(0.3rem, 0.6vw, 0.73rem) - 3px);
 }
 
 /* Journey 라벨 */
