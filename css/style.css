@@ -4143,9 +4143,10 @@ a {
 }
 
 .teamwork__gallery {
-  width: 100%;
+  width: calc(100% - var(--teamwork-inline));
   height: clamp(29rem, 52svh, 37rem);
   margin-top: clamp(2.25rem, 5svh, 4.75rem);
+  margin-left: var(--teamwork-inline);
   overflow: hidden;
 }
 
@@ -4154,7 +4155,7 @@ a {
   align-items: flex-start;
   gap: clamp(1.25rem, 1.3vw, 1.5625rem);
   width: max-content;
-  padding-left: var(--teamwork-inline);
+  padding-left: 0;
   padding-right: var(--teamwork-inline);
   transform: translate3d(0, 0, 0);
   transition: transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
