@@ -1000,15 +1000,15 @@ a {
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: 1.1px;
-  margin-bottom: clamp(0.5rem, 1.3vh, 1.5rem);
+  margin-bottom: 16px;
 }
 
 .journey__kor-desc {
   font-family: var(--font-sans);
   font-size: clamp(0.85rem, 0.78vw, 0.9375rem);
   color: #424242;
-  line-height: 1.6;
-  letter-spacing: 0.75px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
 }
 
 /* 4. 우측 하단 뒤집힌 텍스트 블록 */
@@ -1070,11 +1070,11 @@ a {
   }
 
   .journey__kor-title {
-    margin-bottom: clamp(0.35rem, 1svh, 0.75rem);
+    margin-bottom: 16px;
   }
 
   .journey__kor-desc {
-    line-height: 1.48;
+    line-height: 16px;
   }
 }
 
@@ -1100,7 +1100,7 @@ a {
 
   .journey__kor-desc {
     font-size: clamp(0.72rem, 0.68vw, 0.84rem);
-    line-height: 1.42;
+    line-height: 16px;
   }
 
   .journey__inverted-block {
