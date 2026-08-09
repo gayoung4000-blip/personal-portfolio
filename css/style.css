@@ -4169,7 +4169,7 @@ a {
   overflow: hidden;
 }
 
-.teamwork__card--low { margin-top: clamp(3.5rem, 6.15vw, 7.375rem); }
+.teamwork__card--low { margin-top: 0; }
 
 .teamwork__card > img {
   position: absolute;
@@ -4274,7 +4274,7 @@ a {
   .teamwork__heading p { font-size: 0.82rem; }
   .teamwork__gallery { height: 27rem; margin-top: 2rem; }
   .teamwork__card { width: min(74vw, 20rem); }
-  .teamwork__card--low { margin-top: 3rem; }
+  .teamwork__card--low { margin-top: 0; }
   .teamwork__actions { width: calc(100% - 2rem); }
 }
 
