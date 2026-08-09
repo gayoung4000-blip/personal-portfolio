@@ -830,20 +830,33 @@
         }
       });
 
-      // Move I DESIGNED only while its parent headline is actually visible.
-      // Using the stationary headline as the trigger avoids feedback from the
-      // animated word itself and keeps the timing responsive at every width.
+      // Keep I DESIGNED on the common left axis as the headline enters.
+      // It begins moving only after that initial aligned state is visible,
+      // then reaches the following image exactly as the image enters.
       if (designedText && designedStopImage) {
-        gsap.to(designedText, {
-          x: function() { return getDesignedStopX(); },
-          ease: "none",
-          scrollTrigger: {
-            trigger: designedText.parentElement,
-            containerAnimation: tlJourney,
-            start: "left 78%",
-            end: "left 45%",
-            scrub: 0.65,
-            invalidateOnRefresh: true
+        var tlDesignedMove = gsap.timeline();
+        tlDesignedMove
+          .to({}, { duration: 0.18 })
+          .fromTo(designedText, {
+            x: 0
+          }, {
+            x: function() { return getDesignedStopX(); },
+            duration: 0.82,
+            ease: "none",
+            immediateRender: false
+          });
+
+        ScrollTrigger.create({
+          trigger: designedText.parentElement,
+          endTrigger: designedStopImage,
+          containerAnimation: tlJourney,
+          start: "left 96%",
+          end: "left 96%",
+          scrub: 0.65,
+          animation: tlDesignedMove,
+          invalidateOnRefresh: true,
+          onLeaveBack: function() {
+            gsap.set(designedText, { x: 0 });
           }
         });
       }
