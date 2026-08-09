@@ -1867,10 +1867,13 @@ a {
   height: 100%;
 }
 
-.chatbot-panel__avatar span {
+.chatbot-panel__avatar .chatbot-panel__avatar-logo {
   position: relative;
-  color: #0d0d0c;
-  font: 500 2.35rem/1 "EB Garamond", serif;
+  inset: auto;
+  width: 2.7rem;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
 }
 
 .chatbot-panel__greeting {
