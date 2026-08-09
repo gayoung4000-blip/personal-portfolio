@@ -22,10 +22,10 @@
   --gold: #b69f64;      /* 포인트/ASK ME 버튼 등 */
 
   /* 폰트 — Figma(hero2): 로고/크레딧 Plus Jakarta Sans, 내비 Prata(+Home만 Crimson Text) */
-  --font-sans: "Plus Jakarta Sans", sans-serif;
-  --font-serif: "Prata", serif;
-  --font-serif-alt: "Crimson Text", serif;
-  --font-geist: "Geist", "Geist Fallback", sans-serif;
+  --font-geist: "Geist", "Geist Fallback", "Noto Sans KR", sans-serif;
+  --font-sans: var(--font-geist);
+  --font-serif: var(--font-geist);
+  --font-serif-alt: var(--font-geist);
 
   /* 타입 스케일 (1920px 기준 Figma 수치 = clamp 최대값) */
   --fs-logo: clamp(1.5rem, 2.08vw, 2.5rem);         /* DESIGNER 40px */
@@ -4658,4 +4658,10 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .site-footer__links a { transition: none; }
+}
+
+/* Site-wide Latin typography: Geist renders English, Noto Sans KR renders Korean. */
+body,
+body * {
+  font-family: var(--font-geist) !important;
 }
