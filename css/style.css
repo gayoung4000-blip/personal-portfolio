@@ -1215,23 +1215,11 @@ a {
   /* height 속성 삭제: 이미지 원본 비율에 따라 컨테이너 높이가 자동으로 결정됨 */
   overflow: hidden;
   z-index: 20; /* 메인 캔버스(bridge) 이미지 위에 겹치도록 */
-  padding: clamp(0.3rem, 0.48vw, 0.575rem);
-  /* Reserve one pixel for layout; the visible frame is drawn once by ::after. */
-  border: 1px solid transparent;
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 0.9rem 2.25rem rgba(0, 0, 0, 0.16);
-}
-
-/* The frame stays above both the original and swapped artwork. */
-.journey__pastels::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 50;
+  box-sizing: border-box;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.9);
-  pointer-events: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .journey__pastels-bg {
