@@ -4262,3 +4262,159 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .teamwork__track { transition-duration: 1ms; }
 }
+
+/* ==========================================================
+   OTHER WORK — automation tool introduction
+   Figma 962:1391
+   ========================================================== */
+.other-work {
+  position: relative;
+  z-index: 2;
+  min-height: max(45rem, calc(100svh - 4.125rem));
+  display: grid;
+  align-items: center;
+  padding: clamp(3.75rem, 8svh, 7.5rem) 1.5rem;
+  overflow: hidden;
+  background: #ece9e0;
+  color: #0c0c0c;
+}
+
+.other-work__inner {
+  width: min(100%, 91.125rem);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(21rem, 43.3rem) minmax(31rem, 1fr);
+  align-items: center;
+  gap: clamp(4rem, 5.75vw, 6.9375rem);
+}
+
+.other-work__visual {
+  width: 100%;
+  max-height: min(66svh, 44.5625rem);
+  aspect-ratio: 693 / 713;
+  border-radius: clamp(1.75rem, 2.1vw, 2.5rem);
+  background: #b69f64;
+}
+
+.other-work__content {
+  align-self: center;
+  padding-top: clamp(0rem, 2svh, 1.25rem);
+}
+
+.other-work__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3.35rem, 4.17vw, 5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.045em;
+}
+
+.other-work__title span {
+  display: block;
+  white-space: nowrap;
+}
+
+.other-work__title strong {
+  color: #b69f64;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.055em;
+}
+
+.other-work__description {
+  margin: clamp(1.2rem, 3.6svh, 2.8125rem) 0 0;
+  font-family: "Inter", "Noto Sans KR", sans-serif;
+  font-size: clamp(0.9rem, 0.99vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+}
+
+.other-work__button {
+  width: fit-content;
+  min-height: 3.8125rem;
+  margin-top: clamp(1.75rem, 4.7svh, 3.375rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid #191919;
+  border-radius: 999px;
+  padding: 0.65rem 1.45rem;
+  color: #191919;
+  font: 400 clamp(0.95rem, 1.1vw, 1.3125rem)/1 "Inter", "Noto Sans KR", sans-serif;
+  text-decoration: none;
+  transition: background-color 240ms ease, color 240ms ease, transform 240ms ease;
+}
+
+.other-work__button:hover,
+.other-work__button:focus-visible {
+  background: #191919;
+  color: #fefdfb;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 75rem) {
+  .other-work__inner {
+    grid-template-columns: minmax(18rem, 0.92fr) minmax(27rem, 1.08fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .other-work__title {
+    font-size: clamp(2.85rem, 4.55vw, 4.25rem);
+  }
+}
+
+@media (max-width: 56rem) {
+  .other-work {
+    min-height: auto;
+    padding: 4rem 1.25rem 5rem;
+  }
+
+  .other-work__inner {
+    width: min(100%, 42rem);
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .other-work__visual {
+    width: min(100%, 34rem);
+    justify-self: center;
+    aspect-ratio: 1 / 0.82;
+  }
+
+  .other-work__content {
+    padding-top: 0;
+  }
+
+  .other-work__description br {
+    display: none;
+  }
+}
+
+@media (max-width: 35rem) {
+  .other-work {
+    padding-inline: 1rem;
+  }
+
+  .other-work__title {
+    font-size: clamp(2.25rem, 10.4vw, 3.35rem);
+    line-height: 1.16;
+  }
+
+  .other-work__title span {
+    white-space: normal;
+  }
+
+  .other-work__visual {
+    border-radius: 1.75rem;
+  }
+
+  .other-work__button {
+    min-height: 3.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .other-work__button { transition: none; }
+}
