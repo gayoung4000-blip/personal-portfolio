@@ -1748,7 +1748,7 @@ a {
   font-size: clamp(0.78rem, 0.756vw, 0.908rem);
   font-weight: 500;
   line-height: 1;
-  transform: translateY(0.3125rem);
+  transform: translateY(-0.625rem);
 }
 
 .chatbot-tab:hover,
