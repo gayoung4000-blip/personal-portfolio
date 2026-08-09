@@ -1673,6 +1673,102 @@ a {
   color: #fff;
 }
 
+/* Fixed portfolio chatbot tab — Figma 1316:118 */
+.chatbot-tab {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 950;
+  width: clamp(3.625rem, 3.333vw, 4rem);
+  aspect-ratio: 64 / 203;
+  padding: 0;
+  border: 0;
+  border-radius: 0.3125rem 0 0 0.3125rem;
+  overflow: hidden;
+  background: #b69f64;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate3d(0, -50%, 0);
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  box-shadow: -0.25rem 0.5rem 1.5rem rgba(44, 35, 17, 0.12);
+  will-change: transform, opacity;
+}
+
+.chatbot-tab__mark {
+  position: relative;
+  align-self: flex-start;
+  width: 62.5%;
+  aspect-ratio: 40 / 34;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.chatbot-tab__mark img {
+  position: absolute;
+  top: -17.3%;
+  left: -12.9%;
+  width: 118.8%;
+  max-width: none;
+}
+
+.chatbot-tab__divider {
+  width: 84.375%;
+  height: auto;
+  margin-top: 0.375rem;
+  flex: 0 0 auto;
+}
+
+.chatbot-tab__ask {
+  margin-top: 0.8125rem;
+  font-size: clamp(1.4rem, 1.354vw, 1.625rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+  text-align: center;
+}
+
+.chatbot-tab__pill {
+  width: 72.08%;
+  aspect-ratio: 46.129 / 25.627;
+  margin-top: auto;
+  margin-bottom: 0.5625rem;
+  border: 0.08rem solid currentColor;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: clamp(0.78rem, 0.756vw, 0.908rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.chatbot-tab:hover,
+.chatbot-tab:focus-visible {
+  background: #aa9255;
+  box-shadow: -0.35rem 0.65rem 1.75rem rgba(44, 35, 17, 0.2);
+}
+
+.chatbot-tab:focus-visible {
+  outline: 0.125rem solid #fff;
+  outline-offset: -0.25rem;
+}
+
+@media (max-width: 48rem) {
+  .chatbot-tab {
+    width: 3.625rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-tab {
+    transition: none;
+  }
+}
+
 @media (max-width: 48rem) {
   .journey-menu-panel {
     height: 5.25rem;

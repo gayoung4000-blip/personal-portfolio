@@ -14,6 +14,7 @@
     y: document.querySelector(".mark__y"),
     acc: document.querySelector(".mark__acc"),
   };
+  var chatbotTab = document.querySelector(".chatbot-tab");
 
   // 원본 로고 d를 서브패스로 분해 — 순서: [0]악센트 점, [1]g 윤곽, [2]g 구멍, [3]y
   var subs = finalPath.getAttribute("d").split(/(?=M)/);
@@ -32,6 +33,11 @@
     morphLayer.style.opacity = "0";
     finalPath.style.opacity = "1";
     document.documentElement.classList.add("is-vlogo");
+    if (chatbotTab) {
+      chatbotTab.style.opacity = "1";
+      chatbotTab.style.visibility = "visible";
+      chatbotTab.style.transform = "translate3d(0, -50%, 0)";
+    }
   }
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -53,6 +59,9 @@
   gsap.set(".hero2__logo", { autoAlpha: 0, y: -16 });
   gsap.set(navItems, { autoAlpha: 0, y: -12 });
   gsap.set([".hero2__credit", ".hero2__scroll"], { autoAlpha: 0, y: 20 });
+  if (chatbotTab) {
+    gsap.set(chatbotTab, { autoAlpha: 0, xPercent: 100 });
+  }
 
   // flubber 보간을 GSAP 트윈으로 감싸는 헬퍼
   function morphTween(el, fromD, toD, duration, ease) {
@@ -83,6 +92,10 @@
       document.documentElement.classList.add("is-vlogo");
     },
   });
+
+  if (chatbotTab) {
+    tl.to(chatbotTab, { autoAlpha: 1, xPercent: 0, duration: 0.55, ease: "power3.out" }, 0.05);
+  }
 
   tl.add(morphTween(morph.g, START.g, TARGET.g, 0.65, "power3.inOut"), 0.05)
     .add(morphTween(morph.hole, START.hole, TARGET.hole, 0.65, "power3.inOut"), 0.05)
