@@ -3958,11 +3958,13 @@ a {
 
 .clone-coding__title {
   position: absolute;
-  top: clamp(1.25rem, 4.5svh, 4rem);
+  top: calc(clamp(1.25rem, 4.5svh, 4rem) + 1.25rem);
   left: 50%;
   width: max-content;
   margin: 0;
   transform: translateX(-50%);
+  display: flex;
+  gap: clamp(1.5rem, 3.1vw, 3.75rem);
   font-family: var(--font-serif);
   font-size: clamp(4.2rem, 6.77vw, 8.125rem);
   font-weight: 400;
@@ -4031,8 +4033,9 @@ a {
   }
 
   .clone-coding__title {
-    top: 3.25rem;
+    top: 4.5rem;
     font-size: clamp(2.75rem, 13.5vw, 4.5rem);
+    gap: clamp(1rem, 5vw, 2rem);
   }
 
   .clone-coding__description {
@@ -4056,7 +4059,7 @@ a {
 
 @media (min-width: 48.0625rem) and (max-height: 43rem) {
   .clone-coding__title {
-    top: 1rem;
+    top: 2.25rem;
     font-size: clamp(3.75rem, 6.2vw, 6.5rem);
   }
 
