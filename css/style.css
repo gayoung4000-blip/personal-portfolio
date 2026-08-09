@@ -1843,6 +1843,38 @@ a {
   cursor: pointer;
 }
 
+.chatbot-panel__back {
+  position: absolute;
+  top: 0.78rem;
+  left: 0.9rem;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background: transparent;
+  color: #faf7f2;
+  font: 400 1.2rem/1 "Inter", sans-serif;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(0.35rem);
+  cursor: pointer;
+  transition: opacity 180ms ease, visibility 180ms ease, transform 220ms ease, background-color 180ms ease;
+}
+
+.chatbot-panel.is-conversation-active .chatbot-panel__back {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.chatbot-panel__back:hover,
+.chatbot-panel__back:focus-visible {
+  background: #21201d;
+}
+
 .chatbot-panel__body {
   min-height: 0;
   overflow-y: auto;

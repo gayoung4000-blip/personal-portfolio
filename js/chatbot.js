@@ -5,6 +5,7 @@
   var tab = document.getElementById("chatbotTab");
   var panel = document.getElementById("chatbotPanel");
   var closeButton = panel && panel.querySelector(".chatbot-panel__close");
+  var backButton = panel && panel.querySelector(".chatbot-panel__back");
   var homeButton = panel && panel.querySelector(".chatbot-panel__home");
   var form = document.getElementById("chatbotForm");
   var input = document.getElementById("chatbotInput");
@@ -109,21 +110,27 @@
     var value = question.trim();
     if (!value) return;
     intro.hidden = true;
+    panel.classList.add("is-conversation-active");
     addMessage(value, "user");
     window.setTimeout(function () { addMessage(findAnswer(value), "bot"); }, 260);
     input.value = "";
+  }
+
+  function resetConversation() {
+    conversation.replaceChildren();
+    intro.hidden = false;
+    panel.classList.remove("is-conversation-active");
+    body.scrollTop = 0;
+    input.value = "";
+    input.focus();
   }
 
   tab.setAttribute("aria-controls", "chatbotPanel");
   tab.setAttribute("aria-expanded", "false");
   tab.addEventListener("click", function () { setOpen(!root.classList.contains("is-chatbot-open")); });
   closeButton.addEventListener("click", function () { setOpen(false); });
-  homeButton.addEventListener("click", function () {
-    conversation.replaceChildren();
-    intro.hidden = false;
-    body.scrollTop = 0;
-    input.focus();
-  });
+  backButton.addEventListener("click", resetConversation);
+  homeButton.addEventListener("click", resetConversation);
   panel.querySelectorAll(".chatbot-panel__suggestions button").forEach(function (button) {
     button.addEventListener("click", function () { ask(button.textContent); });
   });
