@@ -5,6 +5,14 @@
    - clamp 최대값 = 1920px 디자인 기준 수치
    ========================================================== */
 
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   /* 색상 — Figma 추출값 */
   --bg: #ffffff;
@@ -17,6 +25,7 @@
   --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-serif: "Prata", serif;
   --font-serif-alt: "Crimson Text", serif;
+  --font-geist: "Geist", "Geist Fallback", sans-serif;
 
   /* 타입 스케일 (1920px 기준 Figma 수치 = clamp 최대값) */
   --fs-logo: clamp(1.5rem, 2.08vw, 2.5rem);         /* DESIGNER 40px */
@@ -4441,7 +4450,7 @@ a {
   margin: 0;
   transform: translateX(-50%);
   color: #fefdfb;
-  font-family: var(--font-serif);
+  font-family: var(--font-geist);
   font-size: clamp(13rem, min(19.06vw, 35svh), 22.875rem);
   font-weight: 400;
   line-height: 0.9;
@@ -4475,12 +4484,12 @@ a {
 .site-footer__invitation {
   margin: 0 0 auto;
   padding-top: clamp(3.2rem, 8svh, 7rem);
-  font: 500 clamp(0.7rem, 1.06vw, 1.27rem)/1.47 "Inter", sans-serif;
+  font: 500 clamp(0.7rem, 1.06vw, 1.27rem)/1.47 var(--font-geist);
 }
 
 .site-footer__copyright {
   margin: 0;
-  font: 500 clamp(0.68rem, 0.97vw, 1.165rem)/1.1 "Inter", sans-serif;
+  font: 500 clamp(0.68rem, 0.97vw, 1.165rem)/1.1 var(--font-geist);
   white-space: nowrap;
 }
 
@@ -4500,7 +4509,7 @@ a {
 
 .site-footer__send {
   margin: 0 0 clamp(0.75rem, 2svh, 1.6rem);
-  font: 600 clamp(0.82rem, 1.15vw, 1.375rem)/1.1 "Inter", sans-serif;
+  font: 600 clamp(0.82rem, 1.15vw, 1.375rem)/1.1 var(--font-geist);
 }
 
 .site-footer__links {
@@ -4514,7 +4523,7 @@ a {
 .site-footer__links a {
   width: fit-content;
   color: #d2d2d2;
-  font: 600 clamp(1.15rem, 1.57vw, 1.875rem)/1.28 "Inter", sans-serif;
+  font: 600 clamp(1.15rem, 1.57vw, 1.875rem)/1.28 var(--font-geist);
   text-decoration: none;
   transition: color 220ms ease;
 }
@@ -4537,13 +4546,13 @@ a {
   padding: clamp(3.2rem, 8svh, 7rem) 0 0;
   list-style: none;
   color: #cfcfcf;
-  font: 500 clamp(0.6rem, 0.79vw, 0.955rem)/1.47 "Inter", sans-serif;
+  font: 500 clamp(0.6rem, 0.79vw, 0.955rem)/1.47 var(--font-geist);
 }
 
 .site-footer__thanks {
   margin: auto 0 0;
   color: #d4d4d4;
-  font: 500 clamp(0.7rem, 0.97vw, 1.165rem)/1.1 "Inter", sans-serif;
+  font: 500 clamp(0.7rem, 0.97vw, 1.165rem)/1.1 var(--font-geist);
   white-space: nowrap;
 }
 
