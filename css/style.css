@@ -1306,7 +1306,7 @@ a {
 .journey__ending-sketch {
   position: absolute;
   bottom: 0;
-  left: 55.78vw;
+  left: calc(55.78vw + 15px);
   right: 1vw;
   width: auto;
   height: 31.77vw; /* 610 / 1920 */
