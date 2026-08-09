@@ -476,6 +476,16 @@ a {
   height: 40.571429%;
 }
 
+.vgallery__item--tall,
+.vgallery__item--right {
+  padding: clamp(0.25rem, 0.42vw, 0.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0.8rem 2rem rgba(0, 0, 0, 0.24);
+}
+
 /* 중앙 영상의 4방향 검은 비네트 (Figma Rectangle 95~98 재현)
    상하 밴드 246/545=45.14%h, 좌우 밴드 127/708=17.92%w, black 1%→transparent 62% */
 .vgallery__fade {
