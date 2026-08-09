@@ -1150,6 +1150,9 @@ a {
 
 .journey__huge-anim {
   display: inline-block;
+  position: relative;
+  left: 0;
+  margin-left: 0;
   will-change: transform;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -1218,6 +1221,17 @@ a {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.05),
     0 0.9rem 2.25rem rgba(0, 0, 0, 0.16);
+}
+
+/* The frame stays above both the original and swapped artwork. */
+.journey__pastels::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
 }
 
 .journey__pastels-bg {

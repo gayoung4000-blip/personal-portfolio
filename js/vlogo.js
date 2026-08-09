@@ -779,6 +779,9 @@
       // the following image edge so it remains stable at every viewport size.
       var designedText = document.querySelector(".journey__huge-anim");
       var designedStopImage = document.querySelector(".journey__ending-img");
+      if (designedText) {
+        gsap.set(designedText, { x: 0 });
+      }
       function getDesignedStopX() {
         if (!designedText || !designedStopImage) return 0;
 
