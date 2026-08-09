@@ -3936,9 +3936,19 @@ a {
   background: #ece9e0;
 }
 
+.clone-coding__dim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(12, 11, 10, 0.62);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
 .clone-coding__intro {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: min(100% - 3rem, 1216px);
   height: 100%;
   margin-inline: auto;
@@ -3998,7 +4008,7 @@ a {
 
 .clone-coding__viewport {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   inset: 0;
   left: 0;
   width: 100%;
@@ -4024,6 +4034,7 @@ a {
   flex: 0 0 auto;
   border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
   background: #1a1a1a;
+  box-shadow: 0 1.25rem 3.5rem rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 760px) {

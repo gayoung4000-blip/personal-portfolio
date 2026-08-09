@@ -1416,6 +1416,7 @@
     var cloneCodingCards = gsap.utils.toArray(".clone-coding__card");
     var cloneCodingIntro = document.querySelector(".clone-coding__intro");
     var cloneCodingDescription = document.querySelector(".clone-coding__description");
+    var cloneCodingDim = document.querySelector(".clone-coding__dim");
 
     if (
       cloneCodingScene &&
@@ -1538,6 +1539,15 @@
               ease: "power2.inOut",
             }
           )
+          .to(
+            cloneCodingDim,
+            {
+              opacity: 1,
+              duration: 0.72,
+              ease: "power1.inOut",
+            },
+            0.2
+          )
           .to({}, { duration: 0.18 })
           .to(
             cloneCodingTrack,
@@ -1552,12 +1562,13 @@
           .to(
             cloneCodingIntro,
             {
-              y: -60,
-              opacity: 0.45,
-              duration: 0.5,
+              y: -70,
+              opacity: 0.08,
+              filter: "blur(4px)",
+              duration: 0.68,
               ease: "power1.out",
             },
-            0.28
+            0.22
           )
           .to({}, { duration: 0.25 });
       }
