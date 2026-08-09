@@ -835,6 +835,7 @@ a {
 .about__desc {
   font-family: var(--font-sans);
   font-size: clamp(1rem, 1.19vw, 1.4375rem); /* 23px @ 1920 */
+  font-weight: 400;
   line-height: 1.35;
   letter-spacing: -0.03em;
   width: min(70vw, 70rem);
