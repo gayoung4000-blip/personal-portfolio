@@ -1413,7 +1413,9 @@
     var cloneCodingScene = document.querySelector(".clone-coding__scene");
     var cloneCodingViewport = document.querySelector(".clone-coding__viewport");
     var cloneCodingTrack = document.querySelector(".clone-coding__track");
-    var cloneCodingCards = gsap.utils.toArray(".clone-coding__card");
+    var cloneCodingCards = gsap.utils.toArray(
+      ".clone-coding__card:not(.clone-coding__card--clone)"
+    );
     var cloneCodingIntro = document.querySelector(".clone-coding__intro");
     var cloneCodingDescription = document.querySelector(".clone-coding__description");
     var cloneCodingDim = document.querySelector(".clone-coding__dim");
@@ -1422,7 +1424,7 @@
       cloneCodingScene &&
       cloneCodingViewport &&
       cloneCodingTrack &&
-      cloneCodingCards.length === 3
+      cloneCodingCards.length === 4
     ) {
       var getCloneCodingHeaderOffset = function () {
         var globalHeader = document.querySelector(".global-header");
@@ -1437,7 +1439,7 @@
       };
 
       var getCloneCodingFullY = function () {
-        var tallestCard = cloneCodingCards[1];
+        var tallestCard = cloneCodingCards[0];
         return Math.max(
           18,
           Math.round((cloneCodingScene.clientHeight - tallestCard.offsetHeight) / 2)
@@ -1475,7 +1477,7 @@
 
       gsap.set(cloneCodingTrack, {
         x: function () {
-          return getCloneCodingCardX(1);
+          return getCloneCodingCardX(0);
         },
         y: function () {
           return getCloneCodingStartY();
@@ -1511,7 +1513,7 @@
               return "top " + getCloneCodingHeaderOffset() + "px";
             },
             end: function () {
-              return "+=" + Math.max(window.innerHeight * 2.65, 1550);
+              return "+=" + Math.max(window.innerHeight * 4.6, 2600);
             },
             pin: cloneCodingScene,
             pinSpacing: true,
@@ -1553,9 +1555,31 @@
             cloneCodingTrack,
             {
               x: function () {
+                return getCloneCodingCardX(1);
+              },
+              duration: 0.88,
+              ease: "power1.inOut",
+            }
+          )
+          .to({}, { duration: 0.18 })
+          .to(
+            cloneCodingTrack,
+            {
+              x: function () {
                 return getCloneCodingCardX(2);
               },
-              duration: 1,
+              duration: 0.88,
+              ease: "power1.inOut",
+            }
+          )
+          .to({}, { duration: 0.18 })
+          .to(
+            cloneCodingTrack,
+            {
+              x: function () {
+                return getCloneCodingCardX(3);
+              },
+              duration: 0.88,
               ease: "power1.inOut",
             }
           )
@@ -1570,7 +1594,7 @@
             },
             0.22
           )
-          .to({}, { duration: 0.25 });
+          .to({}, { duration: 0.42 });
       }
     }
 
