@@ -1029,6 +1029,7 @@ a {
   width: 100%;
   text-align: right;
   margin-right: 0;
+  translate: 0 21px;
 }
 
 .journey__inverted-journey {
@@ -1337,6 +1338,7 @@ a {
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 2.6vw, 50px);
   line-height: 1;
+  translate: 0 21px;
   z-index: 20;
 }
 
@@ -1439,13 +1441,14 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 3.9vh 0; /* 별 장식 상하 여백 (40 / 1032) */
+  justify-content: center;
+  padding: 0;
   overflow: hidden;
 }
 
 .journey__educator-star {
-  width: 7.59vw; /* 145.7 / 1920 */
+  width: 52%;
+  max-width: 10rem;
   height: auto;
   position: relative;
   z-index: 2;
@@ -1454,10 +1457,10 @@ a {
 
 .journey__educator-loop {
   width: 100%;
-  flex: 1 1 auto;
+  height: 100%;
+  flex: 0 0 100%;
   min-height: 0;
   overflow: hidden;
-  transform: translateY(clamp(24px, 3.2vh, 34px));
 }
 
 .journey__axis-letter {
@@ -1477,28 +1480,26 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(1.5rem, 3.5vh, 2.75rem);
+  justify-content: flex-start;
+  gap: 2.5px;
   width: 100%;
-  min-height: 100vh;
-  padding: 3.9vh 0;
+  height: auto;
+  min-height: 0;
+  padding: 0 0 2.5px;
   flex: 0 0 auto;
-  position: relative;
-  left: 10px;
+  box-sizing: border-box;
 }
 
 .journey__educator-text {
   display: block;
-  position: relative;
-  left: 2.5px;
   font-family: var(--font-serif);
-  font-size: clamp(4rem, 6.62vw, 7.94rem); /* 127px @ 1920 */
+  font-size: clamp(3.5rem, 11.5vh, 7.94rem);
   color: var(--ink);
   writing-mode: vertical-rl;
   transform: rotate(180deg); /* 아래→위로 읽히는 세로 타이포 (Figma -90°) */
   line-height: 1;
   white-space: nowrap;
-  letter-spacing: -0.025em;
+  letter-spacing: 2.5px;
 }
 
 @keyframes educatorVerticalLoop {
@@ -1506,7 +1507,7 @@ a {
     transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -33.333333%, 0);
   }
 }
 
