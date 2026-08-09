@@ -1415,6 +1415,7 @@
     var cloneCodingTrack = document.querySelector(".clone-coding__track");
     var cloneCodingCards = gsap.utils.toArray(".clone-coding__card");
     var cloneCodingIntro = document.querySelector(".clone-coding__intro");
+    var cloneCodingDescription = document.querySelector(".clone-coding__description");
 
     if (
       cloneCodingScene &&
@@ -1434,16 +1435,30 @@
         );
       };
 
-      var getCloneCodingPeekY = function () {
-        var peek = Math.max(42, Math.min(78, cloneCodingScene.clientHeight * 0.105));
-        return cloneCodingScene.clientHeight - peek;
-      };
-
       var getCloneCodingFullY = function () {
         var tallestCard = cloneCodingCards[1];
         return Math.max(
           18,
           Math.round((cloneCodingScene.clientHeight - tallestCard.offsetHeight) / 2)
+        );
+      };
+
+      var getCloneCodingStartY = function () {
+        var sceneRect = cloneCodingScene.getBoundingClientRect();
+        var descriptionRect = cloneCodingDescription.getBoundingClientRect();
+        var descriptionBottom = descriptionRect.bottom - sceneRect.top;
+        var remainingSpace = Math.max(0, cloneCodingScene.clientHeight - descriptionBottom);
+        var responsiveGap = remainingSpace * 0.3;
+        var fullY = getCloneCodingFullY();
+        var minimumStageDistance = Math.max(42, cloneCodingScene.clientHeight * 0.08);
+        var maximumY = cloneCodingScene.clientHeight - Math.max(
+          42,
+          Math.min(78, cloneCodingScene.clientHeight * 0.105)
+        );
+
+        return Math.min(
+          maximumY,
+          Math.max(fullY + minimumStageDistance, descriptionBottom + responsiveGap)
         );
       };
 
@@ -1462,7 +1477,7 @@
           return getCloneCodingCardX(1);
         },
         y: function () {
-          return getCloneCodingPeekY();
+          return getCloneCodingStartY();
         },
       });
 
