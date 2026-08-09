@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@400;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260809-chatbot-tab-5" />
+  <link rel="stylesheet" href="css/style.css?v=20260809-chatbot-panel-2" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -58,6 +58,49 @@
     <span class="chatbot-tab__ask">ASK<br>ME</span>
     <span class="chatbot-tab__pill">Chat</span>
   </button>
+
+  <section class="chatbot-panel" id="chatbotPanel" aria-label="김가영 포트폴리오 챗봇" aria-hidden="true">
+    <header class="chatbot-panel__header">
+      <h2>ASK ME</h2>
+      <button class="chatbot-panel__close" type="button" aria-label="챗봇 닫기">×</button>
+    </header>
+
+    <div class="chatbot-panel__body" id="chatbotMessages" aria-live="polite">
+      <div class="chatbot-panel__intro">
+        <div class="chatbot-panel__avatar" aria-hidden="true">
+          <img src="img/chatbot-avatar-circle.svg" alt="">
+          <span>gy</span>
+        </div>
+        <p class="chatbot-panel__greeting">반가워요.<br>디자이너 gy가 궁금하신가요?</p>
+        <p class="chatbot-panel__guide">궁금하신 내용을 선택하거나 입력해주시면,<br>제가 대신 답해드릴게요.</p>
+        <div class="chatbot-panel__suggestions" aria-label="추천 질문">
+          <button type="button">대표 프로젝트를 소개해 주세요.</button>
+          <button type="button">김가영의 가장 큰 강점은 무엇인가요?</button>
+          <button type="button">팀 프로젝트에서 어떤 역할을 맡았나요?</button>
+          <button type="button">왜 UX/UI 디자이너가 되고 싶나요?</button>
+        </div>
+      </div>
+      <div class="chatbot-panel__conversation" id="chatbotConversation"></div>
+    </div>
+
+    <footer class="chatbot-panel__footer">
+      <time id="chatbotTime" aria-label="현재 시간"></time>
+      <div class="chatbot-panel__controls">
+        <button class="chatbot-panel__home" type="button" aria-label="챗봇 처음 화면으로">
+          <img src="img/chatbot-home-circle.svg" alt="">
+          <span aria-hidden="true">⌂</span>
+        </button>
+        <form class="chatbot-panel__form" id="chatbotForm">
+          <label class="sr-only" for="chatbotInput">메시지 입력</label>
+          <input id="chatbotInput" name="message" type="text" autocomplete="off" placeholder="메시지를 입력해주세요." maxlength="160">
+          <button type="submit" aria-label="메시지 보내기">
+            <img src="img/chatbot-send-circle.svg" alt="">
+            <span aria-hidden="true">↑</span>
+          </button>
+        </form>
+      </div>
+    </footer>
+  </section>
 
   <main>
 
@@ -848,5 +891,6 @@
   <script src="js/gallery-video.js?v=20260807-journey2-image-swap-up"></script>
   <script src="js/vlogo.js?v=20260809-journey-j-axis-1"></script>
   <script src="js/main.js?v=20260809-chatbot-tab-1"></script>
+  <script src="js/chatbot.js?v=20260809-chatbot-panel-1"></script>
 </body>
 </html>
