@@ -698,7 +698,10 @@
       }
 
       function getJourneyHoldDistance() {
-        return Math.min(1400, Math.max(760, window.innerHeight * 1.15));
+        // Scene 4 is visually compacted, but this compensation preserves the
+        // original vertical scrub time and keeps the later transitions calm.
+        var scene4Compensation = Math.min(256, Math.max(128, window.innerWidth * 0.13));
+        return Math.min(1656, Math.max(760, window.innerHeight * 1.15) + scene4Compensation);
       }
 
       var tlJourney = gsap.timeline();
