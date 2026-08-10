@@ -4267,7 +4267,7 @@ a {
 .teamwork__actions {
   position: absolute;
   right: 5vw;
-  bottom: 0.4375rem;
+  bottom: 0;
   width: auto;
   margin: 0;
   display: flex;
@@ -4338,7 +4338,7 @@ a {
   .teamwork__card--low { margin-top: 0; }
   .teamwork__actions {
     right: 1rem;
-    bottom: 0.4375rem;
+    bottom: 0;
   }
 }
 
