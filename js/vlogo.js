@@ -772,7 +772,7 @@
       // scrubbed timeline, reversing the scroll restores the first artwork.
       var journeyPastelsSwap = journeySection.querySelector(".journey__pastels-swap");
       if (journeyPastelsSwap) {
-        gsap.set(journeyPastelsSwap, { yPercent: 8 });
+        gsap.set(journeyPastelsSwap, { yPercent: 0 });
       }
 
       // I DESIGNED has one transform owner. Its exact stop is calculated from

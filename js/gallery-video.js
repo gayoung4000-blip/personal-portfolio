@@ -67,9 +67,9 @@
 
   var style = document.createElement("style");
   style.textContent = [
-    ".journey__huge-text .tracking-wide{letter-spacing:-4px!important}",
-    ".journey__pastels{position:relative}",
-    ".journey__pastels-swap{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:cover;object-position:center;opacity:1;clip-path:inset(100% 0 0 0);z-index:2!important;will-change:clip-path,transform}"
+    ".journey__huge-text .tracking-wide{letter-spacing:-0.045em!important}",
+    ".journey__pastels-viewport{position:relative}",
+    ".journey__pastels-swap{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover;object-position:center;opacity:1;clip-path:inset(100% 0 0 0);z-index:2!important;will-change:clip-path}"
   ].join("");
   document.head.appendChild(style);
 
@@ -84,7 +84,9 @@
     swap.loading = "eager";
     swap.decoding = "async";
     swap.setAttribute("aria-hidden", "true");
-    pastelsFrame.appendChild(swap);
+    var viewport = pastelsFrame.querySelector(".journey__pastels-viewport");
+    if (!viewport) return;
+    viewport.appendChild(swap);
   }
 
   ensurePastelsSwap();
