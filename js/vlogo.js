@@ -706,6 +706,7 @@
       }
 
       var tlJourney = gsap.timeline();
+      var syncJourneyFocusPointer = null;
       var journeyBridge = journeySection.querySelector(".journey__bridge-img");
       var journeyIntroInner = journeySection.querySelector(".journey__scene--1 .journey__inner");
 
@@ -856,8 +857,16 @@
       // Drive the word from the real on-screen positions instead of a second
       // estimated ScrollTrigger. It stays at x:0 until the description enters
       // the viewport, then reaches the image as that image enters.
+      tlJourney.eventCallback("onUpdate", function () {
+        if (designedText && designedStopImage && journeyDescription) {
+          updateDesignedMotion();
+        }
+        if (syncJourneyFocusPointer) {
+          syncJourneyFocusPointer();
+        }
+      });
+
       if (designedText && designedStopImage && journeyDescription) {
-        tlJourney.eventCallback("onUpdate", updateDesignedMotion);
         updateDesignedMotion();
       }
 
@@ -1053,9 +1062,34 @@
         var hallasanCopy = scene6.querySelector(".journey__fwd-copy--hallasan");
         var gwanakCopy = scene6.querySelector(".journey__fwd-copy--gwanak");
         var isGwanakState = false;
+        var mountainImagesPrepared = false;
         var canFollowPointer =
           window.matchMedia("(pointer: fine)").matches &&
           !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        function prepareJourneyMountainImages() {
+          if (mountainImagesPrepared || !hallasanImage || !gwanakImage) return;
+          mountainImagesPrepared = true;
+
+          [hallasanImage, gwanakImage].forEach(function (image) {
+            image.loading = "eager";
+            image.fetchPriority = "high";
+            if (typeof image.decode === "function") {
+              image.decode().catch(function () {
+                // A normal image load remains as the browser fallback.
+              });
+            }
+          });
+        }
+
+        // Decode the two large PNGs before the horizontal Journey reaches
+        // the mountain scene, so pointer movement never competes with decode.
+        ScrollTrigger.create({
+          trigger: journeySection,
+          start: "top 150%",
+          once: true,
+          onEnter: prepareJourneyMountainImages
+        });
 
         function setJourneyMountainState(showGwanak) {
           if (showGwanak === isGwanakState) return;
@@ -1077,54 +1111,63 @@
           canFollowPointer
         ) {
           var focusMetrics = null;
-          var pendingPointerX = 0;
-          var pendingPointerY = 0;
-          var focusFrameRequest = 0;
-
-          gsap.set(focusPhoto, { x: 0, y: 0, force3D: true });
+          var focusPointerActive = false;
+          var latestPointerX = 0;
+          var latestPointerY = 0;
 
           function updateFocusMetrics() {
             var canvasBounds = focusCanvas.getBoundingClientRect();
+            var currentTrackX = Number(gsap.getProperty(journeyTrack, "x")) || 0;
             focusMetrics = {
+              canvasBaseLeft: canvasBounds.left - currentTrackX,
+              canvasTop: canvasBounds.top,
+              canvasWidth: canvasBounds.width,
+              canvasHeight: canvasBounds.height,
               imageBottomBoundary:
                 canvasBounds.top + canvasBounds.height * (0.12306 + 0.3295),
-              photoBaseCenterX:
-                canvasBounds.left + canvasBounds.width * (0.62396 + 0.176 / 2),
               photoBaseCenterY:
                 canvasBounds.top + canvasBounds.height * (0.12306 + 0.3295 / 2)
             };
           }
 
-          function renderFocusPointer() {
-            focusFrameRequest = 0;
+          syncJourneyFocusPointer = function () {
+            if (!focusPointerActive) return;
             if (!focusMetrics) updateFocusMetrics();
 
+            var currentTrackX = Number(gsap.getProperty(journeyTrack, "x")) || 0;
+            var currentPhotoBaseCenterX =
+              focusMetrics.canvasBaseLeft +
+              currentTrackX +
+              focusMetrics.canvasWidth * (0.62396 + 0.176 / 2);
+
             setJourneyMountainState(
-              pendingPointerY > focusMetrics.imageBottomBoundary
+              latestPointerY > focusMetrics.imageBottomBoundary
             );
-            gsap.set(focusPhoto, {
-              x: Math.round(pendingPointerX - focusMetrics.photoBaseCenterX),
-              y: Math.round(pendingPointerY - focusMetrics.photoBaseCenterY),
-              force3D: true
-            });
-          }
+
+            var photoX = Math.round(latestPointerX - currentPhotoBaseCenterX);
+            var photoY = Math.round(latestPointerY - focusMetrics.photoBaseCenterY);
+            focusPhoto.style.transform =
+              "translate3d(" + photoX + "px," + photoY + "px,0)";
+          };
 
           journeyPointerScene = scene6;
-          journeyPointerEnter = updateFocusMetrics;
+          journeyPointerEnter = function (event) {
+            prepareJourneyMountainImages();
+            focusPointerActive = true;
+            latestPointerX = event.clientX;
+            latestPointerY = event.clientY;
+            updateFocusMetrics();
+            syncJourneyFocusPointer();
+          };
           journeyPointerMove = function (event) {
-            pendingPointerX = event.clientX;
-            pendingPointerY = event.clientY;
-            if (!focusFrameRequest) {
-              focusFrameRequest = window.requestAnimationFrame(renderFocusPointer);
-            }
+            latestPointerX = event.clientX;
+            latestPointerY = event.clientY;
+            syncJourneyFocusPointer();
           };
           journeyPointerLeave = function () {
-            if (focusFrameRequest) {
-              window.cancelAnimationFrame(focusFrameRequest);
-              focusFrameRequest = 0;
-            }
+            focusPointerActive = false;
             setJourneyMountainState(false);
-            gsap.set(focusPhoto, { x: 0, y: 0, force3D: true });
+            focusPhoto.style.transform = "translate3d(0,0,0)";
           };
 
           scene6.addEventListener("pointerenter", journeyPointerEnter, { passive: true });

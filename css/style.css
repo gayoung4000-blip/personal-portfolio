@@ -2287,7 +2287,7 @@ a {
 
 .journey__scene--6 .journey__fwd-num--1 {
   left: 3.4375cqw;
-  top: 5.426cqh;
+  top: 8.841cqh;
 }
 
 .journey__scene--6 .journey__fwd-num--2 {
@@ -2297,7 +2297,7 @@ a {
 
 .journey__scene--6 .journey__fwd-num--3 {
   left: 7.7085cqw;
-  top: 82.751cqh;
+  top: 78.191cqh;
 }
 
 .journey__scene--6 .journey__fwd-title {
@@ -2593,7 +2593,7 @@ a {
   width: clamp(320px, 19.7vw, 378px);
   height: clamp(443px, 27.25vw, 522px);
   overflow: hidden;
-  border-radius: 50% 50% 10px 10px / 34.5% 34.5% 10px 10px;
+  border-radius: clamp(6px, 0.42vw, 8px);
   background: #2e2e2e;
   color: #ffffff;
   text-align: center;
@@ -2868,10 +2868,23 @@ a {
   letter-spacing: -0.04em;
 }
 
+.skills-intro__card-visual-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 533 / 551;
+  overflow: hidden;
+  border-radius: clamp(6px, 0.42vw, 8px) clamp(6px, 0.42vw, 8px) 0 0;
+  background: #d8cbbc;
+}
+
 .skills-intro__card-visual {
   display: block;
-  width: 100%;
+  position: absolute;
+  left: -16%;
+  top: -24%;
+  width: 132%;
   height: auto;
+  max-width: none;
 }
 
 .skills-intro__card-info {
