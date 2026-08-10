@@ -54,6 +54,7 @@
   var svgEl = document.querySelector(".hero2 svg.mark");
   var finalPath = document.querySelector(".mark__final");
   var journeyPointerScene = null;
+  var journeyPointerEnter = null;
   var journeyPointerMove = null;
   var journeyPointerLeave = null;
   if (!hvt || !sticky || !gallery || !mark || !svgEl || !finalPath) return;
@@ -1075,29 +1076,58 @@
           gwanakCopy &&
           canFollowPointer
         ) {
-          var setPhotoX = gsap.quickSetter(focusPhoto, "x", "px");
-          var setPhotoY = gsap.quickSetter(focusPhoto, "y", "px");
+          var focusMetrics = null;
+          var pendingPointerX = 0;
+          var pendingPointerY = 0;
+          var focusFrameRequest = 0;
+
+          gsap.set(focusPhoto, { x: 0, y: 0, force3D: true });
+
+          function updateFocusMetrics() {
+            var canvasBounds = focusCanvas.getBoundingClientRect();
+            focusMetrics = {
+              imageBottomBoundary:
+                canvasBounds.top + canvasBounds.height * (0.12306 + 0.3295),
+              photoBaseCenterX:
+                canvasBounds.left + canvasBounds.width * (0.62396 + 0.176 / 2),
+              photoBaseCenterY:
+                canvasBounds.top + canvasBounds.height * (0.12306 + 0.3295 / 2)
+            };
+          }
+
+          function renderFocusPointer() {
+            focusFrameRequest = 0;
+            if (!focusMetrics) updateFocusMetrics();
+
+            setJourneyMountainState(
+              pendingPointerY > focusMetrics.imageBottomBoundary
+            );
+            gsap.set(focusPhoto, {
+              x: Math.round(pendingPointerX - focusMetrics.photoBaseCenterX),
+              y: Math.round(pendingPointerY - focusMetrics.photoBaseCenterY),
+              force3D: true
+            });
+          }
 
           journeyPointerScene = scene6;
+          journeyPointerEnter = updateFocusMetrics;
           journeyPointerMove = function (event) {
-            var canvasBounds = focusCanvas.getBoundingClientRect();
-            var imageBottomBoundary =
-              canvasBounds.top + canvasBounds.height * (486 / 1032);
-            var photoBaseCenterX =
-              canvasBounds.left + canvasBounds.width * (0.62396 + 0.18854 / 2);
-            var photoBaseCenterY =
-              canvasBounds.top + canvasBounds.height * (0.12306 + 0.34787 / 2);
-
-            setJourneyMountainState(event.clientY > imageBottomBoundary);
-            setPhotoX(event.clientX - photoBaseCenterX);
-            setPhotoY(event.clientY - photoBaseCenterY);
+            pendingPointerX = event.clientX;
+            pendingPointerY = event.clientY;
+            if (!focusFrameRequest) {
+              focusFrameRequest = window.requestAnimationFrame(renderFocusPointer);
+            }
           };
           journeyPointerLeave = function () {
+            if (focusFrameRequest) {
+              window.cancelAnimationFrame(focusFrameRequest);
+              focusFrameRequest = 0;
+            }
             setJourneyMountainState(false);
-            setPhotoX(0);
-            setPhotoY(0);
+            gsap.set(focusPhoto, { x: 0, y: 0, force3D: true });
           };
 
+          scene6.addEventListener("pointerenter", journeyPointerEnter, { passive: true });
           scene6.addEventListener("pointermove", journeyPointerMove, { passive: true });
           scene6.addEventListener("pointerleave", journeyPointerLeave);
         }
@@ -1648,6 +1678,9 @@
     window.removeEventListener("resize", syncCoords);
     if (journeyPointerScene && journeyPointerMove) {
       journeyPointerScene.removeEventListener("pointermove", journeyPointerMove);
+    }
+    if (journeyPointerScene && journeyPointerEnter) {
+      journeyPointerScene.removeEventListener("pointerenter", journeyPointerEnter);
     }
     if (journeyPointerScene && journeyPointerLeave) {
       journeyPointerScene.removeEventListener("pointerleave", journeyPointerLeave);

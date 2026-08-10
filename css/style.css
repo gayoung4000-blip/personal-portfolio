@@ -1543,27 +1543,41 @@ a {
   overflow: hidden;
 }
 
-.journey__bouquet img {
+.journey__swap-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.journey__bouquet img,
+.journey__polaroid img {
+  display: block;
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 /* 폴라로이드식 오버레이 사진 (도마 위 꽃다발+케이크 디테일) — 큰 사진 위에 겹침 */
 .journey__polaroid {
+  --journey-swap-frame-pad: clamp(0.25rem, 0.42vw, 0.5rem);
   position: absolute;
   left: calc(108.86vw - var(--journey-scene4-compact));
   top: 19.38vh; /* 200 / 1032 */
   width: 39.01vw; /* 749 / 1920 */
   height: 61.24vh; /* 632 / 1032 */
+  box-sizing: border-box;
+  padding: var(--journey-swap-frame-pad);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0.8rem 2rem rgba(0, 0, 0, 0.24);
   z-index: 5;
-}
-
-.journey__polaroid img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* ==========================================================
@@ -2295,7 +2309,7 @@ a {
 
 .journey__scene--6 .journey__fwd-title--top {
   left: 4.531cqw;
-  top: 3.585cqh;
+  top: 7cqh;
 }
 
 .journey__fwd-title--focus {
@@ -2306,7 +2320,7 @@ a {
 
 .journey__scene--6 .journey__fwd-title--bottom {
   left: 8.802cqw;
-  top: 80.91cqh;
+  top: 76.35cqh;
 }
 
 .journey__scene--6 .journey__fwd-desc {
@@ -2325,9 +2339,15 @@ a {
   position: absolute;
   left: 62.396cqw;
   top: 12.306cqh;
-  width: 18.854cqw;
-  height: 34.787cqh;
+  width: 17.6cqw;
+  height: 32.95cqh;
   overflow: hidden;
+  background: #000000;
+  isolation: isolate;
+  contain: paint;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
   z-index: 2;
 }
 
@@ -2353,18 +2373,23 @@ a {
 
 .journey__focus-photo .journey__focus-img {
   position: absolute;
-  display: none;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity;
+  backface-visibility: hidden;
   pointer-events: none;
 }
 
 .journey__focus-photo .journey__focus-img.is-active {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
 .journey__focus-photo .journey__focus-img--hallasan {
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
   object-fit: cover;
 }
 
