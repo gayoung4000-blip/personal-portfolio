@@ -1656,11 +1656,19 @@ a {
   color: var(--bg);
 }
 
+/* Keep the fixed Journey control legible while its sampling point crosses
+   the ivory/white horizontal scenes. */
+.is-journey-menu-light-bg .global-menu-btn {
+  background-color: var(--ink);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
 /* 글로벌 둥근 메뉴 버튼 */
 .global-menu-btn {
   position: fixed;
   top: clamp(2rem, 2.7vw, 3.25rem); /* 52px @ 1920 */
-  right: clamp(1rem, 2.78vw, 3.33rem); /* 화면 우측 여백 */
+  right: max(1px, calc(clamp(1rem, 2.78vw, 3.33rem) - 15px)); /* 가로 스크롤 MENU를 우측으로 15px 이동 */
   width: clamp(3.5rem, 4vw, 4.8rem); /* 76.7px @ 1920 */
   height: clamp(2rem, 2.16vw, 2.6rem); /* 41.6px @ 1920 */
   border-radius: 44px;
@@ -2406,7 +2414,7 @@ a {
 @media (max-aspect-ratio: 80/43) {
   .global-menu-btn {
     top: calc((100vh - 53.75vw) / 2 + 2.708vw);
-    right: 1.406vw;
+    right: max(1px, calc(1.406vw - 15px));
     width: 3.996vw;
     height: 2.166vw;
     font-size: 0.781vw;
@@ -2429,7 +2437,7 @@ a {
 @media (min-aspect-ratio: 80/43) {
   .global-menu-btn {
     top: 5.039vh;
-    right: calc((100vw - 186.0465vh) / 2 + 2.616vh);
+    right: max(1px, calc((100vw - 186.0465vh) / 2 + 2.616vh - 15px));
     width: 7.434vh;
     height: 4.031vh;
     font-size: 1.453vh;
@@ -2688,7 +2696,7 @@ a {
 
 .skills-intro__card-detail--frontend h3 {
   top: 17.2%;
-  font-size: 6.45cqw;
+  font-size: 10.35cqw;
 }
 
 .skills-intro__tech-row {
@@ -2762,7 +2770,7 @@ a {
 
 .skills-intro__card-detail--ux h3 {
   top: 18.4%;
-  font-size: 7.03cqw;
+  font-size: 10.35cqw;
 }
 
 .skills-intro__ux-grid {
@@ -2807,7 +2815,7 @@ a {
 
 .skills-intro__card-detail--ai h3 {
   top: 18.4%;
-  font-size: 7.03cqw;
+  font-size: 10.35cqw;
 }
 
 .skills-intro__ai-tool {

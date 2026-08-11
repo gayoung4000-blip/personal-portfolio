@@ -567,6 +567,26 @@
         }
       });
 
+      var journeyLightScenes = new Set([
+        "journey__scene--1",
+        "journey__scene--2",
+        "journey__scene--5"
+      ]);
+
+      function syncJourneyMenuContrast() {
+        var buttonRect = globalMenuBtn.getBoundingClientRect();
+        var sampleX = Math.min(window.innerWidth - 1, Math.max(0, buttonRect.left + buttonRect.width / 2));
+        var sampleY = Math.min(window.innerHeight - 1, Math.max(0, buttonRect.top + buttonRect.height / 2));
+        var sceneAtButton = document.elementsFromPoint(sampleX, sampleY)
+          .map(function (element) { return element.closest && element.closest(".journey__scene"); })
+          .find(Boolean);
+        var isLight = !!sceneAtButton && Array.from(journeyLightScenes).some(function (className) {
+          return sceneAtButton.classList.contains(className);
+        });
+
+        document.documentElement.classList.toggle("is-journey-menu-light-bg", isLight);
+      }
+
       var journeyTimelineText = journeySection.querySelector(".journey__timeline-text");
       var journeyInvertedBlock = journeySection.querySelector(".journey__inverted-block");
       var fixedMyAxisLetter = journeySection.querySelector(".journey__axis-letter--my");
@@ -836,18 +856,22 @@
         onEnter: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
+          syncJourneyMenuContrast();
         },
         onLeave: function() {
           setJourneyMenuOpen(false);
+          document.documentElement.classList.remove("is-journey-menu-light-bg");
           gsap.to(globalHeader, { autoAlpha: 0, y: -10, duration: 0.24, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         },
         onEnterBack: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
+          syncJourneyMenuContrast();
         },
         onLeaveBack: function() { // 다시 위로 올라갈 때
           setJourneyMenuOpen(false);
+          document.documentElement.classList.remove("is-journey-menu-light-bg");
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalHeader, { autoAlpha: 1, duration: 0.3, delay: 0.1, ease: "power2.out", overwrite: "auto" });
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
@@ -864,6 +888,7 @@
         if (syncJourneyFocusPointer) {
           syncJourneyFocusPointer();
         }
+        syncJourneyMenuContrast();
       });
 
       if (designedText && designedStopImage && journeyDescription) {
