@@ -4509,27 +4509,29 @@ a {
   }
 }
 
-@media (min-width: 769px) and (min-height: 1051px) {
+@media (min-width: 1600px) {
   .teamwork__actions {
-    bottom: calc(clamp(2rem, 5svh, 4rem) + 60px);
+    top: calc(clamp(3rem, 11svh, 7rem) + clamp(25.7rem, 30.6vw, 36.75rem) + 20px);
+    bottom: auto;
   }
 
   .teamwork__card {
     width: clamp(19rem, 22.65vw, 27.1875rem);
-    height: calc(100svh - 4.125rem - clamp(3rem, 11svh, 7rem) - clamp(2rem, 5svh, 4rem) - 30px - 2.25rem - 20px);
+    height: clamp(25.7rem, 30.6vw, 36.75rem);
     aspect-ratio: auto;
-    border-radius: 0;
+    border-radius: 1.25rem;
   }
 
   .teamwork__card > img {
-    inset: 50% 0 auto;
-    height: clamp(19rem, 22.65vw, 27.1875rem);
+    inset: 0;
+    height: 100%;
     border-radius: 1.25rem;
-    transform: translateY(calc(-50% - 20px));
+    object-fit: cover;
+    transform: translate3d(0, 0, 0);
   }
 }
 
-@media (min-width: 769px) and (max-height: 1050px) {
+@media (min-width: 769px) and (max-width: 1599px) {
   .teamwork__actions {
     bottom: calc(clamp(2rem, 5svh, 4rem) + 150px);
   }
