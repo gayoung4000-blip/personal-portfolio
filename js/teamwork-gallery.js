@@ -16,6 +16,8 @@
   var videoButton = document.querySelector(".teamwork__video");
   var navButtons = Array.prototype.slice.call(document.querySelectorAll(".teamwork__prev, .teamwork__next"));
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var textRevealed = false;
+  var imagesRevealed = false;
 
   function splitIntoCharacters(element) {
     var textNodes = [];
@@ -58,7 +60,7 @@
 
   var visibleCards = Array.prototype.slice.call(track.querySelectorAll(".teamwork__card:not(.teamwork__card--clone)"));
   visibleCards.forEach(function (card, index) {
-    card.style.setProperty("--card-delay", 4100 + index * 250 + "ms");
+    card.style.setProperty("--card-delay", index * 140 + "ms");
   });
 
   function allCards() {
@@ -89,24 +91,38 @@
     }, 720);
   }
 
-  function revealTeamwork() {
-    if (!section || section.classList.contains("is-teamwork-revealed")) return;
-    section.classList.add("is-teamwork-revealed");
+  function revealImages() {
+    if (!section || imagesRevealed) return;
+    imagesRevealed = true;
+    section.classList.add("is-teamwork-images-revealed");
   }
 
-  if (section) {
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      revealTeamwork();
-    } else {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          revealTeamwork();
-          observer.disconnect();
-        });
-      }, { threshold: 0.12 });
-      observer.observe(section);
-    }
+  function revealText() {
+    if (!section || textRevealed) return;
+    textRevealed = true;
+    section.classList.add("is-teamwork-text-revealed");
+    var descriptionLength = description ? description.querySelectorAll(".teamwork__char").length : 0;
+    var textDuration = Math.max(2800, 1700 + Math.max(0, descriptionLength - 1) * 26 + 700);
+    window.setTimeout(revealImages, textDuration);
+  }
+
+  if (section && reduceMotion) {
+    textRevealed = true;
+    imagesRevealed = true;
+    section.classList.add("is-teamwork-text-revealed", "is-teamwork-images-revealed");
+  } else if (section && "IntersectionObserver" in window) {
+    var headingObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        revealText();
+        headingObserver.disconnect();
+      });
+    }, { threshold: [0.2] });
+    headingObserver.observe(document.querySelector(".teamwork__heading"));
+
+  } else if (section) {
+    revealText();
+    revealImages();
   }
 
   prev.addEventListener("click", function () {
