@@ -1559,7 +1559,7 @@
       cloneCodingScene &&
       cloneCodingViewport &&
       cloneCodingTrack &&
-      cloneCodingCards.length === 4
+      cloneCodingCards.length === 7
     ) {
       var getCloneCodingHeaderOffset = function () {
         var globalHeader = document.querySelector(".global-header");
@@ -1648,7 +1648,7 @@
               return "top " + getCloneCodingHeaderOffset() + "px";
             },
             end: function () {
-              return "+=" + Math.max(window.innerHeight * 4.6, 2600);
+              return "+=" + Math.max(window.innerHeight * 7.6, 4100);
             },
             pin: cloneCodingScene,
             pinSpacing: true,
@@ -1713,6 +1713,39 @@
             {
               x: function () {
                 return getCloneCodingCardX(3);
+              },
+              duration: 0.88,
+              ease: "power1.inOut",
+            }
+          )
+          .to({}, { duration: 0.18 })
+          .to(
+            cloneCodingTrack,
+            {
+              x: function () {
+                return getCloneCodingCardX(4);
+              },
+              duration: 0.88,
+              ease: "power1.inOut",
+            }
+          )
+          .to({}, { duration: 0.18 })
+          .to(
+            cloneCodingTrack,
+            {
+              x: function () {
+                return getCloneCodingCardX(5);
+              },
+              duration: 0.88,
+              ease: "power1.inOut",
+            }
+          )
+          .to({}, { duration: 0.18 })
+          .to(
+            cloneCodingTrack,
+            {
+              x: function () {
+                return getCloneCodingCardX(6);
               },
               duration: 0.88,
               ease: "power1.inOut",

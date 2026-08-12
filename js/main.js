@@ -113,3 +113,203 @@
     .to(".hero2__credit", { autoAlpha: 1, y: 0, duration: 0.5 }, 1.0)
     .to(".hero2__scroll", { autoAlpha: 1, y: 0, duration: 0.5 }, 1.2);
 })();
+
+// JARAN transition — step 1: move the project image into the viewport center.
+(function () {
+  "use strict";
+
+  if (!window.gsap || !window.ScrollTrigger) return;
+
+  var jaranVisual = document.querySelector(".work-page__visual--jaran");
+  var jaranVisualImage = document.querySelector(".work-page__visual--jaran img");
+  var anySizeStage = document.querySelector(".work-page__jaran-any-size");
+  var anySizeCard = document.querySelector(".work-page__jaran-any-size-card");
+  var anySizeImage = document.querySelector(".work-page__jaran-any-size-image");
+  var anyWord = document.querySelector(".work-page__jaran-any-size-word--any");
+  var sizeWord = document.querySelector(".work-page__jaran-any-size-word--size");
+  var workIndex = document.querySelector(".work-page__index");
+  if (!jaranVisual || !jaranVisualImage || !anySizeStage || !anySizeCard || !anySizeImage || !anyWord || !sizeWord) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.matchMedia({
+    "(min-width: 761px) and (prefers-reduced-motion: no-preference)": function () {
+      var initialRect = jaranVisual.getBoundingClientRect();
+      var coverRadius = Math.hypot(initialRect.width, initialRect.height) / 2;
+      gsap.set(jaranVisual, {
+        clipPath: "circle(" + coverRadius + "px at 50% 50%)",
+      });
+      gsap.set(anySizeCard, { autoAlpha: 0 });
+      gsap.set(anySizeImage, { autoAlpha: 0 });
+
+      function getCircleDiameter() {
+        return Math.min(220, Math.max(160, window.innerWidth * 0.14));
+      }
+
+      function syncWorkIndex(scrollTrigger) {
+        if (!workIndex) return;
+        var scrollDistance = Math.max(0, scrollTrigger.scroll() - scrollTrigger.start);
+        gsap.set(workIndex, { y: -scrollDistance });
+      }
+
+      function resetWorkIndex() {
+        if (workIndex) gsap.set(workIndex, { clearProps: "transform" });
+      }
+
+      var moveToCenter = gsap.timeline({
+        scrollTrigger: {
+          id: "jaran-center-step",
+          trigger: jaranVisual,
+          start: function () {
+            var wheelPauseDistance = Math.min(260, Math.max(180, window.innerHeight * 0.24));
+            return "center+=" + wheelPauseDistance + " center";
+          },
+          endTrigger: anySizeStage,
+          end: "center center",
+          pin: true,
+          pinSpacing: false,
+          scrub: 0.65,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onEnter: function (self) {
+            syncWorkIndex(self);
+          },
+          onUpdate: function (self) {
+            if (self.isActive) syncWorkIndex(self);
+          },
+          onLeave: function (self) {
+            syncWorkIndex(self);
+            gsap.set(jaranVisual, { autoAlpha: 0 });
+          },
+          onEnterBack: function (self) {
+            gsap.set(jaranVisual, { autoAlpha: 1 });
+            syncWorkIndex(self);
+          },
+          onLeaveBack: function () {
+            resetWorkIndex();
+          },
+        },
+      });
+
+      moveToCenter
+        .to(jaranVisual, {
+          x: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return window.innerWidth / 2 - (rect.left + rect.width / 2);
+          },
+          y: function () {
+            var visualRect = jaranVisual.getBoundingClientRect();
+            return window.innerHeight / 2 - (visualRect.top + visualRect.height / 2);
+          },
+          scale: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return getCircleDiameter() / Math.min(rect.width, rect.height);
+          },
+          clipPath: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return "circle(" + Math.min(rect.width, rect.height) / 2 + "px at 50% 50%)";
+          },
+          duration: 1,
+          ease: "power1.inOut",
+        })
+        .to(jaranVisualImage, {
+          autoAlpha: 0,
+          duration: 0.48,
+          ease: "power2.inOut",
+        }, 0.46);
+
+      var expandTablet = gsap.timeline({
+        scrollTrigger: {
+          id: "jaran-tablet-expand",
+          trigger: anySizeStage,
+          start: "center center",
+          end: function () {
+            var tabletExpandDistance = Math.max(480, window.innerHeight * 0.68);
+            var threeWheelDistance = Math.min(360, Math.max(270, window.innerHeight * 0.34));
+            return "+=" + (tabletExpandDistance + threeWheelDistance);
+          },
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.65,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onEnter: function () {
+            gsap.set(anySizeCard, { autoAlpha: 1 });
+            gsap.set(jaranVisual, { autoAlpha: 0 });
+          },
+          onEnterBack: function () {
+            gsap.set(anySizeCard, { autoAlpha: 1 });
+            gsap.set(jaranVisual, { autoAlpha: 0 });
+          },
+          onLeaveBack: function () {
+            gsap.set(anySizeCard, { autoAlpha: 0 });
+            gsap.set(jaranVisual, { autoAlpha: 1 });
+          },
+        },
+      });
+
+      expandTablet
+        .from(anySizeCard, {
+          width: function () { return getCircleDiameter(); },
+          height: function () { return getCircleDiameter(); },
+          borderRadius: "50%",
+          duration: 0.75,
+          ease: "none",
+        }, 0.25)
+        .fromTo(anyWord, {
+          x: function () {
+            return anySizeStage.clientWidth * 0.24 - getCircleDiameter() / 2;
+          },
+          autoAlpha: 0,
+        }, {
+          x: function () {
+            return anySizeStage.clientWidth * 0.24 - getCircleDiameter() / 2;
+          },
+          autoAlpha: 1,
+          duration: 0.15,
+          ease: "none",
+        }, 0)
+        .to(anyWord, {
+          x: 0,
+          duration: 0.75,
+          ease: "none",
+        }, 0.25)
+        .fromTo(sizeWord, {
+          x: function () {
+            return -(anySizeStage.clientWidth * 0.24 - getCircleDiameter() / 2);
+          },
+          autoAlpha: 0,
+        }, {
+          x: function () {
+            return -(anySizeStage.clientWidth * 0.24 - getCircleDiameter() / 2);
+          },
+          autoAlpha: 1,
+          duration: 0.15,
+          ease: "none",
+        }, 0)
+        .to(sizeWord, {
+          x: 0,
+          duration: 0.75,
+          ease: "none",
+        }, 0.25)
+        .to({}, {
+          duration: function () {
+            var tabletExpandDistance = Math.max(480, window.innerHeight * 0.68);
+            var threeWheelDistance = Math.min(360, Math.max(270, window.innerHeight * 0.34));
+            return threeWheelDistance / tabletExpandDistance;
+          },
+        });
+
+      return function () {
+        moveToCenter.scrollTrigger.kill();
+        moveToCenter.kill();
+        expandTablet.scrollTrigger.kill();
+        expandTablet.kill();
+        gsap.set(jaranVisual, { clearProps: "transform,clipPath" });
+        gsap.set(jaranVisualImage, { clearProps: "opacity,visibility" });
+        resetWorkIndex();
+        gsap.set([anySizeCard, anySizeImage, anyWord, sizeWord], { clearProps: "all" });
+      };
+    },
+  });
+})();
