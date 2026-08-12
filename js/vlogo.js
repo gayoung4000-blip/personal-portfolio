@@ -1361,10 +1361,13 @@
     };
 
     workProjectCards.forEach(function (card) {
+      var isIlkwContribution = card.classList.contains("work-page__project--ilkw-contribution");
+      var isWrunEntry = card.id === "work-wrun";
+
       ScrollTrigger.create({
         trigger: card,
-        start: "top 42%",
-        end: "bottom 42%",
+        start: isWrunEntry ? "top top" : "top 42%",
+        end: isIlkwContribution ? "bottom top" : "bottom 42%",
         onEnter: function () {
           activateWorkProject(card);
         },
