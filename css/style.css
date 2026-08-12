@@ -1717,7 +1717,7 @@ a {
 
 .journey-menu-panel__nav {
   height: 100%;
-  padding: 0 clamp(7rem, 9vw, 11rem) 0 clamp(2rem, 7vw, 8.5rem);
+  padding: 0 calc(clamp(7rem, 9vw, 11rem) + 20px) 0 clamp(2rem, 7vw, 8.5rem);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -4290,7 +4290,7 @@ a {
 .teamwork__heading h2 {
   margin: 0;
   font-family: "Instrument Sans", sans-serif;
-  font-size: clamp(3.25rem, 4.48vw, 5.375rem);
+  font-size: clamp(calc(3.25rem + 5px), calc(4.48vw + 5px), calc(5.375rem + 5px));
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.045em;
@@ -4305,10 +4305,10 @@ a {
 .teamwork__heading p {
   margin: 0.4rem 0 0;
   font-family: "Noto Sans KR", sans-serif;
-  font-size: clamp(0.9rem, 1.25vw, 1.5rem);
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.4;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
 .teamwork__gallery {
@@ -4355,6 +4355,10 @@ a {
   opacity: 1;
   transform: translate3d(0, 0, 0);
   transition: none;
+}
+
+.teamwork__card--award > img {
+  object-position: center 58%;
 }
 
 .teamwork__actions {
@@ -4421,11 +4425,11 @@ a {
   .teamwork__heading { width: calc(100% - 2rem); }
 
   .teamwork__heading h2 {
-    font-size: clamp(2.25rem, 10vw, 3.5rem);
+    font-size: clamp(calc(2.25rem + 5px), calc(10vw + 5px), calc(3.5rem + 5px));
     white-space: normal;
   }
 
-  .teamwork__heading p { font-size: 0.82rem; }
+  .teamwork__heading p { font-size: 16px; }
   .teamwork__gallery { height: 27rem; margin-top: 2rem; }
   .teamwork__card { width: min(74vw, 20rem); }
   .teamwork__card--low { margin-top: 0; }

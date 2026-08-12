@@ -1360,28 +1360,6 @@
       }
     };
 
-    workProjectCards.forEach(function (card) {
-      var isIlkwContribution = card.classList.contains("work-page__project--ilkw-contribution");
-      var isWrunEntry = card.id === "work-wrun";
-
-      ScrollTrigger.create({
-        trigger: card,
-        start: isWrunEntry ? "top top" : "top 42%",
-        end: isIlkwContribution ? "bottom top" : "bottom 42%",
-        onEnter: function () {
-          activateWorkProject(card);
-        },
-        onEnterBack: function () {
-          activateWorkProject(card);
-        },
-        onUpdate: function (self) {
-          if (self.isActive) {
-            activateWorkProject(card);
-          }
-        },
-      });
-    });
-
     var ilkwContributionVideo = document.querySelector(".work-page__ilkw-contribution-video");
     if (ilkwContributionVideo) {
       var playIlkwContributionVideo = function () {
@@ -1494,20 +1472,6 @@
           scrub: 0.55,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onEnter: function () {
-            activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
-          },
-          onEnterBack: function () {
-            activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
-          },
-          onLeave: function () {
-            activateWorkProject(document.querySelector(".work-page__project--jaran"));
-          },
-          onUpdate: function (self) {
-            if (self.isActive) {
-              activateWorkProject(document.querySelector(".work-page__project--wrun-story"));
-            }
-          },
         },
       });
 
@@ -1552,6 +1516,34 @@
 
       wrunStoryTimeline.to({}, { duration: 0.38 });
     }
+
+    // Create project-index boundaries only after the pinned ILKW and W:RUN
+    // timelines exist, so their pin spacing is included in every start point.
+    var workProjectEntries = workProjectCards.filter(function (card, index, cards) {
+      var projectName = card.getAttribute("data-work-project");
+      return !cards.slice(0, index).some(function (previousCard) {
+        return previousCard.getAttribute("data-work-project") === projectName;
+      });
+    });
+
+    workProjectEntries.forEach(function (card, index) {
+      if (index === 0) return;
+
+      var previousCard = workProjectEntries[index - 1];
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 60%",
+        refreshPriority: -10,
+        invalidateOnRefresh: true,
+        onEnter: function () {
+          activateWorkProject(card);
+        },
+        onLeaveBack: function () {
+          activateWorkProject(previousCard);
+        },
+      });
+    });
 
     var cloneCodingScene = document.querySelector(".clone-coding__scene");
     var cloneCodingViewport = document.querySelector(".clone-coding__viewport");
