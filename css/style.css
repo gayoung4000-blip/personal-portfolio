@@ -4507,10 +4507,17 @@ a {
 
 @media (min-width: 769px) and (min-height: 1051px) {
   .teamwork__card {
-    width: calc(
-      100svh - 4.125rem - clamp(3rem, 11svh, 7rem) -
-      clamp(2rem, 5svh, 4rem) - 30px - 2.25rem - 20px
-    );
+    width: clamp(19rem, 22.65vw, 27.1875rem);
+    height: calc(100svh - 4.125rem - clamp(3rem, 11svh, 7rem) - clamp(2rem, 5svh, 4rem) - 30px - 2.25rem - 20px);
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+
+  .teamwork__card > img {
+    inset: 50% 0 auto;
+    height: clamp(19rem, 22.65vw, 27.1875rem);
+    border-radius: 1.25rem;
+    transform: translateY(-50%);
   }
 }
 
