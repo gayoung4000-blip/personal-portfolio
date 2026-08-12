@@ -3566,7 +3566,7 @@ a {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
@@ -4285,6 +4285,7 @@ a {
 .teamwork__heading {
   width: min(calc(100% - 3rem), 77.125rem);
   margin-inline: auto;
+  transform: translateY(30px);
 }
 
 .teamwork__heading h2 {
@@ -4305,6 +4306,34 @@ a {
 
 .teamwork__title-line strong {
   font: inherit;
+}
+
+.teamwork__char {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translate3d(-0.18em, 0.22em, 0);
+}
+
+.is-teamwork-revealed .teamwork__title-line .teamwork__char,
+.is-teamwork-revealed .teamwork__heading p .teamwork__char {
+  animation: teamwork-char-in 780ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.teamwork__title-line:nth-child(1) .teamwork__char { animation-delay: calc(120ms + var(--char-index, 0) * 36ms); }
+.teamwork__title-line:nth-child(2) .teamwork__char { animation-delay: calc(650ms + var(--char-index, 0) * 36ms); }
+.teamwork__title-line:nth-child(3) .teamwork__char { animation-delay: calc(1120ms + var(--char-index, 0) * 36ms); }
+.is-teamwork-revealed .teamwork__heading p .teamwork__char {
+  animation-duration: 700ms;
+  animation-delay: calc(1800ms + var(--char-index, 0) * 32ms);
+}
+
+@keyframes teamwork-char-in {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .teamwork__heading h2 em {
@@ -4353,6 +4382,27 @@ a {
   flex: 0 0 auto;
   border-radius: 1.25rem;
   overflow: hidden;
+  clip-path: inset(0 100% 100% 0 round 1.25rem);
+  opacity: 0;
+  transform: translate3d(-24px, -14px, 0);
+}
+
+.teamwork__card--clone {
+  clip-path: inset(0 0 0 0 round 1.25rem);
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.is-teamwork-revealed .teamwork__card:not(.teamwork__card--clone) {
+  animation: teamwork-card-in 1140ms cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay) forwards;
+}
+
+@keyframes teamwork-card-in {
+  to {
+    clip-path: inset(0 0 0 0 round 1.25rem);
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .teamwork__card--low { margin-top: 0; }
@@ -4377,16 +4427,32 @@ a {
 .teamwork__actions {
   position: absolute;
   right: 5vw;
-  bottom: clamp(2rem, 5svh, 4rem);
+  bottom: calc(clamp(2rem, 5svh, 4rem) + 30px);
   width: auto;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 1.3125rem;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+}
+
+.is-teamwork-revealed .teamwork__actions {
+  animation: teamwork-actions-in 780ms cubic-bezier(0.22, 1, 0.36, 1) 5900ms forwards;
+}
+
+@keyframes teamwork-actions-in {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .teamwork__video {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 8.375rem;
   height: 2.25rem;
   border: 0.09375rem solid #b69f64;
@@ -4428,6 +4494,16 @@ a {
 .teamwork__nav-ring { inset: 0; width: 100%; height: 100%; }
 .teamwork__nav-arrow { left: 50%; top: 50%; width: 0.8125rem; height: 1.125rem; transform: translate(-50%, -50%); }
 
+@media (min-width: 769px) {
+  .teamwork__actions {
+    left: 0;
+  }
+
+  .teamwork__video {
+    margin-right: auto;
+  }
+}
+
 @media (min-width: 769px) and (max-height: 1050px) {
   .teamwork__actions {
     bottom: calc(clamp(2rem, 5svh, 4rem) + 150px);
@@ -4468,6 +4544,15 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .teamwork__track { transition-duration: 1ms; }
+  .teamwork__char,
+  .teamwork__card,
+  .teamwork__actions {
+    animation: none !important;
+    clip-path: none;
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ==========================================================

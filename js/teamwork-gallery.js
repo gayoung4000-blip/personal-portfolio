@@ -10,6 +10,37 @@
   var cardCount = originalCards.length;
   var currentIndex = cardCount;
   var changing = false;
+  var section = document.getElementById("teamwork");
+  var titleLines = Array.prototype.slice.call(document.querySelectorAll(".teamwork__title-line"));
+  var description = document.querySelector(".teamwork__heading p");
+  var videoButton = document.querySelector(".teamwork__video");
+  var navButtons = Array.prototype.slice.call(document.querySelectorAll(".teamwork__prev, .teamwork__next"));
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function splitIntoCharacters(element) {
+    var textNodes = [];
+    var walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    var node;
+
+    while ((node = walker.nextNode())) textNodes.push(node);
+
+    var characterIndex = 0;
+    textNodes.forEach(function (textNode) {
+      var fragment = document.createDocumentFragment();
+      Array.from(textNode.nodeValue).forEach(function (character) {
+        var span = document.createElement("span");
+        span.className = "teamwork__char";
+        span.textContent = character === " " ? "\u00a0" : character;
+        span.style.setProperty("--char-index", characterIndex);
+        characterIndex += 1;
+        fragment.appendChild(span);
+      });
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+  }
+
+  titleLines.forEach(splitIntoCharacters);
+  if (description) splitIntoCharacters(description);
 
   function makeClone(card) {
     var clone = card.cloneNode(true);
@@ -24,6 +55,11 @@
   originalCards.forEach(function (card) { after.appendChild(makeClone(card)); });
   track.insertBefore(before, track.firstChild);
   track.appendChild(after);
+
+  var visibleCards = Array.prototype.slice.call(track.querySelectorAll(".teamwork__card:not(.teamwork__card--clone)"));
+  visibleCards.forEach(function (card, index) {
+    card.style.setProperty("--card-delay", 4100 + index * 250 + "ms");
+  });
 
   function allCards() {
     return Array.prototype.slice.call(track.querySelectorAll(".teamwork__card"));
@@ -51,6 +87,26 @@
       render(false);
       changing = false;
     }, 720);
+  }
+
+  function revealTeamwork() {
+    if (!section || section.classList.contains("is-teamwork-revealed")) return;
+    section.classList.add("is-teamwork-revealed");
+  }
+
+  if (section) {
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      revealTeamwork();
+    } else {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          revealTeamwork();
+          observer.disconnect();
+        });
+      }, { threshold: 0.12 });
+      observer.observe(section);
+    }
   }
 
   prev.addEventListener("click", function () {
