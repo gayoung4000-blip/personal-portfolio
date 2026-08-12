@@ -4291,6 +4291,7 @@ a {
 .teamwork__heading h2 {
   display: grid;
   margin: 0;
+  color: #b69f64;
   font-family: "Instrument Sans", sans-serif;
   font-size: clamp(calc(3.25rem + 5px), calc(4.48vw + 5px), calc(5.375rem + 5px));
   font-weight: 600;
@@ -4501,6 +4502,15 @@ a {
 
   .teamwork__video {
     margin-right: auto;
+  }
+}
+
+@media (min-width: 769px) and (min-height: 1051px) {
+  .teamwork__card {
+    width: calc(
+      100svh - 4.125rem - clamp(3rem, 11svh, 7rem) -
+      clamp(2rem, 5svh, 4rem) - 30px - 2.25rem - 20px
+    );
   }
 }
 
