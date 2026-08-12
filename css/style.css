@@ -4510,6 +4510,11 @@ a {
 }
 
 @media (min-width: 1600px) {
+  .teamwork__track {
+    position: relative;
+    top: -15px;
+  }
+
   .teamwork__actions {
     top: calc(clamp(3rem, 11svh, 7rem) + clamp(25.7rem, 30.6vw, 36.75rem) + 20px);
     bottom: auto;
