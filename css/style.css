@@ -4291,7 +4291,7 @@ a {
 .teamwork__heading h2 {
   display: grid;
   margin: 0;
-  color: #b69f64;
+  color: #000;
   font-family: "Instrument Sans", sans-serif;
   font-size: clamp(calc(3.25rem + 5px), calc(4.48vw + 5px), calc(5.375rem + 5px));
   font-weight: 600;
@@ -4307,6 +4307,10 @@ a {
 
 .teamwork__title-line strong {
   font: inherit;
+}
+
+.teamwork__title-line:first-child > strong:first-child {
+  color: #b69f64;
 }
 
 .teamwork__char {
@@ -4506,6 +4510,10 @@ a {
 }
 
 @media (min-width: 769px) and (min-height: 1051px) {
+  .teamwork__actions {
+    bottom: calc(clamp(2rem, 5svh, 4rem) + 60px);
+  }
+
   .teamwork__card {
     width: clamp(19rem, 22.65vw, 27.1875rem);
     height: calc(100svh - 4.125rem - clamp(3rem, 11svh, 7rem) - clamp(2rem, 5svh, 4rem) - 30px - 2.25rem - 20px);
@@ -4517,7 +4525,7 @@ a {
     inset: 50% 0 auto;
     height: clamp(19rem, 22.65vw, 27.1875rem);
     border-radius: 1.25rem;
-    transform: translateY(-50%);
+    transform: translateY(calc(-50% - 20px));
   }
 }
 
