@@ -5244,3 +5244,57 @@ body * {
 .site-footer__links a {
   letter-spacing: var(--tracking-en-compact);
 }
+
+/* Journey intro: keep every text group inside one shared content frame. */
+@media (min-width: 48.0625rem) {
+  .journey__inner {
+    --journey-safe-left: clamp(2rem, 18.33vw, 22rem);
+    --journey-safe-right: clamp(2rem, 5.2vw, 6.25rem);
+    --journey-safe-top: clamp(3rem, 11.75vh, 7.75rem);
+    --journey-safe-bottom: clamp(2rem, 4.8vh, 3.25rem);
+  }
+
+  .journey__title-block {
+    top: var(--journey-safe-top);
+    left: var(--journey-safe-left);
+  }
+
+  .journey__timeline-text {
+    right: var(--journey-safe-right);
+    left: auto;
+    translate: none;
+  }
+
+  .journey__text-block {
+    top: auto;
+    bottom: var(--journey-safe-bottom);
+    left: var(--journey-safe-left);
+  }
+
+  .journey__inverted-block {
+    right: var(--journey-safe-right);
+    bottom: var(--journey-safe-bottom);
+    left: auto;
+    translate: none;
+  }
+}
+
+/* Compact fixed My/JOURNEY lockup used across the dark Journey scenes. */
+@media (min-width: 48.0625rem) {
+  .journey__scene3-my,
+  .journey__scene3-journey {
+    font-size: clamp(1.5rem, min(2vw, 3.8vh), 2.5rem);
+  }
+
+  .journey__scene3-my {
+    bottom: max(8.5vh, calc((100vh - 53.75vw) / 2 + 4.57vw));
+    translate: 0 -3.8vh;
+  }
+
+  .journey__scene3-journey {
+    bottom: max(3.682vh, calc((100vh - 53.75vw) / 2 + 1.979vw));
+    width: min(10vw, 19vh);
+    text-align: left;
+    translate: calc(var(--journey-axis-shift) + 3px) -3.8vh;
+  }
+}

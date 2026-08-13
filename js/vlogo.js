@@ -624,13 +624,21 @@
 
         var forbiddenGap = Math.min(64, Math.max(48, window.innerWidth * 0.028));
         var targetRight = window.innerWidth * 0.78125 - forbiddenGap;
-        var alignedLabels = [journeyTimelineText, journeyInvertedBlock, fixedMyLabel, fixedJourneyLabel];
+        var fixedLogoGap = Math.min(72, Math.max(48, window.innerWidth * 0.032));
+        var fixedLogoRight = window.innerWidth - fixedLogoGap;
 
-        alignedLabels.forEach(function (label) {
+        [journeyTimelineText, journeyInvertedBlock].forEach(function (label) {
           if (!label) return;
           gsap.set(label, { x: 0 });
           var labelRect = label.getBoundingClientRect();
           gsap.set(label, { x: targetRight - labelRect.right });
+        });
+
+        [fixedMyLabel, fixedJourneyLabel].forEach(function (label) {
+          if (!label) return;
+          gsap.set(label, { x: 0 });
+          var labelRect = label.getBoundingClientRect();
+          gsap.set(label, { x: fixedLogoRight - labelRect.right });
         });
       }
 
