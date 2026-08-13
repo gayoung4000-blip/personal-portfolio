@@ -874,8 +874,14 @@
             <div class="work-page__jaran-any-size" data-node-id="1150:354">
               <p class="work-page__jaran-any-size-word work-page__jaran-any-size-word--any" data-node-id="1398:115">Any</p>
               <div class="work-page__jaran-any-size-card" data-node-id="1150:355" role="region" aria-label="JARAN interactive tablet preview" tabindex="0">
+                <!-- 라이브 데모: 실제 배포된 JARAN 앱 (태블릿/모바일). 내부 미디어쿼리 보존을 위해
+                     원본 해상도로 렌더한 뒤 CSS scale로 카드에 맞춘다 -->
+                <iframe class="work-page__jaran-any-size-app work-page__jaran-any-size-app--tablet" src="https://jaran-five.vercel.app/?embed=tablet" title="JARAN 태블릿 라이브 데모" loading="lazy"></iframe>
+                <iframe class="work-page__jaran-any-size-app work-page__jaran-any-size-app--phone" src="https://jaran-five.vercel.app/" title="JARAN 모바일 라이브 데모" loading="lazy"></iframe>
                 <img class="work-page__jaran-any-size-image" src="img/work-jaran-new.png" alt="">
                 <span class="work-page__jaran-any-size-fade" aria-hidden="true"></span>
+                <button class="work-page__jaran-any-size-try" type="button">클릭해서 직접 체험하기</button>
+                <button class="work-page__jaran-any-size-exit" type="button" hidden>체험 종료 ✕</button>
               </div>
               <p class="work-page__jaran-any-size-word work-page__jaran-any-size-word--size" data-node-id="1398:116">Size</p>
             </div>

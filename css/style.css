@@ -3637,6 +3637,84 @@ a {
   pointer-events: none;
 }
 
+/* 라이브 데모 iframe — 예외적으로 px 고정: 임베드된 앱의 내부 미디어쿼리를 지키려면
+   원본 해상도(1194x753 / 390x844)로 렌더한 뒤 scale로 카드에 맞춰야 한다.
+   반응형은 JS(ResizeObserver)가 갱신하는 --jaran-*-scale 변수가 담당 */
+.work-page__jaran-any-size-app {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  border: 0;
+  background: #fbf8f3;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(var(--jaran-tablet-scale, 0.5));
+}
+
+.work-page__jaran-any-size-app--tablet {
+  width: 1194px;
+  height: 753px;
+}
+
+.work-page__jaran-any-size-app--phone {
+  width: 390px;
+  height: 844px;
+  transform: translate(-50%, -50%) scale(var(--jaran-phone-scale, 0.5));
+}
+
+/* 체험 활성화 시에만 앱이 마우스를 받는다 — 비활성 상태에선 휠이 페이지 스크롤로 흘러야 함 */
+.work-page__jaran-any-size-card.is-live .work-page__jaran-any-size-app {
+  pointer-events: auto;
+}
+
+.work-page__jaran-any-size-try {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  z-index: 6;
+  transform: translateX(-50%);
+  padding: 0.625rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.78);
+  color: #ece9e0;
+  font-family: "Inter", "Pretendard", sans-serif;
+  font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.work-page__jaran-any-size-card.is-live .work-page__jaran-any-size-try {
+  display: none;
+}
+
+.work-page__jaran-any-size-exit {
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  z-index: 6;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(20, 20, 20, 0.78);
+  color: #ece9e0;
+  font-family: "Inter", "Pretendard", sans-serif;
+  font-size: clamp(0.7rem, 0.85vw, 0.8125rem);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* 모바일 포트폴리오(스크롤 연출 미동작 구간)에선 정적 이미지 유지 */
+@media (max-width: 760px) {
+  .work-page__jaran-any-size-app,
+  .work-page__jaran-any-size-try,
+  .work-page__jaran-any-size-exit {
+    display: none;
+  }
+}
+
 .work-page__jaran-any-size-word {
   position: absolute;
   z-index: 1;
