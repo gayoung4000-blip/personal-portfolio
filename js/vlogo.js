@@ -1368,6 +1368,43 @@
       }
     }
 
+    // WORK heading: reveal original blocks without changing typography or layout.
+    var workHeading = document.querySelector(".work-page__heading");
+    var workTitle = document.querySelector(".work-page__title");
+    var workLabel = document.querySelector(".work-page__label");
+    var workIntro = document.querySelector(".work-page__intro");
+
+    if (workHeading && workTitle && workLabel && workIntro) {
+      var reduceWorkMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceWorkMotion) {
+        gsap.set([workTitle, workLabel, workIntro], { clearProps: "clipPath" });
+      } else {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: workHeading,
+            start: "top 82%",
+            once: true,
+          },
+        })
+          .from(workTitle, {
+            clipPath: "inset(0 100% 0 0)",
+            duration: 1.05,
+            ease: "power3.inOut",
+          })
+          .from(workLabel, {
+            clipPath: "inset(0 100% 0 0)",
+            duration: 0.8,
+            ease: "power3.inOut",
+          }, "-=0.48")
+          .from(workIntro, {
+            clipPath: "inset(0 100% 0 0)",
+            duration: 0.9,
+            ease: "power3.inOut",
+          }, "-=0.3");
+      }
+    }
+
     // WORK: the project cards scroll vertically while the right-side index stays sticky.
     var workProjectCards = gsap.utils.toArray("[data-work-project]");
     var workIndexItems = gsap.utils.toArray("[data-work-index]");
