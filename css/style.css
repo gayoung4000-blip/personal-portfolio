@@ -3624,6 +3624,15 @@ a {
   object-position: center;
 }
 
+.work-page__jaran-any-size-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .work-page__jaran-any-size-word {
   position: absolute;
   z-index: 1;

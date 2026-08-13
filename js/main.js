@@ -125,10 +125,11 @@
   var anySizeStage = document.querySelector(".work-page__jaran-any-size");
   var anySizeCard = document.querySelector(".work-page__jaran-any-size-card");
   var anySizeImage = document.querySelector(".work-page__jaran-any-size-image");
+  var anySizeFade = document.querySelector(".work-page__jaran-any-size-fade");
   var anyWord = document.querySelector(".work-page__jaran-any-size-word--any");
   var sizeWord = document.querySelector(".work-page__jaran-any-size-word--size");
   var workIndex = document.querySelector(".work-page__index");
-  if (!jaranVisual || !jaranVisualImage || !anySizeStage || !anySizeCard || !anySizeImage || !anyWord || !sizeWord) return;
+  if (!jaranVisual || !jaranVisualImage || !anySizeStage || !anySizeCard || !anySizeImage || !anySizeFade || !anyWord || !sizeWord) return;
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -144,6 +145,30 @@
 
       function getCircleDiameter() {
         return Math.min(220, Math.max(160, window.innerWidth * 0.14));
+      }
+
+      function getMobileWidth() {
+        return Math.min(360, Math.max(280, window.innerWidth * 0.2));
+      }
+
+      function getMobileHeight() {
+        return Math.min(660, Math.max(500, window.innerHeight * 0.72));
+      }
+
+      function getTabletExpandDistance() {
+        return Math.max(480, window.innerHeight * 0.68);
+      }
+
+      function getTabletHoldDistance() {
+        return Math.min(360, Math.max(270, window.innerHeight * 0.34));
+      }
+
+      function getMobileMorphDistance() {
+        return Math.max(520, window.innerHeight * 0.72);
+      }
+
+      function getMobileHoldDistance() {
+        return Math.min(320, Math.max(220, window.innerHeight * 0.28));
       }
 
       function syncWorkIndex(scrollTrigger) {
@@ -224,9 +249,12 @@
           trigger: anySizeStage,
           start: "center center",
           end: function () {
-            var tabletExpandDistance = Math.max(480, window.innerHeight * 0.68);
-            var threeWheelDistance = Math.min(360, Math.max(270, window.innerHeight * 0.34));
-            return "+=" + (tabletExpandDistance + threeWheelDistance);
+            return "+=" + (
+              getTabletExpandDistance() +
+              getTabletHoldDistance() +
+              getMobileMorphDistance() +
+              getMobileHoldDistance()
+            );
           },
           pin: true,
           pinSpacing: true,
@@ -294,9 +322,46 @@
         }, 0.25)
         .to({}, {
           duration: function () {
-            var tabletExpandDistance = Math.max(480, window.innerHeight * 0.68);
-            var threeWheelDistance = Math.min(360, Math.max(270, window.innerHeight * 0.34));
-            return threeWheelDistance / tabletExpandDistance;
+            return getTabletHoldDistance() / getTabletExpandDistance();
+          },
+        })
+        .to(anySizeCard, {
+          width: getMobileWidth,
+          height: getMobileHeight,
+          borderRadius: "30px",
+          duration: function () {
+            return getMobileMorphDistance() / getTabletExpandDistance();
+          },
+          ease: "power2.inOut",
+        })
+        .to(anyWord, {
+          x: function () {
+            return anySizeStage.clientWidth * 0.24 - getMobileWidth() / 2;
+          },
+          duration: function () {
+            return getMobileMorphDistance() / getTabletExpandDistance();
+          },
+          ease: "power2.inOut",
+        }, "<")
+        .to(sizeWord, {
+          x: function () {
+            return -(anySizeStage.clientWidth * 0.24 - getMobileWidth() / 2);
+          },
+          duration: function () {
+            return getMobileMorphDistance() / getTabletExpandDistance();
+          },
+          ease: "power2.inOut",
+        }, "<")
+        .to(anySizeFade, {
+          opacity: 1,
+          duration: function () {
+            return getMobileMorphDistance() / getTabletExpandDistance() * 0.72;
+          },
+          ease: "power2.inOut",
+        }, "<+=0.12")
+        .to({}, {
+          duration: function () {
+            return getMobileHoldDistance() / getTabletExpandDistance();
           },
         });
 
@@ -308,7 +373,7 @@
         gsap.set(jaranVisual, { clearProps: "transform,clipPath" });
         gsap.set(jaranVisualImage, { clearProps: "opacity,visibility" });
         resetWorkIndex();
-        gsap.set([anySizeCard, anySizeImage, anyWord, sizeWord], { clearProps: "all" });
+        gsap.set([anySizeCard, anySizeImage, anySizeFade, anyWord, sizeWord], { clearProps: "all" });
       };
     },
   });
