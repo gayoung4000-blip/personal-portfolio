@@ -132,6 +132,7 @@
   // JARAN 라이브 데모 (실제 배포 앱 iframe + 체험 버튼)
   var tabletApp = document.querySelector(".work-page__jaran-any-size-app--tablet");
   var phoneApp = document.querySelector(".work-page__jaran-any-size-app--phone");
+  var phoneButtonMask = document.querySelector(".work-page__jaran-mobile-button-mask");
   var tryBtn = document.querySelector(".work-page__jaran-any-size-try");
   var exitBtn = document.querySelector(".work-page__jaran-any-size-exit");
   if (!jaranVisual || !jaranVisualImage || !anySizeStage || !anySizeCard || !anySizeImage || !anySizeFade || !anyWord || !sizeWord) return;
@@ -147,7 +148,9 @@
       });
       gsap.set(anySizeCard, { autoAlpha: 0 });
       gsap.set(anySizeImage, { autoAlpha: 0 });
+      if (tabletApp) gsap.set(tabletApp, { autoAlpha: 0 });
       if (phoneApp) gsap.set(phoneApp, { autoAlpha: 0 });
+      if (phoneButtonMask) gsap.set(phoneButtonMask, { autoAlpha: 0 });
       if (tryBtn) gsap.set(tryBtn, { autoAlpha: 0 });
 
       // 카드 크기가 애니메이션되는 동안 iframe 축소 배율을 실시간 갱신
@@ -158,11 +161,11 @@
         if (!w || !h) return;
         anySizeCard.style.setProperty(
           "--jaran-tablet-scale",
-          String(Math.min(w / 1194, h / 753))
+          String(Math.max(w / 1194, h / 753))
         );
         anySizeCard.style.setProperty(
           "--jaran-phone-scale",
-          String(Math.min(w / 390, h / 844))
+          String(Math.max(w / 390, h / 844))
         );
       }
       updateAppScale();
@@ -182,8 +185,16 @@
         anySizeCard.classList.remove("is-live");
         if (exitBtn) exitBtn.hidden = true;
       }
+      function restartPhonePreview() {
+        if (!phoneApp) return;
+        var previewSrc = phoneApp.getAttribute("src");
+        phoneApp.removeAttribute("src");
+        phoneApp.setAttribute("src", previewSrc);
+      }
       function onCardActivate(event) {
         if (exitBtn && (event.target === exitBtn || exitBtn.contains(event.target))) return;
+        // 모바일은 온보딩 연출만 보여주는 프리뷰이므로 체험 모드로 전환하지 않는다.
+        if (phoneApp && Number(gsap.getProperty(phoneApp, "opacity")) > 0.5) return;
         if (!anySizeCard.classList.contains("is-live")) activateLive();
       }
       function onExitClick(event) {
@@ -374,6 +385,10 @@
           duration: 0.75,
           ease: "none",
         }, 0.25)
+        // 원형 단계는 흰색으로 유지하고, 태블릿 상자가 완성된 뒤 앱을 표시한다.
+        .set(tabletApp, {
+          autoAlpha: 1,
+        }, 1.0)
         .to(tryBtn, {
           autoAlpha: 1,
           duration: 0.08,
@@ -383,6 +398,11 @@
           duration: function () {
             return getTabletHoldDistance() / getTabletExpandDistance();
           },
+        })
+        .to(tryBtn, {
+          autoAlpha: 0,
+          duration: 0.08,
+          ease: "none",
         })
         .to(anySizeCard, {
           width: getMobileWidth,
@@ -419,8 +439,13 @@
           ease: "power2.inOut",
         }, "<+=0.12")
         // 흰 커버 아래에서 태블릿 → 모바일 앱으로 교체
+        .call(function () {
+          deactivateLive();
+          restartPhonePreview();
+        })
         .set(tabletApp, { autoAlpha: 0 })
         .set(phoneApp, { autoAlpha: 1 })
+        .set(phoneButtonMask, { autoAlpha: 1 })
         .to(anySizeFade, {
           opacity: 0,
           duration: 0.2,
@@ -445,7 +470,7 @@
         anySizeCard.removeEventListener("click", onCardActivate);
         if (exitBtn) exitBtn.removeEventListener("click", onExitClick);
         deactivateLive();
-        gsap.set([tabletApp, phoneApp, tryBtn].filter(Boolean), { clearProps: "all" });
+        gsap.set([tabletApp, phoneApp, phoneButtonMask, tryBtn].filter(Boolean), { clearProps: "all" });
       };
     },
   });

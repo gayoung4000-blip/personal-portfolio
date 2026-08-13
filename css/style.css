@@ -3662,6 +3662,21 @@ a {
   transform: translate(-50%, -50%) scale(var(--jaran-phone-scale, 0.5));
 }
 
+/* 퍼스널의 모바일 프리뷰에서만 온보딩 마지막 CTA를 가린다. */
+.work-page__jaran-mobile-button-mask {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  height: clamp(3.25rem, 8.5%, 4.25rem);
+  background: #fbf8f3;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 /* 체험 활성화 시에만 앱이 마우스를 받는다 — 비활성 상태에선 휠이 페이지 스크롤로 흘러야 함 */
 .work-page__jaran-any-size-card.is-live .work-page__jaran-any-size-app {
   pointer-events: auto;
