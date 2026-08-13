@@ -979,6 +979,7 @@ a {
   position: absolute;
   top: 41.4%; /* 439 / 1060 */
   left: clamp(30rem, 57.29vw, 68.75rem); /* 1100px @ 1920 */
+  translate: calc(-1 * clamp(1.75rem, 1.7vw, 2.625rem)) 0;
   font-family: var(--font-serif);
   font-size: clamp(3rem, min(4.68vw, 9.2svh), 5.625rem);
   line-height: 0.94;
@@ -1016,6 +1017,7 @@ a {
   position: absolute;
   bottom: clamp(2rem, 4vw, 6rem); 
   left: clamp(35rem, 59.27vw, 71.125rem); /* 1138px @ 1920 (이미지에 덮이지 않도록 피그마 시안 위치로 이동) */
+  translate: calc(-1 * clamp(1.75rem, 1.7vw, 2.625rem)) 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -1344,7 +1346,7 @@ a {
 .journey__scene3-my {
   position: absolute;
   bottom: 9.79vw; /* (1029 - 841) / 1920 */
-  right: 1.77vw; /* (1920 - 1808 - 78) / 1920 */
+  right: calc(1.77vw + clamp(1.75rem, 1.7vw, 2.625rem));
   color: #ffffff;
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 2.6vw, 50px);
@@ -1357,7 +1359,7 @@ a {
   --journey-axis-shift: 0px;
   position: absolute;
   bottom: 5.98vw; /* (1029 - 914) / 1920 */
-  right: 1.61vw; /* (1920 - 1517 - 372) / 1920 */
+  right: calc(1.61vw + clamp(1.75rem, 1.7vw, 2.625rem));
   width: 19.37vw; /* 372 / 1920 */
   text-align: center;
   color: #ffffff;
@@ -2421,13 +2423,13 @@ a {
   }
 
   .journey__scene3-my {
-    right: 1.875vw;
+    right: calc(1.875vw + clamp(1.75rem, 1.7vw, 2.625rem));
     bottom: calc((100vh - 53.75vw) / 2 + 6.354vw);
     font-size: 2.604vw;
   }
 
   .journey__scene3-journey {
-    right: 1.719vw;
+    right: calc(1.719vw + clamp(1.75rem, 1.7vw, 2.625rem));
     bottom: calc((100vh - 53.75vw) / 2 + 1.979vw);
     width: 19.375vw;
     font-size: 2.604vw;
@@ -2444,13 +2446,13 @@ a {
   }
 
   .journey__scene3-my {
-    right: calc((100vw - 186.0465vh) / 2 + 3.488vh);
+    right: calc((100vw - 186.0465vh) / 2 + 3.488vh + clamp(1.75rem, 1.7vw, 2.625rem));
     bottom: 11.822vh;
     font-size: 4.845vh;
   }
 
   .journey__scene3-journey {
-    right: calc((100vw - 186.0465vh) / 2 + 3.198vh);
+    right: calc((100vw - 186.0465vh) / 2 + 3.198vh + clamp(1.75rem, 1.7vw, 2.625rem));
     bottom: 3.682vh;
     width: 36.047vh;
     font-size: 4.845vh;
@@ -3234,11 +3236,12 @@ a {
 
 .work-page__wrun-story-actions {
   position: absolute;
-  left: 69.5%;
-  bottom: min(10.7svh, 6.4375rem);
+  top: calc(min(25.13svh, 15.125rem) + clamp(12.5rem, 14vw, 15rem));
+  left: 31%;
+  bottom: auto;
   display: flex;
   gap: 0.7rem;
-  transform: translateX(-50%);
+  transform: none;
   white-space: nowrap;
 }
 
@@ -3273,8 +3276,9 @@ a {
   }
 
   .work-page__wrun-story-actions {
-    left: 65%;
-    bottom: 1.5rem;
+    top: calc(min(25.13svh, 15.125rem) + 10.5rem);
+    left: 33%;
+    bottom: auto;
     gap: 0.45rem;
   }
 

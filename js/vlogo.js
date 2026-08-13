@@ -591,6 +591,7 @@
       var journeyInvertedBlock = journeySection.querySelector(".journey__inverted-block");
       var fixedMyAxisLetter = journeySection.querySelector(".journey__axis-letter--my");
       var fixedJourneyAxisLetter = journeySection.querySelector(".journey__axis-letter--journey");
+      var fixedMyLabel = journeySection.querySelector(".journey__scene3-my");
       var fixedJourneyLabel = journeySection.querySelector(".journey__scene3-journey");
 
       function alignJourneyTypeAxis() {
@@ -618,16 +619,36 @@
         );
       }
 
+      function alignFixedJourneyRightEdge() {
+        if (!journeyTimelineText || !fixedMyLabel || !fixedJourneyLabel) return;
+
+        var forbiddenGap = Math.min(64, Math.max(48, window.innerWidth * 0.028));
+        var targetRight = window.innerWidth * 0.78125 - forbiddenGap;
+        var alignedLabels = [journeyTimelineText, journeyInvertedBlock, fixedMyLabel, fixedJourneyLabel];
+
+        alignedLabels.forEach(function (label) {
+          if (!label) return;
+          gsap.set(label, { x: 0 });
+          var labelRect = label.getBoundingClientRect();
+          gsap.set(label, { x: targetRight - labelRect.right });
+        });
+      }
+
       alignJourneyTypeAxis();
       alignFixedJourneyYAxis();
+      alignFixedJourneyRightEdge();
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(function () {
           alignJourneyTypeAxis();
           alignFixedJourneyYAxis();
+          alignFixedJourneyRightEdge();
         });
       }
       ScrollTrigger.addEventListener("refreshInit", alignJourneyTypeAxis);
-      ScrollTrigger.addEventListener("refreshInit", alignFixedJourneyYAxis);
+      ScrollTrigger.addEventListener("refreshInit", function () {
+        alignFixedJourneyYAxis();
+        alignFixedJourneyRightEdge();
+      });
 
       var journeyRevealElements = gsap.utils.toArray([
         ".journey__my", ".journey__journey-text", ".journey__sub-title",
@@ -813,7 +834,7 @@
         var currentX = Number(gsap.getProperty(designedText, "x")) || 0;
         var textRect = designedText.getBoundingClientRect();
         var imageRect = designedStopImage.getBoundingClientRect();
-        var gap = 5;
+        var gap = Math.min(56, Math.max(40, window.innerWidth * 0.022));
         var textBaseRight = textRect.right - currentX;
 
         return Math.max(0, imageRect.left - gap - textBaseRight);
