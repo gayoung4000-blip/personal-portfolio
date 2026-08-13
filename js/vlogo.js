@@ -1620,6 +1620,25 @@
     var cloneCodingIntro = document.querySelector(".clone-coding__intro");
     var cloneCodingDescription = document.querySelector(".clone-coding__description");
     var cloneCodingDim = document.querySelector(".clone-coding__dim");
+    var cloneProjectLinks = gsap.utils.toArray(".clone-coding__card-link");
+
+    if (cloneProjectLinks.length && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      cloneProjectLinks.forEach(function (cloneProjectLink) {
+        cloneProjectLink.addEventListener("pointerenter", function () {
+          cloneProjectLink.classList.add("is-cursor-active");
+        });
+
+        cloneProjectLink.addEventListener("pointermove", function (event) {
+          var cardRect = cloneProjectLink.getBoundingClientRect();
+          cloneProjectLink.style.setProperty("--clone-cursor-x", event.clientX - cardRect.left + "px");
+          cloneProjectLink.style.setProperty("--clone-cursor-y", event.clientY - cardRect.top + "px");
+        });
+
+        cloneProjectLink.addEventListener("pointerleave", function () {
+          cloneProjectLink.classList.remove("is-cursor-active");
+        });
+      });
+    }
 
     if (
       cloneCodingScene &&
