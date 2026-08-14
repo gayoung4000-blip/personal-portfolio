@@ -799,7 +799,7 @@ a {
   border-radius: 30px;
   padding: 0.5rem 1.5rem;
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 1.14vw, 1.375rem); /* 22px @ 1920 */
+  font-size: clamp(0.75rem, 0.73vw, 0.875rem); /* Match KEEP SCROLLING */
   letter-spacing: -0.02em;
   margin-top: clamp(1.25rem, 1.8vw, 2.15rem);
   background: rgba(0, 0, 0, 0.24);
@@ -1057,6 +1057,29 @@ a {
   margin-top: 0;
 }
 
+.journey__sub-line {
+  display: block;
+}
+
+.journey__growing-line {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: clamp(0.75rem, 1vw, 1.25rem);
+}
+
+.journey__growing-caption {
+  display: inline-block;
+  color: var(--charcoal);
+  font-family: var(--font-geist);
+  font-size: clamp(0.5rem, 0.52vw, 0.625rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transform: translateY(calc(0.14em + 15px));
+}
+
 /* 2. 우측 중앙 텍스트 */
 .journey__timeline-text {
   position: absolute;
@@ -1067,6 +1090,23 @@ a {
   font-size: clamp(3rem, min(4.68vw, 9.2svh), 5.625rem);
   line-height: 0.94;
   font-style: normal;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1vw, 1.25rem);
+  width: max-content;
+}
+
+.journey__timeline-caption {
+  display: inline-block;
+  color: var(--charcoal);
+  font-family: var(--font-geist);
+  font-size: clamp(0.5rem, 0.52vw, 0.625rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-align: right;
+  white-space: nowrap;
+  transform: translateY(15px);
 }
 
 /* 3. 좌측 하단 본문 블록 */
@@ -2296,7 +2336,7 @@ a {
   .about__badge {
     margin-top: 1.1rem;
     padding: 0.42rem 1.1rem;
-    font-size: 0.95rem;
+    font-size: 0.75rem;
   }
   
   .about__dome {
