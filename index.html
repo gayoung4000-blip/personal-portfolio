@@ -16,7 +16,7 @@
     href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Instrument+Sans:wght@400;600&family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;600;700&family=Playfair+Display:ital@1&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260814-inapp-button-49" />
+  <link rel="stylesheet" href="css/style.css?v=20260814-inapp-viewer-50" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -67,6 +67,22 @@
   <button class="inapp-button" id="inappButton" type="button" aria-label="인앱 보기">
     <span>인앱</span>
   </button>
+
+  <section class="inapp-viewer" id="inappViewer" aria-label="자란 인앱 체험" aria-hidden="true">
+    <div class="inapp-viewer__bar">
+      <p>JARAN</p>
+      <button class="inapp-viewer__close" id="inappClose" type="button" aria-label="자란 인앱 닫기">닫기</button>
+    </div>
+    <div class="inapp-viewer__stage">
+      <p class="inapp-viewer__loading" aria-live="polite">자란을 불러오는 중입니다.</p>
+      <iframe
+        id="inappFrame"
+        title="자란 인앱 체험"
+        data-src="https://jaran-five.vercel.app"
+        allow="fullscreen"
+      ></iframe>
+    </div>
+  </section>
 
   <section class="chatbot-panel" id="chatbotPanel" aria-label="김가영 포트폴리오 챗봇" aria-hidden="true">
     <header class="chatbot-panel__header">
@@ -1103,6 +1119,7 @@
   <script src="js/vlogo.js?v=20260814-work-heading-static-11"></script>
   <script src="js/main.js?v=20260813-jaran-mobile-radius-17"></script>
   <script src="js/chatbot.js?v=20260809-chatbot-panel-2"></script>
+  <script src="js/inapp-viewer.js?v=20260814-1"></script>
   <script src="js/teamwork-gallery.js?v=20260814-teamwork-fast-reveal-11"></script>
   <script src="js/other-work.js?v=20260814-other-work-reveal-6"></script>
   <script src="js/contact-lead.js?v=20260814-16"></script>
