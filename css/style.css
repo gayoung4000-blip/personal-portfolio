@@ -3771,7 +3771,10 @@ a {
 
 .work-page__pumto-steps {
   display: grid;
-  gap: clamp(2.5rem, 7.8vh, 4.5rem);
+  width: 100%;
+  max-width: 36rem;
+  justify-self: start;
+  gap: clamp(1.75rem, 4.5vh, 2.75rem);
 }
 
 .work-page__pumto-step h3 {
@@ -3784,6 +3787,7 @@ a {
 
 .work-page__pumto-step p {
   margin: clamp(0.65rem, 1.15vw, 1.4rem) 0 0;
+  max-width: 100%;
   color: #dadada;
   font-family: "Inter", sans-serif;
   font-size: 16px;
@@ -4710,14 +4714,14 @@ a {
   top: 0;
   left: 0;
   display: flex;
-  gap: clamp(1.25rem, 1.72vw, 2.0625rem);
+  gap: clamp(1.5rem, 2.25vw, 2.875rem);
   width: max-content;
   will-change: transform;
 }
 
 .clone-coding__card {
-  width: min(72vw, 68.75rem);
-  aspect-ratio: 1100 / 529;
+  width: min(51.2vw, 65.5rem);
+  aspect-ratio: 1048 / 718;
   height: auto;
   flex: 0 0 auto;
   border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
@@ -4930,7 +4934,7 @@ a {
   }
 
   .clone-coding__card {
-    width: min(62vw, 56rem);
+    width: min(54vw, 56rem);
   }
 }
 
