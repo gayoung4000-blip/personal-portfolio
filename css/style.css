@@ -56,11 +56,14 @@ html {
      충돌해 pin/트리거 좌표가 오염됨 (GSAP 공식 권고). 부드러운 앵커 이동이
      필요해지면 CSS 대신 GSAP ScrollToPlugin으로 구현할 것 */
   scroll-behavior: auto;
+  background: #000;
+  overscroll-behavior-y: none;
 }
 
 body {
   background-color: var(--bg);
   overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 .back-to-video {
@@ -5364,11 +5367,14 @@ a {
 .site-footer {
   position: relative;
   z-index: 2;
-  height: calc(100svh - 4.75rem);
+  margin-top: -100svh;
+  height: 100svh;
   min-height: 40rem;
   overflow: hidden;
   background: #000;
   color: #fff;
+  clip-path: ellipse(0% 0% at 50% 100%);
+  will-change: clip-path, transform;
 }
 
 .site-footer__title {
@@ -5519,7 +5525,7 @@ a {
 @media (max-width: 56rem) {
   .site-footer {
     height: auto;
-    min-height: calc(100svh - 4.75rem);
+    min-height: 100svh;
     padding: 3.5rem 1.25rem 2rem;
   }
 
@@ -5586,6 +5592,13 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-footer {
+    margin-top: 0;
+    clip-path: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+
   .site-footer__links a { transition: none; }
 }
 

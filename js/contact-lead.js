@@ -3,7 +3,8 @@
 
   var section = document.querySelector(".contact-lead");
   var text = document.querySelector(".contact-lead__text");
-  if (!section || !text) return;
+  var footer = document.querySelector(".site-footer");
+  if (!section || !text || !footer) return;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion.matches || !window.gsap || !window.ScrollTrigger) {
@@ -49,18 +50,18 @@
     return wallOffsets[index % wallOffsets.length];
   };
   var characterStartY = function (index) {
-    var verticalOffsets = [-24, 17, -11, 28, -19, 9, -31, 21];
-    return verticalOffsets[index % verticalOffsets.length];
+    var amplitudes = [0.09, 0.065, 0.11, 0.075, 0.095, 0.06, 0.115, 0.08];
+    var distance = Math.min(96, Math.max(46, window.innerHeight * amplitudes[index % amplitudes.length]));
+    return index % 2 === 0 ? -distance : distance;
   };
   var characterStartRotation = function (index) {
-    var rotations = [-14, 9, -6, 18, -11, 5, 13, -8];
+    var rotations = [-20, 15, -11, 23, -17, 10, -24, 14];
     return rotations[index % rotations.length];
   };
 
   var entranceGaps = [0.42, 0.31, 0.49, 0.36, 0.55, 0.29, 0.46, 0.38];
   var entranceDurations = [1.62, 1.24, 1.78, 1.38, 1.9, 1.31, 1.7, 1.46];
   var entranceScales = [1.08, 0.92, 1.04, 0.88, 1.07, 0.95, 1.1, 0.91];
-  var entranceBounces = [2.35, 1.65, 2.05, 1.8, 2.5, 1.7, 2.2, 1.9];
   var entranceTimes = [];
   var entranceCursor = 0;
 
@@ -69,7 +70,9 @@
     entranceCursor += entranceGaps[index % entranceGaps.length];
   });
 
-  var flowEnd = entranceCursor + 1.9;
+  var lastCharacterIndex = characters.length - 1;
+  var lastEntranceDuration = entranceDurations[lastCharacterIndex % entranceDurations.length];
+  var exitStart = entranceTimes[lastCharacterIndex] + lastEntranceDuration * 0.72;
 
   window.gsap.set(text, { x: function () { return assembledThrough(0); }, y: 0, yPercent: -50 });
   window.gsap.set(characters, { autoAlpha: 0 });
@@ -89,10 +92,14 @@
     if (index > 0) {
       timeline.to(text, {
         x: function () { return assembledThrough(index); },
-        duration: entranceGaps[index % entranceGaps.length] * 1.35,
-        ease: "power2.inOut"
+        duration: entranceGaps[index % entranceGaps.length] * 1.85,
+        ease: "sine.inOut"
       }, entranceTimes[index]);
     }
+
+    var entranceDuration = entranceDurations[index % entranceDurations.length];
+    var overshootY = index % 2 === 0 ? 14 : -14;
+    var overshootRotation = index % 2 === 0 ? 3 : -3;
 
     timeline.fromTo(character, {
       autoAlpha: 0,
@@ -103,21 +110,39 @@
       transformOrigin: index % 2 === 0 ? "35% 75%" : "70% 35%"
     }, {
       autoAlpha: 1,
+      x: -6,
+      y: overshootY,
+      scale: 1,
+      rotation: overshootRotation,
+      duration: entranceDuration * 0.72,
+      ease: "sine.out"
+    }, entranceTimes[index] + 0.04);
+
+    timeline.to(character, {
       x: 0,
       y: 0,
-      scale: 1,
       rotation: 0,
-      duration: entranceDurations[index % entranceDurations.length],
-      ease: "back.out(" + entranceBounces[index % entranceBounces.length] + ")"
-    }, entranceTimes[index] + 0.04);
+      duration: entranceDuration * 0.38,
+      ease: "sine.inOut"
+    }, entranceTimes[index] + entranceDuration * 0.68);
   });
 
   timeline.to(text, {
       x: exitX,
       y: 0,
-      duration: 1.15,
+      duration: 4.8,
       ease: "none"
-    }, flowEnd + 0.25);
+    }, exitStart);
+
+  timeline.fromTo(footer, {
+      clipPath: "ellipse(0% 0% at 50% 100%)",
+      yPercent: 8
+    }, {
+      clipPath: "ellipse(150% 125% at 50% 100%)",
+      yPercent: 0,
+      duration: 4.8,
+      ease: "sine.inOut"
+    }, exitStart);
 
   var refresh = function () {
     window.ScrollTrigger.refresh();
