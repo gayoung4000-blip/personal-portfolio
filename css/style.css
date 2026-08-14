@@ -5379,7 +5379,7 @@ a {
 
 .site-footer__title {
   position: absolute;
-  top: clamp(1.75rem, 3.5svh, 3rem);
+  top: calc(clamp(1.75rem, 3.5svh, 3rem) + 34px);
   left: 50%;
   width: max-content;
   margin: 0;
@@ -5493,7 +5493,7 @@ a {
 
 @media (max-height: 47rem) and (min-width: 56.01rem) {
   .site-footer__title {
-    top: 1.5rem;
+    top: calc(1.5rem + 34px);
     font-size: clamp(10.5rem, min(18vw, 34svh), 15.5rem);
   }
 
