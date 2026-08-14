@@ -5260,6 +5260,102 @@ a {
 }
 
 /* ==========================================================
+   CONTACT LEAD — horizontal typographic bridge
+   Figma 1523:76
+   ========================================================== */
+.contact-lead {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 280svh;
+  overflow: visible;
+  background: #ece9e0;
+  color: #000;
+}
+
+.contact-lead__sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: visible;
+}
+
+.contact-lead__text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  color: #000;
+  font-family: var(--font-geist), "Inter", sans-serif;
+  font-size: clamp(7rem, 10.42vw, 12.5rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.07em;
+  white-space: nowrap;
+  transform: translate3d(100vw, -50%, 0);
+  will-change: transform;
+  visibility: hidden;
+}
+
+.contact-lead.is-contact-lead-ready .contact-lead__text {
+  visibility: visible;
+}
+
+.contact-lead__char {
+  display: inline-block;
+  white-space: pre;
+  will-change: transform, opacity;
+}
+
+@media (max-width: 64rem) {
+  .contact-lead { height: 250svh; }
+
+  .contact-lead__text {
+    font-size: clamp(5rem, 12vw, 8rem);
+  }
+}
+
+@media (max-width: 48rem) {
+  .contact-lead { height: 220svh; }
+
+  .contact-lead__text {
+    font-size: clamp(3.5rem, 15vw, 6rem);
+    letter-spacing: -0.065em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-lead {
+    height: 100svh;
+    padding-inline: 1rem;
+  }
+
+  .contact-lead__sticky {
+    display: grid;
+    place-items: center;
+  }
+
+  .contact-lead__text {
+    position: static;
+    max-width: calc(100vw - 2rem);
+    font-size: clamp(1.35rem, 5.8vw, 5rem);
+    line-height: 1;
+    text-align: center;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .contact-lead__char {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* ==========================================================
    CONTACT FOOTER — full viewport closing section
    Figma 1050:132
    ========================================================== */
