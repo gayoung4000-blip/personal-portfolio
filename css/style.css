@@ -5055,6 +5055,7 @@ a {
   border-radius: clamp(1.75rem, 2.1vw, 2.5rem);
   overflow: hidden;
   background: transparent;
+  justify-self: end;
 }
 
 .other-work__visual::before {
@@ -5070,6 +5071,7 @@ a {
 .other-work__content {
   align-self: center;
   padding-top: clamp(0rem, 2svh, 1.25rem);
+  justify-self: start;
 }
 
 .other-work__title {
@@ -5267,7 +5269,7 @@ a {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: 280svh;
+  height: 780svh;
   overflow: visible;
   background: #ece9e0;
   color: #000;
@@ -5311,7 +5313,7 @@ a {
 }
 
 @media (max-width: 64rem) {
-  .contact-lead { height: 250svh; }
+  .contact-lead { height: 660svh; }
 
   .contact-lead__text {
     font-size: clamp(5rem, 12vw, 8rem);
@@ -5319,7 +5321,7 @@ a {
 }
 
 @media (max-width: 48rem) {
-  .contact-lead { height: 220svh; }
+  .contact-lead { height: 580svh; }
 
   .contact-lead__text {
     font-size: clamp(3.5rem, 15vw, 6rem);

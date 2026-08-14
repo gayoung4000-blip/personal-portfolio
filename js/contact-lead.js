@@ -33,74 +33,91 @@
     return Math.max(32, window.innerWidth * 0.12);
   };
 
-  var assembledX = function () {
-    return Math.max(24, window.innerWidth * 0.1);
+  var wallX = function () {
+    return window.innerWidth * 0.985;
+  };
+  var assembledThrough = function (index) {
+    var character = characters[index];
+    return wallX() - character.offsetLeft - character.offsetWidth;
   };
   var exitX = function () {
     return -text.scrollWidth - edgeSpace();
   };
 
-  var characterStartX = function (index, element) {
-    var finalLeft = assembledX() + element.offsetLeft;
-    return window.innerWidth + edgeSpace() + index * Math.max(12, window.innerWidth * 0.012) - finalLeft;
+  var characterStartX = function (index) {
+    var wallOffsets = [26, 38, 18, 44, 30, 21, 35, 24];
+    return wallOffsets[index % wallOffsets.length];
   };
   var characterStartY = function (index) {
-    var offsets = [1.12, 0.96, 1.2, 1.02, 1.16];
-    return -window.innerHeight * offsets[index % offsets.length];
+    var verticalOffsets = [-24, 17, -11, 28, -19, 9, -31, 21];
+    return verticalOffsets[index % verticalOffsets.length];
   };
   var characterStartRotation = function (index) {
-    var rotations = [-14, 9, -7, 16, -11, 6];
+    var rotations = [-14, 9, -6, 18, -11, 5, 13, -8];
     return rotations[index % rotations.length];
   };
 
-  window.gsap.set(text, { x: assembledX, y: 0, yPercent: -50 });
-  window.gsap.set(characters, { autoAlpha: 1 });
+  var entranceGaps = [0.42, 0.31, 0.49, 0.36, 0.55, 0.29, 0.46, 0.38];
+  var entranceDurations = [1.62, 1.24, 1.78, 1.38, 1.9, 1.31, 1.7, 1.46];
+  var entranceScales = [1.08, 0.92, 1.04, 0.88, 1.07, 0.95, 1.1, 0.91];
+  var entranceBounces = [2.35, 1.65, 2.05, 1.8, 2.5, 1.7, 2.2, 1.9];
+  var entranceTimes = [];
+  var entranceCursor = 0;
+
+  characters.forEach(function (character, index) {
+    entranceTimes[index] = entranceCursor;
+    entranceCursor += entranceGaps[index % entranceGaps.length];
+  });
+
+  var flowEnd = entranceCursor + 1.9;
+
+  window.gsap.set(text, { x: function () { return assembledThrough(0); }, y: 0, yPercent: -50 });
+  window.gsap.set(characters, { autoAlpha: 0 });
   section.classList.add("is-contact-lead-ready");
 
   var timeline = window.gsap.timeline({
     scrollTrigger: {
       trigger: section,
-      start: "top 85%",
+      start: "top top",
       end: "bottom bottom",
       scrub: 1.15,
       invalidateOnRefresh: true
     }
   });
 
-  timeline
-    .fromTo(text, {
-      x: assembledX,
-      y: 0,
-      yPercent: -50
-    }, {
-      x: assembledX,
-      y: 0,
-      yPercent: -50,
-      duration: 2.2,
-      ease: "none"
-    }, 0)
-    .fromTo(characters, {
-      x: characterStartX,
-      y: characterStartY,
-      scale: function (index) { return index % 3 === 0 ? 1.12 : 0.88; },
-      rotation: characterStartRotation,
-      transformOrigin: "50% 70%"
+  characters.forEach(function (character, index) {
+    if (index > 0) {
+      timeline.to(text, {
+        x: function () { return assembledThrough(index); },
+        duration: entranceGaps[index % entranceGaps.length] * 1.35,
+        ease: "power2.inOut"
+      }, entranceTimes[index]);
+    }
+
+    timeline.fromTo(character, {
+      autoAlpha: 0,
+      x: function () { return characterStartX(index); },
+      y: function () { return characterStartY(index); },
+      scale: entranceScales[index % entranceScales.length],
+      rotation: characterStartRotation(index),
+      transformOrigin: index % 2 === 0 ? "35% 75%" : "70% 35%"
     }, {
       autoAlpha: 1,
       x: 0,
       y: 0,
       scale: 1,
       rotation: 0,
-      duration: 0.8,
-      stagger: 0.04,
-      ease: "back.out(1.9)"
-    }, 0)
-    .to(text, {
+      duration: entranceDurations[index % entranceDurations.length],
+      ease: "back.out(" + entranceBounces[index % entranceBounces.length] + ")"
+    }, entranceTimes[index] + 0.04);
+  });
+
+  timeline.to(text, {
       x: exitX,
       y: 0,
-      duration: 0.9,
+      duration: 1.15,
       ease: "none"
-    }, 2.22);
+    }, flowEnd + 0.25);
 
   var refresh = function () {
     window.ScrollTrigger.refresh();
