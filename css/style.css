@@ -1106,7 +1106,7 @@ a {
   letter-spacing: -0.02em;
   text-align: right;
   white-space: nowrap;
-  transform: translateY(15px);
+  transform: translate(15px, 15px);
 }
 
 /* 3. 좌측 하단 본문 블록 */
@@ -1287,6 +1287,40 @@ a {
 
 .journey__huge-text .tracking-wide {
   letter-spacing: -0.04em;
+}
+
+.journey__to-line {
+  display: inline-flex;
+  align-items: center;
+  width: 6.8em;
+}
+
+.journey__create-caption {
+  margin-left: clamp(0.55rem, 0.75vw, 0.9rem);
+  font-family: var(--font-geist);
+  font-size: clamp(0.55rem, 0.58vw, 0.7rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.journey__see-word {
+  margin-left: auto;
+}
+
+.journey__designed-caption {
+  position: absolute;
+  right: calc(100% + clamp(0.55rem, 0.75vw, 0.9rem));
+  top: 50%;
+  transform: translateY(calc(-50% + 23px));
+  font-family: var(--font-geist);
+  font-size: clamp(0.55rem, 0.58vw, 0.7rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  text-align: right;
+  white-space: nowrap;
 }
 
 /* Journey 라벨 */
