@@ -4753,15 +4753,15 @@ a {
 
 .is-teamwork-text-revealed .teamwork__title-line .teamwork__char,
 .is-teamwork-text-revealed .teamwork__heading p .teamwork__char {
-  animation: teamwork-char-in 780ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: teamwork-char-in 440ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.teamwork__title-line:nth-child(1) .teamwork__char { animation-delay: calc(120ms + var(--char-index, 0) * 36ms); }
-.teamwork__title-line:nth-child(2) .teamwork__char { animation-delay: calc(650ms + var(--char-index, 0) * 36ms); }
-.teamwork__title-line:nth-child(3) .teamwork__char { animation-delay: calc(1120ms + var(--char-index, 0) * 36ms); }
+.teamwork__title-line:nth-child(1) .teamwork__char { animation-delay: calc(60ms + var(--char-index, 0) * 12ms); }
+.teamwork__title-line:nth-child(2) .teamwork__char { animation-delay: calc(300ms + var(--char-index, 0) * 12ms); }
+.teamwork__title-line:nth-child(3) .teamwork__char { animation-delay: calc(520ms + var(--char-index, 0) * 12ms); }
 .is-teamwork-text-revealed .teamwork__heading p .teamwork__char {
-  animation-duration: 700ms;
-  animation-delay: calc(1700ms + var(--char-index, 0) * 26ms);
+  animation-duration: 380ms;
+  animation-delay: calc(760ms + var(--char-index, 0) * 9ms);
 }
 
 @keyframes teamwork-char-in {
@@ -4830,7 +4830,7 @@ a {
 }
 
 .is-teamwork-images-revealed .teamwork__card:not(.teamwork__card--clone) {
-  animation: teamwork-card-in 1140ms cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay) forwards;
+  animation: teamwork-card-in 620ms cubic-bezier(0.22, 1, 0.36, 1) var(--card-delay) forwards;
 }
 
 @keyframes teamwork-card-in {
@@ -4875,7 +4875,7 @@ a {
 }
 
 .is-teamwork-images-revealed .teamwork__actions {
-  animation: teamwork-actions-in 780ms cubic-bezier(0.22, 1, 0.36, 1) 2100ms forwards;
+  animation: teamwork-actions-in 480ms cubic-bezier(0.22, 1, 0.36, 1) 980ms forwards;
 }
 
 @keyframes teamwork-actions-in {
@@ -5075,6 +5075,7 @@ a {
   align-self: center;
   padding-top: clamp(0rem, 2svh, 1.25rem);
   justify-self: start;
+  transform: translateX(20px);
 }
 
 .other-work__title {
@@ -5099,8 +5100,8 @@ a {
 }
 
 .is-other-work-revealed .other-work__char {
-  animation: other-work-char-in 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(900ms + var(--other-char-index, 0) * 26ms);
+  animation: other-work-char-in 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(620ms + var(--other-char-index, 0) * 14ms);
 }
 
 @keyframes other-work-char-in {
@@ -5136,8 +5137,8 @@ a {
 }
 
 .is-other-work-revealed .other-work__description-char {
-  animation: other-work-description-char-in 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(2050ms + var(--other-description-index, 0) * 15ms);
+  animation: other-work-description-char-in 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(1280ms + var(--other-description-index, 0) * 8ms);
 }
 
 @keyframes other-work-description-char-in {
@@ -5168,11 +5169,11 @@ a {
 }
 
 .is-other-work-revealed .other-work__button {
-  animation: other-work-copy-in 650ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: other-work-copy-in 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .is-other-work-revealed .other-work__button {
-  animation-delay: calc(2550ms + var(--other-description-count, 0) * 15ms);
+  animation-delay: calc(1580ms + var(--other-description-count, 0) * 8ms);
 }
 
 @keyframes other-work-copy-in {
@@ -5239,6 +5240,10 @@ a {
 
   .other-work__title > span {
     white-space: normal;
+  }
+
+  .other-work__content {
+    transform: none;
   }
 
   .other-work__visual {

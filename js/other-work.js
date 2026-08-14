@@ -73,7 +73,7 @@
         end: "top 28%",
         scrub: 0.45,
         onUpdate: function (self) {
-          if (self.progress >= 0.58) reveal();
+          if (self.progress >= 0.48) reveal();
         },
         onLeave: reveal
       }

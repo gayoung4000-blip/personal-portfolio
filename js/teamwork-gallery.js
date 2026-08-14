@@ -60,7 +60,7 @@
 
   var visibleCards = Array.prototype.slice.call(track.querySelectorAll(".teamwork__card:not(.teamwork__card--clone)"));
   visibleCards.forEach(function (card, index) {
-    card.style.setProperty("--card-delay", index * 140 + "ms");
+    card.style.setProperty("--card-delay", index * 65 + "ms");
   });
 
   function allCards() {
@@ -101,9 +101,7 @@
     if (!section || textRevealed) return;
     textRevealed = true;
     section.classList.add("is-teamwork-text-revealed");
-    var descriptionLength = description ? description.querySelectorAll(".teamwork__char").length : 0;
-    var textDuration = Math.max(2800, 1700 + Math.max(0, descriptionLength - 1) * 26 + 700);
-    window.setTimeout(revealImages, textDuration);
+    window.setTimeout(revealImages, 1120);
   }
 
   if (section && reduceMotion) {
