@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    if (new URLSearchParams(window.location.search).get("case-studies") === "complete") {
+      document.documentElement.classList.add("is-case-studies-return");
+    }
+  </script>
   <link rel="icon" href="img/gy-logo.svg" type="image/svg+xml" />
   <link rel="icon" href="img/favicon-16x16.png" type="image/png" sizes="16x16" />
   <link rel="icon" href="img/favicon-32x32.png" type="image/png" sizes="32x32" />
@@ -16,7 +21,7 @@
     href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Instrument+Sans:wght@400;600&family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;600;700&family=Playfair+Display:ital@1&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260818-chatbot-white-answer" />
+  <link rel="stylesheet" href="css/style.css?v=20260818-journey-menu-only-11" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -948,18 +953,20 @@
         </h2>
       </div>
 
-      <div class="study-case" aria-label="Study case cards" data-node-id="1578:78">
+      <div class="study-case" id="case-studies-cards" aria-label="Study case cards" data-node-id="1578:78">
         <article class="study-case__card study-case__card--pumto" aria-labelledby="pumto-study-case-title" data-node-id="1578:93">
-          <h2 class="study-case__title" id="pumto-study-case-title" data-node-id="1578:75">
-            <span>PUMTO</span>
-            <span>CASE STUDY</span>
-          </h2>
-          <p class="study-case__number" data-node-id="1578:76" aria-label="첫 번째 케이스 스터디">1</p>
-          <p class="study-case__description" data-node-id="1578:77">
-            <span>아이에게 맞는 미술학원을 찾고,</span>
-            <span>작품과 성장의 순간까지</span>
-            <span>한곳에서 기록합니다.</span>
-          </p>
+          <a class="study-case__link" href="pumto-case-study.html" data-pumto-case-open aria-label="PUMTO 케이스 스터디 자세히 보기">
+            <h2 class="study-case__title" id="pumto-study-case-title" data-node-id="1578:75">
+              <span>PUMTO</span>
+              <span>CASE STUDY</span>
+            </h2>
+            <p class="study-case__number" data-node-id="1578:76" aria-label="첫 번째 케이스 스터디">1</p>
+            <p class="study-case__description" data-node-id="1578:77">
+              <span>아이에게 맞는 미술학원을 찾고,</span>
+              <span>작품과 성장의 순간까지</span>
+              <span>한곳에서 기록합니다.</span>
+            </p>
+          </a>
         </article>
 
         <article class="study-case__card study-case__card--ilkwang" aria-labelledby="ilkwang-study-case-title" data-node-id="1578:94">
@@ -1123,6 +1130,20 @@
 
   </main>
 
+  <div class="case-study-viewer" data-case-study-viewer aria-hidden="true">
+    <iframe
+      class="case-study-viewer__frame"
+      src="pumto-case-study.html?embed=1&amp;v=20260818-6"
+      title="PUMTO 케이스 스터디"
+      loading="eager"
+      scrolling="yes"
+      data-case-study-frame
+    ></iframe>
+  </div>
+  <button class="case-study-global-back" type="button" data-case-study-global-back aria-label="케이스 스터디를 닫고 카드 목록으로 돌아가기">
+    <span aria-hidden="true">←</span> 뒤로 가기
+  </button>
+
 
   <footer class="site-footer" id="contact" aria-labelledby="contact-title">
     <h2 class="site-footer__title" id="contact-title">CONTACT</h2>
@@ -1170,7 +1191,7 @@
   <script src="js/gallery-video.js?v=20260810-journey-fixed-glass-frame-2"></script>
   <script src="js/vlogo.js?v=20260818-clone-three-cards-12"></script>
   <script src="js/main.js?v=20260813-jaran-mobile-radius-17"></script>
-  <script src="js/case-studies-assembly.js?v=20260818-fourth-card-8"></script>
+  <script src="js/case-studies-assembly.js?v=20260818-journey-menu-only-21"></script>
   <script src="js/chatbot.js?v=20260818-chatbot-readability-4"></script>
   <script src="js/inapp-viewer.js?v=20260814-1"></script>
   <script src="js/teamwork-gallery.js?v=20260814-teamwork-fast-reveal-11"></script>

@@ -20,6 +20,7 @@
   --ivory: #ece9e0;     /* About 돔, 헤더, Journey 배경 등 (통일됨) */
   --charcoal: #191919;  /* 본문 텍스트 등 */
   --gold: #b69f64;      /* 포인트/ASK ME 버튼 등 */
+  --case-accent: #ffa046;
 
   /* 폰트 — Figma(hero2): 로고/크레딧 Plus Jakarta Sans, 내비 Prata(+Home만 Crimson Text) */
   --font-geist: "Geist", "Geist Fallback", "Noto Sans KR", sans-serif;
@@ -64,6 +65,10 @@ body {
   background-color: var(--bg);
   overflow-x: hidden;
   overscroll-behavior-y: none;
+}
+
+html.is-case-studies-return:not(.is-case-studies-return-ready) body {
+  opacity: 0;
 }
 
 .back-to-video {
@@ -4525,6 +4530,141 @@ a {
   text-align: center;
   transform: translate(-50%, -50%);
   transform-origin: 50% 50%;
+}
+
+.is-case-studies-assembly .study-case__card {
+  pointer-events: auto;
+}
+
+.study-case__link {
+  position: absolute;
+  inset: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.study-case__link:focus-visible {
+  outline: 0.1875rem solid currentColor;
+  outline-offset: -0.5rem;
+}
+
+.case-study-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.case-study-viewer.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.case-study-viewer__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  background: var(--ink);
+}
+
+.case-study-viewer__toolbar {
+  position: absolute;
+  top: clamp(0.75rem, 1.4vw, 1.5rem);
+  left: clamp(0.75rem, 1.4vw, 1.5rem);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.case-study-viewer__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  border: 0.0625rem solid rgba(23, 23, 28, 0.18);
+  border-radius: 999rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--charcoal);
+  box-shadow: 0 0.5rem 1.5rem rgba(23, 23, 28, 0.14);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(0.75rem);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.case-study-viewer__back:hover,
+.case-study-viewer__back:focus-visible {
+  background: var(--case-accent);
+  color: var(--bg);
+  outline: none;
+}
+
+html.is-case-study-viewer-open,
+html.is-case-study-viewer-open body {
+  overflow: hidden;
+}
+
+.case-study-global-back {
+  position: fixed;
+  top: 2.375rem;
+  left: clamp(7.5rem, 12vw, 15rem);
+  z-index: 1001;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border: 0.0625rem solid rgba(23, 23, 28, 0.16);
+  border-radius: 999rem;
+  background: var(--bg);
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-size: clamp(0.75rem, 0.73vw, 0.875rem);
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 0.35rem 1rem rgba(23, 23, 28, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+html.is-case-study-viewer-open .case-study-global-back {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+html.is-case-study-viewer-open .global-menu-btn,
+html.is-case-study-viewer-open .journey-menu-panel {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.case-study-global-back:hover,
+.case-study-global-back:focus-visible {
+  border-color: var(--case-accent);
+  background: var(--case-accent);
+  color: var(--bg);
+  outline: none;
+}
+
+@media (max-width: 48rem) {
+  .case-study-global-back {
+    left: 5.25rem;
+    padding: 0.45rem 0.65rem;
+  }
 }
 
 .study-case__card--pumto {

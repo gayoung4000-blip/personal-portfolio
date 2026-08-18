@@ -9,12 +9,124 @@
   var secondCard = document.querySelector(".study-case__card--ilkwang");
   var thirdCard = document.querySelector(".study-case__card--wrun");
   var fourthCard = document.querySelector(".study-case__card--jaran");
+  var pumtoCaseLink = document.querySelector("[data-pumto-case-open]");
+  var caseStudyViewer = document.querySelector("[data-case-study-viewer]");
+  var caseStudyFrame = document.querySelector("[data-case-study-frame]");
+  var caseStudyGlobalBack = document.querySelector("[data-case-study-global-back]");
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var shouldShowCompletedCards = new URLSearchParams(window.location.search).get("case-studies") === "complete";
+  var caseStudyReturnFocus = null;
 
-  if (!sequence || !section || !headline || !subtitle || !firstCard || !secondCard || !thirdCard || !fourthCard) return;
-  if (reducedMotion || !window.gsap || !window.ScrollTrigger) return;
+  function revealCompletedCardsPage() {
+    document.documentElement.classList.add("is-case-studies-return-ready");
+  }
+
+  function openPumtoCaseStudy(event) {
+    if (!caseStudyViewer || !caseStudyFrame) return;
+
+    event.preventDefault();
+    caseStudyReturnFocus = document.activeElement;
+    document.body.classList.remove("is-journey-menu-open");
+    document.documentElement.classList.remove("is-journey-menu-light-bg");
+
+    var journeyMenuButton = document.querySelector(".global-menu-btn");
+    if (journeyMenuButton) {
+      journeyMenuButton.setAttribute("aria-expanded", "false");
+      journeyMenuButton.setAttribute("aria-label", "Open navigation");
+      journeyMenuButton.textContent = "MENU";
+    }
+
+    caseStudyViewer.classList.add("is-open");
+    caseStudyViewer.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("is-case-study-viewer-open");
+
+    try {
+      caseStudyFrame.contentWindow.scrollTo(0, 0);
+    } catch (error) {
+      // Same-origin iframe이 준비되기 전이어도 레이어 열기는 계속 진행합니다.
+    }
+
+    if (caseStudyGlobalBack) caseStudyGlobalBack.focus({ preventScroll: true });
+  }
+
+  function closePumtoCaseStudy() {
+    if (!caseStudyViewer || !caseStudyViewer.classList.contains("is-open")) return;
+
+    caseStudyViewer.classList.remove("is-open");
+    caseStudyViewer.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("is-case-study-viewer-open");
+
+    if (caseStudyReturnFocus && typeof caseStudyReturnFocus.focus === "function") {
+      caseStudyReturnFocus.focus({ preventScroll: true });
+    }
+  }
+
+  if (pumtoCaseLink && caseStudyViewer && caseStudyFrame && caseStudyGlobalBack) {
+    pumtoCaseLink.addEventListener("click", openPumtoCaseStudy);
+    caseStudyGlobalBack.addEventListener("click", closePumtoCaseStudy);
+
+    window.addEventListener("message", function (event) {
+      if (event.origin === window.location.origin && event.data === "close-pumto-case-study") {
+        closePumtoCaseStudy();
+      }
+    });
+
+    window.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closePumtoCaseStudy();
+    });
+  }
+
+  if (!sequence || !section || !headline || !subtitle || !firstCard || !secondCard || !thirdCard || !fourthCard) {
+    revealCompletedCardsPage();
+    return;
+  }
+  if (reducedMotion || !window.gsap || !window.ScrollTrigger) {
+    sequence.classList.add("is-card-hover-ready");
+    requestAnimationFrame(revealCompletedCardsPage);
+    return;
+  }
 
   gsap.registerPlugin(ScrollTrigger);
+
+  var cards = [firstCard, secondCard, thirdCard, fourthCard];
+  var cardHoverReady = false;
+  var cardRestingY = new WeakMap();
+
+  function handleCardEnter(event) {
+    if (!cardHoverReady) return;
+
+    var card = event.currentTarget;
+    var restingY = Number(gsap.getProperty(card, "y"));
+    var lift = Math.min(24, Math.max(16, card.offsetHeight * 0.04));
+
+    cardRestingY.set(card, restingY);
+    gsap.to(card, {
+      y: restingY - lift,
+      duration: 0.22,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  }
+
+  function handleCardLeave(event) {
+    var card = event.currentTarget;
+    if (!cardRestingY.has(card)) return;
+
+    gsap.to(card, {
+      y: cardRestingY.get(card),
+      duration: 0.22,
+      ease: "power2.out",
+      overwrite: "auto",
+      onComplete: function () {
+        cardRestingY.delete(card);
+      },
+    });
+  }
+
+  cards.forEach(function (card) {
+    card.addEventListener("mouseenter", handleCardEnter);
+    card.addEventListener("mouseleave", handleCardLeave);
+  });
 
   function splitCharacters(element, lineIndex) {
     var text = element.textContent;
@@ -166,6 +278,7 @@
 
     document.documentElement.classList.add("is-case-studies-assembly");
 
+    var hoverReadyTime = Infinity;
     var timeline = gsap.timeline({
       scrollTrigger: {
         trigger: sequence,
@@ -175,6 +288,9 @@
         scrub: 0.65,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onUpdate: function () {
+          cardHoverReady = timeline.time() >= hoverReadyTime;
+        },
       },
     });
 
@@ -333,7 +449,30 @@
       }, "<")
       .to({}, { duration: 0.5 });
 
+    hoverReadyTime = timeline.duration() - 0.5;
+
+    if (shouldShowCompletedCards && timeline.scrollTrigger) {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          var completedCardsPosition = Math.max(
+            timeline.scrollTrigger.start,
+            timeline.scrollTrigger.end - 2
+          );
+
+          window.scrollTo(0, completedCardsPosition);
+          ScrollTrigger.update();
+          requestAnimationFrame(revealCompletedCardsPage);
+        });
+      });
+    } else {
+      revealCompletedCardsPage();
+    }
+
     window.addEventListener("pagehide", function () {
+      cards.forEach(function (card) {
+        card.removeEventListener("mouseenter", handleCardEnter);
+        card.removeEventListener("mouseleave", handleCardLeave);
+      });
       if (timeline.scrollTrigger) timeline.scrollTrigger.kill();
       timeline.kill();
     }, { once: true });
