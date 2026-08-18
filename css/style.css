@@ -4183,6 +4183,20 @@ a {
   white-space: nowrap;
 }
 
+.work-page__overlay--ilkw .work-page__responsibilities {
+  margin-top: 1.35em;
+  font-size: clamp(0.6875rem, calc(2.85cqw - 4px), 1.0625rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.work-page__overlay--ilkw .work-page__responsibilities b {
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
 .work-page__overlay--wrun {
   background: rgba(0, 0, 0, 0.82);
 }
@@ -4198,6 +4212,20 @@ a {
 
 .work-page__overlay--wrun .work-page__role {
   white-space: nowrap;
+}
+
+.work-page__overlay--wrun .work-page__responsibilities {
+  margin-top: 1.35em;
+  font-size: clamp(0.6875rem, calc(2.85cqw - 4px), 1.0625rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.work-page__overlay--wrun .work-page__responsibilities b {
+  font-size: 1.1em;
+  font-weight: 700;
 }
 
 .work-page__contribution {
@@ -4779,6 +4807,11 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   .work-page__overlay--wrun .work-page__description br,
   .work-page__overlay--wrun .work-page__responsibilities br {
     display: none;
+  }
+
+  .work-page__overlay--ilkw .work-page__responsibilities,
+  .work-page__overlay--wrun .work-page__responsibilities {
+    white-space: normal;
   }
 
   .work-page__index {
