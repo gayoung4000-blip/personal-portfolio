@@ -2381,8 +2381,8 @@ a {
 .chatbot-message--bot {
   justify-self: start;
   border-bottom-left-radius: 0.25rem;
-  background: #21201d;
-  color: #faf7f2;
+  background: #fff;
+  color: #191919;
 }
 
 @keyframes chatbot-message-in {
@@ -5116,7 +5116,7 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   top: var(--clone-cursor-y, 50%);
   display: grid;
   place-items: center;
-  width: clamp(5.25rem, 7.3vw, 8.75rem);
+  width: clamp(4.5rem, 6.2vw, 7.5rem);
   aspect-ratio: 1;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 50%;
