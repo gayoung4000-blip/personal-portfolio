@@ -909,7 +909,7 @@ a {
 
 .about__roles {
   position: relative;
-  top: 10px;
+  top: 20px;
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 3.64vw, 4.375rem); /* 70px @ 1920 */
   line-height: 1.1;
