@@ -5892,7 +5892,7 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   margin: 0 0 auto;
   padding-top: clamp(3.2rem, 8svh, 6.5rem);
   color: #d2d2d2;
-  font: 500 clamp(1.25rem, 1.57vw, 1.875rem)/1.29 "Pretendard", "Noto Sans KR", sans-serif;
+  font: 500 clamp(0.9375rem, 0.8vw, 1rem)/1.29 "Pretendard", "Noto Sans KR", sans-serif;
   letter-spacing: -0.035em;
 }
 
