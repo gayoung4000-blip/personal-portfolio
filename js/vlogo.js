@@ -1607,7 +1607,7 @@
       cloneCodingScene &&
       cloneCodingViewport &&
       cloneCodingTrack &&
-      cloneCodingCards.length === 7
+      cloneCodingCards.length === 3
     ) {
       var getCloneCodingHeaderOffset = function () {
         var globalHeader = document.querySelector(".global-header");
@@ -1696,7 +1696,7 @@
               return "top " + getCloneCodingHeaderOffset() + "px";
             },
             end: function () {
-              return "+=" + Math.max(window.innerHeight * 7.6, 4100);
+              return "+=" + Math.max(window.innerHeight * 3.8, 2200);
             },
             pin: cloneCodingScene,
             pinSpacing: true,
@@ -1750,50 +1750,6 @@
             {
               x: function () {
                 return getCloneCodingCardX(2);
-              },
-              duration: 0.88,
-              ease: "power1.inOut",
-            }
-          )
-          .to({}, { duration: 0.18 })
-          .to(
-            cloneCodingTrack,
-            {
-              x: function () {
-                return getCloneCodingCardX(3);
-              },
-              duration: 0.88,
-              ease: "power1.inOut",
-            }
-          )
-          .to({}, { duration: 0.18 })
-          .to(
-            cloneCodingTrack,
-            {
-              x: function () {
-                return getCloneCodingCardX(4);
-              },
-              duration: 0.88,
-              ease: "power1.inOut",
-            }
-          )
-          .to({}, { duration: 0.18 })
-          .to(
-            cloneCodingTrack,
-            {
-              x: function () {
-                return getCloneCodingCardX(5);
-              },
-              duration: 0.88,
-              ease: "power1.inOut",
-            }
-          )
-          .to({}, { duration: 0.18 })
-          .to(
-            cloneCodingTrack,
-            {
-              x: function () {
-                return getCloneCodingCardX(6);
               },
               duration: 0.88,
               ease: "power1.inOut",
