@@ -908,6 +908,8 @@ a {
 }
 
 .about__roles {
+  position: relative;
+  top: 10px;
   font-family: var(--font-serif);
   font-size: clamp(2.5rem, 3.64vw, 4.375rem); /* 70px @ 1920 */
   line-height: 1.1;
@@ -926,6 +928,8 @@ a {
 }
 
 .about__desc {
+  position: relative;
+  top: -15px;
   font-family: var(--font-sans);
   font-size: clamp(1rem, 1.19vw, 1.4375rem); /* 23px @ 1920 */
   font-weight: 400;
@@ -966,7 +970,7 @@ a {
   border-bottom: 1px solid var(--charcoal);
   transition: opacity 0.2s;
   will-change: clip-path, filter;
-  transform: translateY(-25px);
+  transform: translateY(-40px);
 }
 
 .about__scroll-btn:hover {
