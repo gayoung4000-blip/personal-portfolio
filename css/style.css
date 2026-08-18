@@ -4484,6 +4484,7 @@ a {
 
 /* PUMTO STUDY CASE — Figma 1523:74 */
 .study-case {
+  --study-case-card-width: min(78vw, 47.9svh, 29.9375rem);
   display: grid;
   min-height: 100svh;
   place-items: center;
@@ -4493,16 +4494,55 @@ a {
 }
 
 .study-case__card {
-  position: relative;
-  width: min(78vw, 29.9375rem);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--study-case-card-width);
   aspect-ratio: 479 / 550;
   overflow: hidden;
-  border-radius: clamp(1.25rem, 1.563vw, 1.875rem);
+  border-radius: clamp(1rem, min(1.563vw, 3svh), 1.875rem);
   background: #ffa046;
   font-family: "Inter", "Noto Sans KR", sans-serif;
   font-style: normal;
   font-weight: 500;
   text-align: center;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.study-case__card--pumto {
+  z-index: 1;
+}
+
+.study-case__card--ilkwang {
+  z-index: 2;
+  background: #fad98e;
+}
+
+.study-case__card--wrun {
+  z-index: 3;
+  background: #d4ff3f;
+}
+
+.study-case__card--jaran {
+  z-index: 4;
+  background: #ece9e0;
+}
+
+html:not(.is-case-studies-assembly) .study-case__card--pumto {
+  transform: translate(calc(-50% - min(26.725rem, calc((100vw - var(--study-case-card-width) - 1.5rem) / 2))), -50%) rotate(-8.47deg);
+}
+
+html:not(.is-case-studies-assembly) .study-case__card--ilkwang {
+  transform: translate(calc(-50% - min(10.08125rem, calc((100vw - var(--study-case-card-width) - 1.5rem) / 2))), calc(-50% - 1.5rem)) rotate(-2.54deg);
+}
+
+html:not(.is-case-studies-assembly) .study-case__card--wrun {
+  transform: translate(calc(-50% + min(8.63125rem, calc((100vw - var(--study-case-card-width) - 1.5rem) / 2))), calc(-50% - 1.4375rem)) rotate(2.3deg);
+}
+
+html:not(.is-case-studies-assembly) .study-case__card--jaran {
+  transform: translate(calc(-50% + min(26.821875rem, calc((100vw - var(--study-case-card-width) - 1.5rem) / 2))), calc(-50% + 0.1875rem)) rotate(7.89deg);
 }
 
 .study-case__title,
@@ -4519,7 +4559,7 @@ a {
   top: 11.273%;
   display: flex;
   flex-direction: column;
-  font-size: clamp(1.75rem, 2.604vw, 3.125rem);
+  font-size: clamp(1.75rem, min(2.604vw, 5svh), 3.125rem);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -4531,7 +4571,7 @@ a {
 
 .study-case__number {
   top: 44.727%;
-  font-size: clamp(4.5rem, 5.729vw, 6.875rem);
+  font-size: clamp(4.5rem, min(5.729vw, 11svh), 6.875rem);
   line-height: 0.727;
   letter-spacing: -0.05em;
 }
@@ -4540,7 +4580,7 @@ a {
   top: 74.545%;
   display: flex;
   flex-direction: column;
-  font-size: clamp(0.8125rem, 1.042vw, 1.25rem);
+  font-size: clamp(0.8125rem, min(1.042vw, 2svh), 1.25rem);
   line-height: 1.25;
   letter-spacing: -0.05em;
 }

@@ -5,10 +5,13 @@
   var section = document.querySelector(".case-studies-intro");
   var headline = document.querySelector(".case-studies-intro__headline");
   var subtitle = document.querySelector(".case-studies-intro__subtitle");
-  var card = document.querySelector(".study-case__card");
+  var firstCard = document.querySelector(".study-case__card--pumto");
+  var secondCard = document.querySelector(".study-case__card--ilkwang");
+  var thirdCard = document.querySelector(".study-case__card--wrun");
+  var fourthCard = document.querySelector(".study-case__card--jaran");
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (!sequence || !section || !headline || !subtitle || !card) return;
+  if (!sequence || !section || !headline || !subtitle || !firstCard || !secondCard || !thirdCard || !fourthCard) return;
   if (reducedMotion || !window.gsap || !window.ScrollTrigger) return;
 
   gsap.registerPlugin(ScrollTrigger);
@@ -87,6 +90,12 @@
     };
   }
 
+  function getResponsiveCardOffset(card, ratio) {
+    var desiredOffset = card.offsetWidth * Math.abs(ratio);
+    var availableOffset = Math.max(0, (window.innerWidth - card.offsetWidth - 24) / 2);
+    return Math.sign(ratio) * Math.min(desiredOffset, availableOffset);
+  }
+
   function initialize() {
     splitCharacters(headline, 0);
     splitCharacters(subtitle, 1);
@@ -110,9 +119,47 @@
       },
       willChange: "width, transform, opacity",
     });
-    gsap.set(card, {
+    gsap.set(firstCard, {
       autoAlpha: 0,
       scale: 0.78,
+      x: 0,
+      y: 0,
+      xPercent: -50,
+      yPercent: -50,
+      rotation: 0,
+      transformOrigin: "50% 50%",
+      willChange: "transform, opacity",
+    });
+    gsap.set(secondCard, {
+      autoAlpha: 0,
+      scale: 0.78,
+      x: 0,
+      y: 0,
+      xPercent: -50,
+      yPercent: -50,
+      rotation: 0,
+      transformOrigin: "50% 50%",
+      willChange: "transform, opacity",
+    });
+    gsap.set(thirdCard, {
+      autoAlpha: 0,
+      scale: 0.78,
+      x: 0,
+      y: 0,
+      xPercent: -50,
+      yPercent: -50,
+      rotation: 0,
+      transformOrigin: "50% 50%",
+      willChange: "transform, opacity",
+    });
+    gsap.set(fourthCard, {
+      autoAlpha: 0,
+      scale: 0.78,
+      x: 0,
+      y: 0,
+      xPercent: -50,
+      yPercent: -50,
+      rotation: 0,
       transformOrigin: "50% 50%",
       willChange: "transform, opacity",
     });
@@ -123,7 +170,7 @@
       scrollTrigger: {
         trigger: sequence,
         start: "top top",
-        end: "+=480%",
+        end: "+=740%",
         pin: true,
         scrub: 0.65,
         anticipatePin: 1,
@@ -177,10 +224,10 @@
         duration: 0.62,
         ease: "power2.in",
       }, scatterStart)
-      .set(card, {
+      .set(firstCard, {
         autoAlpha: 1,
       }, scatterStart + 0.08)
-      .to(card, {
+      .to(firstCard, {
         scale: 1,
         duration: 0.12,
         ease: "back.out(1.35)",
@@ -190,7 +237,101 @@
         duration: 0.1,
         ease: "power2.out",
       }, scatterStart + 0.82)
-      .to({}, { duration: 0.34 });
+      .to({}, { duration: 0.28 })
+      .to(firstCard, {
+        x: function () {
+          return getResponsiveCardOffset(firstCard, -0.27035);
+        },
+        y: 10,
+        rotation: -2.46,
+        duration: 0.42,
+        ease: "power2.inOut",
+      })
+      .set(secondCard, {
+        autoAlpha: 1,
+      }, "<0.1")
+      .to(secondCard, {
+        x: function () {
+          return getResponsiveCardOffset(secondCard, 0.27035);
+        },
+        scale: 1,
+        rotation: 4.17,
+        duration: 0.42,
+        ease: "back.out(1.2)",
+      }, "<")
+      .to({}, { duration: 0.42 })
+      .to(firstCard, {
+        x: function () {
+          return getResponsiveCardOffset(firstCard, -0.5833);
+        },
+        y: 0,
+        rotation: -6.16,
+        duration: 0.48,
+        ease: "power2.inOut",
+      })
+      .to(secondCard, {
+        x: function () {
+          return getResponsiveCardOffset(secondCard, -0.0258);
+        },
+        y: -12,
+        rotation: -0.24,
+        duration: 0.48,
+        ease: "power2.inOut",
+      }, "<")
+      .set(thirdCard, {
+        autoAlpha: 1,
+      }, "<0.1")
+      .to(thirdCard, {
+        x: function () {
+          return getResponsiveCardOffset(thirdCard, 0.5987);
+        },
+        scale: 1,
+        rotation: 4.61,
+        duration: 0.48,
+        ease: "back.out(1.2)",
+      }, "<")
+      .to({}, { duration: 0.46 })
+      .to(firstCard, {
+        x: function () {
+          return getResponsiveCardOffset(firstCard, -0.8927);
+        },
+        y: 0,
+        rotation: -8.47,
+        duration: 0.5,
+        ease: "power2.inOut",
+      })
+      .to(secondCard, {
+        x: function () {
+          return getResponsiveCardOffset(secondCard, -0.3368);
+        },
+        y: -24,
+        rotation: -2.54,
+        duration: 0.5,
+        ease: "power2.inOut",
+      }, "<")
+      .to(thirdCard, {
+        x: function () {
+          return getResponsiveCardOffset(thirdCard, 0.2883);
+        },
+        y: -23,
+        rotation: 2.3,
+        duration: 0.5,
+        ease: "power2.inOut",
+      }, "<")
+      .set(fourthCard, {
+        autoAlpha: 1,
+      }, "<0.1")
+      .to(fourthCard, {
+        x: function () {
+          return getResponsiveCardOffset(fourthCard, 0.8959);
+        },
+        y: 3,
+        scale: 1,
+        rotation: 7.89,
+        duration: 0.5,
+        ease: "back.out(1.2)",
+      }, "<")
+      .to({}, { duration: 0.5 });
 
     window.addEventListener("pagehide", function () {
       if (timeline.scrollTrigger) timeline.scrollTrigger.kill();
