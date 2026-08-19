@@ -150,8 +150,10 @@
   // ----- 데스크톱 전용 (모바일은 CSS에서 전환 구조 해제) -----
   // [최적화] 개발자 도구 오픈 등으로 가로 폭이 좁아질 때 데스크톱 애니메이션이 
   // 통째로 파괴되는 현상(matchMedia Revert)을 막기 위해 초기 로드 시점 폭으로 고정합니다.
+  var hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
   var isMobileLandscape = window.matchMedia("(pointer: coarse) and (orientation: landscape) and (max-height: 430px)").matches;
-  var isDesktop = window.innerWidth >= 769 && !isMobileLandscape;
+  var isMobileExperience = (window.innerWidth <= 768 && hasCoarsePointer) || isMobileLandscape;
+  var isDesktop = !isMobileExperience;
 
   // 로고 안 영상 → 확대 → 콜라주 전환은 모든 화면에서 실행한다.
   // 이후의 복잡한 가로 Journey/Skills 모션만 데스크톱으로 제한한다.
@@ -1050,8 +1052,8 @@
         ScrollTrigger.create({
           trigger: ".journey__ending-img",
           containerAnimation: tlJourney,
-          start: "left -8%",
-          end: "left -25%",
+          start: isDesktop ? "left -8%" : "left 82%",
+          end: isDesktop ? "left -25%" : "left 18%",
           scrub: 0.65,
           animation: tlJourney4Swap,
         });
@@ -1095,8 +1097,8 @@
         ScrollTrigger.create({
           trigger: insightText,
           containerAnimation: tlJourney,
-          start: "left 85%",   // 단락이 오른쪽에서 들어오기 시작할 때
-          end: "left 18%",     // 조금 더 이른 지점에서 흰색 하이라이트 완성
+          start: isDesktop ? "left 85%" : "left 78%",
+          end: isDesktop ? "left 18%" : "left 12%",
           scrub: true,
           animation: tlInsight,
         });
@@ -1150,8 +1152,8 @@
           ScrollTrigger.create({
             trigger: ".journey__bouquet",
             containerAnimation: tlJourney,
-            start: "left 60%",
-            end: "left 38%",
+            start: isDesktop ? "left 60%" : "left 78%",
+            end: isDesktop ? "left 38%" : "left 24%",
             scrub: true,
             animation: tlJourney5Swap,
           });
@@ -1364,9 +1366,9 @@
         // Figma 885:722 / 885:803의 동시 노출 위치를 시간축으로 환산한 값.
         // 모든 카드는 같은 픽셀 속도로 움직이고 시작 시점만 겹친다.
         var skillsCardStartUnits = isMobileSkills
-          ? [0, 0.34, 0.72, 1.08]
+          ? [0, 0.46, 0.94, 1.42]
           : [0, 0.395, 0.921, 1.399];
-        var skillsTextHoldUnits = isMobileSkills ? 0.36 : 0.75;
+        var skillsTextHoldUnits = isMobileSkills ? 0.3 : 0.75;
         var cardFullTravelDuration = function (card) {
           return cardTravelDuration(cardEntryY(card) - cardExitY(card));
         };
@@ -1415,11 +1417,12 @@
           }, cardStartUnit);
 
           if (isTabletSkills || isMobileSkills) {
+            var cardFadeStart = isMobileSkills ? 0.68 : 0.78;
             skillsTimeline.to(card, {
               autoAlpha: 0,
               duration: Math.max(0.18, cardDurationUnit * 0.22),
               ease: "power1.in",
-            }, cardStartUnit + cardDurationUnit * 0.78);
+            }, cardStartUnit + cardDurationUnit * cardFadeStart);
           }
 
           skillsTimeline.set(card, {

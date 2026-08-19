@@ -6877,7 +6877,7 @@ body * {
    Mobile responsive flow
    Desktop pinning becomes an intentional vertical story below 760px.
    ========================================================== */
-@media (max-width: 47.5rem), (pointer: coarse) and (orientation: landscape) and (max-height: 26.875rem) {
+@media (pointer: coarse) and (max-width: 47.5rem), (pointer: coarse) and (orientation: landscape) and (max-height: 26.875rem) {
   .global-menu-btn {
     top: max(0.75rem, env(safe-area-inset-top));
     right: 0.75rem;
@@ -7609,7 +7609,7 @@ body * {
   }
 }
 
-@media (max-width: 23.375rem) {
+@media (pointer: coarse) and (max-width: 23.375rem) {
   .hero2__nav {
     width: 72%;
     gap: 0.3rem 0.6rem;
@@ -7755,7 +7755,7 @@ body * {
 /* ==========================================================
    Mobile Journey — vertical input, horizontal storytelling
    ========================================================== */
-@media (max-width: 47.5rem), (pointer: coarse) and (orientation: landscape) and (max-height: 26.875rem) {
+@media (pointer: coarse) and (max-width: 47.5rem), (pointer: coarse) and (orientation: landscape) and (max-height: 26.875rem) {
   .journey {
     width: 100%;
     height: 100svh;
@@ -7790,7 +7790,7 @@ body * {
 
   .journey__scene--2 {
     display: block;
-    width: 520vw !important;
+    width: 500vw !important;
     padding: 0;
   }
 
@@ -7798,7 +7798,7 @@ body * {
     position: absolute;
     left: 0;
     top: 0;
-    width: 240vw;
+    width: 210vw;
     height: 100%;
     margin: 0;
     border-radius: 0;
@@ -7806,9 +7806,9 @@ body * {
 
   .journey__scene--2 .journey__pastels {
     position: absolute;
-    left: 150vw;
-    top: 21%;
-    width: 190vw;
+    left: 140vw;
+    top: 24%;
+    width: 165vw;
     height: auto;
     margin: 0;
     transform: none;
@@ -7816,7 +7816,7 @@ body * {
 
   .journey__scene--2 .journey__label {
     position: absolute;
-    left: 342vw;
+    left: 330vw;
     top: 44%;
     width: auto;
     margin: 0;
@@ -7824,31 +7824,31 @@ body * {
 
   .journey__scene--2 .journey__huge-text {
     position: absolute;
-    left: 360vw;
-    top: 15%;
+    left: 350vw;
+    top: 18%;
     width: max-content;
     margin: 0;
-    font-size: clamp(3.8rem, 16vw, 5.8rem);
+    font-size: clamp(2.8rem, 12.5vw, 4.15rem);
     white-space: nowrap;
   }
 
   .journey__scene--2 .journey__desc {
     position: absolute;
-    left: 360vw;
+    left: 350vw;
     top: auto;
     bottom: 9%;
-    width: 125vw;
+    width: 112vw;
     margin: 0;
   }
 
   .journey__scene--2 .journey__desc p {
-    font-size: clamp(0.72rem, 3vw, 0.88rem);
+    font-size: clamp(0.62rem, 2.55vw, 0.74rem);
     line-height: 1.55;
   }
 
   .journey__scene--3 {
     display: block;
-    width: 300vw !important;
+    width: 310vw !important;
     padding: 0;
   }
 
@@ -7856,19 +7856,19 @@ body * {
     position: absolute;
     left: 0;
     top: 0;
-    width: 210vw;
-    height: 82%;
+    width: 185vw;
+    height: 78%;
     margin: 0;
     border-radius: 0;
   }
 
   .journey__scene--3 .journey__ending-sketch {
     position: absolute;
-    left: 165vw;
+    left: 145vw;
     right: auto;
     bottom: 0;
-    width: 130vw;
-    height: 52%;
+    width: 140vw;
+    height: 50%;
     margin: 0;
     border-radius: 0;
   }
@@ -7880,54 +7880,54 @@ body * {
 
   .journey__scene--4 {
     display: block;
-    width: 480vw !important;
+    width: 465vw !important;
     padding: 0;
   }
 
   .journey__scene--4 .journey__insight {
     position: absolute;
-    left: 35vw;
+    left: 30vw;
     top: 0;
-    width: 190vw;
+    width: 160vw;
     height: 100%;
-    padding: 17svh 1.25rem 0;
+    padding: 20svh 1.25rem 0;
   }
 
   .journey__scene--4 .journey__insight-title {
-    font-size: clamp(2.8rem, 13vw, 4.8rem);
+    font-size: clamp(2rem, 9.5vw, 3.1rem);
   }
 
   .journey__scene--4 .journey__insight-text {
-    font-size: clamp(1.65rem, 7vw, 2.6rem);
+    font-size: clamp(1.08rem, 4.8vw, 1.55rem);
     line-height: 1.34;
   }
 
   .journey__scene--4 .journey__educator {
     position: absolute;
-    left: 250vw;
+    left: 230vw;
     top: 0;
-    width: 40vw;
+    width: 34vw;
     height: 100%;
     min-height: 0;
   }
 
   .journey__scene--4 .journey__educator-text {
-    font-size: clamp(3.75rem, 18vw, 6.5rem);
+    font-size: clamp(3rem, 14vw, 4.8rem);
   }
 
   .journey__scene--4 .journey__bouquet {
     position: absolute;
-    left: 290vw;
+    left: 264vw;
     top: 0;
-    width: 190vw;
+    width: 185vw;
     height: 100%;
   }
 
   .journey__scene--4 .journey__polaroid {
     position: absolute;
-    left: 350vw;
+    left: 326vw;
     top: 20%;
-    width: 120vw;
+    width: 112vw;
     height: 62%;
     margin: 0;
   }
@@ -7969,7 +7969,7 @@ body * {
   }
 
   .journey__scene--6 .journey__fwd-title {
-    font-size: clamp(4rem, 18vw, 7rem);
+    font-size: clamp(3rem, 14vw, 5rem);
   }
 
   .journey__scene--6 .journey__fwd-title--top {
@@ -7980,7 +7980,7 @@ body * {
   .journey__scene--6 .journey__fwd-desc {
     left: 8%;
     top: 25%;
-    width: 90vw;
+    width: 82vw;
   }
 
   .journey__scene--6 .journey__fwd-num--2 {
@@ -7991,7 +7991,7 @@ body * {
   .journey__scene--6 .journey__focus-photo {
     left: 44%;
     top: 38%;
-    width: 120vw;
+    width: 105vw;
     height: auto;
     aspect-ratio: 4 / 3;
   }
@@ -8081,7 +8081,7 @@ body * {
   .skills-intro__card--ux,
   .skills-intro__card--ai {
     position: absolute;
-    width: min(53vw, 13rem);
+    width: min(42vw, 10.5rem);
     margin: 0;
     opacity: 1;
     visibility: visible;
@@ -8114,7 +8114,7 @@ body * {
 
   .skills-intro__card-detail {
     display: block;
-    width: min(70vw, 17rem);
+    width: min(56vw, 13.5rem);
     height: auto;
     aspect-ratio: 378 / 522;
   }
@@ -8124,17 +8124,17 @@ body * {
   }
 }
 
-@media (max-width: 23.375rem) {
+@media (pointer: coarse) and (max-width: 23.375rem) {
   .skills-intro__card,
   .skills-intro__card--design,
   .skills-intro__card--frontend,
   .skills-intro__card--ux,
   .skills-intro__card--ai {
-    width: min(49vw, 10.75rem);
+    width: min(39vw, 9rem);
   }
 
   .skills-intro__card-detail {
-    width: min(68vw, 14.5rem);
+    width: min(54vw, 11.5rem);
   }
 
   .skills-intro__title {
