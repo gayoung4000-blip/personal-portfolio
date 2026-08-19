@@ -206,27 +206,11 @@
     gsap.set(rightVideo, { zIndex: 10 });
 
     function expandedVideoRect() {
-      if (isDesktop) {
-        return {
-          left: -stage.offsetLeft,
-          top: -stage.offsetTop,
-          width: window.innerWidth,
-          height: window.innerHeight
-        };
-      }
-
-      // 모바일에서는 가로 영상 전체가 보이도록 contain 크기로 확대한다.
-      var videoRatio = 499 / 295;
-      var viewportWidth = window.innerWidth;
-      var viewportHeight = window.innerHeight;
-      var targetWidth = Math.min(viewportWidth, viewportHeight * videoRatio);
-      var targetHeight = targetWidth / videoRatio;
-
       return {
-        left: -stage.offsetLeft + (viewportWidth - targetWidth) / 2,
-        top: -stage.offsetTop + (viewportHeight - targetHeight) / 2,
-        width: targetWidth,
-        height: targetHeight
+        left: -stage.offsetLeft,
+        top: -stage.offsetTop,
+        width: window.innerWidth,
+        height: window.innerHeight
       };
     }
 
@@ -240,16 +224,8 @@
       ease: "power2.inOut"
     }, 1.1);
 
-    if (!isDesktop) {
-      tl.to(stage, {
-        "--mobile-focus-dim": 0.82,
-        duration: 0.52,
-        ease: "power1.inOut"
-      }, 1.1);
-    }
-
     var aboutHeaderFixed = document.querySelector("#about-header-fixed");
-    // 영상이 거의 다 차가는 시점(1.4)부터 텍스트가 스르륵(Fade-in) 나타남
+    // 모바일도 데스크톱과 같은 시점에 About 카피가 나타난다.
     tl.to(aboutHeaderFixed, {
       autoAlpha: 1,
       duration: 0.6,
@@ -282,10 +258,9 @@
     // .about 섹션이 뷰포트 하단에서 나타나기 시작할 때(start)부터 최상단에 닿을 때(end)까지 진행
     var aboutDome = document.querySelector(".about__dome");
     var goldBridge = document.querySelector(".hero-to-about-gold");
-
     if (aboutDome && goldBridge) {
       var stripeHost = goldBridge.querySelector(".hero-to-about-gold__stripes");
-      var stripeCount = isDesktop ? 56 : 28;
+      var stripeCount = 56;
       var stripeWidth = 100 / stripeCount;
 
       if (stripeHost && !stripeHost.children.length) {
@@ -365,7 +340,7 @@
           ease: "none"
         }, 0.08)
         .set(aboutDome, {
-          yPercent: isDesktop ? 14 : 24,
+          yPercent: 14,
           "--dome-shape-progress": 0,
           "--dome-progress": 0
         }, 0)

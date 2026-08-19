@@ -605,6 +605,21 @@ a {
     );
 }
 
+.hero2__top--mobile {
+  display: none;
+}
+
+.hero2__mobile-logo {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.hero2__mobile-logo img {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+
 /* placeholder 영상 번호 라벨 */
 .vgallery__label {
   position: absolute;
@@ -7777,8 +7792,114 @@ body * {
     max-width: calc(100vw - 1rem);
   }
 
+  .hero2__top {
+    display: flex;
+    align-items: center;
+    padding: max(0.65rem, env(safe-area-inset-top)) 0.75rem 0;
+  }
+
+  .hero2__top--mobile {
+    display: flex;
+  }
+
+  .hero2__mobile-logo {
+    width: 1.55rem;
+    height: 1.5rem;
+  }
+
+  .hero2__logo {
+    flex: 0 0 auto;
+    font-size: clamp(0.66rem, 2.8vw, 0.78rem);
+    letter-spacing: -0.045em;
+  }
+
+  .hero2__nav {
+    width: auto;
+    max-width: calc(100% - 4.25rem);
+    margin: 0 0 0 auto;
+    gap: clamp(0.35rem, 1.8vw, 0.55rem);
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    font-size: clamp(0.51rem, 2.15vw, 0.62rem);
+    line-height: 1;
+  }
+
+  .hero2__nav a {
+    white-space: nowrap;
+  }
+
+  .global-header__inner {
+    padding-inline: 0.65rem;
+  }
+
+  .global-header__logo img {
+    height: 1.65rem;
+  }
+
   .global-header__nav {
-    display: none;
+    display: flex;
+    gap: clamp(0.3rem, 1.55vw, 0.48rem);
+  }
+
+  .global-header__nav a {
+    font-size: clamp(0.49rem, 2.05vw, 0.6rem);
+  }
+
+  .hero2__bottom {
+    gap: 0.4rem;
+    padding-inline: 0.75rem;
+    padding-bottom: max(1.35rem, calc(env(safe-area-inset-bottom) + 0.65rem));
+  }
+
+  .hero2__credit {
+    flex: 0 1 auto;
+    width: min(60vw, 11.75rem);
+    max-width: calc(100% - 4.5rem);
+    font-size: clamp(0.46rem, 2.05vw, 0.56rem);
+    line-height: 1.16;
+  }
+
+  .hero2__credit span {
+    display: block;
+    max-width: 100%;
+  }
+
+  .hero2__credit span:last-child {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .hero2__scroll {
+    flex: 0 0 auto;
+    font-size: clamp(0.43rem, 1.8vw, 0.51rem);
+  }
+
+  .chatbot-tab {
+    width: 2.1rem;
+  }
+
+  .chatbot-tab__mark,
+  .chatbot-tab__divider,
+  .chatbot-tab__ask {
+    transform: translateY(0.42rem);
+  }
+
+  .chatbot-tab__ask {
+    margin-top: 0.42rem;
+    font-size: 0.78rem;
+  }
+
+  .chatbot-tab__pill {
+    margin-bottom: 0.2rem;
+    font-size: 0.5rem;
+    transform: translateY(-0.25rem);
+  }
+
+  .inapp-button {
+    top: calc(50% + 3.95rem);
+    right: 0.18rem;
+    width: 1.85rem;
+    font-size: 0.5rem;
   }
 
   .journey {
