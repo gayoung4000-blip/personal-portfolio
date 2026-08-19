@@ -238,6 +238,14 @@
       ease: "power2.inOut"
     }, 1.1);
 
+    if (!isDesktop) {
+      tl.to(stage, {
+        "--mobile-focus-dim": 0.82,
+        duration: 0.52,
+        ease: "power1.inOut"
+      }, 1.1);
+    }
+
     var aboutHeaderFixed = document.querySelector("#about-header-fixed");
     // 영상이 거의 다 차가는 시점(1.4)부터 텍스트가 스르륵(Fade-in) 나타남
     tl.to(aboutHeaderFixed, {
@@ -275,7 +283,7 @@
 
     if (aboutDome && goldBridge) {
       var stripeHost = goldBridge.querySelector(".hero-to-about-gold__stripes");
-      var stripeCount = 56;
+      var stripeCount = isDesktop ? 56 : 28;
       var stripeWidth = 100 / stripeCount;
 
       if (stripeHost && !stripeHost.children.length) {
