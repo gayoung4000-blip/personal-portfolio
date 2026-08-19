@@ -6449,6 +6449,11 @@ body * {
     --journey-safe-bottom: clamp(2rem, 5svh, 3.5rem);
   }
 
+  .journey__title-block {
+    top: clamp(5.5rem, 14svh, 8.5rem);
+    left: clamp(6.5rem, 15.5vw, 12.5rem);
+  }
+
   .journey__heading,
   .journey__sub-title,
   .journey__timeline-text {

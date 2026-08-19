@@ -371,8 +371,12 @@
           start: "top 72%",
           onEnter: revealAboutSubtitle,
           onEnterBack: revealAboutSubtitle,
-          onLeave: resetAboutSubtitle,
-          onLeaveBack: resetAboutSubtitle
+          onLeave: revealAboutSubtitle,
+          onLeaveBack: resetAboutSubtitle,
+          onRefresh: function(self) {
+            if (self.scroll() >= self.start) revealAboutSubtitle();
+            else resetAboutSubtitle();
+          }
         });
       }
 
@@ -414,8 +418,12 @@
           start: "top 60%",
           onEnter: revealAboutPhoto,
           onEnterBack: revealAboutPhoto,
-          onLeave: resetAboutPhoto,
-          onLeaveBack: resetAboutPhoto
+          onLeave: revealAboutPhoto,
+          onLeaveBack: resetAboutPhoto,
+          onRefresh: function(self) {
+            if (self.scroll() >= self.start) revealAboutPhoto();
+            else resetAboutPhoto();
+          }
         });
       }
 
@@ -485,8 +493,12 @@
           start: startPosition,
           onEnter: revealCharacters,
           onEnterBack: revealCharacters,
-          onLeave: resetCharacters,
-          onLeaveBack: resetCharacters
+          onLeave: revealCharacters,
+          onLeaveBack: resetCharacters,
+          onRefresh: function(self) {
+            if (self.scroll() >= self.start) revealCharacters();
+            else resetCharacters();
+          }
         });
       }
 
@@ -522,8 +534,12 @@
           start: "top 88%",
           onEnter: revealAboutButton,
           onEnterBack: revealAboutButton,
-          onLeave: resetAboutButton,
-          onLeaveBack: resetAboutButton
+          onLeave: revealAboutButton,
+          onLeaveBack: resetAboutButton,
+          onRefresh: function(self) {
+            if (self.scroll() >= self.start) revealAboutButton();
+            else resetAboutButton();
+          }
         });
       }
 
@@ -1773,7 +1789,18 @@
     ScrollTrigger.addEventListener("refreshInit", setTrackHeight);
   }
 
-  window.addEventListener("pagehide", function () {
+  window.addEventListener("pageshow", function(event) {
+    if (!event.persisted) return;
+    requestAnimationFrame(function() {
+      syncCoords();
+      ScrollTrigger.refresh();
+    });
+  });
+
+  window.addEventListener("pagehide", function (event) {
+    // BFCache로 보존되는 페이지는 pageshow에서 그대로 재사용되므로
+    // 좌표 감시와 이벤트를 해제하지 않는다.
+    if (event.persisted) return;
     if (ro) ro.disconnect();
     window.removeEventListener("resize", syncCoords);
     if (journeyPointerScene && journeyPointerMove) {

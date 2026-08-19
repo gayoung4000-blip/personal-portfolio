@@ -49,7 +49,12 @@
 
       history.replaceState(null, "", "#about");
       window.scrollTo({ top: Math.max(0, target), left: 0, behavior: "auto" });
-      if (window.ScrollTrigger) ScrollTrigger.update();
+      if (window.ScrollTrigger) {
+        ScrollTrigger.update();
+        requestAnimationFrame(function () {
+          ScrollTrigger.refresh();
+        });
+      }
     });
   });
 
