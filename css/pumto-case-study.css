@@ -12,6 +12,100 @@
   --case-font: "Noto Sans KR", sans-serif;
 }
 
+html.is-ilkwang-case {
+  --case-card: #f7f3e9;
+  --case-accent: #f2cd72;
+  --case-accent-soft: #8a6916;
+}
+
+html.is-ilkwang-case .pumto-case__overview-card li::before,
+html.is-ilkwang-case .pumto-case__solution-list li::before {
+  background: #94701a;
+  border-radius: 50%;
+}
+
+html.is-ilkwang-case .pumto-case__icon img {
+  display: none;
+}
+
+html.is-ilkwang-case .pumto-case__icon {
+  border-radius: 50%;
+  background: var(--case-accent);
+  color: var(--case-ink);
+}
+
+html.is-ilkwang-case .pumto-case__closing strong {
+  color: var(--case-ink);
+}
+
+html.is-wrun-case {
+  --case-card: #f4f6ee;
+  --case-accent: #c2d77d;
+  --case-accent-soft: #475724;
+}
+
+html.is-wrun-case .pumto-case__overview-card li::before,
+html.is-wrun-case .pumto-case__solution-list li::before {
+  background: #5c7024;
+  border-radius: 50%;
+}
+
+html.is-wrun-case .pumto-case__icon img {
+  display: none;
+}
+
+html.is-wrun-case .pumto-case__icon {
+  border-radius: 50%;
+  background: var(--case-accent);
+  color: var(--case-ink);
+}
+
+html.is-wrun-case .pumto-case__closing strong {
+  color: #1a210d;
+}
+
+html.is-jaran-case {
+  --case-card: #f6f4f1;
+  --case-accent: #b69f64;
+  --case-accent-soft: #f5edde;
+}
+
+html.is-jaran-case .pumto-case__overview-card li::before,
+html.is-jaran-case .pumto-case__solution-list li::before {
+  background: #6b592e;
+  border-radius: 50%;
+}
+
+html.is-jaran-case .pumto-case__icon img {
+  display: none;
+}
+
+html.is-jaran-case .pumto-case__icon {
+  border-radius: 50%;
+  background: var(--case-accent);
+  color: var(--case-surface);
+}
+
+html.is-jaran-case .pumto-case__insights .pumto-case__card:nth-child(3),
+html.is-jaran-case .pumto-case__insights .pumto-case__card:nth-child(4) {
+  align-self: start;
+}
+
+html.is-jaran-case .pumto-case__insights .pumto-case__card:nth-child(3) {
+  min-height: clamp(8rem, 6.75vw, 9rem);
+}
+
+html.is-jaran-case .pumto-case__insights .pumto-case__card:nth-child(4) {
+  min-height: clamp(7rem, 5.72vw, 7.625rem);
+}
+
+html.is-ilkwang-case .pumto-case__insights .pumto-case__card:nth-child(3),
+html.is-ilkwang-case .pumto-case__insights .pumto-case__card:nth-child(4),
+html.is-wrun-case .pumto-case__insights .pumto-case__card:nth-child(3),
+html.is-wrun-case .pumto-case__insights .pumto-case__card:nth-child(4) {
+  min-height: clamp(8rem, 6.75vw, 9rem);
+}
+
 *,
 *::before,
 *::after {
@@ -341,6 +435,15 @@ html.is-embedded .case-study-back {
 
   .pumto-case__card,
   .pumto-case__card--learned {
+    min-height: 0;
+  }
+
+  html.is-ilkwang-case .pumto-case__insights .pumto-case__card:nth-child(3),
+  html.is-ilkwang-case .pumto-case__insights .pumto-case__card:nth-child(4),
+  html.is-wrun-case .pumto-case__insights .pumto-case__card:nth-child(3),
+  html.is-wrun-case .pumto-case__insights .pumto-case__card:nth-child(4),
+  html.is-jaran-case .pumto-case__insights .pumto-case__card:nth-child(3),
+  html.is-jaran-case .pumto-case__insights .pumto-case__card:nth-child(4) {
     min-height: 0;
   }
 }

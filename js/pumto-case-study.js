@@ -8,6 +8,6 @@
 
   closeLink.addEventListener("click", function (event) {
     event.preventDefault();
-    window.parent.postMessage("close-pumto-case-study", window.location.origin);
+    window.parent.postMessage("close-case-study", window.location.origin);
   });
 })();

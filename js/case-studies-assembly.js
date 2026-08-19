@@ -9,7 +9,7 @@
   var secondCard = document.querySelector(".study-case__card--ilkwang");
   var thirdCard = document.querySelector(".study-case__card--wrun");
   var fourthCard = document.querySelector(".study-case__card--jaran");
-  var pumtoCaseLink = document.querySelector("[data-pumto-case-open]");
+  var caseStudyLinks = document.querySelectorAll("[data-pumto-case-open], [data-case-study-open]");
   var caseStudyViewer = document.querySelector("[data-case-study-viewer]");
   var caseStudyFrame = document.querySelector("[data-case-study-frame]");
   var caseStudyGlobalBack = document.querySelector("[data-case-study-global-back]");
@@ -21,10 +21,13 @@
     document.documentElement.classList.add("is-case-studies-return-ready");
   }
 
-  function openPumtoCaseStudy(event) {
+  function openCaseStudy(event) {
     if (!caseStudyViewer || !caseStudyFrame) return;
 
     event.preventDefault();
+    var caseStudyLink = event.currentTarget;
+    var nextSource = caseStudyLink.getAttribute("data-case-study-src") || "pumto-case-study.html?embed=1&v=20260819-1";
+    var nextTitle = caseStudyLink.getAttribute("data-case-study-title") || "PUMTO 케이스 스터디";
     caseStudyReturnFocus = document.activeElement;
     document.body.classList.remove("is-journey-menu-open");
     document.documentElement.classList.remove("is-journey-menu-light-bg");
@@ -35,6 +38,11 @@
       journeyMenuButton.setAttribute("aria-label", "Open navigation");
       journeyMenuButton.textContent = "MENU";
     }
+
+    if (caseStudyFrame.getAttribute("src") !== nextSource) {
+      caseStudyFrame.setAttribute("src", nextSource);
+    }
+    caseStudyFrame.setAttribute("title", nextTitle);
 
     caseStudyViewer.classList.add("is-open");
     caseStudyViewer.setAttribute("aria-hidden", "false");
@@ -49,7 +57,7 @@
     if (caseStudyGlobalBack) caseStudyGlobalBack.focus({ preventScroll: true });
   }
 
-  function closePumtoCaseStudy() {
+  function closeCaseStudy() {
     if (!caseStudyViewer || !caseStudyViewer.classList.contains("is-open")) return;
 
     caseStudyViewer.classList.remove("is-open");
@@ -61,18 +69,20 @@
     }
   }
 
-  if (pumtoCaseLink && caseStudyViewer && caseStudyFrame && caseStudyGlobalBack) {
-    pumtoCaseLink.addEventListener("click", openPumtoCaseStudy);
-    caseStudyGlobalBack.addEventListener("click", closePumtoCaseStudy);
+  if (caseStudyLinks.length && caseStudyViewer && caseStudyFrame && caseStudyGlobalBack) {
+    caseStudyLinks.forEach(function (caseStudyLink) {
+      caseStudyLink.addEventListener("click", openCaseStudy);
+    });
+    caseStudyGlobalBack.addEventListener("click", closeCaseStudy);
 
     window.addEventListener("message", function (event) {
-      if (event.origin === window.location.origin && event.data === "close-pumto-case-study") {
-        closePumtoCaseStudy();
+      if (event.origin === window.location.origin && event.data === "close-case-study") {
+        closeCaseStudy();
       }
     });
 
     window.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") closePumtoCaseStudy();
+      if (event.key === "Escape") closeCaseStudy();
     });
   }
 
