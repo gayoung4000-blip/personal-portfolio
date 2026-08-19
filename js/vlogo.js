@@ -203,12 +203,37 @@
     // 우측 하단 영상이 확대될 때 다른 요소들보다 위에 오도록 설정
     gsap.set(rightVideo, { zIndex: 10 });
 
+    function expandedVideoRect() {
+      if (isDesktop) {
+        return {
+          left: -stage.offsetLeft,
+          top: -stage.offsetTop,
+          width: window.innerWidth,
+          height: window.innerHeight
+        };
+      }
+
+      // 모바일에서는 가로 영상 전체가 보이도록 contain 크기로 확대한다.
+      var videoRatio = 499 / 295;
+      var viewportWidth = window.innerWidth;
+      var viewportHeight = window.innerHeight;
+      var targetWidth = Math.min(viewportWidth, viewportHeight * videoRatio);
+      var targetHeight = targetWidth / videoRatio;
+
+      return {
+        left: -stage.offsetLeft + (viewportWidth - targetWidth) / 2,
+        top: -stage.offsetTop + (viewportHeight - targetHeight) / 2,
+        width: targetWidth,
+        height: targetHeight
+      };
+    }
+
     // 갤러리 완전히 등장(1.0) 후 약간의 여백(1.1부터) 뒤 풀스크린 확대
     tl.to(rightVideo, {
-      left: function() { return -stage.offsetLeft; },
-      top: function() { return -stage.offsetTop; },
-      width: function() { return window.innerWidth; },
-      height: function() { return window.innerHeight; },
+      left: function() { return expandedVideoRect().left; },
+      top: function() { return expandedVideoRect().top; },
+      width: function() { return expandedVideoRect().width; },
+      height: function() { return expandedVideoRect().height; },
       duration: 0.6,
       ease: "power2.inOut"
     }, 1.1);
@@ -242,8 +267,6 @@
         globalHeader.classList.remove("global-header--over-hero");
       }
     });
-
-    if (!isDesktop) return;
 
     // 돔(Dome) 사각형 모핑 애니메이션
     // .about 섹션이 뷰포트 하단에서 나타나기 시작할 때(start)부터 최상단에 닿을 때(end)까지 진행
@@ -332,7 +355,7 @@
           ease: "none"
         }, 0.08)
         .set(aboutDome, {
-          yPercent: 14,
+          yPercent: isDesktop ? 14 : 24,
           "--dome-shape-progress": 0,
           "--dome-progress": 0
         }, 0)
@@ -646,6 +669,11 @@
       function alignFixedJourneyRightEdge() {
         if (!journeyTimelineText || !fixedMyLabel || !fixedJourneyLabel) return;
 
+        if (!isDesktop) {
+          gsap.set([journeyTimelineText, journeyInvertedBlock, fixedMyLabel, fixedJourneyLabel], { x: 0 });
+          return;
+        }
+
         var forbiddenGap = Math.min(64, Math.max(48, window.innerWidth * 0.028));
         var targetRight = window.innerWidth * 0.78125 - forbiddenGap;
         var fixedLogoGap = Math.min(72, Math.max(48, window.innerWidth * 0.032));
@@ -772,6 +800,9 @@
       }
 
       function getJourneyHoldDistance() {
+        if (!isDesktop) {
+          return Math.min(420, Math.max(260, window.innerHeight * 0.42));
+        }
         // Scene 4 is visually compacted, but this compensation preserves the
         // original vertical scrub time and keeps the later transitions calm.
         var scene4Compensation = Math.min(256, Math.max(128, window.innerWidth * 0.13));
@@ -795,6 +826,9 @@
       
       // 트랙은 왼쪽 밀어냄
       function getJourneyIntroApproachDistance() {
+        if (!isDesktop) {
+          return window.innerWidth * 0.12;
+        }
         if (!journeyInvertedBlock || !journeyIntroInner) {
           return window.innerWidth * 0.22;
         }
@@ -904,7 +938,7 @@
         end: () => "+=" + (getJourneyMoveDistance() + getJourneyHoldDistance()),
         pin: true,
         animation: tlJourney,
-        scrub: 1, // 스크롤 시 부드럽게(1초 지연) 따라오도록 설정
+        scrub: isDesktop ? 1 : 0.55,
         invalidateOnRefresh: true, // 리사이즈 시 거리 재계산
         onEnter: function() {
           gsap.to(globalHeader, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
@@ -1297,12 +1331,15 @@
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard, skillsAiCard], { y: 0 });
       } else {
+        var isMobileSkills = !isDesktop;
         var isTabletSkills = window.innerWidth >= 761 && window.innerWidth <= 1366;
         var cardEntryY = function (card) {
           return window.innerHeight - card.offsetTop + 24;
         };
         var cardExitY = function (card) {
-          var exitClearance = isTabletSkills
+          var exitClearance = isMobileSkills
+            ? Math.max(40, window.innerHeight * 0.08)
+            : isTabletSkills
             ? Math.max(72, window.innerHeight * 0.16)
             : 24;
           return -(card.offsetTop + card.offsetHeight + exitClearance);
@@ -1318,8 +1355,10 @@
         ];
         // Figma 885:722 / 885:803의 동시 노출 위치를 시간축으로 환산한 값.
         // 모든 카드는 같은 픽셀 속도로 움직이고 시작 시점만 겹친다.
-        var skillsCardStartUnits = [0, 0.395, 0.921, 1.399];
-        var skillsTextHoldUnits = 0.75;
+        var skillsCardStartUnits = isMobileSkills
+          ? [0, 0.34, 0.72, 1.08]
+          : [0, 0.395, 0.921, 1.399];
+        var skillsTextHoldUnits = isMobileSkills ? 0.36 : 0.75;
         var cardFullTravelDuration = function (card) {
           return cardTravelDuration(cardEntryY(card) - cardExitY(card));
         };
@@ -1338,7 +1377,7 @@
             end: skillsScrollDistance,
             pin: skillsInner,
             pinSpacing: true,
-            scrub: isTabletSkills ? 0.55 : 1.65,
+            scrub: isMobileSkills ? 0.48 : (isTabletSkills ? 0.55 : 1.65),
             invalidateOnRefresh: true,
           },
         });
@@ -1367,7 +1406,7 @@
             ease: "none",
           }, cardStartUnit);
 
-          if (isTabletSkills) {
+          if (isTabletSkills || isMobileSkills) {
             skillsTimeline.to(card, {
               autoAlpha: 0,
               duration: Math.max(0.18, cardDurationUnit * 0.22),
@@ -1405,6 +1444,9 @@
         });
       }
     }
+
+    // 모바일은 Skills 카드 인터랙션까지 실행하고 Work 이후는 모바일 정적 흐름을 유지한다.
+    if (!isDesktop) return;
 
     // WORK: the project cards scroll vertically while the right-side index stays sticky.
     var workProjectCards = gsap.utils.toArray("[data-work-project]");
