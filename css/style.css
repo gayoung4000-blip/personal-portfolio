@@ -6504,6 +6504,14 @@ body * {
     font-size: clamp(0.9rem, 1.45vw, 1.2rem);
   }
 
+  .global-menu-btn {
+    right: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .is-journey-menu-open .global-menu-btn {
+    top: clamp(1rem, 1.4vw, 1.25rem);
+  }
+
   .chatbot-tab {
     transform: translate3d(0, -50%, 0) scale(0.86);
     transform-origin: right center;
