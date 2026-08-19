@@ -7790,7 +7790,7 @@ body * {
 
   .journey__scene--2 {
     display: block;
-    width: 240vw !important;
+    width: 520vw !important;
     padding: 0;
   }
 
@@ -7798,7 +7798,7 @@ body * {
     position: absolute;
     left: 0;
     top: 0;
-    width: 78vw;
+    width: 240vw;
     height: 100%;
     margin: 0;
     border-radius: 0;
@@ -7806,9 +7806,9 @@ body * {
 
   .journey__scene--2 .journey__pastels {
     position: absolute;
-    left: 62vw;
-    top: 24%;
-    width: 68vw;
+    left: 150vw;
+    top: 21%;
+    width: 190vw;
     height: auto;
     margin: 0;
     transform: none;
@@ -7816,7 +7816,7 @@ body * {
 
   .journey__scene--2 .journey__label {
     position: absolute;
-    left: 150vw;
+    left: 342vw;
     top: 44%;
     width: auto;
     margin: 0;
@@ -7824,31 +7824,31 @@ body * {
 
   .journey__scene--2 .journey__huge-text {
     position: absolute;
-    left: 158vw;
-    top: 12%;
+    left: 360vw;
+    top: 15%;
     width: max-content;
     margin: 0;
-    font-size: clamp(2.25rem, 11vw, 3.7rem);
+    font-size: clamp(3.8rem, 16vw, 5.8rem);
     white-space: nowrap;
   }
 
   .journey__scene--2 .journey__desc {
     position: absolute;
-    left: 158vw;
+    left: 360vw;
     top: auto;
     bottom: 9%;
-    width: 70vw;
+    width: 125vw;
     margin: 0;
   }
 
   .journey__scene--2 .journey__desc p {
-    font-size: clamp(0.58rem, 2.35vw, 0.68rem);
+    font-size: clamp(0.72rem, 3vw, 0.88rem);
     line-height: 1.55;
   }
 
   .journey__scene--3 {
     display: block;
-    width: 145vw !important;
+    width: 300vw !important;
     padding: 0;
   }
 
@@ -7856,19 +7856,19 @@ body * {
     position: absolute;
     left: 0;
     top: 0;
-    width: 78vw;
-    height: 72%;
+    width: 210vw;
+    height: 82%;
     margin: 0;
     border-radius: 0;
   }
 
   .journey__scene--3 .journey__ending-sketch {
     position: absolute;
-    left: 54vw;
+    left: 165vw;
     right: auto;
     bottom: 0;
-    width: 58vw;
-    height: 44%;
+    width: 130vw;
+    height: 52%;
     margin: 0;
     border-radius: 0;
   }
@@ -7880,67 +7880,67 @@ body * {
 
   .journey__scene--4 {
     display: block;
-    width: 235vw !important;
+    width: 480vw !important;
     padding: 0;
   }
 
   .journey__scene--4 .journey__insight {
     position: absolute;
-    left: 18vw;
+    left: 35vw;
     top: 0;
-    width: 100vw;
+    width: 190vw;
     height: 100%;
     padding: 17svh 1.25rem 0;
   }
 
   .journey__scene--4 .journey__insight-title {
-    font-size: clamp(1.7rem, 8.5vw, 2.8rem);
+    font-size: clamp(2.8rem, 13vw, 4.8rem);
   }
 
   .journey__scene--4 .journey__insight-text {
-    font-size: clamp(1rem, 4.35vw, 1.45rem);
+    font-size: clamp(1.65rem, 7vw, 2.6rem);
     line-height: 1.34;
   }
 
   .journey__scene--4 .journey__educator {
     position: absolute;
-    left: 145vw;
+    left: 250vw;
     top: 0;
-    width: 15vw;
+    width: 40vw;
     height: 100%;
     min-height: 0;
   }
 
   .journey__scene--4 .journey__educator-text {
-    font-size: clamp(2.5rem, 12vw, 4rem);
+    font-size: clamp(3.75rem, 18vw, 6.5rem);
   }
 
   .journey__scene--4 .journey__bouquet {
     position: absolute;
-    left: 160vw;
+    left: 290vw;
     top: 0;
-    width: 68vw;
+    width: 190vw;
     height: 100%;
   }
 
   .journey__scene--4 .journey__polaroid {
     position: absolute;
-    left: 176vw;
-    top: 25%;
-    width: 50vw;
-    height: 48%;
+    left: 350vw;
+    top: 20%;
+    width: 120vw;
+    height: 62%;
     margin: 0;
   }
 
   .journey__scene--5 {
     display: block;
-    width: 24vw !important;
+    width: 60vw !important;
     height: 100%;
   }
 
   .journey__scene--6 {
     display: block;
-    width: 100vw !important;
+    width: 240vw !important;
     height: 100%;
     min-height: 0;
     padding: 0;
@@ -7969,7 +7969,7 @@ body * {
   }
 
   .journey__scene--6 .journey__fwd-title {
-    font-size: clamp(2.65rem, 13vw, 4.2rem);
+    font-size: clamp(4rem, 18vw, 7rem);
   }
 
   .journey__scene--6 .journey__fwd-title--top {
@@ -7980,7 +7980,7 @@ body * {
   .journey__scene--6 .journey__fwd-desc {
     left: 8%;
     top: 25%;
-    width: 70vw;
+    width: 90vw;
   }
 
   .journey__scene--6 .journey__fwd-num--2 {
@@ -7991,7 +7991,7 @@ body * {
   .journey__scene--6 .journey__focus-photo {
     left: 44%;
     top: 38%;
-    width: 48vw;
+    width: 120vw;
     height: auto;
     aspect-ratio: 4 / 3;
   }
@@ -8140,4 +8140,27 @@ body * {
   .skills-intro__title {
     font-size: clamp(1.75rem, 9vw, 2.25rem);
   }
+}
+
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 26.875rem) {
+  .journey__scene--2 { width: 270vw !important; }
+  .journey__scene--2 .journey__bridge-img { width: 120vw; }
+  .journey__scene--2 .journey__pastels { left: 75vw; width: 95vw; }
+  .journey__scene--2 .journey__label { left: 174vw; }
+  .journey__scene--2 .journey__huge-text,
+  .journey__scene--2 .journey__desc { left: 184vw; }
+
+  .journey__scene--3 { width: 155vw !important; }
+  .journey__scene--3 .journey__ending-img { width: 108vw; }
+  .journey__scene--3 .journey__ending-sketch { left: 84vw; width: 68vw; }
+
+  .journey__scene--4 { width: 250vw !important; }
+  .journey__scene--4 .journey__insight { left: 18vw; width: 100vw; }
+  .journey__scene--4 .journey__educator { left: 130vw; width: 20vw; }
+  .journey__scene--4 .journey__bouquet { left: 150vw; width: 100vw; }
+  .journey__scene--4 .journey__polaroid { left: 180vw; width: 62vw; }
+
+  .journey__scene--5 { width: 32vw !important; }
+  .journey__scene--6 { width: 130vw !important; }
+  .journey__scene--6 .journey__focus-photo { left: 52%; width: 62vw; }
 }
