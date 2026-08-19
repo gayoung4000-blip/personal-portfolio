@@ -147,7 +147,8 @@
   // ----- 데스크톱 전용 (모바일은 CSS에서 전환 구조 해제) -----
   // [최적화] 개발자 도구 오픈 등으로 가로 폭이 좁아질 때 데스크톱 애니메이션이 
   // 통째로 파괴되는 현상(matchMedia Revert)을 막기 위해 초기 로드 시점 폭으로 고정합니다.
-  var isDesktop = window.innerWidth >= 769;
+  var isMobileLandscape = window.matchMedia("(pointer: coarse) and (orientation: landscape) and (max-height: 430px)").matches;
+  var isDesktop = window.innerWidth >= 769 && !isMobileLandscape;
 
   if (isDesktop) {
     setTrackHeight();
