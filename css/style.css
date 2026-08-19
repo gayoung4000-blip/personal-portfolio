@@ -6371,3 +6371,455 @@ body * {
     translate: calc(var(--journey-axis-shift) + 3px) -3.8vh;
   }
 }
+
+/* ==========================================================
+   TABLET RESPONSIVE — 761px to 1366px
+   Portrait and landscape keep the desktop storytelling while
+   tightening fixed UI, typography, cards, and pinned scenes.
+   ========================================================== */
+@media (min-width: 47.5625rem) and (max-width: 85.375rem) {
+  :root {
+    --pad-x: clamp(1.5rem, 3.2vw, 2.75rem);
+    --mark-w: clamp(19rem, min(48vw, 57svh), 34rem);
+  }
+
+  .global-header,
+  .global-header__inner {
+    height: 4.125rem;
+  }
+
+  .global-header__inner {
+    padding-inline: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .global-header__logo {
+    left: clamp(1.5rem, 3.5vw, 3rem);
+  }
+
+  .global-header__logo img {
+    height: 3rem;
+  }
+
+  .global-header__nav {
+    gap: clamp(0.9rem, 2vw, 1.75rem);
+    margin-right: clamp(5rem, 8.5vw, 6.5rem);
+  }
+
+  .global-header__nav a {
+    font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  }
+
+  .hero2__nav {
+    gap: clamp(1rem, 2vw, 1.75rem);
+    font-size: clamp(0.82rem, 1.45vw, 1rem);
+  }
+
+  .about__title {
+    width: min(84vw, 58rem);
+    font-size: clamp(2.75rem, 5.8vw, 4.9rem);
+  }
+
+  .about__dome {
+    width: 120vw;
+    padding-top: clamp(6.5rem, 12vw, 9rem);
+    padding-bottom: clamp(6rem, 12vw, 10rem);
+  }
+
+  .about__focus {
+    width: min(100%, 62rem);
+  }
+
+  .about__photo {
+    width: clamp(15rem, min(31vw, 38svh), 22rem);
+  }
+
+  .about__roles {
+    font-size: clamp(2.25rem, 5vw, 3.8rem);
+  }
+
+  .about__desc {
+    width: min(82vw, 52rem);
+    font-size: clamp(0.95rem, 1.7vw, 1.2rem);
+  }
+
+  .journey__inner {
+    --journey-safe-left: clamp(2.25rem, 8vw, 6rem);
+    --journey-safe-right: clamp(2rem, 6vw, 4.5rem);
+    --journey-safe-top: clamp(3.5rem, 10svh, 6rem);
+    --journey-safe-bottom: clamp(2rem, 5svh, 3.5rem);
+  }
+
+  .journey__heading,
+  .journey__sub-title,
+  .journey__timeline-text {
+    font-size: clamp(3rem, min(7.4vw, 8.5svh), 5.2rem);
+  }
+
+  .journey__timeline-text {
+    top: 39%;
+  }
+
+  .journey__text-block {
+    width: min(48vw, 32rem);
+    max-width: none;
+  }
+
+  .journey__kor-desc {
+    line-height: 1.35;
+  }
+
+  .journey__scene--2 {
+    --journey-art-left: clamp(11rem, 24vw, 21rem);
+    --journey-art-width: clamp(25rem, 49vw, 39rem);
+    --journey-copy-gap: clamp(2.5rem, 5vw, 4rem);
+    --journey-desc-width: clamp(34rem, 54vw, 44rem);
+  }
+
+  .journey__huge-text {
+    font-size: clamp(3.8rem, 7.6vw, 6rem);
+  }
+
+  .journey__insight-title {
+    left: 5vw;
+    font-size: clamp(2.8rem, min(7vw, 7svh), 5rem);
+  }
+
+  .journey__insight-text {
+    left: 5vw;
+    width: 90vw;
+    font-size: clamp(1.5rem, min(3.7vw, 3.7svh), 2.8rem);
+  }
+
+  .journey-menu-panel__nav {
+    gap: clamp(1.15rem, 2.5vw, 2rem);
+    padding-inline: clamp(1.75rem, 4vw, 4rem) 7rem;
+  }
+
+  .journey-menu-panel__nav a {
+    font-size: clamp(0.9rem, 1.45vw, 1.2rem);
+  }
+
+  .chatbot-tab {
+    transform: translate3d(0, -50%, 0) scale(0.86);
+    transform-origin: right center;
+  }
+
+  .inapp-button {
+    right: 0.75rem;
+    transform: scale(0.9);
+    transform-origin: right center;
+  }
+
+  .skills-intro__content {
+    width: min(88vw, 58rem);
+  }
+
+  .skills-intro__title {
+    font-size: clamp(3.5rem, 7.5vw, 6.4rem);
+  }
+
+  .skills-intro__description {
+    max-width: 42rem;
+    white-space: normal;
+  }
+
+  .skills-intro__card {
+    width: clamp(10.5rem, min(19vw, 25svh), 15rem);
+  }
+
+  .work-page__inner {
+    width: min(calc(100% - 3rem), 67rem);
+  }
+
+  .work-page__heading {
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .work-page__title {
+    font-size: clamp(2.9rem, 5.8vw, 4.35rem);
+  }
+
+  .work-page__showcase {
+    gap: clamp(1.75rem, 3.5vw, 3rem);
+  }
+
+  .work-page__copy p {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .work-page__copy p br {
+    display: none;
+  }
+
+  .work-page__pumto-step p {
+    white-space: normal;
+  }
+
+  .work-page__jaran-any-size {
+    min-height: 38rem;
+  }
+
+  .case-studies-intro__title {
+    width: min(88vw, 68rem);
+  }
+
+  .study-case {
+    --study-case-card-width: min(72vw, 47svh, 28rem);
+  }
+
+  .clone-coding__intro {
+    width: min(calc(100% - 3rem), 67rem);
+  }
+
+  .clone-coding__title {
+    font-size: clamp(4.25rem, 8.5vw, 7rem);
+  }
+
+  .clone-coding__description {
+    width: min(62vw, 40rem);
+    font-size: clamp(0.88rem, 1.45vw, 1.1rem);
+  }
+
+  .clone-coding__card {
+    width: min(58vw, 42rem);
+  }
+
+  .teamwork {
+    --teamwork-inline: clamp(1.5rem, 4vw, 3.5rem);
+    min-height: max(64rem, 155svh);
+    padding-top: clamp(4rem, 8svh, 6rem);
+  }
+
+  .teamwork__heading {
+    width: calc(100% - (var(--teamwork-inline) * 2));
+    transform: translateY(0);
+  }
+
+  .teamwork__heading h2 {
+    font-size: clamp(3.35rem, 6.4vw, 5.2rem);
+  }
+
+  .teamwork__gallery {
+    width: calc(100% - var(--teamwork-inline));
+  }
+
+  .teamwork__track {
+    padding-top: clamp(2.25rem, 7svh, 4.5rem);
+  }
+
+  .teamwork__card {
+    width: clamp(17rem, 31vw, 23rem);
+  }
+
+  .teamwork__actions {
+    right: var(--teamwork-inline);
+    bottom: clamp(5rem, 12svh, 8rem);
+  }
+
+  .other-work {
+    padding-inline: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .other-work__inner {
+    grid-template-columns: minmax(17rem, 0.85fr) minmax(25rem, 1.15fr);
+    gap: clamp(2rem, 3.5vw, 3.5rem);
+  }
+
+  .other-work__title {
+    font-size: clamp(2.65rem, 4.8vw, 4rem);
+  }
+
+  .other-work__description {
+    font-size: clamp(0.92rem, 1.35vw, 1rem);
+  }
+
+  .site-footer__title {
+    font-size: clamp(9rem, min(18vw, 27svh), 15rem);
+  }
+
+  .site-footer__body {
+    right: clamp(1.75rem, 4vw, 3.5rem);
+    left: clamp(1.75rem, 4vw, 3.5rem);
+  }
+}
+
+/* Tablet portrait: give wide compositions more room and keep text readable. */
+@media (min-width: 47.5625rem) and (max-width: 64rem) and (orientation: portrait) {
+  .hero2__top {
+    padding-top: 0.5rem;
+  }
+
+  .hero2__logo {
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+  }
+
+  .hero2__nav {
+    max-width: 58%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 0.45rem;
+  }
+
+  .vgallery__stage {
+    width: min(100%, 70rem);
+  }
+
+  .journey__heading,
+  .journey__sub-title,
+  .journey__timeline-text {
+    font-size: clamp(2.8rem, 7.2vw, 4.6rem);
+  }
+
+  .journey__timeline-text {
+    top: 38%;
+  }
+
+  .journey__text-block {
+    width: min(54vw, 29rem);
+  }
+
+  .journey__inverted-block {
+    width: min(30vw, 15rem);
+  }
+
+  .work-page__showcase {
+    grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.34fr);
+  }
+
+  .work-page__index ol {
+    font-size: clamp(1.65rem, 3.5vw, 2.5rem);
+  }
+
+  .work-page__jaran-any-size {
+    --card-width: 62%;
+    --card-half-width: 31%;
+  }
+
+  .work-page__jaran-any-size-word {
+    font-size: clamp(3.8rem, 9vw, 6.5rem);
+  }
+
+  .clone-coding__card {
+    width: min(72vw, 40rem);
+  }
+
+  .teamwork__heading h2 {
+    font-size: clamp(3rem, 6.8vw, 4.5rem);
+    white-space: normal;
+  }
+
+  .teamwork__title-line {
+    white-space: normal;
+  }
+
+  .teamwork__card {
+    width: min(42vw, 21rem);
+  }
+}
+
+/* Tablet landscape: protect short-height pinned scenes from vertical clipping. */
+@media (min-width: 47.5625rem) and (max-width: 85.375rem) and (orientation: landscape) and (max-height: 56.25rem) {
+  :root {
+    --mark-w: clamp(17rem, min(40vw, 52svh), 29rem);
+  }
+
+  .about__dome {
+    padding-top: clamp(5rem, 10svh, 7rem);
+  }
+
+  .about__focus {
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .about__photo {
+    width: clamp(12rem, min(22vw, 33svh), 18rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .about__roles {
+    top: 0;
+    font-size: clamp(2rem, 4.3vw, 3.4rem);
+  }
+
+  .about__details {
+    transform: translateY(-1rem);
+  }
+
+  .journey__inner {
+    --journey-safe-top: clamp(2.5rem, 7svh, 4rem);
+    --journey-safe-bottom: clamp(1.25rem, 3svh, 2rem);
+  }
+
+  .journey__heading,
+  .journey__sub-title,
+  .journey__timeline-text {
+    font-size: clamp(2.5rem, min(5.8vw, 7.2svh), 4.3rem);
+  }
+
+  .journey__timeline-text {
+    top: 35%;
+  }
+
+  .journey__kor-title {
+    margin-bottom: 0.65rem;
+  }
+
+  .skills-intro__content {
+    transform: translateY(-3vh);
+  }
+
+  .skills-intro__card {
+    width: clamp(9.5rem, min(17vw, 24svh), 13rem);
+  }
+
+  .clone-coding__title {
+    top: 2rem;
+    font-size: clamp(3.5rem, 6.5vw, 5.75rem);
+  }
+
+  .clone-coding__mark {
+    top: 0.75rem;
+    width: clamp(10rem, 17vw, 15rem);
+  }
+
+  .clone-coding__description {
+    top: clamp(6rem, 22svh, 8rem);
+  }
+
+  .clone-coding__card {
+    width: min(50vw, 39rem);
+  }
+
+  .teamwork {
+    min-height: max(52rem, 150svh);
+    padding-top: 3.5rem;
+  }
+
+  .teamwork__heading h2 {
+    font-size: clamp(2.8rem, 5vw, 4.3rem);
+  }
+
+  .teamwork__gallery {
+    top: 4.125rem;
+    height: calc(100svh - 4.125rem);
+  }
+
+  .teamwork__track {
+    padding-top: clamp(1.5rem, 5svh, 3rem);
+  }
+
+  .teamwork__card {
+    width: clamp(15rem, min(27vw, 43svh), 20rem);
+  }
+
+  .teamwork__actions {
+    bottom: 2rem;
+  }
+
+  .other-work {
+    padding-block: 3rem;
+  }
+}
