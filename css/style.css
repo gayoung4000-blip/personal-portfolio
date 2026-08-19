@@ -6540,6 +6540,11 @@ body * {
     width: clamp(10.5rem, min(19vw, 25svh), 15rem);
   }
 
+  .skills-intro__card-detail {
+    width: clamp(15rem, 31vw, 19rem);
+    height: clamp(20.75rem, 42.9vw, 26.3rem);
+  }
+
   .work-page__inner {
     width: min(calc(100% - 3rem), 67rem);
   }

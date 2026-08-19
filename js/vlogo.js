@@ -1289,11 +1289,15 @@
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard, skillsAiCard], { y: 0 });
       } else {
+        var isTabletSkills = window.innerWidth >= 761 && window.innerWidth <= 1366;
         var cardEntryY = function (card) {
           return window.innerHeight - card.offsetTop + 24;
         };
         var cardExitY = function (card) {
-          return -(card.offsetTop + card.offsetHeight + 24);
+          var exitClearance = isTabletSkills
+            ? Math.max(72, window.innerHeight * 0.16)
+            : 24;
+          return -(card.offsetTop + card.offsetHeight + exitClearance);
         };
         var cardTravelDuration = function (distance) {
           return Math.abs(distance) / window.innerHeight;
@@ -1326,7 +1330,7 @@
             end: skillsScrollDistance,
             pin: skillsInner,
             pinSpacing: true,
-            scrub: 1.65,
+            scrub: isTabletSkills ? 0.55 : 1.65,
             invalidateOnRefresh: true,
           },
         });
@@ -1343,15 +1347,25 @@
             y: function () {
               return cardEntryY(card);
             },
+            autoAlpha: 1,
           }, {
             y: function () {
               return cardExitY(card);
             },
+            autoAlpha: 1,
             duration: function () {
               return cardFullTravelDuration(card);
             },
             ease: "none",
           }, cardStartUnit);
+
+          if (isTabletSkills) {
+            skillsTimeline.to(card, {
+              autoAlpha: 0,
+              duration: Math.max(0.18, cardDurationUnit * 0.22),
+              ease: "power1.in",
+            }, cardStartUnit + cardDurationUnit * 0.78);
+          }
 
           skillsTimeline.set(card, {
             zIndex: 5 + index,
