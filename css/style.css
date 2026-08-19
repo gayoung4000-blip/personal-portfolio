@@ -3940,14 +3940,19 @@ a {
 }
 
 .work-page__jaran-any-size-card {
+  --jaran-card-radius: clamp(1.5rem, 2.35vw, 3rem);
   position: absolute;
   top: 50%;
   left: calc(50% + var(--card-center-offset));
   width: calc(var(--card-width) + var(--card-right-extension));
   aspect-ratio: 5 / 3;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   overflow: hidden;
-  border-radius: clamp(1.25rem, 1.953vw, 2.5rem);
+  border-radius: var(--jaran-card-radius);
+  clip-path: inset(0 round var(--jaran-card-radius));
+  isolation: isolate;
+  contain: paint;
+  backface-visibility: hidden;
   background: #fff;
   pointer-events: auto;
   touch-action: manipulation;
@@ -5134,7 +5139,7 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
 .clone-coding__card {
   position: relative;
   width: min(42vw, 52rem);
-  aspect-ratio: 1048 / 718;
+  aspect-ratio: 16 / 9;
   height: auto;
   flex: 0 0 auto;
   border-radius: clamp(0.8rem, 1.05vw, 1.25rem);
@@ -5274,7 +5279,7 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   top: var(--clone-cursor-y, 50%);
   display: grid;
   place-items: center;
-  width: clamp(4.5rem, 6.2vw, 7.5rem);
+  width: clamp(4rem, 5.3vw, 6.5rem);
   aspect-ratio: 1;
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 50%;
@@ -5283,7 +5288,7 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   backdrop-filter: blur(8px);
   color: #fff;
   font-family: "Inter", sans-serif;
-  font-size: clamp(0.62rem, 0.78vw, 0.92rem);
+  font-size: clamp(0.56rem, 0.67vw, 0.8rem);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: 0.08em;
@@ -5755,6 +5760,7 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   display: block;
   object-fit: cover;
   object-position: center;
+  border-radius: inherit;
 }
 
 .other-work__visual::before {
