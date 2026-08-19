@@ -8,6 +8,30 @@
       document.documentElement.classList.add("is-case-studies-return");
     }
   </script>
+  <script>
+    (function () {
+      var navigationEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+      var isReload = navigationEntry
+        ? navigationEntry.type === "reload"
+        : performance.navigation && performance.navigation.type === 1;
+
+      // 일반 새로고침은 항상 인트로 첫 장면부터 시작한다.
+      // 명시적인 #앵커 진입은 사용자가 요청한 위치를 유지한다.
+      if (!isReload || window.location.hash) return;
+
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+      function resetReloadPosition() {
+        window.scrollTo(0, 0);
+      }
+
+      resetReloadPosition();
+      window.addEventListener("pageshow", resetReloadPosition, { once: true });
+      window.addEventListener("load", resetReloadPosition, { once: true });
+    })();
+  </script>
   <link rel="icon" href="img/gy-logo.svg" type="image/svg+xml" />
   <link rel="icon" href="img/favicon-16x16.png" type="image/png" sizes="16x16" />
   <link rel="icon" href="img/favicon-32x32.png" type="image/png" sizes="32x32" />
@@ -16,12 +40,17 @@
   <title>김가영 — UX/UI Designer</title>
   <meta name="description" content="UX/UI 디자이너 김가영의 퍼스널 포트폴리오" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
+  />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Instrument+Sans:wght@400;600&family=Inter:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;600;700&family=Playfair+Display:ital@1&family=Plus+Jakarta+Sans:wght@500;600;700&family=Prata&family=Crimson+Text&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/style.css?v=20260818-journey-menu-only-11" />
+  <link rel="stylesheet" href="css/style.css?v=20260819-pretendard-1" />
   <noscript>
     <style>
       /* JS 없으면 인트로 없이 최종 화면 표시 */
@@ -1196,7 +1225,7 @@
   <script src="js/logo-particles.js"></script> -->
   <script src="js/gallery-video.js?v=20260810-journey-fixed-glass-frame-2"></script>
   <script src="js/vlogo.js?v=20260818-clone-three-cards-12"></script>
-  <script src="js/main.js?v=20260813-jaran-mobile-radius-17"></script>
+  <script src="js/main.js?v=20260819-logo-video-2"></script>
   <script src="js/case-studies-assembly.js?v=20260819-case-study-1"></script>
   <script src="js/chatbot.js?v=20260818-chatbot-readability-4"></script>
   <script src="js/inapp-viewer.js?v=20260814-1"></script>

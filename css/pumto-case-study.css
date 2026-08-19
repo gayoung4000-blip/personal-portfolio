@@ -9,7 +9,7 @@
   --case-divider: #d9d9e0;
   --case-accent: #ffa046;
   --case-accent-soft: #fff0de;
-  --case-font: "Noto Sans KR", sans-serif;
+  --case-font: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif;
 }
 
 html.is-ilkwang-case {

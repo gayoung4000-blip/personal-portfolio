@@ -86,11 +86,6 @@
   // 1.00 ~ 1.70 크레딧 + SCROLL DOWN 등장
   var tl = gsap.timeline({
     defaults: { ease: "power3.out" },
-    // 인트로 완전 종료: 검은 로고 → "영상이 은은하게 비치는 로고"로 크로스페이드.
-    // (입자 인터랙션은 보류 상태 — 되살리면 LogoParticles.enable() 가드 추가)
-    onComplete: function () {
-      document.documentElement.classList.add("is-vlogo");
-    },
   });
 
   if (chatbotTab) {
@@ -107,6 +102,10 @@
 
     .to(morphLayer, { opacity: 0, duration: 0.12, ease: "none" }, 1.1)
     .to(finalPath, { opacity: 1, duration: 0.12, ease: "none" }, 1.1)
+    .call(function () {
+      // 원본 로고 크로스페이드가 끝난 직후 영상 마스크를 노출한다.
+      document.documentElement.classList.add("is-vlogo");
+    }, null, 1.22)
 
     .to(".hero2__logo", { autoAlpha: 1, y: 0, duration: 0.5 }, 0.8)
     .to(navItems, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.05 }, 0.85)
