@@ -622,60 +622,43 @@ a {
    반응형 — 768px 이하 (태블릿 세로·모바일)
    ========================================================== */
 @media (max-width: 48rem) {
-  /* 영상 로고 전환 해제 — 기존 세로 문서 흐름 복원 (검은 로고 유지) */
+  /* 모바일에서도 데스크톱과 같은 영상 로고 → 확대 → 콜라주 흐름을 유지한다. */
   .hvt {
-    height: auto;
+    height: 200svh;
   }
 
   .hvt__sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
   }
 
   .hvt__sticky > .hero2,
   .hvt__sticky > .vgallery {
-    position: static;
-    inset: auto;
-    z-index: auto;
+    position: absolute;
+    inset: 0;
     min-height: 100svh;
   }
 
-  .hvt__sticky > .vgallery {
-    -webkit-mask-image: none;
-    mask-image: none;
-    filter: none;
-    --collage-veil: 0;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .hvt__sticky > .vgallery::before {
-    display: none;
-  }
-
-  .hvt__sticky > .vgallery::after {
-    display: none;
-  }
-
-  .is-vlogo .hero2 svg.mark {
-    opacity: 1;
-  }
-
   .hero2__top {
-    flex-direction: column;
-    gap: 0.75rem;
-    padding-top: 0.75rem;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem 0;
   }
 
   .hero2__nav {
-    margin-top: 0;
+    max-width: calc(100% - 5.25rem);
+    margin-top: 0.15rem;
     flex-wrap: wrap;
-    row-gap: 0.5rem;
+    justify-content: flex-end;
+    gap: 0.3rem 0.75rem;
+    font-size: clamp(0.67rem, 2.9vw, 0.82rem);
   }
 
   .hero2__mark {
-    width: min(88.55vw, 25.3rem);
+    width: min(76vw, 22rem);
   }
 
   .hero2__bottom {
@@ -684,28 +667,17 @@ a {
     gap: 0.75rem;
   }
 
-  /* 갤러리: 콜라주 → 세로 스택 (번호 순서대로) */
+  /* 세로 화면에서도 콜라주가 화면 높이를 채우도록 가로 스테이지를 중앙 크롭한다. */
   .vgallery__stage {
-    width: 100%;
-    aspect-ratio: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.25rem;
+    flex: 0 0 auto;
+    width: calc(100svh * (1920 / 1050));
+    max-width: none;
+    aspect-ratio: 1920 / 1050;
   }
 
   .vgallery__item {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-    height: auto;
+    position: absolute;
   }
-
-  .vgallery__item--main  { order: 1; aspect-ratio: 708 / 545; }
-  .vgallery__item--tall  { order: 2; aspect-ratio: 420 / 426; }
-  .vgallery__item--left  { order: 3; aspect-ratio: 414 / 297; }
-  .vgallery__item--right { order: 4; aspect-ratio: 499 / 295; }
 }
 
 /* ===== 모션 최소화 ===== */
@@ -6855,9 +6827,40 @@ body * {
     overflow-x: hidden;
   }
 
+  .global-header,
+  .global-header__inner {
+    height: 3.75rem;
+  }
+
+  .global-header__inner {
+    padding: 0 0.85rem;
+  }
+
+  .global-header__logo {
+    position: static;
+    flex: 0 0 auto;
+    margin: 0;
+    transform: none;
+  }
+
+  .global-header__logo img {
+    width: auto;
+    height: 2.35rem;
+  }
+
+  .global-header__nav {
+    min-width: 0;
+    margin: 0 0 0 auto;
+    gap: clamp(0.45rem, 2.4vw, 0.75rem);
+  }
+
+  .global-header__nav a {
+    font-size: clamp(0.65rem, 2.8vw, 0.78rem);
+    white-space: nowrap;
+  }
+
   .hero2__top {
-    padding: 0.9rem 1rem 0;
-    align-items: flex-start;
+    display: none;
   }
 
   .hero2__logo {

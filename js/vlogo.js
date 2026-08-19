@@ -133,6 +133,9 @@
   }
 
   function getScrubDist() {
+    if (window.innerWidth <= 768 || isMobileLandscape) {
+      return Math.round(Math.min(Math.max(window.innerHeight * 2.1, 1200), 1900));
+    }
     var dist = Math.round(Math.min(Math.max(window.innerHeight * 1.6, 900), 2200));
     // 일광전구 영상 풀스크린 확대를 위한 추가 스크롤 길이 확보
     return dist + Math.round(window.innerHeight * 1.5);
@@ -150,7 +153,9 @@
   var isMobileLandscape = window.matchMedia("(pointer: coarse) and (orientation: landscape) and (max-height: 430px)").matches;
   var isDesktop = window.innerWidth >= 769 && !isMobileLandscape;
 
-  if (isDesktop) {
+  // 로고 안 영상 → 확대 → 콜라주 전환은 모든 화면에서 실행한다.
+  // 이후의 복잡한 가로 Journey/Skills 모션만 데스크톱으로 제한한다.
+  {
     setTrackHeight();
 
     var tl = gsap.timeline({
@@ -237,6 +242,8 @@
         globalHeader.classList.remove("global-header--over-hero");
       }
     });
+
+    if (!isDesktop) return;
 
     // 돔(Dome) 사각형 모핑 애니메이션
     // .about 섹션이 뷰포트 하단에서 나타나기 시작할 때(start)부터 최상단에 닿을 때(end)까지 진행
