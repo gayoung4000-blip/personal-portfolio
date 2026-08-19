@@ -764,7 +764,7 @@
       }
 
       resetJourneyTextReveal();
-      ScrollTrigger.create({
+      var journeyScrollTrigger = ScrollTrigger.create({
         trigger: journeySection,
         start: "top 82%",
         onEnter: playJourneyTextReveal,
@@ -949,6 +949,47 @@
           gsap.to(globalMenuBtn, { autoAlpha: 0, duration: 0.3, ease: "power2.out", overwrite: "auto" });
         }
       });
+
+      // On phones, let either a vertical swipe or a deliberate horizontal
+      // swipe scrub the same pinned Journey timeline. ScrollTrigger remains
+      // the single animation owner; touch input only advances page scroll.
+      var mobileJourneyQuery = window.matchMedia("(max-width: 760px)");
+      if (mobileJourneyQuery.matches) {
+        var journeyTouchX = 0;
+        var journeyTouchY = 0;
+        var journeyTouchActive = false;
+
+        journeySection.addEventListener("touchstart", function (event) {
+          if (!journeyScrollTrigger.isActive || event.touches.length !== 1) return;
+          journeyTouchX = event.touches[0].clientX;
+          journeyTouchY = event.touches[0].clientY;
+          journeyTouchActive = true;
+        }, { passive: true });
+
+        journeySection.addEventListener("touchmove", function (event) {
+          if (!journeyTouchActive || !journeyScrollTrigger.isActive || event.touches.length !== 1) return;
+
+          var nextX = event.touches[0].clientX;
+          var nextY = event.touches[0].clientY;
+          var deltaX = nextX - journeyTouchX;
+          var deltaY = nextY - journeyTouchY;
+          var dominantDelta = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
+
+          journeyTouchX = nextX;
+          journeyTouchY = nextY;
+
+          if (Math.abs(dominantDelta) < 1) return;
+          event.preventDefault();
+          window.scrollBy(0, -dominantDelta);
+        }, { passive: false });
+
+        function endJourneyTouch() {
+          journeyTouchActive = false;
+        }
+
+        journeySection.addEventListener("touchend", endJourneyTouch, { passive: true });
+        journeySection.addEventListener("touchcancel", endJourneyTouch, { passive: true });
+      }
 
       // Drive the word from the real on-screen positions instead of a second
       // estimated ScrollTrigger. It stays at x:0 until the description enters
