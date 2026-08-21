@@ -8108,7 +8108,7 @@ body * {
     inset: auto;
     width: min(76vw, 17.5rem);
     margin: 0;
-    transform: none !important;
+    transform: none;
     opacity: 1;
     visibility: visible;
     will-change: auto;
