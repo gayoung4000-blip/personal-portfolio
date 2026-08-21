@@ -1344,11 +1344,22 @@
     }
 
     if (skillsIntro && skillsInner && skillsDesignCard && skillsFrontendCard && skillsUxCard && skillsAiCard) {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      var isCompactSkillsMotion =
+        window.innerWidth <= 760 ||
+        isMobileLandscape ||
+        window.innerHeight >= window.innerWidth * 1.15;
+      var shouldReduceSkillsMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+        !isCompactSkillsMotion;
+
+      if (shouldReduceSkillsMotion) {
         gsap.set([skillsDesignCard, skillsFrontendCard, skillsUxCard, skillsAiCard], { y: 0 });
       } else {
-        var isMobileSkills = !isDesktop;
-        var isTabletSkills = window.innerWidth >= 761 && window.innerWidth <= 1366;
+        // Keep the Skills breakpoint aligned with its CSS. A narrow browser
+        // controlled by a mouse still uses the mobile card layout, so pointer
+        // type must not decide which animation geometry is used here.
+        var isMobileSkills = isCompactSkillsMotion;
+        var isTabletSkills = !isMobileSkills && window.innerWidth <= 1366;
         var cardEntryY = function (card) {
           return window.innerHeight - card.offsetTop + 24;
         };
@@ -1369,10 +1380,10 @@
           skillsUxCard,
           skillsAiCard,
         ];
-        // Figma 885:722 / 885:803의 동시 노출 위치를 시간축으로 환산한 값.
-        // 모든 카드는 같은 픽셀 속도로 움직이고 시작 시점만 겹친다.
+        // Compact portrait screens reveal one card at a time. Desktop keeps
+        // the original overlapping rhythm from the Figma composition.
         var skillsCardStartUnits = isMobileSkills
-          ? [0, 0.46, 0.94, 1.42]
+          ? [0, 1.2, 2.4, 3.6]
           : [0, 0.395, 0.921, 1.399];
         var skillsTextHoldUnits = isMobileSkills ? 0.3 : 0.75;
         var cardFullTravelDuration = function (card) {
@@ -1398,6 +1409,20 @@
           },
         });
 
+        // Future timeline items do not always render their from-state until
+        // their own start time. On compact screens that leaves later cards
+        // floating in their CSS positions. Park every card below the viewport
+        // first, then let the shared desktop travel animation bring them up.
+        if (isMobileSkills) {
+          gsap.set(skillsCards, {
+            y: function (index, card) {
+              return cardEntryY(card);
+            },
+            scale: 0.72,
+            autoAlpha: 1,
+          });
+        }
+
         skillsCards.forEach(function (card, index) {
           var cardStartUnit = skillsCardStartUnits[index];
           var cardDurationUnit = cardFullTravelDuration(card);
@@ -1410,11 +1435,13 @@
             y: function () {
               return cardEntryY(card);
             },
+            scale: isMobileSkills ? 0.72 : 1,
             autoAlpha: 1,
           }, {
             y: function () {
               return cardExitY(card);
             },
+            scale: 1,
             autoAlpha: 1,
             duration: function () {
               return cardFullTravelDuration(card);
@@ -1423,7 +1450,7 @@
           }, cardStartUnit);
 
           if (isTabletSkills || isMobileSkills) {
-            var cardFadeStart = isMobileSkills ? 0.68 : 0.78;
+            var cardFadeStart = isMobileSkills ? 0.9 : 0.78;
             skillsTimeline.to(card, {
               autoAlpha: 0,
               duration: Math.max(0.18, cardDurationUnit * 0.22),

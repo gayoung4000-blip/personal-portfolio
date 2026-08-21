@@ -8488,7 +8488,7 @@ body * {
   .skills-intro__card--ux,
   .skills-intro__card--ai {
     position: absolute;
-    width: min(42vw, 10.5rem);
+    width: min(34vw, 8.5rem);
     margin: 0;
     opacity: 1;
     visibility: visible;
@@ -8521,7 +8521,7 @@ body * {
 
   .skills-intro__card-detail {
     display: block;
-    width: min(56vw, 13.5rem);
+    width: min(44vw, 10.5rem);
     height: auto;
     aspect-ratio: 378 / 522;
   }
@@ -8537,11 +8537,11 @@ body * {
   .skills-intro__card--frontend,
   .skills-intro__card--ux,
   .skills-intro__card--ai {
-    width: min(39vw, 9rem);
+    width: min(32vw, 7.5rem);
   }
 
   .skills-intro__card-detail {
-    width: min(54vw, 11.5rem);
+    width: min(42vw, 9.5rem);
   }
 
   .skills-intro__title {
@@ -9000,6 +9000,50 @@ body * {
 /* Narrow portrait laptop windows: keep only the final mountain chapter
    inside one viewport without changing the regular desktop/tablet layout. */
 @media (min-width: 47.5625rem) and (max-width: 68.75rem) and (orientation: portrait) {
+  .skills-intro__card,
+  .skills-intro__card--design,
+  .skills-intro__card--frontend,
+  .skills-intro__card--ux,
+  .skills-intro__card--ai {
+    position: absolute;
+    width: min(28vw, 9rem);
+    margin: 0;
+    opacity: 1;
+    visibility: visible;
+    will-change: transform, opacity;
+  }
+
+  .skills-intro__card--design {
+    left: 58%;
+    top: 18%;
+  }
+
+  .skills-intro__card--frontend {
+    left: 10%;
+    top: 35%;
+  }
+
+  .skills-intro__card--ux {
+    left: 57%;
+    top: 58%;
+  }
+
+  .skills-intro__card--ai {
+    left: 20%;
+    top: 8%;
+  }
+
+  .skills-intro__card-shell {
+    transform: none !important;
+  }
+
+  .skills-intro__card-detail {
+    display: block;
+    width: min(38vw, 11rem);
+    height: auto;
+    aspect-ratio: 378 / 522;
+  }
+
   .journey__scene--6 {
     width: 100vw !important;
     height: 100%;
@@ -9068,5 +9112,40 @@ body * {
     top: 37%;
     width: 58vw;
     aspect-ratio: 4 / 3;
+  }
+}
+
+/* Skills-only compact layout for tall browser windows. This is ratio-based
+   so OS display scaling and browser zoom cannot bypass the mobile geometry. */
+@media (orientation: portrait) and (max-aspect-ratio: 20 / 23) {
+  .skills-intro__card,
+  .skills-intro__card--design,
+  .skills-intro__card--frontend,
+  .skills-intro__card--ux,
+  .skills-intro__card--ai {
+    position: absolute;
+    width: 9rem;
+    max-width: 28vw;
+    margin: 0;
+    opacity: 1;
+    visibility: visible;
+    will-change: transform, opacity;
+  }
+
+  .skills-intro__card--design { left: 58%; top: 18%; }
+  .skills-intro__card--frontend { left: 10%; top: 35%; }
+  .skills-intro__card--ux { left: 57%; top: 58%; }
+  .skills-intro__card--ai { left: 20%; top: 8%; }
+
+  .skills-intro__card-shell {
+    transform: none !important;
+  }
+
+  .skills-intro__card-detail {
+    display: block;
+    width: 11rem;
+    max-width: 38vw;
+    height: auto;
+    aspect-ratio: 378 / 522;
   }
 }
