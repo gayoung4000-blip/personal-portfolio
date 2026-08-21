@@ -1426,8 +1426,11 @@
         skillsCards.forEach(function (card, index) {
           var cardStartUnit = skillsCardStartUnits[index];
           var cardDurationUnit = cardFullTravelDuration(card);
-          var cardExpandStart = cardStartUnit + cardDurationUnit * 0.18;
-          var cardExpandDuration = Math.min(0.38, cardDurationUnit * 0.27);
+          var cardExpandStart =
+            cardStartUnit + cardDurationUnit * (isMobileSkills ? 0.48 : 0.18);
+          var cardExpandDuration = isMobileSkills
+            ? Math.min(0.22, cardDurationUnit * 0.18)
+            : Math.min(0.38, cardDurationUnit * 0.27);
           var cardFace = card.querySelector(".skills-intro__card-face");
           var cardDetail = card.querySelector(".skills-intro__card-detail");
 

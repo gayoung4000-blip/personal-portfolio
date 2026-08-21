@@ -9124,8 +9124,9 @@ body * {
   .skills-intro__card--ux,
   .skills-intro__card--ai {
     position: absolute;
-    width: 9rem;
-    max-width: 28vw;
+    width: 7rem !important;
+    max-width: 22vw !important;
+    min-width: 0;
     margin: 0;
     opacity: 1;
     visibility: visible;
@@ -9143,9 +9144,9 @@ body * {
 
   .skills-intro__card-detail {
     display: block;
-    width: 11rem;
-    max-width: 38vw;
-    height: auto;
+    width: 9rem !important;
+    max-width: 28vw !important;
+    height: auto !important;
     aspect-ratio: 378 / 522;
   }
 }
