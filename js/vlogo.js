@@ -1248,44 +1248,33 @@
           gwanakCopy &&
           canFollowPointer
         ) {
-          var focusMetrics = null;
           var focusPointerActive = false;
           var latestPointerX = 0;
           var latestPointerY = 0;
-
-          function updateFocusMetrics() {
-            var canvasBounds = focusCanvas.getBoundingClientRect();
-            var currentTrackX = Number(gsap.getProperty(journeyTrack, "x")) || 0;
-            focusMetrics = {
-              canvasBaseLeft: canvasBounds.left - currentTrackX,
-              canvasTop: canvasBounds.top,
-              canvasWidth: canvasBounds.width,
-              canvasHeight: canvasBounds.height,
-              imageBottomBoundary:
-                canvasBounds.top + canvasBounds.height * (0.12306 + 0.3295),
-              photoBaseCenterY:
-                canvasBounds.top + canvasBounds.height * (0.12306 + 0.3295 / 2)
-            };
-          }
+          var appliedPhotoX = 0;
+          var appliedPhotoY = 0;
 
           syncJourneyFocusPointer = function () {
             if (!focusPointerActive) return;
-            if (!focusMetrics) updateFocusMetrics();
 
-            var currentTrackX = Number(gsap.getProperty(journeyTrack, "x")) || 0;
+            // Read the photo's real responsive box. The returned rectangle
+            // already contains the previous pointer translation, so remove
+            // that translation to recover its current unshifted centre.
+            var photoBounds = focusPhoto.getBoundingClientRect();
             var currentPhotoBaseCenterX =
-              focusMetrics.canvasBaseLeft +
-              currentTrackX +
-              focusMetrics.canvasWidth * (0.62396 + 0.176 / 2);
+              photoBounds.left + photoBounds.width / 2 - appliedPhotoX;
+            var currentPhotoBaseCenterY =
+              photoBounds.top + photoBounds.height / 2 - appliedPhotoY;
+            var imageBottomBoundary = photoBounds.bottom - appliedPhotoY;
 
             setJourneyMountainState(
-              latestPointerY > focusMetrics.imageBottomBoundary
+              latestPointerY > imageBottomBoundary
             );
 
-            var photoX = Math.round(latestPointerX - currentPhotoBaseCenterX);
-            var photoY = Math.round(latestPointerY - focusMetrics.photoBaseCenterY);
+            appliedPhotoX = Math.round(latestPointerX - currentPhotoBaseCenterX);
+            appliedPhotoY = Math.round(latestPointerY - currentPhotoBaseCenterY);
             focusPhoto.style.transform =
-              "translate3d(" + photoX + "px," + photoY + "px,0)";
+              "translate3d(" + appliedPhotoX + "px," + appliedPhotoY + "px,0)";
           };
 
           journeyPointerScene = scene6;
@@ -1294,7 +1283,6 @@
             focusPointerActive = true;
             latestPointerX = event.clientX;
             latestPointerY = event.clientY;
-            updateFocusMetrics();
             syncJourneyFocusPointer();
           };
           journeyPointerMove = function (event) {
@@ -1305,6 +1293,8 @@
           journeyPointerLeave = function () {
             focusPointerActive = false;
             setJourneyMountainState(false);
+            appliedPhotoX = 0;
+            appliedPhotoY = 0;
             focusPhoto.style.transform = "translate3d(0,0,0)";
           };
 

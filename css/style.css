@@ -8358,6 +8358,7 @@ body * {
     display: block;
     width: 100%;
     height: 100%;
+    transform: none;
   }
 
   .journey__scene--6 .journey__fwd-num,
@@ -8828,6 +8829,7 @@ body * {
     display: block;
     width: 265vw !important;
     padding: 0;
+    overflow: visible;
   }
 
   .journey__scene--4 .journey__insight {
@@ -8871,11 +8873,12 @@ body * {
 
   .journey__scene--4 .journey__polaroid {
     position: absolute;
-    left: 180vw;
+    left: calc(180vw + 190px);
     top: 25%;
     width: 62vw;
     height: 50%;
     margin: 0;
+    z-index: 5;
   }
 
   .journey__scene--5 {
@@ -8886,7 +8889,7 @@ body * {
 
   .journey__scene--6 {
     display: block;
-    width: 130vw !important;
+    width: 100vw !important;
     height: 100%;
     min-height: 0;
     padding: 0;
@@ -8898,6 +8901,7 @@ body * {
     display: block;
     width: 100%;
     height: 100%;
+    transform: none;
   }
 
   .journey__scene--6 .journey__fwd-num,
@@ -8920,7 +8924,7 @@ body * {
   }
 
   .journey__scene--6 .journey__fwd-title {
-    font-size: clamp(2.75rem, 13vw, 4.2rem);
+    font-size: clamp(2.35rem, 11vw, 3.3rem);
   }
 
   .journey__scene--6 .journey__fwd-title--top {
@@ -8931,19 +8935,31 @@ body * {
   .journey__scene--6 .journey__fwd-desc {
     left: 7%;
     top: 24%;
-    width: 54vw;
-    font-size: clamp(0.62rem, 2.65vw, 0.74rem);
+    width: min(82vw, 22rem);
+    font-size: clamp(0.7rem, 3vw, 0.82rem);
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    z-index: 4;
+  }
+
+  .journey__scene--6 .journey__fwd-copy {
+    width: 100%;
+  }
+
+  .journey__scene--6 .journey__fwd-copy br {
+    display: none;
   }
 
   .journey__scene--6 .journey__fwd-num--2 {
     left: 5%;
-    top: 43%;
+    top: 56%;
   }
 
   .journey__scene--6 .journey__focus-photo {
-    left: 52%;
+    left: 39%;
     top: 37%;
-    width: 62vw;
+    width: 50vw;
     aspect-ratio: 4 / 3;
   }
 
@@ -8978,5 +8994,79 @@ body * {
     right: 0.7rem;
     bottom: 1.8rem;
     width: 7rem;
+  }
+}
+
+/* Narrow portrait laptop windows: keep only the final mountain chapter
+   inside one viewport without changing the regular desktop/tablet layout. */
+@media (min-width: 47.5625rem) and (max-width: 68.75rem) and (orientation: portrait) {
+  .journey__scene--6 {
+    width: 100vw !important;
+    height: 100%;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .journey__scene--6 .journey__fwd-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+
+  .journey__scene--6 .journey__fwd-num,
+  .journey__scene--6 .journey__fwd-title,
+  .journey__scene--6 .journey__fwd-desc,
+  .journey__scene--6 .journey__focus-photo {
+    position: absolute;
+    width: auto;
+    height: auto;
+    margin: 0;
+  }
+
+  .journey__scene--6 .journey__fwd-num {
+    left: 5%;
+    font-size: clamp(0.72rem, 1.25vw, 0.9rem);
+  }
+
+  .journey__scene--6 .journey__fwd-num--1 { top: 7%; }
+  .journey__scene--6 .journey__fwd-num--2 { top: 56%; }
+  .journey__scene--6 .journey__fwd-num--3 { top: 77%; }
+
+  .journey__scene--6 .journey__fwd-title {
+    left: 7%;
+    font-size: clamp(3rem, 7vw, 4.75rem);
+  }
+
+  .journey__scene--6 .journey__fwd-title--top { top: 9%; }
+  .journey__scene--6 .journey__fwd-title--focus { top: 59%; }
+  .journey__scene--6 .journey__fwd-title--bottom { top: 80%; }
+
+  .journey__scene--6 .journey__fwd-desc {
+    left: 7%;
+    top: 23%;
+    width: min(52vw, 31rem);
+    font-size: clamp(0.78rem, 1.45vw, 1rem);
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    z-index: 4;
+  }
+
+  .journey__scene--6 .journey__fwd-copy,
+  .journey__scene--6 .journey__fwd-copy--gwanak {
+    width: 100%;
+  }
+
+  .journey__scene--6 .journey__fwd-copy br {
+    display: none;
+  }
+
+  .journey__scene--6 .journey__focus-photo {
+    left: 39%;
+    top: 37%;
+    width: 58vw;
+    aspect-ratio: 4 / 3;
   }
 }
