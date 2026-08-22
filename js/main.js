@@ -472,5 +472,185 @@
         gsap.set([tabletApp, phoneApp, phoneButtonMask, tryBtn].filter(Boolean), { clearProps: "all" });
       };
     },
+
+    "(max-width: 760px) and (prefers-reduced-motion: no-preference)": function () {
+      function getMobileCircleDiameter() {
+        return Math.min(152, Math.max(112, window.innerWidth * 0.28));
+      }
+
+      function getMobileCoverRadius() {
+        var rect = jaranVisual.getBoundingClientRect();
+        return Math.hypot(rect.width, rect.height) / 2;
+      }
+
+      function getMobileCardWidth() {
+        return anySizeStage.clientWidth * 0.68 + 4;
+      }
+
+      function getMobileCardHeight() {
+        return getMobileCardWidth() * 0.6;
+      }
+
+      function getMobilePhoneWidth() {
+        return Math.min(288, Math.max(224, window.innerWidth * 0.68));
+      }
+
+      function getMobilePhoneHeight() {
+        return Math.min(
+          window.innerHeight * 0.7,
+          getMobilePhoneWidth() * (844 / 390)
+        );
+      }
+
+      gsap.set(jaranVisual, {
+        clipPath: function () {
+          return "circle(" + getMobileCoverRadius() + "px at 50% 50%)";
+        },
+      });
+      gsap.set(anySizeCard, { autoAlpha: 0 });
+      gsap.set([anyWord, sizeWord], { autoAlpha: 0 });
+
+      var mobileMoveToCenter = gsap.timeline({
+        scrollTrigger: {
+          id: "jaran-mobile-center-step",
+          trigger: jaranVisual,
+          start: "center center",
+          endTrigger: anySizeStage,
+          end: "center center",
+          pin: true,
+          pinSpacing: false,
+          scrub: 0.6,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onLeave: function () {
+            gsap.set(jaranVisual, { autoAlpha: 0 });
+          },
+          onEnterBack: function () {
+            gsap.set(jaranVisual, { autoAlpha: 1 });
+          },
+        },
+      });
+
+      mobileMoveToCenter
+        .to({}, { duration: 0.12 })
+        .to(jaranVisual, {
+          x: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return window.innerWidth / 2 - (rect.left + rect.width / 2);
+          },
+          y: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return window.innerHeight / 2 - (rect.top + rect.height / 2);
+          },
+          scale: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return getMobileCircleDiameter() / Math.min(rect.width, rect.height);
+          },
+          clipPath: function () {
+            var rect = jaranVisual.getBoundingClientRect();
+            return "circle(" + Math.min(rect.width, rect.height) / 2 + "px at 50% 50%)";
+          },
+          duration: 0.88,
+          ease: "power1.inOut",
+        });
+
+      var mobileExpandAnySize = gsap.timeline({
+        scrollTrigger: {
+          id: "jaran-mobile-any-size-expand",
+          trigger: anySizeStage,
+          start: "center center",
+          end: function () {
+            return "+=" + Math.max(720, window.innerHeight * 1.45);
+          },
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.6,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onEnter: function () {
+            gsap.set(anySizeCard, { autoAlpha: 1 });
+            gsap.set(jaranVisual, { autoAlpha: 0 });
+          },
+          onEnterBack: function () {
+            gsap.set(anySizeCard, { autoAlpha: 1 });
+            gsap.set(jaranVisual, { autoAlpha: 0 });
+          },
+          onLeaveBack: function () {
+            gsap.set(anySizeCard, { autoAlpha: 0 });
+            gsap.set(jaranVisual, { autoAlpha: 1 });
+          },
+        },
+      });
+
+      mobileExpandAnySize
+        .fromTo(anySizeCard, {
+          width: getMobileCircleDiameter,
+          height: getMobileCircleDiameter,
+          borderRadius: "50%",
+          clipPath: "none",
+        }, {
+          width: getMobileCardWidth,
+          height: getMobileCardHeight,
+          borderRadius: "1.5rem",
+          clipPath: "none",
+          duration: 0.82,
+          ease: "power1.inOut",
+        }, 0.18)
+        .fromTo(anyWord, {
+          x: function () {
+            return anySizeStage.clientWidth * 0.24 - getMobileCircleDiameter() / 2;
+          },
+          autoAlpha: 0,
+        }, {
+          x: 0,
+          autoAlpha: 1,
+          duration: 0.82,
+          ease: "power1.inOut",
+        }, 0.18)
+        .fromTo(sizeWord, {
+          x: function () {
+            return -(anySizeStage.clientWidth * 0.24 - getMobileCircleDiameter() / 2);
+          },
+          autoAlpha: 0,
+        }, {
+          x: 0,
+          autoAlpha: 1,
+          duration: 0.82,
+          ease: "power1.inOut",
+        }, 0.18)
+        .to({}, { duration: 0.24 })
+        .to(anySizeCard, {
+          width: getMobilePhoneWidth,
+          height: getMobilePhoneHeight,
+          borderRadius: "1.875rem",
+          clipPath: "none",
+          duration: 0.9,
+          ease: "power2.inOut",
+        })
+        .to(anyWord, {
+          x: function () {
+            return anySizeStage.clientWidth * 0.34 - getMobilePhoneWidth() / 2;
+          },
+          duration: 0.9,
+          ease: "power2.inOut",
+        }, "<")
+        .to(sizeWord, {
+          x: function () {
+            return -(anySizeStage.clientWidth * 0.34 - getMobilePhoneWidth() / 2);
+          },
+          duration: 0.9,
+          ease: "power2.inOut",
+        }, "<")
+        .to({}, { duration: 0.24 });
+
+      return function () {
+        mobileMoveToCenter.scrollTrigger.kill();
+        mobileMoveToCenter.kill();
+        mobileExpandAnySize.scrollTrigger.kill();
+        mobileExpandAnySize.kill();
+        gsap.set(jaranVisual, { clearProps: "clipPath,transform,opacity,visibility" });
+        gsap.set([anySizeCard, anyWord, sizeWord], { clearProps: "all" });
+      };
+    },
   });
 })();

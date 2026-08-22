@@ -4872,6 +4872,10 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
     aspect-ratio: 1.18;
   }
 
+  .work-page__project[data-work-project="pumto"] .work-page__visual img {
+    object-fit: contain;
+  }
+
   .work-page__project--jaran-any-size {
     width: 100vw;
     margin-top: clamp(5.25rem, 19vw, 8.4rem);
@@ -4879,9 +4883,15 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   }
 
   .work-page__jaran-any-size {
-    height: auto;
-    min-height: 0;
-    aspect-ratio: 2048 / 1078;
+    --card-width: 68%;
+    --card-half-width: 34%;
+    height: 100svh;
+    min-height: 38rem;
+    aspect-ratio: auto;
+  }
+
+  .work-page__jaran-any-size-word {
+    font-size: clamp(2rem, 10vw, 3rem);
   }
 
   .work-page__summary {
@@ -5018,10 +5028,20 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
     z-index: 6;
     order: -1;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr;
     align-items: start;
-    gap: 1.25rem 2rem;
+    width: 100%;
+    gap: 1rem;
     padding: 0.8rem 0;
+    background: rgba(0, 0, 0, 0.94);
+  }
+
+  .work-page__index::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 100%;
+    width: max(1rem, calc((100vw - 42rem) / 2));
     background: rgba(0, 0, 0, 0.94);
   }
 
@@ -5030,12 +5050,12 @@ html:not(.is-case-studies-assembly) .study-case__card--jaran {
   }
 
   .work-page__index ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem 1rem;
-    justify-self: end;
-    font-size: clamp(1.15rem, 5vw, 1.75rem);
-    text-align: right;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+    width: 100%;
+    font-size: clamp(1rem, 4.5vw, 1.55rem);
+    text-align: left;
   }
 
   .work-page__project--ilkw,
@@ -8140,6 +8160,15 @@ body * {
     order: 1;
     width: 100%;
     margin: 0 0 2rem;
+    overflow: visible;
+  }
+
+  .work-page__ilkw-contribution-line,
+  .work-page__ilkw-contribution-line:nth-child(n) {
+    max-width: 100%;
+    font-size: clamp(1.25rem, 7vw, 2.25rem);
+    line-height: 1.08;
+    white-space: nowrap;
   }
 
   .work-page__ilkw-contribution-stage {
